@@ -66,4 +66,12 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerComponents()
+    {
+        return [
+           '\Responsiv\Pyrolancer\Components\PostProject'     => 'postProject',
+        ];
+    }
+
+
 }

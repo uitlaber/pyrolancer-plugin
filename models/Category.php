@@ -8,6 +8,11 @@ use Model;
 class Category extends Model
 {
 
+    use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\SimpleTree;
+
+    const PARENT_ID = 'parent_id';
+
     /**
      * @var string The database table used by the model.
      */
@@ -24,16 +29,15 @@ class Category extends Model
     protected $fillable = [];
 
     /**
+     * @var array List of attributes to automatically generate unique URL names (slugs) for.
+     */
+     protected $slugs = ['slug' => 'name'];
+
+    /**
      * @var array Relations
      */
-    public $hasOne = [];
-    public $hasMany = [];
-    public $belongsTo = [];
-    public $belongsToMany = [];
-    public $morphTo = [];
-    public $morphOne = [];
-    public $morphMany = [];
-    public $attachOne = [];
-    public $attachMany = [];
+    public $belongsToMany = [
+        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_categories_skills', 'order' => 'name']
+    ];
 
 }
