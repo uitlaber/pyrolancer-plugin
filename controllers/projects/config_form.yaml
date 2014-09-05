@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Project
+
+# Model Form Field configuration
+form: @/plugins/responsiv/pyrolancer/models/project/fields.yaml
+
+# Model Class name
+modelClass: Responsiv\Pyrolancer\Models\Project
+
+# Default redirect location
+defaultRedirect: responsiv/pyrolancer/projects
+
+# Create page
+create:
+    title: Create Projects
+    redirect: responsiv/pyrolancer/projects/update/:id
+    redirectClose: responsiv/pyrolancer/projects
+
+# Update page
+update:
+    title: Edit Projects
+    redirect: responsiv/pyrolancer/projects
+    redirectClose: responsiv/pyrolancer/projects
+
+# Preview page
+preview:
+    title: Preview Projects
