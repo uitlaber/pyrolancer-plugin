@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Skill
+
+# Model Form Field configuration
+form: @/plugins/responsiv/pyrolancer/models/skill/fields.yaml
+
+# Model Class name
+modelClass: Responsiv\Pyrolancer\Models\Skill
+
+# Default redirect location
+defaultRedirect: responsiv/pyrolancer/skills
+
+# Create page
+create:
+    title: Create Skills
+    redirect: responsiv/pyrolancer/skills/update/:id
+    redirectClose: responsiv/pyrolancer/skills
+
+# Update page
+update:
+    title: Edit Skills
+    redirect: responsiv/pyrolancer/skills
+    redirectClose: responsiv/pyrolancer/skills
+
+# Preview page
+preview:
+    title: Preview Skills
