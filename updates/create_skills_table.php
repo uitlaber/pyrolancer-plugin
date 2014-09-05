@@ -12,6 +12,7 @@ class CreateSkillsTable extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

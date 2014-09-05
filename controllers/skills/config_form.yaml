@@ -25,7 +25,3 @@ update:
     title: Edit Skills
     redirect: responsiv/pyrolancer/skills
     redirectClose: responsiv/pyrolancer/skills
-
-# Preview page
-preview:
-    title: Preview Skills
