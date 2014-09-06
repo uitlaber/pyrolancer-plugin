@@ -24,6 +24,23 @@ class PostProject extends ComponentBase
     {
         $result = [];
         $result['categories'] = $this->makeCategoryTree();
+        $result['skills'] = Skill::lists('name', 'id');
+        $result['categorySkillMap'] = $this->makeCategorySkillMap();
+        return $result;
+    }
+
+    protected function makeCategorySkillMap()
+    {
+        $idMap = Category::skills()->newPivotStatement()->get();
+        $result = [];
+
+        foreach ($idMap as $map) {
+            if (!isset($result[$map->category_id]))
+                $result[$map->category_id] = [];
+
+            $result[$map->category_id][] = $map->skill_id;
+        }
+
         return $result;
     }
 
