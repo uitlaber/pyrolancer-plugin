@@ -34,7 +34,6 @@ class SeedAllTables extends Seeder
             'User Interface',
             'User Experience',
             'Graphic Design',
-            'Logo Design',
             'Business Cards',
             'Mobile Development',
             'Software Development',

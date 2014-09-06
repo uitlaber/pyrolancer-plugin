@@ -5,3 +5,4 @@
 columns:
     name:
         label: Name
+        searchable: true
