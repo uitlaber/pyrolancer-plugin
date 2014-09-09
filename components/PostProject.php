@@ -3,9 +3,12 @@
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Skill;
 use Responsiv\Pyrolancer\Models\Category;
+use Responsiv\Pyrolancer\Classes\ProjectData;
 
 class PostProject extends ComponentBase
 {
+
+    public $project;
 
     public function componentDetails()
     {
@@ -18,6 +21,28 @@ class PostProject extends ComponentBase
     public function defineProperties()
     {
         return [];
+    }
+
+    public function init()
+    {
+        $this->controller->bindEvent('responsiv.uploader.sendFile', function($uploader){
+            traceLog($uploader->apiCode);
+
+            return [
+                ['url' => 'http://daftspunk.com']
+            ];
+        });
+    }
+
+    public function onRun()
+    {
+        $this->project = ProjectData::getProjectObject();
+    }
+
+    public function onStartProject()
+    {
+        ProjectData::reset();
+        ProjectData::saveProjectData();
     }
 
     public function onGetCategorySkillMap()
