@@ -3,6 +3,7 @@
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Skill;
 use Responsiv\Pyrolancer\Models\Category;
+use Responsiv\Pyrolancer\Models\ProjectOption;
 use Responsiv\Pyrolancer\Classes\ProjectData;
 
 class PostProject extends ComponentBase
@@ -39,9 +40,18 @@ class PostProject extends ComponentBase
         $this->project = ProjectData::getProjectObject();
     }
 
+    //
+    // AJAX
+    //
+
     public function onStartProject()
     {
         ProjectData::reset();
+        ProjectData::saveProjectData();
+    }
+
+    public function onPreviewProject()
+    {
         ProjectData::saveProjectData();
     }
 
@@ -53,6 +63,44 @@ class PostProject extends ComponentBase
         $result['categorySkillMap'] = $this->makeCategorySkillMap();
         return $result;
     }
+
+    //
+    // Lazy properties
+    //
+
+    public function projectTypes()
+    {
+        return ProjectOption::forType(ProjectOption::PROJECT_TYPE)->get();
+    }
+
+    public function positionTypes()
+    {
+        return ProjectOption::forType(ProjectOption::POSITION_TYPE)->get();
+    }
+
+    public function budgetTypes()
+    {
+        return ProjectOption::forType(ProjectOption::BUDGET_TYPE)->get();
+    }
+
+    public function budgetFixedOptions()
+    {
+        return ProjectOption::forType(ProjectOption::BUDGET_FIXED)->get();
+    }
+
+    public function budgetHourlyOptions()
+    {
+        return ProjectOption::forType(ProjectOption::BUDGET_HOURLY)->get();
+    }
+
+    public function budgetTimeframeOptions()
+    {
+        return ProjectOption::forType(ProjectOption::BUDGET_TIMEFRAME)->get();
+    }
+
+    //
+    // Internals
+    //
 
     protected function makeCategorySkillMap()
     {

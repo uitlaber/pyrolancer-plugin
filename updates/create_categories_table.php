@@ -22,9 +22,9 @@ class CreateCategoriesTable extends Migration
         Schema::create('responsiv_pyrolancer_categories_skills', function($table)
         {
             $table->engine = 'InnoDB';
-            $table->integer('skill_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->primary(['skill_id', 'category_id'], 'skill_cat');
+            $table->integer('skill_id')->unsigned();
+            $table->primary(['category_id', 'skill_id'], 'cat_skill');
         });
     }
 

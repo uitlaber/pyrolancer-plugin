@@ -4,7 +4,7 @@ use Responsiv\Pyrolancer\Models\Skill;
 use Responsiv\Pyrolancer\Models\Category;
 use October\Rain\Database\Updates\Seeder;
 
-class SeedAllTables extends Seeder
+class SeedCategoryAndSkillTables extends Seeder
 {
 
     public function run()

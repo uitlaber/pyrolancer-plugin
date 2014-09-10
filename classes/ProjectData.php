@@ -10,7 +10,7 @@ use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 class ProjectData
 {
 
-    const SESSION_NAME = 'pyrolancer.project';
+    const SESSION_NAME = 'pyrolancer-project';
 
     public static function getProjectObject()
     {
@@ -25,7 +25,7 @@ class ProjectData
     public static function saveProjectData()
     {
         $data = self::load();
-        $data = array_merge($data, input('Project'), []);
+        $data = array_merge($data, input('Project', []));
         self::save($data);
     }
 
