@@ -25,7 +25,7 @@ class ProjectData
          */
         $rules = [
             'name'            => 'required|min:5|max:255',
-            'project_type_id' => 'required'
+            'project_type'    => 'required'
         ];
 
         $validation = Validator::make(input('Project'), $rules);
