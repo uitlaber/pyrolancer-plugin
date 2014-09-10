@@ -1,6 +1,8 @@
 <?php namespace Responsiv\Pyrolancer\Classes;
 
 use Session;
+use Validator;
+use ValidationException;
 use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 
 /**
@@ -11,6 +13,28 @@ class ProjectData
 {
 
     const SESSION_NAME = 'pyrolancer-project';
+
+    /**
+     * This will validate the project type and project name.
+     * @return void
+     */
+    public static function startProject()
+    {
+        /*
+         * Validate input
+         */
+        $rules = [
+            'name'            => 'required|min:5|max:255',
+            'project_type_id' => 'required'
+        ];
+
+        $validation = Validator::make(input('Project'), $rules);
+        if ($validation->fails())
+            throw new ValidationException($validation);
+
+        self::reset();
+        self::saveProjectData();
+    }
 
     public static function getProjectObject()
     {

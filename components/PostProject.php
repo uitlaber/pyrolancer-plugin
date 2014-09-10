@@ -46,8 +46,7 @@ class PostProject extends ComponentBase
 
     public function onStartProject()
     {
-        ProjectData::reset();
-        ProjectData::saveProjectData();
+        ProjectData::startProject();
     }
 
     public function onPreviewProject()
