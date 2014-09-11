@@ -51,7 +51,7 @@ class PostProject extends ComponentBase
 
     public function onPreviewProject()
     {
-        ProjectData::saveProjectData();
+        ProjectData::previewProject();
     }
 
     public function onGetCategorySkillMap()
