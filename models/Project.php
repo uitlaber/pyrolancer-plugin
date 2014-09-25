@@ -8,6 +8,8 @@ use Model;
 class Project extends Model
 {
 
+    use \Responsiv\Pyrolancer\Traits\LocationCode;
+
     /**
      * @var string The database table used by the model.
      */
@@ -31,13 +33,15 @@ class Project extends Model
     ];
 
     public $belongsTo = [
-        'category' => ['Responsiv\Pyrolancer\Models\Category'],
-        'project_type' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
-        'position_type' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
-        'budget_type' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],
-        'budget_fixed' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.fixed'"],
-        'budget_hourly' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.hourly'"],
+        'category'         => ['Responsiv\Pyrolancer\Models\Category'],
+        'project_type'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
+        'position_type'    => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
+        'budget_type'      => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],
+        'budget_fixed'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.fixed'"],
+        'budget_hourly'    => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.hourly'"],
         'budget_timeframe' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.timeframe'"],
+        'country'          => ['RainLab\User\Models\Country'],
+        'state'            => ['RainLab\User\Models\State'],
     ];
 
 }

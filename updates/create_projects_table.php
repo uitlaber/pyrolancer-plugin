@@ -21,12 +21,13 @@ class CreateProjectsTable extends Migration
 
             // Location
             $table->boolean('is_remote')->default(false);
-            $table->decimal('latitude', 10, 6)->nullable();
-            $table->decimal('longitude', 10, 6)->nullable();
+            $table->string('address')->nullable();
             $table->string('city', 100)->nullable();
             $table->string('zip', 20)->nullable();
             $table->integer('country_id')->unsigned()->nullable()->index();
             $table->integer('state_id')->unsigned()->nullable()->index();
+            $table->decimal('latitude', 10, 6)->nullable();
+            $table->decimal('longitude', 10, 6)->nullable();
 
             // Project options
             $table->integer('project_type_id')->unsigned()->index()->nullable();
