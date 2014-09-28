@@ -1,6 +1,7 @@
 <?php namespace Responsiv\Pyrolancer\Updates;
 
 use Responsiv\Pyrolancer\Models\Skill;
+use Responsiv\Pyrolancer\Models\SkillCategory;
 use Responsiv\Pyrolancer\Models\ProjectCategory;
 use October\Rain\Database\Updates\Seeder;
 
@@ -9,78 +10,99 @@ class SeedCategoryAndSkillTables extends Seeder
 
     public function run()
     {
+        /*
+         * Project skills and categories
+         */
         $skills = [
-            'HTML5',
-            'CSS3',
-            'JavaScript',
-            'jQuery',
-            'Bootstrap',
-            'PHP',
-            'Perl',
-            'Java',
-            'Ruby',
-            'VBScript',
-            'Cold Fusion',
-            'C Programming',
-            'C++ Programming',
-            'C# Programming',
-            'Objective C',
-            'Adobe Flash',
-            'Photoshop',
-            'PSD to HTML',
-            'Illustrator',
-            'Logo Design',
-            'Web Design',
-            'User Interface',
-            'User Experience',
-            'Graphic Design',
-            'Business Cards',
-            'Mobile Development',
-            'Software Development',
-            'System Admin',
-            'Copywriting',
-            'Blogging',
-            'Proofreading',
-            'Ghostwriting',
-            'eBooks',
-            'Translation',
-            'Proofreading',
-            'SEO',
-            'Photography',
-            'Git',
-            'Joomla',
-            'Drupal',
-            'WordPress',
-            'OctoberCMS',
-            'MODx',
-            'Magento',
-            'LemonStand',
-            'Yii',
-            'CakePHP',
-            'CodeIgniter',
-            'Laravel',
-            'Ruby on Rails',
-            'Windows',
-            'OS X',
-            'Linux',
-            'iOS',
-            'iPhone',
-            'iPad',
-            'Android',
-            'Online Marketing',
-            'Data Entry',
-            'Article Submission',
-            'Web Scraping',
-            'Social Networking',
-            'Facebook Marketing',
-            'Twitter Marketing',
-            'Telemarketing',
+            'Web & Software Development' => [
+                'HTML5',
+                'CSS3',
+                'JavaScript',
+                'jQuery',
+                'Bootstrap',
+                'PHP',
+                'Perl',
+                'Java',
+                'Ruby',
+                'VBScript',
+                'Cold Fusion',
+                'C Programming',
+                'C++ Programming',
+                'C# Programming',
+                'Objective C',
+                'Software Development',
+                'Git',
+                'Joomla',
+                'Drupal',
+                'WordPress',
+                'OctoberCMS',
+                'MODx',
+                'Magento',
+                'LemonStand',
+                'Yii',
+                'CakePHP',
+                'CodeIgniter',
+                'Laravel',
+                'Ruby on Rails',
+                'Windows',
+                'OS X',
+                'Linux',
+            ],
+            'Mobile Development' => [
+                'Mobile Development',
+                'iOS',
+                'iPhone',
+                'iPad',
+                'Android',
+            ],
+            'Graphic Design & Media' => [
+                'Adobe Flash',
+                'Photoshop',
+                'PSD to HTML',
+                'Illustrator',
+                'Logo Design',
+                'Web Design',
+                'User Interface',
+                'User Experience',
+                'Graphic Design',
+                'Business Cards',
+                'Photography',
+            ],
+            'Writing & Content' => [
+                'Copywriting',
+                'Blogging',
+                'Proofreading',
+                'Ghostwriting',
+                'eBooks',
+                'Translation',
+                'Proofreading',
+                'SEO',
+            ],
+            'Sales & Marketing' => [
+                'Online Marketing',
+                'Article Submission',
+                'Web Scraping',
+                'Social Networking',
+                'Facebook Marketing',
+                'Twitter Marketing',
+                'Telemarketing',
+            ],
+            'Other' => [
+                'System Admin',
+                'Data Entry',
+            ],
         ];
 
-        foreach ($skills as $skill) {
-            Skill::create(['name' => $skill]);
+        foreach ($skills as $categoryName => $categorySkills) {
+            $category = SkillCategory::create(['name' => $categoryName]);
+            foreach ($categorySkills as $skill) {
+                $category->skills()->create(['name' => $skill]);
+            }
         }
 
+        /*
+         * Project categories
+         */
         $categories = [
             'Websites & Web Applications' => [
                 'Create a website' => ['PHP', 'HTML5', 'CSS3', 'Web Design', 'Graphic Design'],

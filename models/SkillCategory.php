@@ -5,7 +5,7 @@ use Model;
 /**
  * Project Category Model
  */
-class ProjectCategory extends Model
+class SkillCategory extends Model
 {
 
     use \October\Rain\Database\Traits\Sluggable;
@@ -16,7 +16,7 @@ class ProjectCategory extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_project_categories';
+    public $table = 'responsiv_pyrolancer_skill_categories';
 
     /**
      * @var array Guarded fields
@@ -36,8 +36,8 @@ class ProjectCategory extends Model
     /**
      * @var array Relations
      */
-    public $belongsToMany = [
-        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_project_categories_skills', 'order' => 'name']
+    public $hasMany = [
+        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'order' => 'name']
     ];
 
 }

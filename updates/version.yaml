@@ -4,8 +4,9 @@
     - create_freelancers_table.php
     - create_projects_table.php
     - create_project_options_table.php
-    - create_categories_table.php
+    - create_project_categories_table.php
     - create_skills_table.php
+    - create_skill_categories_table.php
 1.0.3:
     - Seed all database tables
     - seed_category_and_skill_tables.php
