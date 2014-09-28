@@ -51,7 +51,7 @@ class Plugin extends PluginBase
                     'categories' => [
                         'label'       => 'Categories',
                         'icon'        => 'icon-list-ul',
-                        'url'         => Backend::url('responsiv/pyrolancer/categories'),
+                        'url'         => Backend::url('responsiv/pyrolancer/projectcategories'),
                         'permissions' => ['pyrolancer.access_categories'],
                     ],
                     'skills' => [
