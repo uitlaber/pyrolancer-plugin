@@ -2,7 +2,7 @@
 
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Skill;
-use Responsiv\Pyrolancer\Models\Category;
+use Responsiv\Pyrolancer\Models\ProjectCategory;
 use Responsiv\Pyrolancer\Models\ProjectOption;
 use Responsiv\Pyrolancer\Classes\ProjectData;
 
@@ -103,7 +103,7 @@ class PostProject extends ComponentBase
 
     protected function makeCategorySkillMap()
     {
-        $idMap = Category::skills()->newPivotStatement()->get();
+        $idMap = ProjectCategory::skills()->newPivotStatement()->get();
         $result = [];
 
         foreach ($idMap as $map) {
@@ -137,7 +137,7 @@ class PostProject extends ComponentBase
             return $result;
         };
 
-        $children = Category::make()->getRootChildren();
+        $children = ProjectCategory::make()->getRootChildren();
         return $buildResult($children);
     }
 

@@ -6,7 +6,7 @@
 list: @/plugins/responsiv/pyrolancer/models/category/columns.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\Category
+modelClass: Responsiv\Pyrolancer\Models\ProjectCategory
 
 # List Title
 title: Manage Categories

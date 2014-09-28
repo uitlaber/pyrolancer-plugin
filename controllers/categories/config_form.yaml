@@ -9,7 +9,7 @@ name: Category
 form: @/plugins/responsiv/pyrolancer/models/category/fields.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\Category
+modelClass: Responsiv\Pyrolancer\Models\ProjectCategory
 
 # Default redirect location
 defaultRedirect: responsiv/pyrolancer/categories

@@ -33,7 +33,7 @@ class Project extends Model
     ];
 
     public $belongsTo = [
-        'category'         => ['Responsiv\Pyrolancer\Models\Category'],
+        'category'         => ['Responsiv\Pyrolancer\Models\ProjectCategory'],
         'project_type'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
         'position_type'    => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
         'budget_type'      => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],

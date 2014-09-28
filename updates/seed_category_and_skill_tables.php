@@ -1,7 +1,7 @@
 <?php namespace Responsiv\Pyrolancer\Updates;
 
 use Responsiv\Pyrolancer\Models\Skill;
-use Responsiv\Pyrolancer\Models\Category;
+use Responsiv\Pyrolancer\Models\ProjectCategory;
 use October\Rain\Database\Updates\Seeder;
 
 class SeedCategoryAndSkillTables extends Seeder
@@ -121,10 +121,10 @@ class SeedCategoryAndSkillTables extends Seeder
         ];
 
         foreach ($categories as $parentCategory => $childCategories) {
-            $parent = Category::create(['name' => $parentCategory]);
+            $parent = ProjectCategory::create(['name' => $parentCategory]);
 
             foreach ($childCategories as $childCategory => $skills) {
-                $child = Category::create(['name' => $childCategory, 'parent_id' => $parent->id]);
+                $child = ProjectCategory::create(['name' => $childCategory, 'parent_id' => $parent->id]);
                 $skillIds = Skill::whereIn('name', $skills)->lists('id');
                 $child->skills()->sync($skillIds);
             }

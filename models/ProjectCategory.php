@@ -3,9 +3,9 @@
 use Model;
 
 /**
- * Category Model
+ * Project Category Model
  */
-class Category extends Model
+class ProjectCategory extends Model
 {
 
     use \October\Rain\Database\Traits\Sluggable;
