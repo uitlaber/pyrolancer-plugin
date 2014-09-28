@@ -8,7 +8,7 @@ class CreateSkillCategoriesTable extends Migration
 
     public function up()
     {
-        Schema::create('responsiv_pyrolancer_project_categories', function($table)
+        Schema::create('responsiv_pyrolancer_skill_categories', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');

@@ -37,7 +37,7 @@ class ProjectCategory extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_project_categories_skills', 'order' => 'name']
+        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_project_categories_skills', 'primaryKey' => 'category_id', 'order' => 'name']
     ];
 
 }

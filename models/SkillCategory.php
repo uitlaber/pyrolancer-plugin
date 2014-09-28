@@ -37,7 +37,7 @@ class SkillCategory extends Model
      * @var array Relations
      */
     public $hasMany = [
-        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'order' => 'name']
+        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'primaryKey' => 'category_id', 'order' => 'name']
     ];
 
 }

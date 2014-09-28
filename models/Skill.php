@@ -27,7 +27,7 @@ class Skill extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'category' => ['Responsiv\Pyrolancer\Models\SkillCategory']
+        'category' => ['Responsiv\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
     ];
 
 }
