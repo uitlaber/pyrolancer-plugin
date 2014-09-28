@@ -8,7 +8,7 @@ use Model;
 class Project extends Model
 {
 
-    use \Responsiv\Pyrolancer\Traits\LocationCode;
+    use \Responsiv\Geolocation\Traits\LocationCode;
 
     /**
      * @var string The database table used by the model.

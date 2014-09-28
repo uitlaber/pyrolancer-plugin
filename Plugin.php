@@ -73,15 +73,4 @@ class Plugin extends PluginBase
         ];
     }
 
-    public function registerFormWidgets()
-    {
-        return [
-            'Responsiv\Pyrolancer\FormWidgets\GooglePlace' => [
-                'label' => 'Google Address',
-                'alias' => 'googleaddress'
-            ],
-        ];
-    }
-
-
 }

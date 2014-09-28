@@ -21,7 +21,7 @@ tabs:
 
         address:
             label: Address
-            type: googleaddress
+            type: geoaddress
             tab: Location
             fieldMap:
                 latitude: latitude
