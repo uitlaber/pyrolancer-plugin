@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Category
+
+# Model Form Field configuration
+form: @/plugins/responsiv/pyrolancer/models/category/fields.yaml
+
+# Model Class name
+modelClass: Responsiv\Pyrolancer\Models\ProjectCategory
+
+# Default redirect location
+defaultRedirect: responsiv/pyrolancer/projectcategories
+
+# Create page
+create:
+    title: Create Categories
+    redirect: responsiv/pyrolancer/projectcategories/update/:id
+    redirectClose: responsiv/pyrolancer/projectcategories
+
+# Update page
+update:
+    title: Edit Categories
+    redirect: responsiv/pyrolancer/projectcategories
+    redirectClose: responsiv/pyrolancer/projectcategories
+
+# Preview page
+preview:
+    title: Preview Categories

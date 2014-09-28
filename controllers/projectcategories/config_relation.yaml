@@ -1,0 +1,15 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+skills:
+    label: Skills
+    list: @/plugins/responsiv/pyrolancer/models/skill/columns.yaml
+    form: @/plugins/responsiv/pyrolancer/models/skill/fields.yaml
+
+    view:
+        showSearch: true
+
+    manage:
+        recordsPerPage: 10
+        showSearch: true
