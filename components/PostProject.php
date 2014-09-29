@@ -14,7 +14,7 @@ class PostProject extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Post Project Component',
+            'name'        => 'Post Project',
             'description' => 'Used on the page where projects are created'
         ];
     }

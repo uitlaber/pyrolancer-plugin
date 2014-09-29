@@ -6,7 +6,7 @@
 name: Skill
 
 # Model Form Field configuration
-form: @/plugins/responsiv/pyrolancer/models/skill/fields.yaml
+form: $/responsiv/pyrolancer/models/skill/fields.yaml
 
 # Model Class name
 modelClass: Responsiv\Pyrolancer\Models\Skill

@@ -20,7 +20,7 @@ class Plugin extends PluginBase
             'name'        => 'Pyrolancer',
             'description' => 'No description provided yet...',
             'author'      => 'Responsiv',
-            'icon'        => 'icon-leaf'
+            'icon'        => 'icon-fire'
         ];
     }
 
@@ -38,25 +38,19 @@ class Plugin extends PluginBase
                 'sideMenu' => [
                     'freelancers' => [
                         'label'       => 'Freelancers',
-                        'icon'        => 'icon-copy',
+                        'icon'        => 'icon-users',
                         'url'         => Backend::url('responsiv/pyrolancer/freelancers'),
                         'permissions' => ['pyrolancer.access_freelancers'],
                     ],
                     'projects' => [
                         'label'       => 'Projects',
-                        'icon'        => 'icon-copy',
+                        'icon'        => 'icon-trophy',
                         'url'         => Backend::url('responsiv/pyrolancer/projects'),
                         'permissions' => ['pyrolancer.access_projects'],
                     ],
-                    'categories' => [
-                        'label'       => 'Categories',
-                        'icon'        => 'icon-list-ul',
-                        'url'         => Backend::url('responsiv/pyrolancer/projectcategories'),
-                        'permissions' => ['pyrolancer.access_categories'],
-                    ],
                     'skills' => [
                         'label'       => 'Skills',
-                        'icon'        => 'icon-list-ul',
+                        'icon'        => 'icon-graduation-cap',
                         'url'         => Backend::url('responsiv/pyrolancer/skills'),
                         'permissions' => ['pyrolancer.access_skills'],
                     ],
@@ -70,6 +64,7 @@ class Plugin extends PluginBase
     {
         return [
            '\Responsiv\Pyrolancer\Components\PostProject'     => 'postProject',
+           '\Responsiv\Pyrolancer\Components\SelectSkills'    => 'selectSkills',
         ];
     }
 
