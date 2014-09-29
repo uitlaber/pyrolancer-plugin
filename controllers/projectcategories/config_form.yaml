@@ -6,7 +6,7 @@
 name: Category
 
 # Model Form Field configuration
-form: @/plugins/responsiv/pyrolancer/models/category/fields.yaml
+form: @/plugins/responsiv/pyrolancer/models/projectcategory/fields.yaml
 
 # Model Class name
 modelClass: Responsiv\Pyrolancer\Models\ProjectCategory

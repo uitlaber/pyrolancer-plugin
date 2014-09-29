@@ -24,15 +24,13 @@ recordsPerPage: 20
 showSetup: true
 
 # Displays the sorting link on each column
-showSorting: true
-
-# Default sorting column
-# defaultSort:
-#     column: created_at
-#     direction: desc
+# showSorting: true
 
 # Display checkboxes next to each record
 # showCheckboxes: true
+
+# Show tree
+showTree: true
 
 # Toolbar widget configuration
 toolbar:

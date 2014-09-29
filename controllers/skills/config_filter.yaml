@@ -1,0 +1,29 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+scopes:
+
+    category:
+
+        # Filter name
+        label: Category
+
+        # Model Class name
+        modelClass: Responsiv\Pyrolancer\Models\SkillCategory
+
+        # Model attribute to display for the name
+        nameColumn: name
+
+        # SQL Conditions
+        conditions: category_id in (:filtered)
+
+    active:
+
+        # Filter name
+        label: Hide active
+
+        # Filter type
+        type: checkbox
+
+        # SQL Conditions
+        conditions: is_enabled <> 1

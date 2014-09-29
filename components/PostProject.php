@@ -137,7 +137,7 @@ class PostProject extends ComponentBase
             return $result;
         };
 
-        $children = ProjectCategory::make()->getRootChildren();
+        $children = ProjectCategory::make()->getAllRoot();
         return $buildResult($children);
     }
 

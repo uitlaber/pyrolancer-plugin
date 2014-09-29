@@ -8,6 +8,8 @@ use Model;
 class Skill extends Model
 {
 
+    use \October\Rain\Database\Traits\Validation;
+
     /**
      * @var string The database table used by the model.
      */
@@ -22,6 +24,14 @@ class Skill extends Model
      * @var array Fillable fields
      */
     protected $fillable = [];
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'name' => 'required',
+        'category' => 'required',
+    ];
 
     /**
      * @var array Relations

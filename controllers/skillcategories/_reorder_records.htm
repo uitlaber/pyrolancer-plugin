@@ -1,0 +1,17 @@
+<?php foreach ($records as $record): ?>
+
+    <li data-record-sort-order="<?= $record->sort_order ?>">
+        <div class="record">
+            <a href="javascript:;" class="move"></a>
+            <span><?= $record->name ?></span>
+            <input name="record_ids[]" type="hidden" value="<?= $record->id ?>" />
+        </div>
+
+        <?php if ($record->getChildren()->count()): ?>
+            <ol>
+                <?= $this->makePartial('reorder_records', ['records' => $record->getChildren()]) ?>
+            </ol>
+        <?php endif ?>
+    </li>
+
+<?php endforeach ?>

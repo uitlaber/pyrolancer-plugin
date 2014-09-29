@@ -3,7 +3,7 @@
 # ===================================
 
 # Model List Column configuration
-list: @/plugins/responsiv/pyrolancer/models/category/columns.yaml
+list: @/plugins/responsiv/pyrolancer/models/projectcategory/columns.yaml
 
 # Model Class name
 modelClass: Responsiv\Pyrolancer\Models\ProjectCategory

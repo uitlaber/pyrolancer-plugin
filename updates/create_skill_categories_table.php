@@ -16,6 +16,7 @@ class CreateSkillCategoriesTable extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->index()->unique();
             $table->string('description')->nullable();
+            $table->integer('sort_order')->nullable();
             $table->timestamps();
         });
     }
