@@ -2,6 +2,7 @@
 
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\Skill;
 
 class SelectSkills extends ComponentBase
 {
@@ -22,7 +23,8 @@ class SelectSkills extends ComponentBase
     public function onGetSkillTree()
     {
         $result = [];
-        $result['skills'] = $this->makeSkillTree();
+        $result['skills'] = Skill::lists('name', 'id');
+        $result['skillTree'] = $this->makeSkillTree();
         return $result;
     }
 
@@ -38,7 +40,7 @@ class SelectSkills extends ComponentBase
          * Eager load skills
          */
         $skillCategory = new SkillCategory;
-        $skillCategory->setTreeOrderBy('id');
+        $skillCategory->setTreeOrderBy('sort_order');
         $categories = $skillCategory->getAll();
         $categories->load('skills');
 
