@@ -11,3 +11,6 @@
     - Seed all database tables
     - seed_category_and_skill_tables.php
     - seed_project_options_tables.php
+1.0.4:
+    - Add client or worker flags to user
+    - add_flags_to_users_table.php

@@ -9,6 +9,8 @@ use System\Classes\PluginBase;
 class Plugin extends PluginBase
 {
 
+    public $require = ['RainLab.User'];
+
     /**
      * Returns information about this plugin.
      *
@@ -24,6 +26,18 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function boot()
+    {
+        \RainLab\User\Controllers\Users::extendFormFields(function($form){
+            $form->addFields([
+                'coo' => [
+                    'label'   => 'coco lock',
+                    'tab'     => 'Forum',
+                    'comment' => 'asddas.',
+                ],
+            ], 'primary');
+        });
+    }
 
     public function registerNavigation()
     {
