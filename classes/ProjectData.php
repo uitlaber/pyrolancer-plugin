@@ -49,7 +49,6 @@ class ProjectData
         if (!$data) $data = input('Project');
         else $data = array_merge($data, input('Project'));
 
-
         /*
          * Validate input
          */
@@ -95,7 +94,7 @@ class ProjectData
         /*
          * Validate State and Country from Google
          */
-
+        // @todo
 
         self::saveProjectData();
     }
