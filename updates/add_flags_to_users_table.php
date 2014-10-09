@@ -19,8 +19,8 @@ class AddFlagsToUsersTable extends Migration
     {
         Schema::table('users', function($table)
         {
-            $table->dropColumn('is_worker');
-            $table->dropColumn('is_client');
+            if (Schema::hasColumn('users', 'is_worker')) $table->dropColumn('is_worker');
+            if (Schema::hasColumn('users', 'is_client')) $table->dropColumn('is_client');
         });
     }
 }

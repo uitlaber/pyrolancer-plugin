@@ -61,7 +61,7 @@ class ProjectData
         ];
 
         if (!array_get($data, 'is_remote'))
-            $rules['location'] = 'required';
+            $rules['address'] = 'required';
 
         $projectTypes = ProjectOption::forType(ProjectOption::PROJECT_TYPE)->lists('id', 'code');
 
