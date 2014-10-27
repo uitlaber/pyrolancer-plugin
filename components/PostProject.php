@@ -1,5 +1,6 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
+use Auth;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Skill;
 use Responsiv\Pyrolancer\Models\ProjectCategory;
@@ -54,6 +55,14 @@ class PostProject extends ComponentBase
         ProjectData::previewProject();
     }
 
+    public function onCompleteProject()
+    {
+        if (!$user = Auth::getUser())
+            $user = $this->handleAuth();
+
+        // ProjectData::submitProject($user);
+    }
+
     public function onGetCategorySkillMap()
     {
         $result = [];
@@ -95,6 +104,24 @@ class PostProject extends ComponentBase
     public function budgetTimeframeOptions()
     {
         return ProjectOption::forType(ProjectOption::BUDGET_TIMEFRAME)->get();
+    }
+
+    //
+    // Authentication
+    //
+
+    protected function handleAuth()
+    {
+        $this->addComponent(
+            'RainLab\User\Components\Account',
+            'postProjectAccount',
+            []
+        );
+
+        switch (post('auth_type', 'signin')) {
+            case 'signin': return $this->page->postProjectAccount->onSignin();
+            case 'register': return $this->page->postProjectAccount->onRegister();
+        }
     }
 
     //
