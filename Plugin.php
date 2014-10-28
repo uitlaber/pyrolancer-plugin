@@ -77,6 +77,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
+           '\Responsiv\Pyrolancer\Components\Project'         => 'project',
            '\Responsiv\Pyrolancer\Components\PostProject'     => 'postProject',
            '\Responsiv\Pyrolancer\Components\SelectSkills'    => 'selectSkills',
         ];

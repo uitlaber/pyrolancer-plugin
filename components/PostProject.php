@@ -60,7 +60,7 @@ class PostProject extends ComponentBase
         if (!$user = Auth::getUser())
             $user = $this->handleAuth();
 
-        // ProjectData::submitProject($user);
+        ProjectData::submitProject($user);
     }
 
     public function onGetCategorySkillMap()
@@ -119,9 +119,15 @@ class PostProject extends ComponentBase
         );
 
         switch (post('auth_type', 'signin')) {
-            case 'signin': return $this->page->postProjectAccount->onSignin();
-            case 'register': return $this->page->postProjectAccount->onRegister();
+            case 'signin':
+                $this->page->postProjectAccount->onSignin();
+                break;
+            case 'register':
+                $this->page->postProjectAccount->onRegister();
+                break;
         }
+
+        return Auth::getUser();
     }
 
     //

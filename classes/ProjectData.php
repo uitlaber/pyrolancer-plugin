@@ -99,6 +99,22 @@ class ProjectData
         self::saveProjectData();
     }
 
+    /**
+     * This create the project and assign it to the user
+     * @return void
+     */
+    public static function submitProject($user)
+    {
+        if (!$user)
+            return false;
+
+        $project = self::getProjectObject();
+        $project->user = $user;
+        $project->save();
+
+        return $project;
+    }
+
     public static function getProjectObject()
     {
         $data = self::load();

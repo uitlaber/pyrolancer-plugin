@@ -42,6 +42,7 @@ class Project extends Model
         'budget_timeframe' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.timeframe'"],
         'country'          => ['RainLab\User\Models\Country'],
         'state'            => ['RainLab\User\Models\State'],
+        'user'             => ['RainLab\User\Models\User'],
     ];
 
 }
