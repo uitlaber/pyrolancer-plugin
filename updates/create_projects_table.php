@@ -13,6 +13,7 @@ class CreateProjectsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name')->nullable();
+            $table->string('slug')->nullable()->index();
             $table->text('description')->nullable();
             $table->text('instructions')->nullable();
             $table->integer('user_id')->unsigned()->index()->nullable();

@@ -8,6 +8,7 @@ use Model;
 class Project extends Model
 {
 
+    use \October\Rain\Database\Traits\Sluggable;
     use \Responsiv\Geolocation\Traits\LocationCode;
 
     /**
@@ -24,6 +25,13 @@ class Project extends Model
      * @var array Fillable fields
      */
     protected $fillable = [];
+
+    /**
+     * @var array Sluggable fields
+     */
+    public $slugs = [
+        'slug' => 'name'
+    ];
 
     /**
      * @var array Relations
