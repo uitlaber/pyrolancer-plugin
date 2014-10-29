@@ -4,10 +4,15 @@ trait ComponentUtils
 {
     protected $modelLookupCache = [];
 
-    protected function lookupModel($class)
+    protected function lookupModel($class, $scope = null)
     {
-        if (!is_string($class))
+        if (is_string($class)) {
+            $query = new $class;
+        }
+        else {
+            $query = $class;
             $class = get_class($class);
+        }
 
         if ($model = array_get($this->modelLookupCache, $class))
             return $model;
@@ -15,6 +20,9 @@ trait ComponentUtils
         if (!$slug = $this->propertyOrParam('idParam'))
             return null;
 
-        return $this->modelLookupCache[$class] = $class::whereSlug($slug)->first();
+        if (is_callable($scope))
+            $scope($query);
+
+        return $this->modelLookupCache[$class] = $query->whereSlug($slug)->first();
     }
 }

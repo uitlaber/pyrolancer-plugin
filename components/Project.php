@@ -8,6 +8,8 @@ class Project extends ComponentBase
 
     use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
+    public $project;
+
     public function componentDetails()
     {
         return [
@@ -30,7 +32,9 @@ class Project extends ComponentBase
 
     public function onRun()
     {
-        $this->page['project'] = $this->lookupModel(new ProjectModel);
+        $this->project = $this->lookupModel(new ProjectModel, function($query) {
+            // $query->with('quotes');
+        });
     }
 
 }
