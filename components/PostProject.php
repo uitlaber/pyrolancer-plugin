@@ -60,7 +60,13 @@ class PostProject extends ComponentBase
         if (!$user = Auth::getUser())
             $user = $this->handleAuth();
 
-        ProjectData::submitProject($user);
+        if (!$project = ProjectData::submitProject($user))
+            throw new CmsException('Unable to submit project, please contact support.');
+
+        Flash::success('Your project has been submitted successfully!');
+
+        if ($redirect = post('redirect'))
+            Redirect::to($this->pageUrl($redirect, ['slug' => $project->slug]));
     }
 
     public function onGetCategorySkillMap()
