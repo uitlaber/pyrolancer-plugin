@@ -1,6 +1,8 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
+use Flash;
+use Redirect;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Skill;
 use Responsiv\Pyrolancer\Models\ProjectCategory;
@@ -66,7 +68,7 @@ class PostProject extends ComponentBase
         Flash::success('Your project has been submitted successfully!');
 
         if ($redirect = post('redirect'))
-            Redirect::to($this->pageUrl($redirect, ['slug' => $project->slug]));
+            return Redirect::to($this->pageUrl($redirect, ['slug' => $project->slug]));
     }
 
     public function onGetCategorySkillMap()
