@@ -112,6 +112,8 @@ class ProjectData
         $project->user = $user;
         $project->save();
 
+        self::reset();
+
         return $project;
     }
 

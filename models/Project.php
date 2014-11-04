@@ -40,6 +40,10 @@ class Project extends Model
         'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_projects_skills', 'order' => 'name']
     ];
 
+    public $hasMany = [
+        'extra_details'    => ['Responsiv\Pyrolancer\Models\ProjectExtraDetail'],
+    ];
+
     public $belongsTo = [
         'category'         => ['Responsiv\Pyrolancer\Models\ProjectCategory'],
         'project_type'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],

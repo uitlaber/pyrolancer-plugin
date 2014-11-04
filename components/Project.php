@@ -21,10 +21,10 @@ class Project extends ComponentBase
     public function defineProperties()
     {
         return [
-            'idParam' => [
+            'slug' => [
                 'title'       => 'Slug param name',
                 'description' => 'The URL route parameter used for looking up the project by its slug. A hard coded slug can also be used.',
-                'default'     => ':slug',
+                'default'     => '{{ :slug }}',
                 'type'        => 'string',
             ],
         ];

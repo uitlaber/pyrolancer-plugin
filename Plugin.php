@@ -79,6 +79,7 @@ class Plugin extends PluginBase
         return [
            '\Responsiv\Pyrolancer\Components\Project'         => 'project',
            '\Responsiv\Pyrolancer\Components\PostProject'     => 'postProject',
+           '\Responsiv\Pyrolancer\Components\ManageProject'   => 'manageProject',
            '\Responsiv\Pyrolancer\Components\SelectSkills'    => 'selectSkills',
         ];
     }
