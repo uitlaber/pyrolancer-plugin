@@ -1,5 +1,6 @@
 <?php namespace Responsiv\Pyrolancer\Models;
 
+use Auth;
 use Model;
 
 /**
@@ -42,6 +43,7 @@ class Project extends Model
 
     public $hasMany = [
         'extra_details'    => ['Responsiv\Pyrolancer\Models\ProjectExtraDetail'],
+        'messages'         => ['Responsiv\Pyrolancer\Models\ProjectMessage'],
     ];
 
     public $belongsTo = [
@@ -56,5 +58,21 @@ class Project extends Model
         'state'            => ['RainLab\User\Models\State'],
         'user'             => ['RainLab\User\Models\User'],
     ];
+
+    public function canEdit($user = null)
+    {
+        return $this->isOwner($user);
+    }
+
+    public function isOwner($user = null)
+    {
+        if (!$user)
+            $user = Auth::getUser();
+
+        if (!$user)
+            return false;
+
+        return $this->user_id == $user->id;
+    }
 
 }

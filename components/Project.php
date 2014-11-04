@@ -1,7 +1,10 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
+use Auth;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\ProjectMessage;
+use Cms\Classes\CmsException;
 
 class Project extends ComponentBase
 {
@@ -35,6 +38,26 @@ class Project extends ComponentBase
         $this->project = $this->lookupModel(new ProjectModel, function($query) {
             // $query->with('quotes');
         });
+    }
+
+    public function onPostMessage()
+    {
+        if (!$user = Auth::getUser())
+            throw new CmsException('You must be logged in');
+
+        $project = $this->lookupModel(new ProjectModel);
+
+        $message = new ProjectMessage;
+        $message->user = $user;
+        $message->project = $project;
+        $message->content = post('content');
+
+        if ($parentId = post('parent_id'))
+            $message->parent_id = $parentId;
+
+        $message->save();
+
+        return $this->page['message'] = $message;
     }
 
 }

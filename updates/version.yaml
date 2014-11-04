@@ -6,6 +6,7 @@
     - create_project_options_table.php
     - create_project_categories_table.php
     - create_project_extra_details_table.php
+    - create_project_messages_table.php
     - create_skills_table.php
     - create_skill_categories_table.php
 1.0.3:

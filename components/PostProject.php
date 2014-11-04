@@ -3,11 +3,11 @@
 use Auth;
 use Flash;
 use Redirect;
-use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Skill;
 use Responsiv\Pyrolancer\Models\ProjectCategory;
 use Responsiv\Pyrolancer\Models\ProjectOption;
 use Responsiv\Pyrolancer\Classes\ProjectData;
+use Cms\Classes\ComponentBase;
 use Cms\Classes\CmsException;
 
 class PostProject extends ComponentBase

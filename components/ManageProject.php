@@ -29,7 +29,7 @@ class ManageProject extends ComponentBase
 
     public function onAddExtraDetails()
     {
-        if (!$project = $this->lookupModelSecure(new ProjectModel, Auth::getUser()))
+        if (!$project = $this->lookupModelSecure(new ProjectModel))
             throw new CmsException('Action failed');
 
         $extra = new ProjectExtraDetail;

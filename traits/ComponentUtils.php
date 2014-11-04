@@ -27,11 +27,8 @@ trait ComponentUtils
         return $this->modelLookupCache[$class] = $query->whereSlug($slug)->first();
     }
 
-    protected function lookupModelSecure($class, $user, $scope = null)
+    protected function lookupModelSecure($class, $user = null, $scope = null)
     {
-        // if (!$user)
-        //     return null;
-
         if (is_string($class)) {
             $query = new $class;
         }
@@ -52,8 +49,8 @@ trait ComponentUtils
         if (!$model = $query->find($id))
             return null;
 
-        // if (!$model->canEdit($user))
-        //     return false;
+        if (!$model->canEdit($user))
+            return false;
 
         return $this->modelLookupSecureCache[$class] = $model;
     }
