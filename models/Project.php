@@ -43,7 +43,7 @@ class Project extends Model
 
     public $hasMany = [
         'extra_details'    => ['Responsiv\Pyrolancer\Models\ProjectExtraDetail'],
-        'messages'         => ['Responsiv\Pyrolancer\Models\ProjectMessage'],
+        'messages'         => ['Responsiv\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
     ];
 
     public $belongsTo = [
@@ -59,6 +59,23 @@ class Project extends Model
         'user'             => ['RainLab\User\Models\User'],
     ];
 
+    /**
+     * Can new messages be posted to this project
+     */
+    public function canMessage($user = null)
+    {
+        if (!$user)
+            $user = Auth::getUser();
+
+        if (!$user)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * Can the user, or logged in user, edit this project.
+     */
     public function canEdit($user = null)
     {
         return $this->isOwner($user);

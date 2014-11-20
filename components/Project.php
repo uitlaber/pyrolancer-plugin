@@ -60,4 +60,10 @@ class Project extends ComponentBase
         return $this->page['message'] = $message;
     }
 
+    public function onPostMessageReply()
+    {
+        $message = $this->onPostMessage();
+        return $this->page['message'] = $message->getParent();
+    }
+
 }
