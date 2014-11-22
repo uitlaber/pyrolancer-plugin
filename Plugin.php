@@ -26,19 +26,6 @@ class Plugin extends PluginBase
         ];
     }
 
-    public function boot()
-    {
-        // \RainLab\User\Controllers\Users::extendFormFields(function($form){
-        //     $form->addFields([
-        //         'coo' => [
-        //             'label'   => 'coco lock',
-        //             'tab'     => 'Forum',
-        //             'comment' => 'asddas.',
-        //         ],
-        //     ], 'primary');
-        // });
-    }
-
     public function registerNavigation()
     {
         return [

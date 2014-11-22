@@ -9,6 +9,7 @@ use Model;
 class ProjectMessage extends Model
 {
 
+    use \October\Rain\Database\Traits\SoftDeleting;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SimpleTree;
 
