@@ -1,15 +1,15 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
-use Cms\Classes\CmsException;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 use Responsiv\Pyrolancer\Models\ProjectExtraDetail;
+use ApplicationException;
 
 /*
  * This component depends on the Project component
  */
-class ManageProject extends ComponentBase
+class ProjectManage extends ComponentBase
 {
 
     use \Responsiv\Pyrolancer\Traits\ComponentUtils;
@@ -30,7 +30,7 @@ class ManageProject extends ComponentBase
     public function onAddExtraDetails()
     {
         if (!$project = $this->lookupModelSecure(new ProjectModel))
-            throw new CmsException('Action failed');
+            throw new ApplicationException('Action failed');
 
         $extra = new ProjectExtraDetail;
         $extra->description = post('description');

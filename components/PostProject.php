@@ -8,7 +8,7 @@ use Responsiv\Pyrolancer\Models\ProjectCategory;
 use Responsiv\Pyrolancer\Models\ProjectOption;
 use Responsiv\Pyrolancer\Classes\ProjectData;
 use Cms\Classes\ComponentBase;
-use Cms\Classes\CmsException;
+use ApplicationException;
 
 class PostProject extends ComponentBase
 {
@@ -64,7 +64,7 @@ class PostProject extends ComponentBase
             $user = $this->handleAuth();
 
         if (!$project = ProjectData::submitProject($user))
-            throw new CmsException('Unable to submit project, please contact support.');
+            throw new ApplicationException('Unable to submit project, please contact support.');
 
         Flash::success('Your project has been submitted successfully!');
 

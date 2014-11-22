@@ -1,10 +1,11 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
+use Input;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 use Responsiv\Pyrolancer\Models\ProjectMessage;
-use Cms\Classes\CmsException;
+use ApplicationException;
 
 class Project extends ComponentBase
 {
@@ -40,10 +41,14 @@ class Project extends ComponentBase
         });
     }
 
+    //
+    // Messaging
+    //
+
     public function onPostMessage()
     {
         if (!$user = Auth::getUser())
-            throw new CmsException('You must be logged in');
+            throw new ApplicationException('You must be logged in');
 
         $project = $this->lookupModel(new ProjectModel);
 
@@ -64,6 +69,31 @@ class Project extends ComponentBase
     {
         $message = $this->onPostMessage();
         return $this->page['message'] = $message->getParent();
+    }
+
+    public function onUpdateMessage()
+    {
+        if (!$message = $this->lookupModelSecure(new ProjectMessage))
+            throw new ApplicationException('Action failed');
+
+        /*
+         * Supported modes: edit, view, delete, save
+         */
+        $mode = post('mode', 'edit');
+        if ($mode == 'save') {
+
+            // if (__canPostToThis__)
+            //     throw new ApplicationException('Action failed');
+
+            $message->save(post());
+
+        }
+        elseif ($mode == 'delete') {
+            $message->delete();
+        }
+
+        $this->page['mode'] = $mode;
+        $this->page['message'] = $message;
     }
 
 }

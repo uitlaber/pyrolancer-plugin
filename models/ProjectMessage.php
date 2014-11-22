@@ -1,5 +1,6 @@
 <?php namespace Responsiv\Pyrolancer\Models;
 
+use Auth;
 use Model;
 
 /**
@@ -49,6 +50,20 @@ class ProjectMessage extends Model
             return false;
 
         return $this->project->user_id == $this->user_id;
+    }
+
+    /**
+     * Can the user modify this message.
+     */
+    public function canEdit($user = null)
+    {
+        if (!$user)
+            $user = Auth::getUser();
+
+        if (!$user)
+            return false;
+
+        return $this->user_id == $user->id;
     }
 
 }
