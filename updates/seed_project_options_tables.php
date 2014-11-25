@@ -52,6 +52,14 @@ class SeedProjectOptionsTables extends Seeder
             ['name' => "I don't know"],
         ];
 
+        $bidStatus = [
+            ['name' => 'Draft', 'code' => 'draft'],
+            ['name' => 'Active', 'code' => 'active'],
+            ['name' => 'Hidden', 'code' => 'hidden'],
+            ['name' => 'Short listed', 'code' => 'shortlisted'],
+            ['name' => 'Accepted', 'code' => 'accepted'],
+        ];
+
         $map = [
             ProjectOption::PROJECT_TYPE => $projectTypes,
             ProjectOption::POSITION_TYPE => $positionTypes,
@@ -59,6 +67,7 @@ class SeedProjectOptionsTables extends Seeder
             ProjectOption::BUDGET_FIXED => $budgetFixed,
             ProjectOption::BUDGET_HOURLY => $budgetHourly,
             ProjectOption::BUDGET_TIMEFRAME => $budgetTimeframe,
+            ProjectOption::BID_STATUS => $bidStatus,
         ];
 
         foreach ($map as $type => $items) {

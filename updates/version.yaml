@@ -3,6 +3,7 @@
     - Create database tables
     - create_freelancers_table.php
     - create_projects_table.php
+    - create_project_bids_table.php
     - create_project_options_table.php
     - create_project_categories_table.php
     - create_project_extra_details_table.php

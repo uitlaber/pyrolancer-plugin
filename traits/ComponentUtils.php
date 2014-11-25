@@ -1,9 +1,19 @@
 <?php namespace Responsiv\Pyrolancer\Traits;
 
+use Auth;
+
 trait ComponentUtils
 {
     protected $modelLookupCache = [];
     protected $modelLookupSecureCache = [];
+
+    protected function lookupUser()
+    {
+        if (!$user = Auth::getUser())
+            throw new ApplicationException('You must be logged in');
+
+        return $user;
+    }
 
     protected function lookupModel($class, $scope = null)
     {

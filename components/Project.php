@@ -5,6 +5,7 @@ use Input;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 use Responsiv\Pyrolancer\Models\ProjectMessage;
+use Responsiv\Pyrolancer\Models\ProjectBid;
 use ApplicationException;
 
 class Project extends ComponentBase
@@ -42,14 +43,33 @@ class Project extends ComponentBase
     }
 
     //
+    // Bidding
+    //
+
+    public function onPostBid()
+    {
+        $user = $this->lookupUser();
+        $project = $this->lookupModel(new ProjectModel);
+
+        $bid = new ProjectBid;
+        $bid->user = $user;
+        $bid->project = $project;
+        $bid->details = post('details');
+        $bid->save();
+
+        $this->page['bid'] = $bid;
+        $this->page['project'] = $project;
+        $this->page['success'] = true;
+    }
+
+
+    //
     // Messaging
     //
 
     public function onPostMessage()
     {
-        if (!$user = Auth::getUser())
-            throw new ApplicationException('You must be logged in');
-
+        $user = $this->lookupUser();
         $project = $this->lookupModel(new ProjectModel);
 
         $message = new ProjectMessage;

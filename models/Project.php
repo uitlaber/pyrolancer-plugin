@@ -42,6 +42,7 @@ class Project extends Model
     ];
 
     public $hasMany = [
+        'bids'             => ['Responsiv\Pyrolancer\Models\ProjectBid'],
         'extra_details'    => ['Responsiv\Pyrolancer\Models\ProjectExtraDetail'],
         'messages'         => ['Responsiv\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
     ];

@@ -15,6 +15,7 @@ class ProjectOption extends Model
     const BUDGET_FIXED = 'budget.fixed';
     const BUDGET_HOURLY = 'budget.hourly';
     const BUDGET_TIMEFRAME = 'budget.timeframe';
+    const BID_STATUS = 'bid.status';
 
     /**
      * @var string The database table used by the model.
