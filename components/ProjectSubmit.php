@@ -10,7 +10,7 @@ use Responsiv\Pyrolancer\Classes\ProjectData;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
 
-class PostProject extends ComponentBase
+class ProjectSubmit extends ComponentBase
 {
 
     public $project;
@@ -123,16 +123,16 @@ class PostProject extends ComponentBase
     {
         $this->addComponent(
             'RainLab\User\Components\Account',
-            'postProjectAccount',
+            'projectSubmitAccount',
             []
         );
 
         switch (post('auth_type', 'signin')) {
             case 'signin':
-                $this->page->postProjectAccount->onSignin();
+                $this->page->projectSubmitAccount->onSignin();
                 break;
             case 'register':
-                $this->page->postProjectAccount->onRegister();
+                $this->page->projectSubmitAccount->onRegister();
                 break;
         }
 
