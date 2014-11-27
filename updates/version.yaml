@@ -1,7 +1,7 @@
 1.0.1: First version of Pyrolancer
 1.0.2:
     - Create database tables
-    - create_freelancers_table.php
+    - create_workers_table.php
     - create_projects_table.php
     - create_project_bids_table.php
     - create_project_options_table.php

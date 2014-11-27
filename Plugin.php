@@ -2,6 +2,7 @@
 
 use Backend;
 use System\Classes\PluginBase;
+use RainLab\User\Models\User;
 
 /**
  * Pyrolancer Plugin Information File
@@ -24,6 +25,13 @@ class Plugin extends PluginBase
             'author'      => 'Responsiv',
             'icon'        => 'icon-fire'
         ];
+    }
+
+    public function boot()
+    {
+        User::extend(function($model) {
+            $model->hasOne['worker'] = ['Responsiv\Pyrolancer\Models\Worker'];
+        });
     }
 
     public function registerNavigation()

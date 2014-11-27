@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: @/plugins/responsiv/pyrolancer/models/freelancer/columns.yaml
+list: @/plugins/responsiv/pyrolancer/models/worker/columns.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\Freelancer
+modelClass: Responsiv\Pyrolancer\Models\Worker
 
 # List Title
-title: Manage Freelancers
+title: Manage Workers
 
 # Link URL for each record
-recordUrl: responsiv/pyrolancer/freelancers/update/:id
+recordUrl: responsiv/pyrolancer/workers/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

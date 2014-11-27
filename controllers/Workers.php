@@ -4,9 +4,9 @@ use BackendMenu;
 use Backend\Classes\Controller;
 
 /**
- * Freelancers Back-end Controller
+ * Workers Back-end Controller
  */
-class Freelancers extends Controller
+class Workers extends Controller
 {
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -20,6 +20,6 @@ class Freelancers extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Responsiv.Pyrolancer', 'pyrolancer', 'freelancers');
+        BackendMenu::setContext('Responsiv.Pyrolancer', 'pyrolancer', 'workers');
     }
 }

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Worker
+
+# Model Form Field configuration
+form: @/plugins/responsiv/pyrolancer/models/worker/fields.yaml
+
+# Model Class name
+modelClass: Responsiv\Pyrolancer\Models\Worker
+
+# Default redirect location
+defaultRedirect: responsiv/pyrolancer/workers
+
+# Create page
+create:
+    title: Create Workers
+    redirect: responsiv/pyrolancer/workers/update/:id
+    redirectClose: responsiv/pyrolancer/workers
+
+# Update page
+update:
+    title: Edit Workers
+    redirect: responsiv/pyrolancer/workers
+    redirectClose: responsiv/pyrolancer/workers
+
+# Preview page
+preview:
+    title: Preview Workers
