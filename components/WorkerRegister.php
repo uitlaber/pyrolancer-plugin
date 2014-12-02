@@ -1,5 +1,7 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
+use Auth;
+use Redirect;
 use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\SkillCategory;
 use Responsiv\Pyrolancer\Models\Skill as SkillModel;
@@ -20,7 +22,34 @@ class WorkerRegister extends ComponentBase
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'redirect' => [
+                'title'       => 'Redirect',
+                'description' => 'A page to redirect if the worker already has a profile',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ]
+        ];
+    }
+
+    public function getRedirectOptions()
+    {
+        return [''=>'- none -'] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
+
+    /**
+     * Executed when this component is bound to a page or layout.
+     */
+    public function onRun()
+    {
+        /*
+         * Only non workers can register a new profile
+         */
+        $redirectAway =  (!$user = Auth::getUser()) || $user->is_worker;
+        $redirectUrl = $this->controller->pageUrl($this->property('redirect'));
+        if ($redirectAway && $redirectUrl) {
+            return Redirect::intended($redirectUrl);
+        }
     }
 
     public function getWorker()
