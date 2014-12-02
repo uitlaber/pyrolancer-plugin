@@ -72,11 +72,13 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-           '\Responsiv\Pyrolancer\Components\Project'         => 'project',
-           '\Responsiv\Pyrolancer\Components\ProjectManage'   => 'projectManage',
-           '\Responsiv\Pyrolancer\Components\ProjectSubmit'   => 'projectSubmit',
-           '\Responsiv\Pyrolancer\Components\SelectSkills'    => 'selectSkills',
-           '\Responsiv\Pyrolancer\Components\WorkerRegister'  => 'workerRegister',
+           '\Responsiv\Pyrolancer\Components\Project'        => 'project',
+           '\Responsiv\Pyrolancer\Components\Projects'       => 'projects',
+           '\Responsiv\Pyrolancer\Components\ProjectManage'  => 'projectManage',
+           '\Responsiv\Pyrolancer\Components\ProjectSubmit'  => 'projectSubmit',
+           '\Responsiv\Pyrolancer\Components\WorkerSkills'   => 'workerSkills',
+           '\Responsiv\Pyrolancer\Components\WorkerRegister' => 'workerRegister',
+           '\Responsiv\Pyrolancer\Components\ClientProjects' => 'clientProjects',
         ];
     }
 

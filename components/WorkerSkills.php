@@ -4,14 +4,14 @@ use Cms\Classes\ComponentBase;
 use Responsiv\Pyrolancer\Models\SkillCategory;
 use Responsiv\Pyrolancer\Models\Skill;
 
-class SelectSkills extends ComponentBase
+class WorkerSkills extends ComponentBase
 {
 
     public function componentDetails()
     {
         return [
             'name'        => 'Skill selector',
-            'description' => 'Allows freelancers to select their skills'
+            'description' => 'Allows workers to select their skills'
         ];
     }
 

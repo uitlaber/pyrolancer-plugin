@@ -82,6 +82,16 @@ class Project extends Model
         return $this->isOwner($user);
     }
 
+    public function scopeApplyOwner($query, $user = null)
+    {
+        if (!$user)
+            $user = Auth::getUser();
+
+        if (!$user)
+            return $query->whereRaw('1 = 2');
+        return $query->where('user_id', $user->id);
+    }
+
     public function isOwner($user = null)
     {
         if (!$user)
