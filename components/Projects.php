@@ -1,9 +1,11 @@
 <?php namespace Responsiv\Pyrolancer\Components;
 
 use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 
 class Projects extends ComponentBase
 {
+    public $projects;
 
     public function componentDetails()
     {
@@ -16,6 +18,11 @@ class Projects extends ComponentBase
     public function defineProperties()
     {
         return [];
+    }
+
+    public function onRun()
+    {
+        $this->projects = ProjectModel::all();
     }
 
 }

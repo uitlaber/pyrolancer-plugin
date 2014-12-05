@@ -7,7 +7,46 @@
 
 <?php if (!$this->fatalError): ?>
 
+    <?php
+        $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
+    ?>
+
+    <div class="scoreboard">
+        <div data-control="toolbar">
+            <div class="scoreboard-item icon">
+                <a href="<?= $userLink ?>">
+                    <?php if ($formModel->user->avatar): ?>
+                        <img src="<?= $formModel->user->avatar->getThumb(64, 64, ['extension' => 'png', 'mode' => 'crop']) ?>">
+                    <?php else: ?>
+                        <img src="<?= URL::to('/plugins/rainlab/user/assets/images/no-user-avatar.png') ?>">
+                    <?php endif ?>
+                </a>
+            </div>
+            <div class="scoreboard-item title-value">
+                <h4>User</h4>
+                <p><?= $formModel->user->name ?></p>
+                <p class="description">
+                    <a href="<?= $userLink ?>">
+                        <?= $formModel->user->email ?>
+                    </a>
+                </p>
+            </div>
+            <div class="scoreboard-item control-chart" data-control="chart-pie">
+                <ul>
+                    <li data-color="#95b753">Wins <span>84</span></li>
+                    <li data-color="#e5a91a">Bids <span>12</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <div class="layout-item stretch layout-column form-preview">
+
+        <a href="<?= Backend::url('responsiv/pyrolancer/workers/update/'.$formModel->id) ?>" class="btn btn-primary pull-right">
+            <i class="icon-pencil"></i>
+            Update details
+        </a>
+
         <?= $this->formRenderPreview() ?>
     </div>
 

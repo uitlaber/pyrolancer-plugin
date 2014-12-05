@@ -39,17 +39,17 @@ class Plugin extends PluginBase
         return [
             'pyrolancer' => [
                 'label'       => 'Freelance',
-                'url'         => Backend::url('responsiv/pyrolancer/freelancers'),
+                'url'         => Backend::url('responsiv/pyrolancer/workers'),
                 'icon'        => 'icon-briefcase',
                 'permissions' => ['blog.*'],
                 'order'       => 500,
 
                 'sideMenu' => [
-                    'freelancers' => [
-                        'label'       => 'Freelancers',
+                    'workers' => [
+                        'label'       => 'Workers',
                         'icon'        => 'icon-users',
-                        'url'         => Backend::url('responsiv/pyrolancer/freelancers'),
-                        'permissions' => ['pyrolancer.access_freelancers'],
+                        'url'         => Backend::url('responsiv/pyrolancer/workers'),
+                        'permissions' => ['pyrolancer.access_workers'],
                     ],
                     'projects' => [
                         'label'       => 'Projects',
@@ -72,6 +72,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
+           '\Responsiv\Pyrolancer\Components\Dashboard'      => 'dashboard',
            '\Responsiv\Pyrolancer\Components\Project'        => 'project',
            '\Responsiv\Pyrolancer\Components\Projects'       => 'projects',
            '\Responsiv\Pyrolancer\Components\ProjectManage'  => 'projectManage',

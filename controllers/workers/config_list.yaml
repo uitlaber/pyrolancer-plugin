@@ -12,7 +12,7 @@ modelClass: Responsiv\Pyrolancer\Models\Worker
 title: Manage Workers
 
 # Link URL for each record
-recordUrl: responsiv/pyrolancer/workers/update/:id
+recordUrl: responsiv/pyrolancer/workers/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

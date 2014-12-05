@@ -17,14 +17,14 @@ defaultRedirect: responsiv/pyrolancer/workers
 # Create page
 create:
     title: Create Workers
-    redirect: responsiv/pyrolancer/workers/update/:id
-    redirectClose: responsiv/pyrolancer/workers
+    redirect: responsiv/pyrolancer/workers/preview/:id
+    redirectClose: responsiv/pyrolancer/workers/preview/:id
 
 # Update page
 update:
     title: Edit Workers
-    redirect: responsiv/pyrolancer/workers
-    redirectClose: responsiv/pyrolancer/workers
+    redirect: responsiv/pyrolancer/workers/preview/:id
+    redirectClose: responsiv/pyrolancer/workers/preview/:id
 
 # Preview page
 preview:

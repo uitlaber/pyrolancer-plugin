@@ -3,6 +3,21 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+
+    # user[avatar]:
+    #     label: rainlab.user::lang.user.avatar
+    #     type: fileupload
+    #     mode: image
+    #     imageHeight: 260
+    #     imageWidth: 260
+
+    # user[name]:
+    #     span: full
+    #     label: rainlab.user::lang.user.name
+
+    business_name:
+        label: Business Name
+
+    description:
+        label: Profile description
+        type: textarea
