@@ -9,7 +9,7 @@ list: $/responsiv/pyrolancer/models/skillcategory/columns.yaml
 modelClass: Responsiv\Pyrolancer\Models\SkillCategory
 
 # List Title
-title: Manage SkillCategories
+title: Manage Skill Categories
 
 # Link URL for each record
 recordUrl: responsiv/pyrolancer/skillcategories/update/:id

@@ -39,18 +39,12 @@ class Plugin extends PluginBase
         return [
             'pyrolancer' => [
                 'label'       => 'Freelance',
-                'url'         => Backend::url('responsiv/pyrolancer/workers'),
+                'url'         => Backend::url('responsiv/pyrolancer/projects'),
                 'icon'        => 'icon-briefcase',
                 'permissions' => ['blog.*'],
                 'order'       => 500,
 
                 'sideMenu' => [
-                    'workers' => [
-                        'label'       => 'Workers',
-                        'icon'        => 'icon-users',
-                        'url'         => Backend::url('responsiv/pyrolancer/workers'),
-                        'permissions' => ['pyrolancer.access_workers'],
-                    ],
                     'projects' => [
                         'label'       => 'Projects',
                         'icon'        => 'icon-trophy',
@@ -62,6 +56,12 @@ class Plugin extends PluginBase
                         'icon'        => 'icon-graduation-cap',
                         'url'         => Backend::url('responsiv/pyrolancer/skills'),
                         'permissions' => ['pyrolancer.access_skills'],
+                    ],
+                    'workers' => [
+                        'label'       => 'Workers',
+                        'icon'        => 'icon-users',
+                        'url'         => Backend::url('responsiv/pyrolancer/workers'),
+                        'permissions' => ['pyrolancer.access_workers'],
                     ],
                 ]
 

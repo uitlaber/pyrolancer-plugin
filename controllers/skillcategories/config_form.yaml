@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: SkillCategory
+name: Skill Category
 
 # Model Form Field configuration
 form: @/plugins/responsiv/pyrolancer/models/skillcategory/fields.yaml
@@ -16,16 +16,16 @@ defaultRedirect: responsiv/pyrolancer/skillcategories
 
 # Create page
 create:
-    title: Create SkillCategories
+    title: Create Skill Category
     redirect: responsiv/pyrolancer/skillcategories/update/:id
     redirectClose: responsiv/pyrolancer/skillcategories
 
 # Update page
 update:
-    title: Edit SkillCategories
+    title: Edit Skill Category
     redirect: responsiv/pyrolancer/skillcategories
     redirectClose: responsiv/pyrolancer/skillcategories
 
 # Preview page
 preview:
-    title: Preview SkillCategories
+    title: Preview Skill Category
