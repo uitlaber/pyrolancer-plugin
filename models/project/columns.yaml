@@ -3,5 +3,22 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    name:
+        label: Name
+
+    slug:
+        label: Slug
+
+    user_name:
+        label: Owner
+        relation: user
+        select: name
+
+    created_at:
+        label: Submitted
+        type: date
+
+    updated_at:
+        label: Last updated
+        invisible: true
+        type: date

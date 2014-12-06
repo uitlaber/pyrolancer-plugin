@@ -1,6 +1,8 @@
 <?php namespace Responsiv\Pyrolancer\Updates;
 
 use October\Rain\Database\Updates\Seeder;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\ProjectBid;
 use Responsiv\Pyrolancer\Models\ProjectOption;
 
 class SeedProjectOptionsTables extends Seeder
@@ -8,6 +10,15 @@ class SeedProjectOptionsTables extends Seeder
 
     public function run()
     {
+        $projectStatus = [
+            ['name' => 'Draft', 'code' => ProjectModel::STATUS_DRAFT],
+            ['name' => 'Active', 'code' => ProjectModel::STATUS_ACTIVE],
+            ['name' => 'Suspended', 'code' => ProjectModel::STATUS_SUSPENDED],
+            ['name' => 'Closed', 'code' => ProjectModel::STATUS_CLOSED],
+            ['name' => 'Cancelled', 'code' => ProjectModel::STATUS_CANCELLED],
+            ['name' => 'Expired', 'code' => ProjectModel::STATUS_EXPIRED],
+        ];
+
         $projectTypes = [
             ['name' => 'Give an estimate on how much it will cost', 'code' => 'auction'],
             ['name' => 'Send an application with their credentials', 'code' => 'advert'],
@@ -53,14 +64,15 @@ class SeedProjectOptionsTables extends Seeder
         ];
 
         $bidStatus = [
-            ['name' => 'Draft', 'code' => 'draft'],
-            ['name' => 'Active', 'code' => 'active'],
-            ['name' => 'Hidden', 'code' => 'hidden'],
-            ['name' => 'Short listed', 'code' => 'shortlisted'],
-            ['name' => 'Accepted', 'code' => 'accepted'],
+            ['name' => 'Draft', 'code' => ProjectBid::STATUS_DRAFT],
+            ['name' => 'Active', 'code' => ProjectBid::STATUS_ACTIVE],
+            ['name' => 'Hidden', 'code' => ProjectBid::STATUS_HIDDEN],
+            ['name' => 'Short listed', 'code' => ProjectBid::STATUS_SHORTLISTED],
+            ['name' => 'Accepted', 'code' => ProjectBid::STATUS_ACCEPTED],
         ];
 
         $map = [
+            ProjectOption::PROJECT_STATUS => $projectStatus,
             ProjectOption::PROJECT_TYPE => $projectTypes,
             ProjectOption::POSITION_TYPE => $positionTypes,
             ProjectOption::BUDGET_TYPE => $budgetTypes,

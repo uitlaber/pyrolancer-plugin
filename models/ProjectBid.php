@@ -9,6 +9,12 @@ use Responsiv\Pyrolancer\Models\ProjectOption;
 class ProjectBid extends Model
 {
 
+    const STATUS_DRAFT = 'draft';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_HIDDEN = 'hidden';
+    const STATUS_SHORTLISTED = 'shortlisted';
+    const STATUS_ACCEPTED = 'accepted';
+
     /**
      * @var string The database table used by the model.
      */

@@ -5,165 +5,159 @@
 fields:
     name:
         label: Name
+        span: auto
 
-tabs:
+    slug:
+        label: Slug
+        span: auto
 
-    fields:
+    #
+    # Location
+    #
 
-        #
-        # Location
-        #
+    is_remote:
+        label: Job can be performed remotely
+        type: checkbox
 
-        is_remote:
-            label: Job can be performed remotely
-            type: checkbox
-            tab: Location
+    address:
+        label: Address
+        type: geoaddress
+        fieldMap:
+            latitude: latitude
+            longitude: longitude
+            city: city
+            zip: zip
+            country: country_code
+            state: state_code
+        attributes:
+            data-trigger-type: disable
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
 
-        address:
-            label: Address
-            type: geoaddress
-            tab: Location
-            fieldMap:
-                latitude: latitude
-                longitude: longitude
-                city: city
-                zip: zip
-                country: country_code
-                state: state_code
-            attributes:
-                data-trigger-type: disable
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
+    city:
+        label: City
+        span: auto
+        attributes:
+            readonly: 1
+            data-trigger-type: disable
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
+        containerAttributes:
+            data-trigger-type: hide
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
 
-        city:
-            label: City
-            tab: Location
-            span: auto
-            attributes:
-                readonly: 1
-                data-trigger-type: disable
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
-            containerAttributes:
-                data-trigger-type: hide
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
+    zip:
+        label: Zip
+        span: auto
+        attributes:
+            readonly: 1
+            data-trigger-type: disable
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
+        containerAttributes:
+            data-trigger-type: hide
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
 
-        zip:
-            label: Zip
-            tab: Location
-            span: auto
-            attributes:
-                readonly: 1
-                data-trigger-type: disable
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
-            containerAttributes:
-                data-trigger-type: hide
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
+    country_code:
+        label: Country
+        span: auto
+        attributes:
+            readonly: 1
+            data-trigger-type: disable
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
+        containerAttributes:
+            data-trigger-type: hide
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
 
-        country_code:
-            label: Country
-            tab: Location
-            span: auto
-            attributes:
-                readonly: 1
-                data-trigger-type: disable
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
-            containerAttributes:
-                data-trigger-type: hide
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
+    state_code:
+        label: State
+        span: auto
+        attributes:
+            readonly: 1
+            data-trigger-type: disable
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
+        containerAttributes:
+            data-trigger-type: hide
+            data-trigger: 'input[name="Project[is_remote]"]'
+            data-trigger-condition: checked
 
-        state_code:
-            label: State
-            tab: Location
-            span: auto
-            attributes:
-                readonly: 1
-                data-trigger-type: disable
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
-            containerAttributes:
-                data-trigger-type: hide
-                data-trigger: 'input[name="Project[is_remote]"]'
-                data-trigger-condition: checked
+    latitude:
+        label: Latitude
+        span: auto
+        cssClass: hide
 
-        latitude:
-            label: Latitude
-            tab: Location
-            span: auto
-            cssClass: hide
+    longitude:
+        label: Longitude
+        span: auto
+        cssClass: hide
 
-        longitude:
-            label: Longitude
-            tab: Location
-            span: auto
-            cssClass: hide
+    #
+    # Position
+    #
+    project_type:
+        label: Project Type
+        type: relation
+        emptyOption: -- select --
+        span: auto
 
-        #
-        # Position
-        #
-        project_type:
-            label: Project Type
-            type: relation
-            emptyOption: -- select --
-            span: auto
-            tab: Position
+    position_type:
+        label: Position Type
+        type: relation
+        emptyOption: -- select --
+        span: auto
 
-        position_type:
-            label: Position Type
-            type: relation
-            emptyOption: -- select --
-            span: auto
-            tab: Position
+    budget_type:
+        label: Budget
+        type: relation
+        emptyOption: -- select --
 
-        budget_type:
-            label: Budget
-            type: relation
-            emptyOption: -- select --
-            tab: Position
+    budget_fixed:
+        type: relation
+        emptyOption: -- select --
+        containerAttributes:
+            data-trigger-type: display
+            data-trigger: 'select[name="Project[budget_type]"]'
+            data-trigger-condition: value[6]
 
-        budget_fixed:
-            type: relation
-            tab: Position
-            emptyOption: -- select --
-            containerAttributes:
-                data-trigger-type: display
-                data-trigger: 'select[name="Project[budget_type]"]'
-                data-trigger-condition: value[6]
+    budget_hourly:
+        type: relation
+        span: left
+        emptyOption: -- select --
+        containerAttributes:
+            data-trigger-type: display
+            data-trigger: 'select[name="Project[budget_type]"]'
+            data-trigger-condition: value[7]
 
-        budget_hourly:
-            type: relation
-            tab: Position
-            span: left
-            emptyOption: -- select --
-            containerAttributes:
-                data-trigger-type: display
-                data-trigger: 'select[name="Project[budget_type]"]'
-                data-trigger-condition: value[7]
+    budget_timeframe:
+        type: relation
+        span: right
+        emptyOption: -- select --
+        containerAttributes:
+            data-trigger-type: display
+            data-trigger: 'select[name="Project[budget_type]"]'
+            data-trigger-condition: value[7]
 
-        budget_timeframe:
-            type: relation
-            tab: Position
-            span: right
-            emptyOption: -- select --
-            containerAttributes:
-                data-trigger-type: display
-                data-trigger: 'select[name="Project[budget_type]"]'
-                data-trigger-condition: value[7]
+    #
+    # Description
+    #
+    description:
+        label: Description
+        type: textarea
 
-        #
-        # Skills
-        #
-        category:
-            label: Category
-            type: relation
-            tab: Skills
+    #
+    # Skills
+    #
+    category:
+        label: Category
+        type: relation
+        span: auto
 
-        skills:
-            label: Skills
-            type: relation
-            tab: Skills
+    skills:
+        label: Skills
+        type: relation
+        span: auto

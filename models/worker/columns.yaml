@@ -18,3 +18,12 @@ columns:
         relation: user
         select: email
         searchable: true
+
+    created_at:
+        label: Joined
+        type: date
+
+    updated_at:
+        label: Last updated
+        invisible: true
+        type: date

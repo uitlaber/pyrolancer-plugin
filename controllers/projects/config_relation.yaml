@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+bids:
+    label: Bid
+    list: @/plugins/responsiv/pyrolancer/models/projectbid/columns.yaml
+    form: @/plugins/responsiv/pyrolancer/models/projectbid/fields.yaml
+    view:
+        showSearch: true
+        recordsPerPage: 25
+        toolbarButtons: bids_toolbar

@@ -50,6 +50,8 @@
         <?= $this->formRenderPreview() ?>
     </div>
 
+    <?= $this->relationRender('skills') ?>
+
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>

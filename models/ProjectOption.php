@@ -9,6 +9,7 @@ class ProjectOption extends Model
 {
     use \October\Rain\Database\Traits\Sortable;
 
+    const PROJECT_STATUS = 'project.status';
     const PROJECT_TYPE = 'project.type';
     const POSITION_TYPE = 'position.type';
     const BUDGET_TYPE = 'budget.type';

@@ -13,6 +13,7 @@ class CreateProjectBidsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
+            $table->integer('worker_id')->unsigned()->index()->nullable();
             $table->integer('project_id')->unsigned()->index()->nullable();
             $table->integer('status_id')->unsigned()->index()->nullable();
             $table->text('details')->nullable();

@@ -9,6 +9,13 @@ use Model;
 class Project extends Model
 {
 
+    const STATUS_DRAFT = 'draft';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_SUSPENDED = 'suspended';
+    const STATUS_CLOSED = 'closed';
+    const STATUS_CANCELLED = 'cancelled';
+    const STATUS_EXPIRED = 'expired';
+
     use \October\Rain\Database\Traits\Sluggable;
     use \Responsiv\Geolocation\Traits\LocationCode;
 
@@ -49,6 +56,7 @@ class Project extends Model
 
     public $belongsTo = [
         'category'         => ['Responsiv\Pyrolancer\Models\ProjectCategory'],
+        'status'           => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.status'"],
         'project_type'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
         'position_type'    => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
         'budget_type'      => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],

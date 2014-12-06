@@ -15,6 +15,15 @@ fields:
     #     span: full
     #     label: rainlab.user::lang.user.name
 
+    user:
+        label: User
+        type: recordfinder
+        context: create
+        list: @/plugins/rainlab/user/models/user/columns.yaml
+        prompt: Click the %s button to find a user
+        nameFrom: name
+        descriptionFrom: email
+
     business_name:
         label: Business Name
 

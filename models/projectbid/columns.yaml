@@ -3,6 +3,16 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    user_name:
+        label: Name
+        relation: user
+        select: name
         searchable: true
+
+    details:
+        label: Details
+        searchable: true
+
+    created_at:
+        label: Submitted
+        type: timesince

@@ -12,7 +12,7 @@ modelClass: Responsiv\Pyrolancer\Models\Project
 title: Manage Projects
 
 # Link URL for each record
-recordUrl: responsiv/pyrolancer/projects/update/:id
+recordUrl: responsiv/pyrolancer/projects/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
