@@ -1,7 +1,7 @@
-<?php namespace Responsiv\Pyrolancer\Components;
+<?php namespace Ahoy\Pyrolancer\Components;
 
 use Cms\Classes\ComponentBase;
-use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
 class Projects extends ComponentBase
 {

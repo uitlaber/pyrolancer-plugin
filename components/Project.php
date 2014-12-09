@@ -1,17 +1,17 @@
-<?php namespace Responsiv\Pyrolancer\Components;
+<?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
 use Input;
 use Cms\Classes\ComponentBase;
-use Responsiv\Pyrolancer\Models\Project as ProjectModel;
-use Responsiv\Pyrolancer\Models\ProjectMessage;
-use Responsiv\Pyrolancer\Models\ProjectBid;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\ProjectMessage;
+use Ahoy\Pyrolancer\Models\ProjectBid;
 use ApplicationException;
 
 class Project extends ComponentBase
 {
 
-    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
+    use \Ahoy\Pyrolancer\Traits\ComponentUtils;
 
     public $project;
 

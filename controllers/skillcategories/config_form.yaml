@@ -6,25 +6,25 @@
 name: Skill Category
 
 # Model Form Field configuration
-form: @/plugins/responsiv/pyrolancer/models/skillcategory/fields.yaml
+form: @/plugins/ahoy/pyrolancer/models/skillcategory/fields.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\SkillCategory
+modelClass: Ahoy\Pyrolancer\Models\SkillCategory
 
 # Default redirect location
-defaultRedirect: responsiv/pyrolancer/skillcategories
+defaultRedirect: ahoy/pyrolancer/skillcategories
 
 # Create page
 create:
     title: Create Skill Category
-    redirect: responsiv/pyrolancer/skillcategories/update/:id
-    redirectClose: responsiv/pyrolancer/skillcategories
+    redirect: ahoy/pyrolancer/skillcategories/update/:id
+    redirectClose: ahoy/pyrolancer/skillcategories
 
 # Update page
 update:
     title: Edit Skill Category
-    redirect: responsiv/pyrolancer/skillcategories
-    redirectClose: responsiv/pyrolancer/skillcategories
+    redirect: ahoy/pyrolancer/skillcategories
+    redirectClose: ahoy/pyrolancer/skillcategories
 
 # Preview page
 preview:

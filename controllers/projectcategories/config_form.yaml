@@ -6,25 +6,25 @@
 name: Category
 
 # Model Form Field configuration
-form: @/plugins/responsiv/pyrolancer/models/projectcategory/fields.yaml
+form: @/plugins/ahoy/pyrolancer/models/projectcategory/fields.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\ProjectCategory
+modelClass: Ahoy\Pyrolancer\Models\ProjectCategory
 
 # Default redirect location
-defaultRedirect: responsiv/pyrolancer/projectcategories
+defaultRedirect: ahoy/pyrolancer/projectcategories
 
 # Create page
 create:
     title: Create Categories
-    redirect: responsiv/pyrolancer/projectcategories/update/:id
-    redirectClose: responsiv/pyrolancer/projectcategories
+    redirect: ahoy/pyrolancer/projectcategories/update/:id
+    redirectClose: ahoy/pyrolancer/projectcategories
 
 # Update page
 update:
     title: Edit Categories
-    redirect: responsiv/pyrolancer/projectcategories
-    redirectClose: responsiv/pyrolancer/projectcategories
+    redirect: ahoy/pyrolancer/projectcategories
+    redirectClose: ahoy/pyrolancer/projectcategories
 
 # Preview page
 preview:

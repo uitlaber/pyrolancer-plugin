@@ -1,12 +1,12 @@
-<?php namespace Responsiv\Pyrolancer\Components;
+<?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
 use Flash;
 use Redirect;
-use Responsiv\Pyrolancer\Models\Skill;
-use Responsiv\Pyrolancer\Models\ProjectCategory;
-use Responsiv\Pyrolancer\Models\ProjectOption;
-use Responsiv\Pyrolancer\Classes\ProjectData;
+use Ahoy\Pyrolancer\Models\Skill;
+use Ahoy\Pyrolancer\Models\ProjectCategory;
+use Ahoy\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Classes\ProjectData;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
 

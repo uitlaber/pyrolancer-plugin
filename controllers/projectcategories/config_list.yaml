@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: @/plugins/responsiv/pyrolancer/models/projectcategory/columns.yaml
+list: @/plugins/ahoy/pyrolancer/models/projectcategory/columns.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\ProjectCategory
+modelClass: Ahoy\Pyrolancer\Models\ProjectCategory
 
 # List Title
 title: Manage Categories
 
 # Link URL for each record
-recordUrl: responsiv/pyrolancer/projectcategories/update/:id
+recordUrl: ahoy/pyrolancer/projectcategories/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

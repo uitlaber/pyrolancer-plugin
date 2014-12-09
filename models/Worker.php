@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Auth;
 use Model;
@@ -14,7 +14,7 @@ class Worker extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_workers';
+    public $table = 'ahoy_pyrolancer_workers';
 
     /**
      * @var array Guarded fields
@@ -37,7 +37,7 @@ class Worker extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_workers_skills', 'order' => 'name']
+        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_workers_skills', 'order' => 'name']
     ];
 
     /**
@@ -48,7 +48,7 @@ class Worker extends Model
     /**
      * Automatically creates a freelancer profile for a user if not one already.
      * @param  RainLab\User\Models\User $user
-     * @return Responsiv\Pyrolancer\Models\Worker
+     * @return Ahoy\Pyrolancer\Models\Worker
      */
     public static function getFromUser($user = null)
     {

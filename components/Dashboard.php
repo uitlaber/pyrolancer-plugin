@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Components;
+<?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
 use Redirect;

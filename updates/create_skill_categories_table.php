@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Updates;
+<?php namespace Ahoy\Pyrolancer\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateSkillCategoriesTable extends Migration
 
     public function up()
     {
-        Schema::create('responsiv_pyrolancer_skill_categories', function($table)
+        Schema::create('ahoy_pyrolancer_skill_categories', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -23,7 +23,7 @@ class CreateSkillCategoriesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('responsiv_pyrolancer_skill_categories');
+        Schema::dropIfExists('ahoy_pyrolancer_skill_categories');
     }
 
 }

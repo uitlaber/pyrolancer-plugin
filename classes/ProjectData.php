@@ -1,10 +1,10 @@
-<?php namespace Responsiv\Pyrolancer\Classes;
+<?php namespace Ahoy\Pyrolancer\Classes;
 
 use Session;
 use Validator;
 use ValidationException;
-use Responsiv\Pyrolancer\Models\Project as ProjectModel;
-use Responsiv\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\ProjectOption;
 
 /**
  * A deferred object for holding project data

@@ -1,8 +1,8 @@
-<?php namespace Responsiv\Pyrolancer\Controllers;
+<?php namespace Ahoy\Pyrolancer\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
-use Responsiv\Pyrolancer\Models\SkillCategory;
+use Ahoy\Pyrolancer\Models\SkillCategory;
 
 /**
  * SkillCategories Back-end Controller
@@ -21,7 +21,7 @@ class SkillCategories extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Responsiv.Pyrolancer', 'pyrolancer', 'skills');
+        BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'skills');
     }
 
     public function reorder()
@@ -29,7 +29,7 @@ class SkillCategories extends Controller
         $this->pageTitle = 'Reorder Categories';
 
         $toolbarConfig = $this->makeConfig();
-        $toolbarConfig->buttons = '$/responsiv/pyrolancer/controllers/skillcategories/_reorder_toolbar.htm';
+        $toolbarConfig->buttons = '$/ahoy/pyrolancer/controllers/skillcategories/_reorder_toolbar.htm';
 
         $this->vars['toolbar'] = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
         $this->vars['records'] = SkillCategory::make()->setTreeOrderBy('sort_order')->getAllRoot();

@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Auth;
 use Model;
@@ -18,7 +18,7 @@ class ProjectMessage extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_project_messages';
+    public $table = 'ahoy_pyrolancer_project_messages';
 
     /**
      * @var array Guarded fields
@@ -41,7 +41,7 @@ class ProjectMessage extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'project' => ['Responsiv\Pyrolancer\Models\Project'],
+        'project' => ['Ahoy\Pyrolancer\Models\Project'],
         'user'    => ['RainLab\User\Models\User'],
     ];
 

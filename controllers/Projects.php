@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Controllers;
+<?php namespace Ahoy\Pyrolancer\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -22,6 +22,6 @@ class Projects extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Responsiv.Pyrolancer', 'pyrolancer', 'projects');
+        BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'projects');
     }
 }

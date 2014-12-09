@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Auth;
 use Model;
@@ -22,7 +22,7 @@ class Project extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_projects';
+    public $table = 'ahoy_pyrolancer_projects';
 
     /**
      * @var array Guarded fields
@@ -45,24 +45,24 @@ class Project extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_projects_skills', 'order' => 'name']
+        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_projects_skills', 'order' => 'name']
     ];
 
     public $hasMany = [
-        'bids'             => ['Responsiv\Pyrolancer\Models\ProjectBid'],
-        'extra_details'    => ['Responsiv\Pyrolancer\Models\ProjectExtraDetail'],
-        'messages'         => ['Responsiv\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
+        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
+        'extra_details'    => ['Ahoy\Pyrolancer\Models\ProjectExtraDetail'],
+        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
     ];
 
     public $belongsTo = [
-        'category'         => ['Responsiv\Pyrolancer\Models\ProjectCategory'],
-        'status'           => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.status'"],
-        'project_type'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
-        'position_type'    => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
-        'budget_type'      => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],
-        'budget_fixed'     => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.fixed'"],
-        'budget_hourly'    => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.hourly'"],
-        'budget_timeframe' => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.timeframe'"],
+        'category'         => ['Ahoy\Pyrolancer\Models\ProjectCategory'],
+        'status'           => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.status'"],
+        'project_type'     => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
+        'position_type'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
+        'budget_type'      => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],
+        'budget_fixed'     => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.fixed'"],
+        'budget_hourly'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.hourly'"],
+        'budget_timeframe' => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.timeframe'"],
         'country'          => ['RainLab\User\Models\Country'],
         'state'            => ['RainLab\User\Models\State'],
         'user'             => ['RainLab\User\Models\User'],

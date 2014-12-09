@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
 
@@ -13,7 +13,7 @@ class Skill extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_skills';
+    public $table = 'ahoy_pyrolancer_skills';
 
     /**
      * @var array Guarded fields
@@ -37,7 +37,7 @@ class Skill extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'category' => ['Responsiv\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
+        'category' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
     ];
 
 }

@@ -1,7 +1,7 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
-use Responsiv\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\ProjectOption;
 
 /**
  * ProjectBid Model
@@ -18,7 +18,7 @@ class ProjectBid extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_project_bids';
+    public $table = 'ahoy_pyrolancer_project_bids';
 
     /**
      * @var array Guarded fields
@@ -35,8 +35,8 @@ class ProjectBid extends Model
      */
     public $belongsTo = [
         'user'    => ['RainLab\User\Models\User'],
-        'project' => ['Responsiv\Pyrolancer\Models\Project'],
-        'status'  => ['Responsiv\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.status'"],
+        'project' => ['Ahoy\Pyrolancer\Models\Project'],
+        'status'  => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.status'"],
     ];
 
     public function beforeCreate()

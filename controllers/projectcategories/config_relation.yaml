@@ -4,8 +4,8 @@
 
 skills:
     label: Skills
-    list: @/plugins/responsiv/pyrolancer/models/skill/columns.yaml
-    form: @/plugins/responsiv/pyrolancer/models/skill/fields.yaml
+    list: @/plugins/ahoy/pyrolancer/models/skill/columns.yaml
+    form: @/plugins/ahoy/pyrolancer/models/skill/fields.yaml
 
     view:
         showSearch: true

@@ -1,9 +1,9 @@
-<?php namespace Responsiv\Pyrolancer\Updates;
+<?php namespace Ahoy\Pyrolancer\Updates;
 
 use October\Rain\Database\Updates\Seeder;
-use Responsiv\Pyrolancer\Models\Project as ProjectModel;
-use Responsiv\Pyrolancer\Models\ProjectBid;
-use Responsiv\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\ProjectBid;
+use Ahoy\Pyrolancer\Models\ProjectOption;
 
 class SeedProjectOptionsTables extends Seeder
 {

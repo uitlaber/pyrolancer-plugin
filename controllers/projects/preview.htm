@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('responsiv/pyrolancer/projects') ?>">Projects</a></li>
+        <li><a href="<?= Backend::url('ahoy/pyrolancer/projects') ?>">Projects</a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -52,7 +52,7 @@
             <div class="tab-pane active">
 
                 <div class="form-preview form-flush">
-                    <a href="<?= Backend::url('responsiv/pyrolancer/projects/update/'.$formModel->id) ?>" class="btn btn-primary pull-right">
+                    <a href="<?= Backend::url('ahoy/pyrolancer/projects/update/'.$formModel->id) ?>" class="btn btn-primary pull-right">
                         <i class="icon-pencil"></i>
                         Update details
                     </a>
@@ -71,6 +71,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('responsiv/pyrolancer/projects') ?>" class="btn btn-default">Return to projects list</a></p>
+    <p><a href="<?= Backend::url('ahoy/pyrolancer/projects') ?>" class="btn btn-default">Return to projects list</a></p>
 
 <?php endif ?>

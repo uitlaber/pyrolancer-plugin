@@ -1,8 +1,8 @@
-<?php namespace Responsiv\Pyrolancer\Components;
+<?php namespace Ahoy\Pyrolancer\Components;
 
 use Cms\Classes\ComponentBase;
-use Responsiv\Pyrolancer\Models\SkillCategory;
-use Responsiv\Pyrolancer\Models\Skill;
+use Ahoy\Pyrolancer\Models\SkillCategory;
+use Ahoy\Pyrolancer\Models\Skill;
 
 class WorkerSkills extends ComponentBase
 {

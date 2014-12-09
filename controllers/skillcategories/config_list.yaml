@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/responsiv/pyrolancer/models/skillcategory/columns.yaml
+list: $/ahoy/pyrolancer/models/skillcategory/columns.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\SkillCategory
+modelClass: Ahoy\Pyrolancer\Models\SkillCategory
 
 # List Title
 title: Manage Skill Categories
 
 # Link URL for each record
-recordUrl: responsiv/pyrolancer/skillcategories/update/:id
+recordUrl: ahoy/pyrolancer/skillcategories/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

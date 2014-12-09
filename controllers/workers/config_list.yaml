@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: @/plugins/responsiv/pyrolancer/models/worker/columns.yaml
+list: @/plugins/ahoy/pyrolancer/models/worker/columns.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\Worker
+modelClass: Ahoy\Pyrolancer\Models\Worker
 
 # List Title
 title: Manage Workers
 
 # Link URL for each record
-recordUrl: responsiv/pyrolancer/workers/preview/:id
+recordUrl: ahoy/pyrolancer/workers/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

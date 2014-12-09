@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Traits;
+<?php namespace Ahoy\Pyrolancer\Traits;
 
 use Auth;
 

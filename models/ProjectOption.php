@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
 
@@ -21,7 +21,7 @@ class ProjectOption extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_project_options';
+    public $table = 'ahoy_pyrolancer_project_options';
 
     /**
      * @var array Guarded fields

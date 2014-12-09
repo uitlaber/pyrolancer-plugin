@@ -1,9 +1,9 @@
-<?php namespace Responsiv\Pyrolancer\Components;
+<?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;
-use Responsiv\Pyrolancer\Models\Project as ProjectModel;
-use Responsiv\Pyrolancer\Models\ProjectExtraDetail;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\ProjectExtraDetail;
 use ApplicationException;
 
 /*
@@ -12,7 +12,7 @@ use ApplicationException;
 class ProjectManage extends ComponentBase
 {
 
-    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
+    use \Ahoy\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {

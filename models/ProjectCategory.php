@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
 
@@ -17,7 +17,7 @@ class ProjectCategory extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_project_categories';
+    public $table = 'ahoy_pyrolancer_project_categories';
 
     /**
      * @var array Guarded fields
@@ -38,7 +38,7 @@ class ProjectCategory extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_project_categories_skills', 'primaryKey' => 'category_id', 'order' => 'name']
+        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_project_categories_skills', 'primaryKey' => 'category_id', 'order' => 'name']
     ];
 
 }

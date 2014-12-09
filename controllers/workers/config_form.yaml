@@ -6,25 +6,25 @@
 name: Worker
 
 # Model Form Field configuration
-form: @/plugins/responsiv/pyrolancer/models/worker/fields.yaml
+form: @/plugins/ahoy/pyrolancer/models/worker/fields.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\Worker
+modelClass: Ahoy\Pyrolancer\Models\Worker
 
 # Default redirect location
-defaultRedirect: responsiv/pyrolancer/workers
+defaultRedirect: ahoy/pyrolancer/workers
 
 # Create page
 create:
     title: Create Worker
-    redirect: responsiv/pyrolancer/workers/preview/:id
-    redirectClose: responsiv/pyrolancer/workers/preview/:id
+    redirect: ahoy/pyrolancer/workers/preview/:id
+    redirectClose: ahoy/pyrolancer/workers/preview/:id
 
 # Update page
 update:
     title: Edit Worker
-    redirect: responsiv/pyrolancer/workers/preview/:id
-    redirectClose: responsiv/pyrolancer/workers/preview/:id
+    redirect: ahoy/pyrolancer/workers/preview/:id
+    redirectClose: ahoy/pyrolancer/workers/preview/:id
 
 # Preview page
 preview:

@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer\Models;
+<?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
 
@@ -13,7 +13,7 @@ class ProjectExtraDetail extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'responsiv_pyrolancer_project_extra_details';
+    public $table = 'ahoy_pyrolancer_project_extra_details';
 
     /**
      * @var array Guarded fields
@@ -36,7 +36,7 @@ class ProjectExtraDetail extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'project' => ['Responsiv\Pyrolancer\Models\Project'],
+        'project' => ['Ahoy\Pyrolancer\Models\Project'],
     ];
 
 }

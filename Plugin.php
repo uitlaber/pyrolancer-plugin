@@ -1,4 +1,4 @@
-<?php namespace Responsiv\Pyrolancer;
+<?php namespace Ahoy\Pyrolancer;
 
 use Backend;
 use System\Classes\PluginBase;
@@ -22,7 +22,7 @@ class Plugin extends PluginBase
         return [
             'name'        => 'Pyrolancer',
             'description' => 'No description provided yet...',
-            'author'      => 'Responsiv',
+            'author'      => 'Scripts Ahoy',
             'icon'        => 'icon-fire'
         ];
     }
@@ -30,7 +30,7 @@ class Plugin extends PluginBase
     public function boot()
     {
         User::extend(function($model) {
-            $model->hasOne['worker'] = ['Responsiv\Pyrolancer\Models\Worker'];
+            $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
         });
     }
 
@@ -39,7 +39,7 @@ class Plugin extends PluginBase
         return [
             'pyrolancer' => [
                 'label'       => 'Freelance',
-                'url'         => Backend::url('responsiv/pyrolancer/projects'),
+                'url'         => Backend::url('ahoy/pyrolancer/projects'),
                 'icon'        => 'icon-briefcase',
                 'permissions' => ['blog.*'],
                 'order'       => 500,
@@ -48,19 +48,19 @@ class Plugin extends PluginBase
                     'projects' => [
                         'label'       => 'Projects',
                         'icon'        => 'icon-trophy',
-                        'url'         => Backend::url('responsiv/pyrolancer/projects'),
+                        'url'         => Backend::url('ahoy/pyrolancer/projects'),
                         'permissions' => ['pyrolancer.access_projects'],
                     ],
                     'skills' => [
                         'label'       => 'Skills',
                         'icon'        => 'icon-graduation-cap',
-                        'url'         => Backend::url('responsiv/pyrolancer/skills'),
+                        'url'         => Backend::url('ahoy/pyrolancer/skills'),
                         'permissions' => ['pyrolancer.access_skills'],
                     ],
                     'workers' => [
                         'label'       => 'Workers',
                         'icon'        => 'icon-users',
-                        'url'         => Backend::url('responsiv/pyrolancer/workers'),
+                        'url'         => Backend::url('ahoy/pyrolancer/workers'),
                         'permissions' => ['pyrolancer.access_workers'],
                     ],
                 ]
@@ -72,14 +72,14 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-           '\Responsiv\Pyrolancer\Components\Dashboard'      => 'dashboard',
-           '\Responsiv\Pyrolancer\Components\Project'        => 'project',
-           '\Responsiv\Pyrolancer\Components\Projects'       => 'projects',
-           '\Responsiv\Pyrolancer\Components\ProjectManage'  => 'projectManage',
-           '\Responsiv\Pyrolancer\Components\ProjectSubmit'  => 'projectSubmit',
-           '\Responsiv\Pyrolancer\Components\WorkerSkills'   => 'workerSkills',
-           '\Responsiv\Pyrolancer\Components\WorkerRegister' => 'workerRegister',
-           '\Responsiv\Pyrolancer\Components\ClientProjects' => 'clientProjects',
+           '\Ahoy\Pyrolancer\Components\Dashboard'      => 'dashboard',
+           '\Ahoy\Pyrolancer\Components\Project'        => 'project',
+           '\Ahoy\Pyrolancer\Components\Projects'       => 'projects',
+           '\Ahoy\Pyrolancer\Components\ProjectManage'  => 'projectManage',
+           '\Ahoy\Pyrolancer\Components\ProjectSubmit'  => 'projectSubmit',
+           '\Ahoy\Pyrolancer\Components\WorkerSkills'   => 'workerSkills',
+           '\Ahoy\Pyrolancer\Components\WorkerRegister' => 'workerRegister',
+           '\Ahoy\Pyrolancer\Components\ClientProjects' => 'clientProjects',
         ];
     }
 

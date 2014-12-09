@@ -6,22 +6,22 @@
 name: Skill
 
 # Model Form Field configuration
-form: $/responsiv/pyrolancer/models/skill/fields.yaml
+form: $/ahoy/pyrolancer/models/skill/fields.yaml
 
 # Model Class name
-modelClass: Responsiv\Pyrolancer\Models\Skill
+modelClass: Ahoy\Pyrolancer\Models\Skill
 
 # Default redirect location
-defaultRedirect: responsiv/pyrolancer/skills
+defaultRedirect: ahoy/pyrolancer/skills
 
 # Create page
 create:
     title: Create Skills
-    redirect: responsiv/pyrolancer/skills/update/:id
-    redirectClose: responsiv/pyrolancer/skills
+    redirect: ahoy/pyrolancer/skills/update/:id
+    redirectClose: ahoy/pyrolancer/skills
 
 # Update page
 update:
     title: Edit Skills
-    redirect: responsiv/pyrolancer/skills
-    redirectClose: responsiv/pyrolancer/skills
+    redirect: ahoy/pyrolancer/skills
+    redirectClose: ahoy/pyrolancer/skills
