@@ -6,7 +6,7 @@ use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 class ClientProjects extends ComponentBase
 {
 
-    use \Ahoy\Pyrolancer\Traits\ComponentUtils;
+    use \Ahoy\Traits\ComponentUtils;
 
     public $projects;
 

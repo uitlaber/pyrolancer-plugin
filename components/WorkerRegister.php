@@ -10,7 +10,7 @@ use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 class WorkerRegister extends ComponentBase
 {
 
-    use \Ahoy\Pyrolancer\Traits\ComponentUtils;
+    use \Ahoy\Traits\ComponentUtils;
 
     public function componentDetails()
     {

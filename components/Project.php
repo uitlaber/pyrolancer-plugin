@@ -11,7 +11,7 @@ use ApplicationException;
 class Project extends ComponentBase
 {
 
-    use \Ahoy\Pyrolancer\Traits\ComponentUtils;
+    use \Ahoy\Traits\ComponentUtils;
 
     public $project;
 

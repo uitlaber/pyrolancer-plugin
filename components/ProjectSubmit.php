@@ -28,17 +28,6 @@ class ProjectSubmit extends ComponentBase
         return [];
     }
 
-    public function init()
-    {
-        $this->controller->bindEvent('responsiv.uploader.sendFile', function($uploader){
-            traceLog($uploader->apiCode);
-
-            return [
-                ['url' => 'http://daftspunk.com']
-            ];
-        });
-    }
-
     public function onRun()
     {
         $this->project = ProjectData::getProjectObject();

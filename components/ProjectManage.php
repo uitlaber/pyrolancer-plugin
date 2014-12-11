@@ -12,7 +12,7 @@ use ApplicationException;
 class ProjectManage extends ComponentBase
 {
 
-    use \Ahoy\Pyrolancer\Traits\ComponentUtils;
+    use \Ahoy\Traits\ComponentUtils;
 
     public function componentDetails()
     {
