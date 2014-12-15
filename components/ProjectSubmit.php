@@ -30,7 +30,12 @@ class ProjectSubmit extends ComponentBase
 
     public function onRun()
     {
-        $this->project = ProjectData::getProjectObject();
+        $this->project = $this->getProject();
+    }
+
+    public function getProject()
+    {
+        return ProjectData::getProjectObject();
     }
 
     //

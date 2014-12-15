@@ -68,6 +68,10 @@ class Project extends Model
         'user'             => ['RainLab\User\Models\User'],
     ];
 
+    public $attachMany = [
+        'files' => ['System\Models\File'],
+    ];
+
     /**
      * Can the user bid on this project
      */
