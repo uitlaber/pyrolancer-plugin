@@ -72,6 +72,15 @@ class Project extends Model
         'files' => ['System\Models\File'],
     ];
 
+    public function beforeCreate()
+    {
+        if (!$this->status_id) {
+            $this->status = ProjectOption::forType(ProjectOption::PROJECT_STATUS)
+                ->whereCode(self::STATUS_DRAFT)
+                ->first();
+        }
+    }
+
     /**
      * Can the user bid on this project
      */
@@ -132,6 +141,10 @@ class Project extends Model
 
         return $this->user_id == $user->id;
     }
+
+    //
+    // Helpers
+    //
 
     protected function lookupUser($user = null)
     {

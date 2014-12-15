@@ -1,0 +1,35 @@
+<?php
+    $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
+?>
+
+<div class="scoreboard">
+    <div data-control="toolbar">
+        <div class="scoreboard-item title-value">
+            <h4>Project</h4>
+            <p title="<?= e($formModel->name) ?>"><?= e(Str::limit($formModel->name, 35)) ?></p>
+            <p class="description">
+                Submitted <?= $formModel->created_at->diffForHumans() ?>
+            </p>
+        </div>
+        <?php if ($formModel->status): ?>
+            <div class="scoreboard-item title-value">
+                <h4>Status</h4>
+                <p><?= $formModel->status->name ?></p>
+                <?php if ($formModel->status->code == 'draft'): ?>
+                    <p class="description">Needs approval</p>
+                <?php else: ?>
+                    <p class="description">Everything's OK</p>
+                <?php endif ?>
+            </div>
+        <?php endif ?>
+        <div class="scoreboard-item title-value">
+            <h4>Requested by</h4>
+            <p><?= $formModel->user->name ?></p>
+            <p class="description">
+                <a href="<?= $userLink ?>">
+                    <?= $formModel->user->email ?>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

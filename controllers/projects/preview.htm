@@ -7,41 +7,7 @@
 
 <?php if (!$this->fatalError): ?>
 
-    <?php
-        $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
-    ?>
-
-    <div class="scoreboard">
-        <div data-control="toolbar">
-            <div class="scoreboard-item title-value">
-                <h4>Project</h4>
-                <p title="<?= e($formModel->name) ?>"><?= e(Str::limit($formModel->name, 35)) ?></p>
-                <p class="description">
-                    Submitted <?= $formModel->created_at->diffForHumans() ?>
-                </p>
-            </div>
-            <?php if ($formModel->status): ?>
-                <div class="scoreboard-item title-value">
-                    <h4>Status</h4>
-                    <p><?= $formModel->status->name ?></p>
-                    <?php if ($formModel->status == 'pending'): ?>
-                        <p class="description">Needs approval</p>
-                    <?php else: ?>
-                        <p class="description">Everything's OK</p>
-                    <?php endif ?>
-                </div>
-            <?php endif ?>
-            <div class="scoreboard-item title-value">
-                <h4>Requested by</h4>
-                <p><?= $formModel->user->name ?></p>
-                <p class="description">
-                    <a href="<?= $userLink ?>">
-                        <?= $formModel->user->email ?>
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
+    <?= $this->makePartial('scoreboard') ?>
 
     <div class="control-tabs content-tabs" data-control="tab">
         <ul class="nav nav-tabs">
@@ -52,10 +18,38 @@
             <div class="tab-pane active">
 
                 <div class="form-preview form-flush">
-                    <a href="<?= Backend::url('ahoy/pyrolancer/projects/update/'.$formModel->id) ?>" class="btn btn-primary pull-right">
-                        <i class="icon-pencil"></i>
-                        Update details
-                    </a>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+
+                            <?php if ($formModel->status->code == 'draft'): ?>
+                                <a
+                                    href="javascript:;"
+                                    data-request="onApprove"
+                                    data-request-confirm="Are you sure you want to approve this project?"
+                                    class="btn btn-default btn-success oc-icon-check-circle"
+                                    data-stripe-load-indicator>
+                                    Approve
+                                </a>
+                                <a
+                                    href="javascript:;"
+                                    data-control="popup"
+                                    data-handler="onLoadRejectForm"
+                                    data-request-confirm="asddas"
+                                    class="btn btn-default btn-danger oc-icon-ban">
+                                    Reject
+                                </a>
+                            <?php endif ?>
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="<?= Backend::url('ahoy/pyrolancer/projects/update/'.$formModel->id) ?>" class="btn btn-primary">
+                                <i class="icon-pencil"></i>
+                                Update details
+                            </a>
+                        </div>
+                    </div>
 
                     <?= $this->formRenderPreview() ?>
                 </div>
