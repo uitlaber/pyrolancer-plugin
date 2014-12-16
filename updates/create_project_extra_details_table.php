@@ -14,6 +14,7 @@ class CreateProjectExtraDetailsTable extends Migration
             $table->increments('id');
             $table->integer('project_id')->unsigned()->index()->nullable();
             $table->text('description')->nullable();
+            $table->text('description_html')->nullable();
             $table->timestamps();
         });
     }

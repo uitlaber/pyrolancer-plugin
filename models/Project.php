@@ -2,6 +2,7 @@
 
 use Auth;
 use Model;
+use October\Rain\Support\Markdown;
 
 /**
  * Project Model
@@ -10,6 +11,8 @@ class Project extends Model
 {
 
     const STATUS_DRAFT = 'draft';
+    const STATUS_PENDING = 'pending';
+    const STATUS_REJECTED = 'rejected';
     const STATUS_ACTIVE = 'active';
     const STATUS_SUSPENDED = 'suspended';
     const STATUS_CLOSED = 'closed';
@@ -52,6 +55,7 @@ class Project extends Model
         'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
         'extra_details'    => ['Ahoy\Pyrolancer\Models\ProjectExtraDetail'],
         'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
+        'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
 
     public $belongsTo = [
@@ -71,6 +75,15 @@ class Project extends Model
     public $attachMany = [
         'files' => ['System\Models\File'],
     ];
+
+    public function beforeSave()
+    {
+        if ($this->isDirty('description'))
+            $this->description_html = Markdown::parse(trim($this->description));
+
+        if ($this->isDirty('instructions'))
+            $this->instructions_html = Markdown::parse(trim($this->instructions));
+    }
 
     public function beforeCreate()
     {
@@ -140,6 +153,25 @@ class Project extends Model
             return false;
 
         return $this->user_id == $user->id;
+    }
+
+    //
+    // Status workflow
+    //
+
+    public function markSubmitted()
+    {
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_PENDING);
+    }
+
+    public function markApproved()
+    {
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
+    }
+
+    public function markRejected()
+    {
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_REJECTED);
     }
 
     //

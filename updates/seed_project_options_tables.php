@@ -12,6 +12,8 @@ class SeedProjectOptionsTables extends Seeder
     {
         $projectStatus = [
             ['name' => 'Draft', 'code' => ProjectModel::STATUS_DRAFT],
+            ['name' => 'Pending', 'code' => ProjectModel::STATUS_PENDING],
+            ['name' => 'Rejected', 'code' => ProjectModel::STATUS_REJECTED],
             ['name' => 'Active', 'code' => ProjectModel::STATUS_ACTIVE],
             ['name' => 'Suspended', 'code' => ProjectModel::STATUS_SUSPENDED],
             ['name' => 'Closed', 'code' => ProjectModel::STATUS_CLOSED],

@@ -1,0 +1,22 @@
+.action-buttons {
+  padding: 1rem 0 2rem 0;
+}
+.user-conversation-preview {
+  height: 300px;
+  margin-bottom: 20px;
+  background: white;
+  border: 1px solid #eee;
+}
+.user-conversation-preview .user-conversation-preview-content {
+  padding: 15px;
+  font-family: Helvetica, sans-serif;
+  line-height: 180%;
+}
+.user-conversation-preview .user-conversation-preview-content ul li,
+.user-conversation-preview .user-conversation-preview-content ol li {
+  margin-bottom: 10px;
+}
+.user-conversation-preview .user-conversation-preview-content *:last-child {
+  margin-bottom: 0;
+}
+/*# sourceMappingURL=pyrolancer.css.map */

@@ -39,4 +39,10 @@ class ProjectExtraDetail extends Model
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
     ];
 
+    public function beforeSave()
+    {
+        if ($this->isDirty('description'))
+            $this->description_html = Markdown::parse(trim($this->description));
+    }
+
 }

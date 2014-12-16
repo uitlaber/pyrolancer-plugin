@@ -1,0 +1,28 @@
+<div
+    class="control-tabs secondary"
+    data-control="tab">
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#md-edit">Edit</a></li>
+            <li id="md-preview-tab"><a href="#md-preview">Preview</a></li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="md-edit">
+            <div class="form-group">
+                <p class="help-block before-field">Using <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> syntax is supported</p>
+                <textarea
+                    name="reason"
+                    class="form-control field-textarea size-large"
+                    placeholder=""></textarea>
+            </div>
+        </div>
+        <div class="tab-pane" id="md-preview">
+            <div class="control-scrollbar user-conversation-preview" id="md-preview-scroll" data-control="scrollbar">
+                <div class="user-conversation-preview-content"></div>
+            </div>
+        </div>
+    </div>
+</div>

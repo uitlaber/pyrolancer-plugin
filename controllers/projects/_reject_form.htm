@@ -1,0 +1,48 @@
+<?php if (!$this->fatalError): ?>
+
+    <div id="rejectPopup">
+        <?= Form::open(['id' => 'rejectForm']) ?>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="popup">&times;</button>
+                <h4 class="modal-title">Reason for rejecting this project</h4>
+
+            </div>
+            <div class="modal-body">
+
+                <?= $this->makePartial('message_tabs') ?>
+
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                    data-request="onReject"
+                    data-request-confirm="Do you really want to reject this project?"
+                    data-popup-load-indicator>
+                    Submit Rejection
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-default"
+                    data-dismiss="popup">
+                    <?= e(trans('backend::lang.form.cancel')) ?>
+                </button>
+            </div>
+        <?= Form::close() ?>
+    </div>
+
+<?php else: ?>
+
+    <div class="modal-body">
+        <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+            <?= e(trans('backend::lang.form.close')) ?>
+        </button>
+    </div>
+
+<?php endif ?>

@@ -5,6 +5,7 @@ use Validator;
 use ValidationException;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectOption;
+use October\Rain\Support\Markdown;
 
 /**
  * A deferred object for holding project data
@@ -91,11 +92,6 @@ class ProjectData
         if ($validation->fails())
             throw new ValidationException($validation);
 
-        /*
-         * Validate State and Country from Google
-         */
-        // @todo
-
         self::saveProjectData();
     }
 
@@ -124,6 +120,13 @@ class ProjectData
             return null;
 
         $project = new ProjectModel($data);
+
+        if (!empty($project->description))
+            $project->description_html = Markdown::parse(trim($project->description));
+
+        if (!empty($project->instructions))
+            $project->instructions_html = Markdown::parse(trim($project->instructions));
+
         return $project;
     }
 

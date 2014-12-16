@@ -2,6 +2,7 @@
 
 use Model;
 use Ahoy\Pyrolancer\Models\ProjectOption;
+use October\Rain\Support\Markdown;
 
 /**
  * ProjectBid Model
@@ -38,6 +39,12 @@ class ProjectBid extends Model
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
         'status'  => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.status'"],
     ];
+
+    public function beforeSave()
+    {
+        if ($this->isDirty('details'))
+            $this->details_html = Markdown::parse(trim($this->details));
+    }
 
     public function beforeCreate()
     {

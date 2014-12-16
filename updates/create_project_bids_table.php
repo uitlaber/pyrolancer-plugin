@@ -17,6 +17,7 @@ class CreateProjectBidsTable extends Migration
             $table->integer('project_id')->unsigned()->index()->nullable();
             $table->integer('status_id')->unsigned()->index()->nullable();
             $table->text('details')->nullable();
+            $table->text('details_html')->nullable();
             $table->decimal('hourly_rate', 15, 2)->default(0);
             $table->integer('total_hours')->nullable();
             $table->decimal('total', 15, 2)->default(0);
