@@ -8,12 +8,6 @@ use October\Rain\Support\Str;
  */
 class ProjectStatusLog extends Model
 {
-    const TYPE_SUBMITTED_APPROVAL = 'submitted-approval';
-    const TYPE_RESUBMITTED_APPROVAL = 'resubmitted-approval';
-    const TYPE_REJECTED = 'rejected';
-    const TYPE_APPROVED = 'approved';
-    const TYPE_SUSPENDED = 'suspended';
-
     public $table = 'ahoy_pyrolancer_project_status_log';
 
     /**
@@ -37,22 +31,6 @@ class ProjectStatusLog extends Model
         $obj = new self;
         $obj->project_id = $project->id;
         return $obj;
-    }
-
-    public function getTypeName()
-    {
-        $statusNames = [
-            self::TYPE_SUBMITTED_APPROVAL => 'Submitted for approval',
-            self::TYPE_RESUBMITTED_APPROVAL => 'Resubmitted for approval',
-            self::TYPE_REJECTED => 'Rejected',
-            self::TYPE_APPROVED => 'Approved',
-            self::TYPE_SUSPENDED => 'Suspended'
-        ];
-
-        if (isset($statusNames[$this->type]))
-            return $statusNames[$this->type];
-
-        return 'Unknown event';
     }
 
     public function getMessagePreview($length = 256)
@@ -94,19 +72,19 @@ class ProjectStatusLog extends Model
         if ($oldStatus) {
 
             if ($oldStatus->code == Project::STATUS_DRAFT && $status->code == Project::STATUS_PENDING) {
-                self::processApprovalRequest($project);
+                self::processApprovalRequest($project, $log, $data);
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_ACTIVE) {
-                self::processProjectApproved($project);
+                self::processProjectApproved($project, $log, $data);
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_REJECTED) {
-                self::processProjectRejected($project);
+                self::processProjectRejected($project, $log, $data);
             }
 
             if ($status->code == Project::STATUS_SUSPENDED) {
-                self::processProjectSuspended($project);
+                self::processProjectSuspended($project, $log, $data);
             }
 
         }
@@ -118,22 +96,21 @@ class ProjectStatusLog extends Model
         $project->save();
     }
 
-    public static function processApprovalRequest($project)
+    public static function processApprovalRequest($project, $log, $data = null)
+    {
+    }
+
+    public static function processProjectApproved($project, $log, $data = null)
     {
 
     }
 
-    public static function processProjectApproved($project)
+    public static function processProjectRejected($project, $log, $data = null)
     {
 
     }
 
-    public static function processProjectRejected($project)
-    {
-
-    }
-
-    public static function processProjectSuspended($project)
+    public static function processProjectSuspended($project, $log, $data = null)
     {
 
     }

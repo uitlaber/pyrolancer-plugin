@@ -6,6 +6,8 @@ use Redirect;
 use Ahoy\Pyrolancer\Models\Skill;
 use Ahoy\Pyrolancer\Models\ProjectCategory;
 use Ahoy\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\ProjectStatusLog;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Classes\ProjectData;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
@@ -18,7 +20,7 @@ class ProjectSubmit extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Post Project',
+            'name'        => 'Submit Project',
             'description' => 'Used on the page where projects are created'
         ];
     }
@@ -59,6 +61,11 @@ class ProjectSubmit extends ComponentBase
 
         if (!$project = ProjectData::submitProject($user))
             throw new ApplicationException('Unable to submit project, please contact support.');
+
+        $user->is_client = true;
+        $user->save();
+
+        ProjectStatusLog::updateProjectStatus($project, ProjectModel::STATUS_PENDING);
 
         Flash::success('Your project has been submitted successfully!');
 
@@ -130,7 +137,10 @@ class ProjectSubmit extends ComponentBase
                 break;
         }
 
-        return Auth::getUser();
+        if (!$user = Auth::getUser())
+            throw new ApplicationException('Unable to authenticate, please contact support.');
+
+        return $user;
     }
 
     //

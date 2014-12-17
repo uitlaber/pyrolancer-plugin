@@ -174,6 +174,11 @@ class Project extends Model
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_REJECTED);
     }
 
+    public function markSuspended()
+    {
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_SUSPENDED);
+    }
+
     //
     // Helpers
     //

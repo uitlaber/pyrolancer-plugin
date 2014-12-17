@@ -15,7 +15,6 @@ class CreateProjectStatusLog extends Migration
             $table->integer('project_id')->nullable();
             $table->integer('old_status_id')->unsigned()->index();
             $table->integer('new_status_id')->unsigned()->index();
-            $table->string('type', 30);
             $table->text('message_md')->nullable();
             $table->text('message_html')->nullable();
             $table->integer('user_id')->nullable();

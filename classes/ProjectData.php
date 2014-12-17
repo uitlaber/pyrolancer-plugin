@@ -2,6 +2,7 @@
 
 use Session;
 use Validator;
+use ApplicationException;
 use ValidationException;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectOption;
@@ -104,7 +105,9 @@ class ProjectData
         if (!$user)
             return false;
 
-        $project = self::getProjectObject();
+        if (!$project = self::getProjectObject())
+            throw new ApplicationException('Unable to find project in session.');
+
         $project->user = $user;
         $project->save();
 
