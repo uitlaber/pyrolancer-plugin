@@ -18,38 +18,7 @@
             <div class="tab-pane active">
 
                 <div class="form-preview form-flush">
-
-                    <div class="row action-buttons">
-                        <div class="col-md-6">
-
-
-                            <?php if ($formModel->status->code == 'draft'): ?>
-                                <a
-                                    href="javascript:;"
-                                    data-request="onApprove"
-                                    data-request-confirm="Are you sure you want to approve this project?"
-                                    class="btn btn-default btn-success oc-icon-check-circle"
-                                    data-stripe-load-indicator>
-                                    Approve
-                                </a>
-                                <a
-                                    href="javascript:;"
-                                    data-control="popup"
-                                    data-handler="onLoadRejectForm"
-                                    class="btn btn-default btn-danger oc-icon-ban">
-                                    Reject
-                                </a>
-                            <?php endif ?>
-
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <a href="<?= Backend::url('ahoy/pyrolancer/projects/update/'.$formModel->id) ?>" class="btn btn-primary">
-                                <i class="icon-pencil"></i>
-                                Update details
-                            </a>
-                        </div>
-                    </div>
-
+                    <?= $this->makePartial('preview_toolbar') ?>
                     <?= $this->formRenderPreview() ?>
                 </div>
 

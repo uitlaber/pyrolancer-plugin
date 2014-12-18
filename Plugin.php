@@ -83,4 +83,13 @@ class Plugin extends PluginBase
         ];
     }
 
+
+    public function registerMailTemplates()
+    {
+        return [
+            'ahoy.pyrolancer::mail.project-approval-request' => 'Sent to managers when a new project needs approval.',
+            'ahoy.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
+            'ahoy.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
+        ];
+    }
 }

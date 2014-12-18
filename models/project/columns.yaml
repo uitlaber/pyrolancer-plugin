@@ -3,6 +3,13 @@
 # ===================================
 
 columns:
+    status_name:
+        label: Status
+        relation: status
+        select: name
+        type: partial
+        path: status_column
+
     name:
         label: Name
 

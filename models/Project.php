@@ -94,6 +94,19 @@ class Project extends Model
         }
     }
 
+    public function getBackendUrl()
+    {
+        return \Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
+    }
+
+    public function getUrl()
+    {
+        return \Cms\Classes\Page::url('project', [
+            'id' => $this->id,
+            'slug' => $this->slug,
+        ]);
+    }
+
     /**
      * Can the user bid on this project
      */

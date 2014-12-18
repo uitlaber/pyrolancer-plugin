@@ -1,0 +1,16 @@
+subject = "Project approval requested: {{ project.name }}"
+layout = "system"
+==
+
+<p>Hello,</p>
+
+<p>Client {{ user.name }} requested approval for the project {{ project.name }}.</p>
+
+<p>
+    You can approve or reject the project here:<br />
+    <a href="{{ project.getBackendUrl }}">{{ project.getBackendUrl }}</a>
+</p>
+
+<blockquote>
+    {{ project.description }}
+</blockquote>

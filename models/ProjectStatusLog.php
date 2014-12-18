@@ -1,7 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Mail;
 use Model;
 use October\Rain\Support\Str;
+use Backend\Models\UserGroup;
 
 /**
  * A log of project moderation events
@@ -98,16 +100,40 @@ class ProjectStatusLog extends Model
 
     public static function processApprovalRequest($project, $log, $data = null)
     {
+        if (!$group = UserGroup::whereCode('managers')->first())
+            return;
+
+        $params = [
+            'project' => $project,
+            'user' => $project->user,
+        ];
+
+        $admins = $group->users()->lists('first_name', 'email');
+        Mail::sendTo($admins, 'ahoy.pyrolancer::mail.project-approval-request', $params);
     }
 
     public static function processProjectApproved($project, $log, $data = null)
     {
+        $params = [
+            'project' => $project,
+            'user' => $project->user,
+        ];
 
+        Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.client-project-approved', $params);
     }
 
     public static function processProjectRejected($project, $log, $data = null)
     {
+        $log->message_md = array_get($data, 'reason');
+        $log->message_html = Markdown::parse(trim($this->message_md));
 
+        $params = [
+            'project' => $project,
+            'user' => $project->user,
+            'reason' => $log->message_html,
+        ];
+
+        Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.client-project-rejected', $params);
     }
 
     public static function processProjectSuspended($project, $log, $data = null)

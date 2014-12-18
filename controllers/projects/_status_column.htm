@@ -1,0 +1,17 @@
+<?php
+    $map = [
+        'draft' => 'muted',
+        'pending' => 'info',
+        'active' => 'success',
+        'expired' => 'warning',
+        'closed' => 'normal',
+        'cancelled' => 'danger',
+        'suspended' => 'primary',
+    ];
+
+    $_value = strtolower($value);
+    $color = isset($map[$_value]) ? 'text-'.$map[$_value] : '';
+?>
+<span class="oc-icon-circle <?= $color ?>">
+    <?= $value ?>
+</span>
