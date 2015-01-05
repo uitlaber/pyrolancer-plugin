@@ -22,4 +22,13 @@ class Skills extends Controller
 
         BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'skills');
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function listInjectRowClass($record, $definition = null)
+    {
+        if (!$record->is_enabled)
+            return 'safe disabled';
+    }
 }

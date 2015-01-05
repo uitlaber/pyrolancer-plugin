@@ -6,3 +6,8 @@ columns:
     name:
         label: Name
         searchable: true
+
+    category_name:
+        label: Category
+        relation: category
+        select: name

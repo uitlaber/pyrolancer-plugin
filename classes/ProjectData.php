@@ -120,7 +120,7 @@ class ProjectData
     {
         $data = self::load();
         if (empty($data))
-            return null;
+            return new ProjectModel;
 
         $project = new ProjectModel($data);
 

@@ -18,6 +18,9 @@ class ProjectOption extends Model
     const BUDGET_TIMEFRAME = 'budget.timeframe';
     const BID_STATUS = 'bid.status';
 
+    public static $recordCache;
+    public static $codeCache;
+
     /**
      * @var string The database table used by the model.
      */
@@ -33,22 +36,40 @@ class ProjectOption extends Model
      */
     protected $fillable = [];
 
-    /**
-     * @var array Relations
-     */
-    public $hasOne = [];
-    public $hasMany = [];
-    public $belongsTo = [];
-    public $belongsToMany = [];
-    public $morphTo = [];
-    public $morphOne = [];
-    public $morphMany = [];
-    public $attachOne = [];
-    public $attachMany = [];
-
     public function scopeForType($query, $type)
     {
         return $query->where('type', $type);
+    }
+
+    public static function listAll($type)
+    {
+        if (self::$recordCache !== null) {
+            return array_get(self::$recordCache, $type);
+        }
+
+        $cache = [];
+        $records = self::all();
+        foreach ($records as $record) {
+            $cache[$record->type][] = $record;
+        }
+
+        self::$recordCache = $cache;
+        return array_get($cache, $type);
+    }
+
+    public static function listCodes($type)
+    {
+        if ($cached = array_get(self::$codeCache, $type)) {
+            return $cached;
+        }
+
+        $cache = [];
+        $records = self::listAll($type);
+        foreach ($records as $record) {
+            $cache[$record->code] = $record->id;
+        }
+
+        return self::$codeCache[$type] = $cache;
     }
 
 }
