@@ -156,6 +156,11 @@ class ProjectData
         return null;
     }
 
+    public static function exists()
+    {
+        return !empty(self::load());
+    }
+
     public static function reset()
     {
         Session::put(self::SESSION_NAME, []);

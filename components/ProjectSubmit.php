@@ -27,12 +27,37 @@ class ProjectSubmit extends ComponentBase
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'editMode' => [
+                'title'       => 'Edit mode',
+                'description' => 'Check this for secondary pages where the request data is loaded from the session.',
+                'type'        => 'checkbox',
+                'default'     => 1
+            ],
+            'redirect' => [
+                'title'       => 'Redirection page',
+                'description' => 'If no request object is found and user is trying to edit.',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ]
+        ];
     }
 
     public function onRun()
     {
+        if (!$this->property('editMode') && !get('edit')) {
+            // ProjectData::reset();
+        }
+
         $this->project = $this->getProject();
+
+        /*
+         * Redirect away when editing a request that does not exist
+         */
+        if (!ProjectData::exists() && $this->property('editMode')) {
+            $redirectUrl = $this->pageUrl($this->property('redirect'));
+            return Redirect::to($redirectUrl);
+        }
     }
 
     public function getProject()

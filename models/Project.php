@@ -76,13 +76,25 @@ class Project extends Model
         'files' => ['System\Models\File'],
     ];
 
-    public function beforeSave()
-    {
-        if ($this->isDirty('description'))
-            $this->description_html = Markdown::parse(trim($this->description));
+    // public function beforeSave()
+    // {
+    //     if ($this->isDirty('description'))
+    //         $this->description_html = Markdown::parse(trim($this->description));
 
-        if ($this->isDirty('instructions'))
-            $this->instructions_html = Markdown::parse(trim($this->instructions));
+    //     if ($this->isDirty('instructions'))
+    //         $this->instructions_html = Markdown::parse(trim($this->instructions));
+    // }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = $value;
+        $this->attributes['description_html'] = Markdown::parse(trim($value));
+    }
+
+    public function setInstructionsAttribute($value)
+    {
+        $this->attributes['instructions'] = $value;
+        $this->attributes['instructions_html'] = Markdown::parse(trim($value));
     }
 
     public function beforeCreate()
