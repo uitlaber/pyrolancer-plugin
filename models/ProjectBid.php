@@ -2,7 +2,7 @@
 
 use Model;
 use Ahoy\Pyrolancer\Models\ProjectOption;
-use October\Rain\Support\Markdown;
+use Markdown;
 
 /**
  * ProjectBid Model

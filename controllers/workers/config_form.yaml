@@ -6,7 +6,7 @@
 name: Worker
 
 # Model Form Field configuration
-form: @/plugins/ahoy/pyrolancer/models/worker/fields.yaml
+form: ~/plugins/ahoy/pyrolancer/models/worker/fields.yaml
 
 # Model Class name
 modelClass: Ahoy\Pyrolancer\Models\Worker

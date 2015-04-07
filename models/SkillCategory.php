@@ -38,7 +38,11 @@ class SkillCategory extends Model
      * @var array Relations
      */
     public $hasMany = [
-        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'primaryKey' => 'category_id', 'order' => 'name']
+        'skills' => [
+            'Ahoy\Pyrolancer\Models\Skill',
+            'key' => 'category_id',
+            'order' => 'name'
+        ]
     ];
 
 }

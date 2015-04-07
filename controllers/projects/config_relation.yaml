@@ -4,8 +4,8 @@
 
 bids:
     label: Bid
-    list: @/plugins/ahoy/pyrolancer/models/projectbid/columns.yaml
-    form: @/plugins/ahoy/pyrolancer/models/projectbid/fields.yaml
+    list: ~/plugins/ahoy/pyrolancer/models/projectbid/columns.yaml
+    form: ~/plugins/ahoy/pyrolancer/models/projectbid/fields.yaml
     view:
         showSearch: true
         recordsPerPage: 25

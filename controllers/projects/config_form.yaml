@@ -6,7 +6,7 @@
 name: Project
 
 # Model Form Field configuration
-form: @/plugins/ahoy/pyrolancer/models/project/fields_tabs.yaml
+form: ~/plugins/ahoy/pyrolancer/models/project/fields_tabs.yaml
 
 # Model Class name
 modelClass: Ahoy\Pyrolancer\Models\Project
@@ -29,4 +29,4 @@ update:
 # Preview page
 preview:
     title: Preview Project
-    form: @/plugins/ahoy/pyrolancer/models/project/fields.yaml
+    form: ~/plugins/ahoy/pyrolancer/models/project/fields.yaml

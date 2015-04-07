@@ -30,7 +30,7 @@ fields:
             country: country_code
             state: state_code
         attributes:
-            data-trigger-type: disable
+            data-trigger-action: disable
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
 
@@ -39,11 +39,11 @@ fields:
         span: auto
         attributes:
             readonly: 1
-            data-trigger-type: disable
+            data-trigger-action: disable
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
         containerAttributes:
-            data-trigger-type: hide
+            data-trigger-action: hide
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
 
@@ -52,11 +52,11 @@ fields:
         span: auto
         attributes:
             readonly: 1
-            data-trigger-type: disable
+            data-trigger-action: disable
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
         containerAttributes:
-            data-trigger-type: hide
+            data-trigger-action: hide
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
 
@@ -65,11 +65,11 @@ fields:
         span: auto
         attributes:
             readonly: 1
-            data-trigger-type: disable
+            data-trigger-action: disable
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
         containerAttributes:
-            data-trigger-type: hide
+            data-trigger-action: hide
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
 
@@ -78,11 +78,11 @@ fields:
         span: auto
         attributes:
             readonly: 1
-            data-trigger-type: disable
+            data-trigger-action: disable
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
         containerAttributes:
-            data-trigger-type: hide
+            data-trigger-action: hide
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
 
@@ -120,7 +120,7 @@ fields:
         type: relation
         emptyOption: -- select --
         containerAttributes:
-            data-trigger-type: display
+            data-trigger-action: display
             data-trigger: 'select[name="Project[budget_type]"]'
             data-trigger-condition: value[6]
 
@@ -129,7 +129,7 @@ fields:
         span: left
         emptyOption: -- select --
         containerAttributes:
-            data-trigger-type: display
+            data-trigger-action: display
             data-trigger: 'select[name="Project[budget_type]"]'
             data-trigger-condition: value[7]
 
@@ -138,7 +138,7 @@ fields:
         span: right
         emptyOption: -- select --
         containerAttributes:
-            data-trigger-type: display
+            data-trigger-action: display
             data-trigger: 'select[name="Project[budget_type]"]'
             data-trigger-condition: value[7]
 

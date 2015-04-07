@@ -6,7 +6,7 @@
 name: Category
 
 # Model Form Field configuration
-form: @/plugins/ahoy/pyrolancer/models/projectcategory/fields.yaml
+form: ~/plugins/ahoy/pyrolancer/models/projectcategory/fields.yaml
 
 # Model Class name
 modelClass: Ahoy\Pyrolancer\Models\ProjectCategory

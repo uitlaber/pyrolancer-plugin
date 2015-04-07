@@ -2,7 +2,7 @@
 
 use Auth;
 use Model;
-use October\Rain\Support\Markdown;
+use Markdown;
 
 /**
  * Project Model

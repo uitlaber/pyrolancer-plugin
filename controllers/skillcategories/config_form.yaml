@@ -6,7 +6,7 @@
 name: Skill Category
 
 # Model Form Field configuration
-form: @/plugins/ahoy/pyrolancer/models/skillcategory/fields.yaml
+form: ~/plugins/ahoy/pyrolancer/models/skillcategory/fields.yaml
 
 # Model Class name
 modelClass: Ahoy\Pyrolancer\Models\SkillCategory

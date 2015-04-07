@@ -3,7 +3,7 @@
 # ===================================
 
 # Model List Column configuration
-list: @/plugins/ahoy/pyrolancer/models/worker/columns.yaml
+list: ~/plugins/ahoy/pyrolancer/models/worker/columns.yaml
 
 # Model Class name
 modelClass: Ahoy\Pyrolancer\Models\Worker

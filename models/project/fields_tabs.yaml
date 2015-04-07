@@ -45,7 +45,7 @@ tabs:
                 country: country_code
                 state: state_code
             attributes:
-                data-trigger-type: disable
+                data-trigger-action: disable
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
 
@@ -55,11 +55,11 @@ tabs:
             span: auto
             attributes:
                 readonly: 1
-                data-trigger-type: disable
+                data-trigger-action: disable
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
             containerAttributes:
-                data-trigger-type: hide
+                data-trigger-action: hide
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
 
@@ -69,11 +69,11 @@ tabs:
             span: auto
             attributes:
                 readonly: 1
-                data-trigger-type: disable
+                data-trigger-action: disable
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
             containerAttributes:
-                data-trigger-type: hide
+                data-trigger-action: hide
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
 
@@ -83,11 +83,11 @@ tabs:
             span: auto
             attributes:
                 readonly: 1
-                data-trigger-type: disable
+                data-trigger-action: disable
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
             containerAttributes:
-                data-trigger-type: hide
+                data-trigger-action: hide
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
 
@@ -97,11 +97,11 @@ tabs:
             span: auto
             attributes:
                 readonly: 1
-                data-trigger-type: disable
+                data-trigger-action: disable
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
             containerAttributes:
-                data-trigger-type: hide
+                data-trigger-action: hide
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
 
@@ -145,7 +145,7 @@ tabs:
             tab: Position
             emptyOption: -- select --
             containerAttributes:
-                data-trigger-type: display
+                data-trigger-action: display
                 data-trigger: 'select[name="Project[budget_type]"]'
                 data-trigger-condition: value[6]
 
@@ -155,7 +155,7 @@ tabs:
             span: left
             emptyOption: -- select --
             containerAttributes:
-                data-trigger-type: display
+                data-trigger-action: display
                 data-trigger: 'select[name="Project[budget_type]"]'
                 data-trigger-condition: value[7]
 
@@ -165,7 +165,7 @@ tabs:
             span: right
             emptyOption: -- select --
             containerAttributes:
-                data-trigger-type: display
+                data-trigger-action: display
                 data-trigger: 'select[name="Project[budget_type]"]'
                 data-trigger-condition: value[7]
 

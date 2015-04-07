@@ -2,7 +2,7 @@
 
 use BackendMenu;
 use Backend\Classes\Controller;
-use October\Rain\Support\Markdown;
+use Markdown;
 
 /**
  * Projects Back-end Controller

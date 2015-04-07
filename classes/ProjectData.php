@@ -6,7 +6,7 @@ use ApplicationException;
 use ValidationException;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectOption;
-use October\Rain\Support\Markdown;
+use Markdown;
 
 /**
  * A deferred object for holding project data
