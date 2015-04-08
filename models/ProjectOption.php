@@ -77,4 +77,12 @@ class ProjectOption extends Model
         return self::$codeCache[$type] = $cache;
     }
 
+    /**
+     * Returning the code is more useful than returning JSON.
+     */
+    public function __toString()
+    {
+        return $this->code;
+    }
+
 }

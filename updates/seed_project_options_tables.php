@@ -22,7 +22,7 @@ class SeedProjectOptionsTables extends Seeder
         ];
 
         $projectTypes = [
-            ['name' => 'Tender request', 'label' => 'Give an estimate on how much it will cost', 'code' => 'auction'],
+            ['name' => 'Bid request', 'label' => 'Give an estimate on how much it will cost', 'code' => 'auction'],
             ['name' => 'Position vacant', 'label' => 'Send an application with credentials', 'code' => 'advert'],
         ];
 
