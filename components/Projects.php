@@ -3,6 +3,7 @@
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
+
 class Projects extends ComponentBase
 {
     public $projects;

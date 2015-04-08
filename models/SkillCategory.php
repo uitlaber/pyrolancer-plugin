@@ -45,4 +45,12 @@ class SkillCategory extends Model
         ]
     ];
 
+    /**
+     * Reserved
+     */
+    public function scopeIsEnabled($query)
+    {
+        return $query;
+    }
+
 }

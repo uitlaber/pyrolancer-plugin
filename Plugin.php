@@ -77,6 +77,7 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\Projects'       => 'projects',
            '\Ahoy\Pyrolancer\Components\ProjectManage'  => 'projectManage',
            '\Ahoy\Pyrolancer\Components\ProjectSubmit'  => 'projectSubmit',
+           '\Ahoy\Pyrolancer\Components\ProjectValues'  => 'projectValues',
            '\Ahoy\Pyrolancer\Components\WorkerSkills'   => 'workerSkills',
            '\Ahoy\Pyrolancer\Components\WorkerRegister' => 'workerRegister',
            '\Ahoy\Pyrolancer\Components\ClientProjects' => 'clientProjects',

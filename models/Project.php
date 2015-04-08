@@ -20,7 +20,15 @@ class Project extends Model
     const STATUS_EXPIRED = 'expired';
 
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Validation;
     use \Responsiv\Geolocation\Traits\LocationCode;
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'name' => 'required',
+    ];
 
     /**
      * @var string The database table used by the model.

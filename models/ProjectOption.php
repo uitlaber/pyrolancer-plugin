@@ -36,6 +36,11 @@ class ProjectOption extends Model
      */
     protected $fillable = [];
 
+    public function getLabelAttribute($value)
+    {
+        return strlen($value) ? $value : $this->name;
+    }
+
     public function scopeForType($query, $type)
     {
         return $query->where('type', $type);

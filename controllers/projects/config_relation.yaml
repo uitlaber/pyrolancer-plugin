@@ -9,4 +9,4 @@ bids:
     view:
         showSearch: true
         recordsPerPage: 25
-        toolbarButtons: bids_toolbar
+        toolbarPartial: bids_toolbar

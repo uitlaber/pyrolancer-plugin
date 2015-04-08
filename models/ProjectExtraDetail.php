@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
+use Markdown;
 
 /**
  * ProjectExtraDetail Model

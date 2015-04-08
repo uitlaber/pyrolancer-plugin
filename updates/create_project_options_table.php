@@ -14,6 +14,7 @@ class CreateProjectOptionsTable extends Migration
             $table->increments('id');
             $table->string('type')->nullable();
             $table->string('name')->nullable();
+            $table->string('label')->nullable();
             $table->string('code')->nullable();
             $table->boolean('is_default')->default(false);
             $table->integer('sort_order')->nullable();

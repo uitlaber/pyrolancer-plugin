@@ -22,8 +22,8 @@ class SeedProjectOptionsTables extends Seeder
         ];
 
         $projectTypes = [
-            ['name' => 'Give an estimate on how much it will cost', 'code' => 'auction'],
-            ['name' => 'Send an application with credentials', 'code' => 'advert'],
+            ['name' => 'Tender request', 'label' => 'Give an estimate on how much it will cost', 'code' => 'auction'],
+            ['name' => 'Position vacant', 'label' => 'Send an application with credentials', 'code' => 'advert'],
         ];
 
         $positionTypes = [
@@ -33,27 +33,27 @@ class SeedProjectOptionsTables extends Seeder
         ];
 
         $budgetTypes = [
-            ['name' => "I'm looking for a fixed price", 'code' => 'fixed'],
-            ['name' => "I'll pay by the hour", 'code' => 'hourly'],
-            ['name' => "I'd rather not say", 'code' => 'unknown'],
+            ['name' => 'Fixed', 'label' => "I'm looking for a fixed price", 'code' => 'fixed'],
+            ['name' => 'Hourly', 'label' => "I'll pay by the hour", 'code' => 'hourly'],
+            ['name' => 'Not specified', 'label' => "I'd rather not say", 'code' => 'unknown'],
         ];
 
         $budgetFixed = [
-            ['name' => 'Quick Task ($10 - $30)'],
-            ['name' => 'Basic Task ($30 - $250)'],
-            ['name' => 'Smaller Project ($250 - $750)'],
-            ['name' => 'Small Project ($750 - $1500)', 'is_default' => true],
-            ['name' => 'Medium Project ($1500 - $3000)'],
-            ['name' => 'Large Project ($3000 - $5000)'],
-            ['name' => 'Larger Project ($5000+)'],
+            ['name' => '$10 - $30', 'label' => 'Quick Task ($10 - $30)'],
+            ['name' => '$30 - $250', 'label' => 'Basic Task ($30 - $250)'],
+            ['name' => '$250 - $750', 'label' => 'Smaller Project ($250 - $750)'],
+            ['name' => '$750 - $1500', 'label' => 'Small Project ($750 - $1500)', 'is_default' => true],
+            ['name' => '$1500 - $3000', 'label' => 'Medium Project ($1500 - $3000)'],
+            ['name' => '$3000 - $5000', 'label' => 'Large Project ($3000 - $5000)'],
+            ['name' => '$5000+', 'label' => 'Larger Project ($5000+)'],
         ];
 
         $budgetHourly = [
-            ['name' => 'Basic ($2 - $8/hr)'],
-            ['name' => 'Moderate ($8 - $15/hr)'],
-            ['name' => 'Standard ($15 - $25/hr)', 'is_default' => true],
-            ['name' => 'Skilled ($25 - $50/hr)'],
-            ['name' => 'Expert ($50+/hr)'],
+            ['name' => '$2 - $8/hr', 'label' => 'Basic ($2 - $8/hr)'],
+            ['name' => '$8 - $15/hr', 'label' => 'Moderate ($8 - $15/hr)'],
+            ['name' => '$15 - $25/hr', 'label' => 'Standard ($15 - $25/hr)', 'is_default' => true],
+            ['name' => '$25 - $50/hr', 'label' => 'Skilled ($25 - $50/hr)'],
+            ['name' => '$50+/hr', 'label' => 'Expert ($50+/hr)'],
         ];
 
         $budgetTimeframe = [
@@ -62,7 +62,7 @@ class SeedProjectOptionsTables extends Seeder
             ['name' => "1 - 3 months"],
             ['name' => "3 - 6 months"],
             ['name' => "6 months+"],
-            ['name' => "I don't know"],
+            ['name' => 'Not specified', 'label' => "I don't know"],
         ];
 
         $bidStatus = [
