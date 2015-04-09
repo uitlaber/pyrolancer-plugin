@@ -46,4 +46,12 @@ class ProjectCategory extends Model
         ]
     ];
 
+    public function scopeIsVisible($query)
+    {
+        return $query
+            ->whereNotNull('is_visible')
+            ->where('is_visible', '=', 1)
+        ;
+    }
+
 }

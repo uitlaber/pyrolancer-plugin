@@ -14,7 +14,7 @@ class CreateSkillsTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->integer('category_id')->unsigned()->index()->nullable();
-            $table->boolean('is_enabled')->default(true);
+            $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
     }

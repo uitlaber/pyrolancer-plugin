@@ -19,6 +19,7 @@ class Project extends Model
     const STATUS_CANCELLED = 'cancelled';
     const STATUS_EXPIRED = 'expired';
 
+    use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
     use \Responsiv\Geolocation\Traits\LocationCode;
@@ -180,14 +181,6 @@ class Project extends Model
         return $query->where('user_id', $user->id);
     }
 
-    public function isOwner($user = null)
-    {
-        if (!$user = $this->lookupUser($user))
-            return false;
-
-        return $this->user_id == $user->id;
-    }
-
     //
     // Status workflow
     //
@@ -210,21 +203,6 @@ class Project extends Model
     public function markSuspended()
     {
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_SUSPENDED);
-    }
-
-    //
-    // Helpers
-    //
-
-    protected function lookupUser($user = null)
-    {
-        if (!$user)
-            $user = Auth::getUser();
-
-        if (!$user)
-            return false;
-
-        return $user;
     }
 
 }

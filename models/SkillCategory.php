@@ -45,12 +45,12 @@ class SkillCategory extends Model
         ]
     ];
 
-    /**
-     * Reserved
-     */
-    public function scopeIsEnabled($query)
+    public function scopeIsVisible($query)
     {
-        return $query;
+        return $query
+            ->whereNotNull('is_visible')
+            ->where('is_visible', '=', 1)
+        ;
     }
 
 }

@@ -24,7 +24,7 @@ class ProjectValues extends ComponentBase
 
     public function skillCategories()
     {
-        return SkillCategory::isEnabled()->get();
+        return SkillCategory::isVisible()->get();
     }
 
     public function projectTypes()

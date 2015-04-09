@@ -28,7 +28,8 @@ class Skills extends Controller
      */
     public function listInjectRowClass($record, $definition = null)
     {
-        if (!$record->is_enabled)
+        if (!$record->is_visible) {
             return 'safe disabled';
+        }
     }
 }

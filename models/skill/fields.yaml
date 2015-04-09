@@ -3,9 +3,9 @@
 # ===================================
 
 fields:
-    is_enabled:
+    is_visible:
         type: checkbox
-        label: Enabled
+        label: Visible
         comment: Uncheck this box to hide the skill from users.
         default: true
 

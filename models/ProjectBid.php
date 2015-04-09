@@ -10,6 +10,8 @@ use Markdown;
 class ProjectBid extends Model
 {
 
+    use \Ahoy\Traits\ModelUtils;
+
     const STATUS_DRAFT = 'draft';
     const STATUS_ACTIVE = 'active';
     const STATUS_HIDDEN = 'hidden';
