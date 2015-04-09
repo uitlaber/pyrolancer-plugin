@@ -2,11 +2,12 @@
 
 use Auth;
 use Input;
+use ApplicationException;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage;
 use Ahoy\Pyrolancer\Models\ProjectBid;
-use ApplicationException;
+use Ahoy\Pyrolancer\Models\ProjectExtraDetail;
 
 class Project extends ComponentBase
 {
@@ -43,25 +44,44 @@ class Project extends ComponentBase
     }
 
     //
-    // Bidding
+    // Client
     //
 
-    public function onPostBid()
+    public function onAddExtraDetails()
+    {
+        if (!$project = $this->lookupModelSecure(new ProjectModel))
+            throw new ApplicationException('Action failed');
+
+        $extra = new ProjectExtraDetail;
+        $extra->description = post('description');
+        $extra->project = $project;
+        $extra->save();
+
+        $this->page['project'] = $project;
+    }
+
+    //
+    // Worker
+    //
+
+    public function onSubmitBid()
     {
         $user = $this->lookupUser();
         $project = $this->lookupModel(new ProjectModel);
 
-        $bid = new ProjectBid;
-        $bid->user = $user;
-        $bid->project = $project;
-        $bid->details = post('details');
+        if (!$bid = $project->hasBid($user)) {
+            $bid = new ProjectBid;
+            $bid->user = $user;
+            $bid->project = $project;
+        }
+
+        $bid->fill(post('Bid'));
         $bid->save();
 
         $this->page['bid'] = $bid;
         $this->page['project'] = $project;
         $this->page['success'] = true;
     }
-
 
     //
     // Messaging

@@ -142,6 +142,9 @@ class Project extends Model
         return true;
     }
 
+    /**
+     * Checks if the supplied user has a bid, and if true returns it.
+     */
     public function hasBid($user = null)
     {
         if (!$user = $this->lookupUser($user))
@@ -151,7 +154,7 @@ class Project extends Model
             return $bid->user_id == $user->id;
         });
 
-        return !is_null($userBid);
+        return is_null($userBid) ? false : $userBid;
     }
 
     /**

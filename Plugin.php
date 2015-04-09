@@ -73,9 +73,8 @@ class Plugin extends PluginBase
     {
         return [
            '\Ahoy\Pyrolancer\Components\Dashboard'      => 'dashboard',
-           '\Ahoy\Pyrolancer\Components\Project'        => 'project',
            '\Ahoy\Pyrolancer\Components\Projects'       => 'projects',
-           '\Ahoy\Pyrolancer\Components\ProjectManage'  => 'projectManage',
+           '\Ahoy\Pyrolancer\Components\Project'        => 'project',
            '\Ahoy\Pyrolancer\Components\ProjectSubmit'  => 'projectSubmit',
            '\Ahoy\Pyrolancer\Components\ProjectValues'  => 'projectValues',
            '\Ahoy\Pyrolancer\Components\WorkerSkills'   => 'workerSkills',

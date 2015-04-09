@@ -19,9 +19,9 @@ class CreateProjectBidsTable extends Migration
             $table->text('details')->nullable();
             $table->text('details_html')->nullable();
             $table->decimal('hourly_rate', 15, 2)->default(0);
-            $table->integer('total_hours')->nullable();
-            $table->decimal('total', 15, 2)->default(0);
-            $table->integer('days')->nullable();
+            $table->integer('hourly_hours')->nullable();
+            $table->decimal('fixed_rate', 15, 2)->default(0);
+            $table->integer('deliver_days')->nullable();
             $table->boolean('is_nda_signed')->default(false);
             $table->index(['user_id', 'project_id'], 'user_project');
             $table->timestamps();

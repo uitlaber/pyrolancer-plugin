@@ -26,12 +26,18 @@ class ProjectBid extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = [];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'details',
+        'hourly_rate',
+        'hourly_hours',
+        'fixed_rate',
+        'deliver_days',
+    ];
 
     /**
      * @var array Relations
