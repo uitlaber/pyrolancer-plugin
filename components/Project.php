@@ -2,6 +2,7 @@
 
 use Auth;
 use Input;
+use Redirect;
 use ApplicationException;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
@@ -78,9 +79,23 @@ class Project extends ComponentBase
         $bid->fill(post('Bid'));
         $bid->save();
 
+        $project->reloadRelations();
+
         $this->page['bid'] = $bid;
+        $this->page['bids'] = $project->bids;
         $this->page['project'] = $project;
-        $this->page['success'] = true;
+        $this->page['bidSuccess'] = true;
+    }
+
+    public function onRemoveBid()
+    {
+        $project = $this->lookupModel(new ProjectModel);
+
+        if ($bid = $project->hasBid()) {
+            $bid->delete();
+        }
+
+        return Redirect::refresh();
     }
 
     //
