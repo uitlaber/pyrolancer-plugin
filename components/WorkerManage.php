@@ -1,16 +1,19 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Cms\Classes\ComponentBase;
-use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Skill;
+use Ahoy\Pyrolancer\Models\SkillCategory;
+use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 
-class WorkerSkills extends ComponentBase
+class WorkerManage extends ComponentBase
 {
+
+    use \Ahoy\Traits\ComponentUtils;
 
     public function componentDetails()
     {
         return [
-            'name'        => 'Skill selector',
+            'name'        => 'Manager Worker Profile',
             'description' => 'Allows workers to select their skills'
         ];
     }
@@ -20,6 +23,30 @@ class WorkerSkills extends ComponentBase
         return [];
     }
 
+    //
+    // Object properties
+    //
+
+    public function worker()
+    {
+        return $this->lookupObject(__FUNCTION__, WorkerModel::getFromUser());
+    }
+
+    //
+    // AJAX
+    //
+
+    public function onSaveProfile()
+    {
+        $worker = $this->worker();
+        $worker->fill(post('Worker'));
+        $worker->save();
+    }
+
+    //
+    // Skills
+    //
+
     public function onGetSkillTree()
     {
         $result = [];
@@ -27,10 +54,6 @@ class WorkerSkills extends ComponentBase
         $result['skillTree'] = $this->makeSkillTree();
         return $result;
     }
-
-    //
-    // Internals
-    //
 
     protected function makeSkillTree()
     {

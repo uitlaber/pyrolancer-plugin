@@ -85,15 +85,6 @@ class Project extends Model
         'files' => ['System\Models\File'],
     ];
 
-    // public function beforeSave()
-    // {
-    //     if ($this->isDirty('description'))
-    //         $this->description_html = Markdown::parse(trim($this->description));
-
-    //     if ($this->isDirty('instructions'))
-    //         $this->instructions_html = Markdown::parse(trim($this->instructions));
-    // }
-
     public function setDescriptionAttribute($value)
     {
         $this->attributes['description'] = $value;

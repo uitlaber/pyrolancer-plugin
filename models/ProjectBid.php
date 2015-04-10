@@ -1,7 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
+use ApplicationException;
 use Ahoy\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Markdown;
 
 /**
@@ -56,6 +58,7 @@ class ProjectBid extends Model
      */
     public $belongsTo = [
         'user'    => ['RainLab\User\Models\User'],
+        'worker'  => ['Ahoy\Pyrolancer\Models\Worker'],
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
         'status'  => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.status'"],
         'type'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.type'"],
@@ -74,6 +77,22 @@ class ProjectBid extends Model
                 ->whereCode('active')
                 ->first();
         }
+    }
+
+    public static function makeForProject($project, $user = null)
+    {
+        if ($user === null)
+            $user = Auth::getUser();
+
+        if (!$user)
+            throw new ApplicationException('You must be logged in!');
+
+        $worker = WorkerModel::getFromUser($user);
+
+        $bid = new static;
+        $bid->user = $user;
+        $bid->project = $project;
+        $bid->worker = $worker;
     }
 
 }

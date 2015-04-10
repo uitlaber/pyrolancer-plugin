@@ -17,6 +17,16 @@ class CreateFreelancersTable extends Migration
             $table->string('slug')->nullable();
             $table->text('description')->nullable();
             $table->integer('stat_bids')->default(0);
+
+            // Location
+            $table->string('address')->nullable();
+            $table->string('city', 100)->nullable();
+            $table->string('zip', 20)->nullable();
+            $table->integer('country_id')->unsigned()->nullable()->index();
+            $table->integer('state_id')->unsigned()->nullable()->index();
+            $table->decimal('latitude', 10, 6)->nullable();
+            $table->decimal('longitude', 10, 6)->nullable();
+
             $table->dateTime('last_active_at')->index()->nullable();
             $table->timestamps();
         });

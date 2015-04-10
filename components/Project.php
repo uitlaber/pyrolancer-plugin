@@ -15,8 +15,6 @@ class Project extends ComponentBase
 
     use \Ahoy\Traits\ComponentUtils;
 
-    public $project;
-
     public function componentDetails()
     {
         return [
@@ -37,9 +35,13 @@ class Project extends ComponentBase
         ];
     }
 
-    public function onRun()
+    //
+    // Object properties
+    //
+
+    public function project()
     {
-        $this->project = $this->lookupModel(new ProjectModel, function($query) {
+        return $this->lookupModel(new ProjectModel, function($query) {
             // $query->with('quotes');
         });
     }
@@ -70,10 +72,8 @@ class Project extends ComponentBase
         $user = $this->lookupUser();
         $project = $this->lookupModel(new ProjectModel);
 
-        if (!$bid = $project->hasBid($user)) {
-            $bid = new ProjectBid;
-            $bid->user = $user;
-            $bid->project = $project;
+        if (!$bid = $project->hasBid()) {
+            $bid = ProjectBid::makeForProject($project);
         }
 
         $bid->fill(post('Bid'));

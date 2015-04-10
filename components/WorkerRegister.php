@@ -52,19 +52,27 @@ class WorkerRegister extends ComponentBase
         }
     }
 
-    public function getWorker()
+    //
+    // Object properties
+    //
+
+    public function worker()
     {
-        return WorkerModel::getFromUser();
+        return $this->lookupObject(__FUNCTION__, WorkerModel::getFromUser());
     }
 
-    public function getCategories()
+    public function categories()
     {
-        return SkillCategory::all();
+        return $this->lookupObject(__FUNCTION__, SkillCategory::all());
     }
+
+    //
+    // AJAX
+    //
 
     public function onReturnCategory()
     {
-        $this->page['categories'] = $this->getCategories();
+        $this->page['categories'] = $this->categories();
         $this->page['step'] = 1;
     }
 
@@ -89,7 +97,7 @@ class WorkerRegister extends ComponentBase
     public function onSelectSkills()
     {
         $user = $this->lookupUser();
-        $worker = WorkerModel::getFromUser();
+        $worker = $this->worker();
         $worker->skills = post('skills');
         $worker->save();
     }
@@ -102,7 +110,7 @@ class WorkerRegister extends ComponentBase
         $user->is_worker = true;
         $user->save();
 
-        $worker = WorkerModel::getFromUser();
+        $worker = $this->worker();
         $worker->business_name = post('business_name');
         $worker->description = post('description');
         $worker->save();

@@ -10,6 +10,15 @@ class Worker extends Model
 {
 
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Validation;
+    use \Responsiv\Geolocation\Traits\LocationCode;
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'business_name' => 'required',
+    ];
 
     /**
      * @var string The database table used by the model.
@@ -24,13 +33,18 @@ class Worker extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'business_name',
+        'description',
+    ];
 
     /**
      * @var array Relations
      */
     public $belongsTo = [
-        'user' => ['RainLab\User\Models\User']
+        'user'     => ['RainLab\User\Models\User'],
+        'country'  => ['RainLab\User\Models\Country'],
+        'state'    => ['RainLab\User\Models\State'],
     ];
 
     /**
@@ -61,7 +75,7 @@ class Worker extends Model
         if (!$user->worker) {
             $worker = new static;
             $worker->user = $user;
-            $worker->save();
+            $worker->forceSave();
 
             $user->worker = $worker;
         }
