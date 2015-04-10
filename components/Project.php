@@ -42,7 +42,8 @@ class Project extends ComponentBase
     public function project()
     {
         return $this->lookupModel(new ProjectModel, function($query) {
-            // $query->with('quotes');
+            $query->with('bids.user.avatar');
+            $query->with('bids.worker.logo');
         });
     }
 

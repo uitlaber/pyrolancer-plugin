@@ -54,6 +54,10 @@ class Worker extends Model
         'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_workers_skills', 'order' => 'name']
     ];
 
+    public $attachOne = [
+        'logo' => ['System\Models\File']
+    ];
+
     /**
      * @var array Auto generated slug
      */

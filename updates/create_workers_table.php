@@ -16,7 +16,6 @@ class CreateFreelancersTable extends Migration
             $table->string('business_name')->nullable();
             $table->string('slug')->nullable();
             $table->text('description')->nullable();
-            $table->integer('stat_bids')->default(0);
 
             // Location
             $table->string('address')->nullable();
@@ -27,6 +26,7 @@ class CreateFreelancersTable extends Migration
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
 
+            $table->integer('count_bids')->default(0);
             $table->dateTime('last_active_at')->index()->nullable();
             $table->timestamps();
         });
