@@ -16,12 +16,13 @@ class CreateProjectBidsTable extends Migration
             $table->integer('worker_id')->unsigned()->index()->nullable();
             $table->integer('project_id')->unsigned()->index()->nullable();
             $table->integer('status_id')->unsigned()->index()->nullable();
+            $table->integer('type_id')->unsigned()->index()->nullable();
             $table->text('details')->nullable();
             $table->text('details_html')->nullable();
             $table->decimal('hourly_rate', 15, 2)->default(0);
             $table->integer('hourly_hours')->nullable();
             $table->decimal('fixed_rate', 15, 2)->default(0);
-            $table->integer('deliver_days')->nullable();
+            $table->integer('fixed_days')->nullable();
             $table->boolean('is_nda_signed')->default(false);
             $table->index(['user_id', 'project_id'], 'user_project');
             $table->timestamps();

@@ -11,12 +11,23 @@ class ProjectBid extends Model
 {
 
     use \Ahoy\Traits\ModelUtils;
+    use \October\Rain\Database\Traits\Validation;
 
     const STATUS_DRAFT = 'draft';
     const STATUS_ACTIVE = 'active';
     const STATUS_HIDDEN = 'hidden';
     const STATUS_SHORTLISTED = 'shortlisted';
     const STATUS_ACCEPTED = 'accepted';
+
+    const TYPE_FIXED = 'fixed';
+    const TYPE_HOURLY = 'hourly';
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'details' => 'required',
+    ];
 
     /**
      * @var string The database table used by the model.
@@ -36,7 +47,8 @@ class ProjectBid extends Model
         'hourly_rate',
         'hourly_hours',
         'fixed_rate',
-        'deliver_days',
+        'fixed_days',
+        'type'
     ];
 
     /**
@@ -46,6 +58,7 @@ class ProjectBid extends Model
         'user'    => ['RainLab\User\Models\User'],
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
         'status'  => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.status'"],
+        'type'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.type'"],
     ];
 
     public function beforeSave()

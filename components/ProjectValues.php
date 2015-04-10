@@ -57,6 +57,11 @@ class ProjectValues extends ComponentBase
         return ProjectOption::forType(ProjectOption::BUDGET_TIMEFRAME)->get();
     }
 
+    public function bidTypeOptions()
+    {
+        return ProjectOption::forType(ProjectOption::BID_TYPE)->get();
+    }
+
     //
     // AJAX
     //
