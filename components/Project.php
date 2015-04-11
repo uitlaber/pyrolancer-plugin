@@ -74,7 +74,11 @@ class Project extends ComponentBase
         $project = $this->lookupModel(new ProjectModel);
 
         if (!$bid = $project->hasBid()) {
+            $this->page['bidCreated'] = true;
             $bid = ProjectBid::makeForProject($project);
+        }
+        else {
+            $this->page['bidUpdated'] = true;
         }
 
         $bid->fill((array) post('Bid'));
@@ -85,7 +89,6 @@ class Project extends ComponentBase
         $this->page['bid'] = $bid;
         $this->page['bids'] = $project->bids;
         $this->page['project'] = $project;
-        $this->page['bidSuccess'] = true;
     }
 
     public function onRemoveBid()
