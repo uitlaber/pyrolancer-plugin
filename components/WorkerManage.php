@@ -1,6 +1,8 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Cms\Classes\ComponentBase;
+use RainLab\User\Models\State;
+use RainLab\User\Models\Country;
 use Ahoy\Pyrolancer\Models\Skill;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
@@ -39,8 +41,28 @@ class WorkerManage extends ComponentBase
     public function onSaveProfile()
     {
         $worker = $this->worker();
-        $worker->fill(post('Worker'));
+        $worker->fill((array) post('Worker'));
         $worker->save();
+
+        $user = $this->lookupUser();
+        $user->fill((array) post('User'));
+        $user->country_id = post('country_id');
+        $user->state_id = post('state_id');
+        $user->save();
+    }
+
+    public function onChangeLocation()
+    {
+        $country = Country::isEnabled()->whereCode(post('country_code'))->first();
+        if ($country) {
+            $state = State::whereCode(post('state_code'))->first();
+            $this->page['countryId'] = $country->id;
+            $this->page['stateId'] = $state->id;
+        }
+        else {
+            $this->page['countryId'] = -1;
+            $this->page['stateId'] = -1;
+        }
     }
 
     //

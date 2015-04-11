@@ -99,21 +99,21 @@ class WorkerRegister extends ComponentBase
         $user = $this->lookupUser();
         $worker = $this->worker();
         $worker->skills = post('skills');
-        $worker->save();
+        $worker->forceSave();
     }
 
     public function onCompleteProfile()
     {
+        $worker = $this->worker();
+        $worker->fill((array) post('Worker'));
+        $worker->save();
+
         $user = $this->lookupUser();
+        $user->fill((array) post('User'));
         $user->country_id = post('country_id');
         $user->state_id = post('state_id');
         $user->is_worker = true;
         $user->save();
-
-        $worker = $this->worker();
-        $worker->business_name = post('business_name');
-        $worker->description = post('description');
-        $worker->save();
     }
 
 }

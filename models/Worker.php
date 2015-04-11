@@ -11,7 +11,6 @@ class Worker extends Model
 
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
-    use \Responsiv\Geolocation\Traits\LocationCode;
 
     /*
      * Validation
@@ -36,6 +35,9 @@ class Worker extends Model
     protected $fillable = [
         'business_name',
         'description',
+        'address',
+        'latitude',
+        'longitude',
     ];
 
     /**
@@ -43,8 +45,6 @@ class Worker extends Model
      */
     public $belongsTo = [
         'user'     => ['RainLab\User\Models\User'],
-        'country'  => ['RainLab\User\Models\Country'],
-        'state'    => ['RainLab\User\Models\State'],
     ];
 
     /**

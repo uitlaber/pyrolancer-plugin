@@ -77,7 +77,7 @@ class Project extends ComponentBase
             $bid = ProjectBid::makeForProject($project);
         }
 
-        $bid->fill(post('Bid'));
+        $bid->fill((array) post('Bid'));
         $bid->save();
 
         $project->reloadRelations();
