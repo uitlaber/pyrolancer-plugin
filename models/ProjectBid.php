@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Auth;
 use Model;
 use ApplicationException;
 use Ahoy\Pyrolancer\Models\ProjectOption;
@@ -93,6 +94,7 @@ class ProjectBid extends Model
         $bid->user = $user;
         $bid->project = $project;
         $bid->worker = $worker;
+        return $bid;
     }
 
 }
