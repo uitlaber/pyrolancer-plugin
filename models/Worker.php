@@ -38,6 +38,10 @@ class Worker extends Model
         'address',
         'latitude',
         'longitude',
+        'contact_email',
+        'contact_phone',
+        'website_url',
+        'budget',
     ];
 
     /**
