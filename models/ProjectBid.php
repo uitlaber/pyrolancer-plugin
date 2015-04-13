@@ -3,7 +3,7 @@
 use Auth;
 use Model;
 use ApplicationException;
-use Ahoy\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\Attribute;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Markdown;
 
@@ -61,8 +61,8 @@ class ProjectBid extends Model
         'user'    => ['RainLab\User\Models\User'],
         'worker'  => ['Ahoy\Pyrolancer\Models\Worker'],
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
-        'status'  => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.status'"],
-        'type'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'bid.type'"],
+        'status'  => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'bid.status'"],
+        'type'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'bid.type'"],
     ];
 
     public function beforeSave()
@@ -74,7 +74,7 @@ class ProjectBid extends Model
     public function beforeCreate()
     {
         if (!$this->status_id) {
-            $this->status = ProjectOption::forType(ProjectOption::BID_STATUS)
+            $this->status = Attribute::forType(Attribute::BID_STATUS)
                 ->whereCode('active')
                 ->first();
         }

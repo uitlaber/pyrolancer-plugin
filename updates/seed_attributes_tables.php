@@ -3,9 +3,9 @@
 use October\Rain\Database\Updates\Seeder;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectBid;
-use Ahoy\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\Attribute;
 
-class SeedProjectOptionsTables extends Seeder
+class SeedAttributesTables extends Seeder
 {
 
     public function run()
@@ -79,20 +79,20 @@ class SeedProjectOptionsTables extends Seeder
         ];
 
         $map = [
-            ProjectOption::PROJECT_STATUS => $projectStatus,
-            ProjectOption::PROJECT_TYPE => $projectTypes,
-            ProjectOption::POSITION_TYPE => $positionTypes,
-            ProjectOption::BUDGET_TYPE => $budgetTypes,
-            ProjectOption::BUDGET_FIXED => $budgetFixed,
-            ProjectOption::BUDGET_HOURLY => $budgetHourly,
-            ProjectOption::BUDGET_TIMEFRAME => $budgetTimeframe,
-            ProjectOption::BID_STATUS => $bidStatus,
-            ProjectOption::BID_TYPE => $bidType,
+            Attribute::PROJECT_STATUS => $projectStatus,
+            Attribute::PROJECT_TYPE => $projectTypes,
+            Attribute::POSITION_TYPE => $positionTypes,
+            Attribute::BUDGET_TYPE => $budgetTypes,
+            Attribute::BUDGET_FIXED => $budgetFixed,
+            Attribute::BUDGET_HOURLY => $budgetHourly,
+            Attribute::BUDGET_TIMEFRAME => $budgetTimeframe,
+            Attribute::BID_STATUS => $bidStatus,
+            Attribute::BID_TYPE => $bidType,
         ];
 
         foreach ($map as $type => $items) {
             foreach ($items as $data) {
-                ProjectOption::create(array_merge($data, ['type' => $type]));
+                Attribute::create(array_merge($data, ['type' => $type]));
             }
         }
 

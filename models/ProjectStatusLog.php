@@ -58,7 +58,7 @@ class ProjectStatusLog extends Model
 
     public static function updateProjectStatus($project, $code, $data = null)
     {
-        if (!$status = ProjectOption::forType(ProjectOption::PROJECT_STATUS)->whereCode($code)->first())
+        if (!$status = Attribute::forType(Attribute::PROJECT_STATUS)->whereCode($code)->first())
             return false;
 
         // Same status

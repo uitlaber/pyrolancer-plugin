@@ -69,13 +69,13 @@ class Project extends Model
 
     public $belongsTo = [
         'category'         => ['Ahoy\Pyrolancer\Models\ProjectCategory'],
-        'status'           => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.status'"],
-        'project_type'     => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'project.type'"],
-        'position_type'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'position.type'"],
-        'budget_type'      => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.type'"],
-        'budget_fixed'     => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.fixed'"],
-        'budget_hourly'    => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.hourly'"],
-        'budget_timeframe' => ['Ahoy\Pyrolancer\Models\ProjectOption', 'conditions' => "type = 'budget.timeframe'"],
+        'status'           => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'project.status'"],
+        'project_type'     => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'project.type'"],
+        'position_type'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'position.type'"],
+        'budget_type'      => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.type'"],
+        'budget_fixed'     => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.fixed'"],
+        'budget_hourly'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.hourly'"],
+        'budget_timeframe' => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.timeframe'"],
         'country'          => ['RainLab\User\Models\Country'],
         'state'            => ['RainLab\User\Models\State'],
         'user'             => ['RainLab\User\Models\User'],
@@ -100,7 +100,7 @@ class Project extends Model
     public function beforeCreate()
     {
         if (!$this->status_id) {
-            $this->status = ProjectOption::forType(ProjectOption::PROJECT_STATUS)
+            $this->status = Attribute::forType(Attribute::PROJECT_STATUS)
                 ->whereCode(self::STATUS_DRAFT)
                 ->first();
         }

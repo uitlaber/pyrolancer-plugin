@@ -5,7 +5,10 @@ use Flash;
 use Redirect;
 use Ahoy\Pyrolancer\Classes\ProjectData;
 use Ahoy\Pyrolancer\Models\ProjectStatusLog;
+use Ahoy\Pyrolancer\Models\Skill as SkillModel;
+use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\ProjectCategory;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
 
@@ -120,6 +123,59 @@ class ProjectSubmit extends ComponentBase
             throw new ApplicationException('Unable to authenticate, please contact support.');
 
         return $user;
+    }
+
+    //
+    // Skills
+    //
+
+    public function onGetCategorySkillMap()
+    {
+        $result = [];
+        $result['categories'] = $this->makeCategoryTree();
+        $result['skills'] = SkillModel::lists('name', 'id');
+        $result['categorySkillMap'] = $this->makeCategorySkillMap();
+        return $result;
+    }
+
+    protected function makeCategorySkillMap()
+    {
+        $idMap = ProjectCategory::skills()->newPivotStatement()->get();
+        $result = [];
+
+        foreach ($idMap as $map) {
+            if (!isset($result[$map->category_id]))
+                $result[$map->category_id] = [];
+
+            $result[$map->category_id][] = $map->skill_id;
+        }
+
+        return $result;
+    }
+
+    protected function makeCategoryTree()
+    {
+        $buildResult = function($nodes) use (&$buildResult) {
+            $result = [];
+
+            foreach ($nodes as $node) {
+                $item = [
+                    'id' => $node->id,
+                    'name' => $node->name
+                ];
+
+                $children = $node->getChildren();
+                if ($children->count())
+                    $item['children'] = $buildResult($children);
+
+                $result[] = $item;
+            }
+
+            return $result;
+        };
+
+        $children = ProjectCategory::make()->getAllRoot();
+        return $buildResult($children);
     }
 
 }

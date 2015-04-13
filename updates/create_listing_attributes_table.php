@@ -3,12 +3,12 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class CreateProjectOptionsTable extends Migration
+class CreateAttributesTable extends Migration
 {
 
     public function up()
     {
-        Schema::create('ahoy_pyrolancer_project_options', function($table)
+        Schema::create('ahoy_pyrolancer_attributes', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -24,7 +24,7 @@ class CreateProjectOptionsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('ahoy_pyrolancer_project_options');
+        Schema::dropIfExists('ahoy_pyrolancer_attributes');
     }
 
 }

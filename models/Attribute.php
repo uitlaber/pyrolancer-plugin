@@ -3,9 +3,9 @@
 use Model;
 
 /**
- * ProjectOption Model
+ * Attribute Model
  */
-class ProjectOption extends Model
+class Attribute extends Model
 {
     use \October\Rain\Database\Traits\Sortable;
 
@@ -25,7 +25,7 @@ class ProjectOption extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_project_options';
+    public $table = 'ahoy_pyrolancer_attributes';
 
     /**
      * @var array Guarded fields

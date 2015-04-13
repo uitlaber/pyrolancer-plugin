@@ -1,10 +1,10 @@
 1.0.1: First version of Pyrolancer
 1.0.2:
     - Create database tables
+    - create_attributes_table.php
     - create_workers_table.php
     - create_projects_table.php
     - create_project_bids_table.php
-    - create_project_options_table.php
     - create_project_categories_table.php
     - create_project_extra_details_table.php
     - create_project_messages_table.php
@@ -14,7 +14,7 @@
 1.0.3:
     - Seed all database tables
     - seed_category_and_skill_tables.php
-    - seed_project_options_tables.php
+    - seed_attributes_tables.php
     - seed_tables.php
 1.0.4:
     - Add client or worker flags to user

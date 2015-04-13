@@ -2,7 +2,8 @@
 
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-
+use Ahoy\Pyrolancer\Models\Skill as SkillModel;
+use Ahoy\Pyrolancer\Models\SkillCategory;
 
 class Projects extends ComponentBase
 {
@@ -24,6 +25,26 @@ class Projects extends ComponentBase
     public function onRun()
     {
         $this->projects = ProjectModel::all();
+    }
+
+    //
+    // Object properties
+    //
+
+    public function skillCategories()
+    {
+        return SkillCategory::isVisible()->get();
+    }
+
+    //
+    // AJAX
+    //
+
+    public function onGetSkills()
+    {
+        $result = [];
+        $result['skills'] = SkillModel::lists('name', 'id');
+        return $result;
     }
 
 }

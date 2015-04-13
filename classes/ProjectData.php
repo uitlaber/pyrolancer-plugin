@@ -5,7 +5,7 @@ use Validator;
 use ApplicationException;
 use ValidationException;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\ProjectOption;
+use Ahoy\Pyrolancer\Models\Attribute;
 use Markdown;
 
 /**
@@ -65,7 +65,7 @@ class ProjectData
         if (!array_get($data, 'is_remote'))
             $rules['address'] = 'required';
 
-        $projectTypes = ProjectOption::forType(ProjectOption::PROJECT_TYPE)->lists('id', 'code');
+        $projectTypes = Attribute::forType(Attribute::PROJECT_TYPE)->lists('id', 'code');
 
         /*
          * Advertisement
@@ -78,7 +78,7 @@ class ProjectData
          * Auction
          */
         else if (array_get($data, 'project_type') == array_get($projectTypes, 'auction')) {
-            $budgetTypes = ProjectOption::forType(ProjectOption::BUDGET_TYPE)->lists('id', 'code');
+            $budgetTypes = Attribute::forType(Attribute::BUDGET_TYPE)->lists('id', 'code');
 
             $rules['budget_type'] = 'required';
 

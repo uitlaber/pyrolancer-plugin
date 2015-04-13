@@ -15,6 +15,9 @@ class CreateFreelancersTable extends Migration
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->string('business_name')->nullable();
             $table->string('slug')->nullable();
+            $table->string('contact_email')->nullable();
+            $table->string('contact_phone')->nullable();
+            $table->string('website_url')->nullable();
             $table->text('description')->nullable();
 
             // Location
