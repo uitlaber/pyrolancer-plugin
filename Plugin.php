@@ -81,6 +81,7 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\WorkerManage'    => 'workerManage',
            '\Ahoy\Pyrolancer\Components\WorkerRegister'  => 'workerRegister',
            '\Ahoy\Pyrolancer\Components\ClientProjects'  => 'clientProjects',
+           '\Ahoy\Pyrolancer\Components\PortfolioManage' => 'portfolioManage',
         ];
     }
 
