@@ -78,6 +78,14 @@ class SeedAttributesTables extends Seeder
             ['name' => 'Hourly', 'label' => 'Hourly rate', 'code' => ProjectBid::TYPE_HOURLY],
         ];
 
+        $workerBudget = [
+            ['name' => '$3,000 and under'],
+            ['name' => '$3,000-$10,000'],
+            ['name' => '$10,000-$25,000'],
+            ['name' => '$25,000-$50,000'],
+            ['name' => 'Over $50,000'],
+        ];
+
         $map = [
             Attribute::PROJECT_STATUS => $projectStatus,
             Attribute::PROJECT_TYPE => $projectTypes,
@@ -88,6 +96,7 @@ class SeedAttributesTables extends Seeder
             Attribute::BUDGET_TIMEFRAME => $budgetTimeframe,
             Attribute::BID_STATUS => $bidStatus,
             Attribute::BID_TYPE => $bidType,
+            Attribute::WORKER_BUDGET => $workerBudget,
         ];
 
         foreach ($map as $type => $items) {

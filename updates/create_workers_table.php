@@ -13,6 +13,7 @@ class CreateFreelancersTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
+            $table->integer('budget_id')->unsigned()->index()->nullable();
             $table->string('business_name')->nullable();
             $table->string('slug')->nullable();
             $table->string('contact_email')->nullable();

@@ -18,6 +18,7 @@ class Attribute extends Model
     const BUDGET_TIMEFRAME = 'budget.timeframe';
     const BID_STATUS = 'bid.status';
     const BID_TYPE = 'bid.type';
+    const WORKER_BUDGET = 'worker.budget';
 
     public static $recordCache;
     public static $codeCache;

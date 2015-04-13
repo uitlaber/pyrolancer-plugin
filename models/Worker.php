@@ -45,6 +45,7 @@ class Worker extends Model
      */
     public $belongsTo = [
         'user'     => ['RainLab\User\Models\User'],
+        'budget'   => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
     ];
 
     /**

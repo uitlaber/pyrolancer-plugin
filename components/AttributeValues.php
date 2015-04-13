@@ -49,8 +49,13 @@ class AttributeValues extends ComponentBase
         return Attribute::forType(Attribute::BUDGET_TIMEFRAME)->get();
     }
 
-    public function bidTypeOptions()
+    public function bidTypes()
     {
         return Attribute::forType(Attribute::BID_TYPE)->get();
+    }
+
+    public function workerBudgetOptions()
+    {
+        return Attribute::forType(Attribute::WORKER_BUDGET)->get();
     }
 }
