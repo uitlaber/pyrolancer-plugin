@@ -8,6 +8,8 @@ use Model;
 class Portfolio extends Model
 {
 
+    use \Ahoy\Traits\ModelUtils;
+
     /**
      * @var string The database table used by the model.
      */
@@ -29,5 +31,33 @@ class Portfolio extends Model
     public $belongsTo = [
         'user'     => ['RainLab\User\Models\User'],
     ];
+
+    public $hasMany = [
+        'items'    => ['Ahoy\Pyrolancer\Models\PortfolioItem'],
+    ];
+
+    /**
+     * Automatically creates a worker portfolio if not one already.
+     * @param  Ahoy\Pyrolancer\Models\Worker $user
+     * @return Ahoy\Pyrolancer\Models\Portfolio
+     */
+    public static function getFromWorker($worker = null)
+    {
+        if ($worker === null)
+            $worker = Worker::getFromUser();
+
+        if (!$worker)
+            return null;
+
+        if (!$worker->portfolio) {
+            $portfolio = new static;
+            $portfolio->user = $worker->user;
+            $portfolio->save();
+
+            $worker->portfolio = $portfolio;
+        }
+
+        return $worker->portfolio;
+    }
 
 }

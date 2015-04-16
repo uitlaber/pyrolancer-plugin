@@ -7,6 +7,16 @@ use Model;
  */
 class PortfolioItem extends Model
 {
+    use \Ahoy\Traits\ModelUtils;
+    use \October\Rain\Database\Traits\Validation;
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'image' => 'required',
+        'description' => 'required',
+    ];
 
     /**
      * @var string The database table used by the model.
@@ -16,12 +26,15 @@ class PortfolioItem extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = [];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'description',
+        'website_url',
+    ];
 
     /**
      * @var array Relations
