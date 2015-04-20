@@ -3,6 +3,7 @@
     - Create database tables
     - create_attributes_table.php
     - create_workers_table.php
+    - create_worker_reviews_table.php
     - create_projects_table.php
     - create_project_bids_table.php
     - create_project_categories_table.php

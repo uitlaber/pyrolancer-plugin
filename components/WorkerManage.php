@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Config;
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\State;
 use RainLab\User\Models\Country;
@@ -63,6 +64,20 @@ class WorkerManage extends ComponentBase
             $this->page['countryId'] = -1;
             $this->page['stateId'] = -1;
         }
+    }
+
+    //
+    // Reviews
+    //
+
+    public function onLoadTestimonialForm()
+    {
+        $this->page['from_email'] = Config::get('mail.from.address');
+    }
+
+    public function onSubmitTestimonial()
+    {
+
     }
 
     //
