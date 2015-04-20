@@ -8,6 +8,7 @@ use Model;
 class Skill extends Model
 {
 
+    use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
 
     /**
@@ -32,6 +33,11 @@ class Skill extends Model
         'name' => 'required',
         'category' => 'required',
     ];
+
+    /**
+     * @var array List of attributes to automatically generate unique URL names (slugs) for.
+     */
+    protected $slugs = ['slug' => 'name'];
 
     /**
      * @var array Relations

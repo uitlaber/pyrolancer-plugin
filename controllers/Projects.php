@@ -1,8 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Controllers;
 
+use Flash;
+use Markdown;
 use BackendMenu;
 use Backend\Classes\Controller;
-use Markdown;
 
 /**
  * Projects Back-end Controller
@@ -45,7 +46,7 @@ class Projects extends Controller
     public function preview_onApprove($recordId = null)
     {
         $model = $this->formFindModelObject($recordId);
-        $model->markApproved($reason);
+        $model->markApproved();
 
         Flash::success('This project has been approved.');
 

@@ -12,6 +12,26 @@ fields:
         span: auto
 
     #
+    # Skills
+    #
+    category:
+        label: Category
+        type: relation
+        span: auto
+
+    skills:
+        label: Skills
+        type: relation
+        span: auto
+
+    #
+    # Description
+    #
+    description:
+        label: Description
+        type: textarea
+
+    #
     # Location
     #
 
@@ -141,23 +161,3 @@ fields:
             data-trigger-action: display
             data-trigger: 'select[name="Project[budget_type]"]'
             data-trigger-condition: value[7]
-
-    #
-    # Description
-    #
-    description:
-        label: Description
-        type: textarea
-
-    #
-    # Skills
-    #
-    category:
-        label: Category
-        type: relation
-        span: auto
-
-    skills:
-        label: Skills
-        type: relation
-        span: auto

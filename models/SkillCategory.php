@@ -32,7 +32,7 @@ class SkillCategory extends Model
     /**
      * @var array List of attributes to automatically generate unique URL names (slugs) for.
      */
-     protected $slugs = ['slug' => 'name'];
+    protected $slugs = ['slug' => 'name'];
 
     /**
      * @var array Relations

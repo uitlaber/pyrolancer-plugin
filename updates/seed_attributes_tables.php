@@ -28,8 +28,8 @@ class SeedAttributesTables extends Seeder
 
         $positionTypes = [
             ['name' => 'Freelance / Casual', 'code' => 'casual', 'is_default' => true],
-            ['name' => 'Full time', 'code' => 'parttime'],
-            ['name' => 'Part time', 'code' => 'fulltime'],
+            ['name' => 'Full time', 'code' => 'full-time'],
+            ['name' => 'Part time', 'code' => 'part-time'],
         ];
 
         $budgetTypes = [

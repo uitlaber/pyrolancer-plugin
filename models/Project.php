@@ -2,6 +2,7 @@
 
 use Auth;
 use Model;
+use Backend;
 use Markdown;
 
 /**
@@ -85,6 +86,19 @@ class Project extends Model
         'files' => ['System\Models\File'],
     ];
 
+    /**
+     * The attributes on which the post list can be ordered
+     * @var array
+     */
+    public static $allowedSortingOptions = array(
+        'name asc' => 'Name (ascending)',
+        'name desc' => 'Name (descending)',
+        'created_at asc' => 'Posted date (ascending)',
+        'created_at desc' => 'Posted date (descending)',
+        'updated_at asc' => 'Last updated (ascending)',
+        'updated_at desc' => 'Last updated (descending)',
+    );
+
     public function setDescriptionAttribute($value)
     {
         $this->attributes['description'] = $value;
@@ -106,9 +120,69 @@ class Project extends Model
         }
     }
 
+    /**
+     * Lists projects for the front end
+     * @param  array $options Display options
+     * @return self
+     */
+    public function scopeListFrontEnd($query, $options = [])
+    {
+        /*
+         * Default options
+         */
+        extract(array_merge([
+            'page'       => 1,
+            'perPage'    => 30,
+            'sort'       => 'created_at',
+            'skills'     => null,
+            'search'     => '',
+            'visible'    => true
+        ], $options));
+
+        $searchableFields = ['name', 'slug', 'description'];
+
+        if ($visible)
+            $query->isVisible();
+
+        /*
+         * Sorting
+         */
+        if (!is_array($sort)) $sort = [$sort];
+        foreach ($sort as $_sort) {
+
+            if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
+                $parts = explode(' ', $_sort);
+                if (count($parts) < 2) array_push($parts, 'desc');
+                list($sortField, $sortDirection) = $parts;
+
+                $query->orderBy($sortField, $sortDirection);
+            }
+        }
+
+        /*
+         * Search
+         */
+        $search = trim($search);
+        if (strlen($search)) {
+            $query->searchWhere($search, $searchableFields);
+        }
+
+        /*
+         * Skills
+         */
+        if ($skills !== null) {
+            if (!is_array($skills)) $skills = [$skills];
+            $query->whereHas('skills', function($q) use ($skills) {
+                $q->whereIn('id', $skills);
+            });
+        }
+
+        return $query->paginate($perPage, $page);
+    }
+
     public function getBackendUrl()
     {
-        return \Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
+        return Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
     }
 
     public function getUrl()
@@ -118,6 +192,19 @@ class Project extends Model
             'slug' => $this->slug,
         ]);
     }
+
+    //
+    // Scopes
+    //
+
+    public function scopeIsVisible($query)
+    {
+        return $query->where('is_visible', true);
+    }
+
+    //
+    // Helpers
+    //
 
     /**
      * Can the user bid on this project
@@ -167,14 +254,6 @@ class Project extends Model
         return $this->isOwner($user);
     }
 
-    public function scopeApplyOwner($query, $user = null)
-    {
-        if (!$user = $this->lookupUser($user))
-            return $query->whereRaw('1 = 2');
-
-        return $query->where('user_id', $user->id);
-    }
-
     //
     // Status workflow
     //
@@ -186,16 +265,18 @@ class Project extends Model
 
     public function markApproved()
     {
+        $this->update(['is_visible' => true]);
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
     }
 
-    public function markRejected()
+    public function markRejected($reason = null)
     {
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_REJECTED);
     }
 
     public function markSuspended()
     {
+        $this->update(['is_visible' => false]);
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_SUSPENDED);
     }
 

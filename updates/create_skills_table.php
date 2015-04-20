@@ -13,6 +13,7 @@ class CreateSkillsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name')->nullable();
+            $table->string('slug')->index()->unique();
             $table->integer('category_id')->unsigned()->index()->nullable();
             $table->boolean('is_visible')->default(true);
             $table->timestamps();

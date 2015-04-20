@@ -12,6 +12,7 @@ class CreateProjectsTable extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->boolean('is_visible')->default(false);
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->index();
             $table->text('description')->nullable();
