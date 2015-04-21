@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Str;
 use Model;
 
 /**
@@ -7,6 +8,15 @@ use Model;
  */
 class WorkerReview extends Model
 {
+
+    use \October\Rain\Database\Traits\Validation;
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'user' => 'required',
+    ];
 
     /**
      * @var string The database table used by the model.
@@ -16,7 +26,7 @@ class WorkerReview extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = [];
 
     /**
      * @var array Fillable fields
@@ -26,14 +36,26 @@ class WorkerReview extends Model
     /**
      * @var array Relations
      */
-    public $hasOne = [];
-    public $hasMany = [];
-    public $belongsTo = [];
-    public $belongsToMany = [];
-    public $morphTo = [];
-    public $morphOne = [];
-    public $morphMany = [];
-    public $attachOne = [];
-    public $attachMany = [];
+    public $belongsTo = [
+        'user'     => ['RainLab\User\Models\User'],
+    ];
+
+    public static function createTestimonial($worker, $data)
+    {
+        $review = new self;
+        $review->user_id = $worker->user_id;
+        $review->invite_hash = md5(Str::quickRandom());
+
+        $review->rules += [
+            'invite_subject' => 'required',
+            'invite_email' => 'required|email',
+            'invite_message' => 'required',
+        ];
+
+        $review->fillable(['invite_subject', 'invite_email', 'invite_message']);
+        $review->fill($data);
+        $review->save();
+        return $review;
+    }
 
 }

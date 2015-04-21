@@ -1,12 +1,15 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Mail;
 use Config;
+use Cms\Classes\Theme;
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\State;
 use RainLab\User\Models\Country;
 use Ahoy\Pyrolancer\Models\Skill;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Ahoy\Pyrolancer\Models\WorkerReview;
 
 class WorkerManage extends ComponentBase
 {
@@ -77,7 +80,18 @@ class WorkerManage extends ComponentBase
 
     public function onSubmitTestimonial()
     {
+        if (!$worker = $this->worker()) return;
 
+        $review = WorkerReview::createTestimonial($worker, post('Testimonial'));
+
+        $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
+            'worker' => $worker->toArray(),
+            'user' => $worker->user->toArray(),
+            'review' => $review->toArray(),
+        ];
+
+        Mail::sendTo(post('Testimonial[invite_email]'), 'ahoy.pyrolancer::mail.worker-testimonial-request', $params);
     }
 
     //

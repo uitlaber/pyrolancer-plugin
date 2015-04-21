@@ -23,14 +23,14 @@ class CreateWorkerReviewsTable extends Migration
 
             $table->boolean('client_is_visible')->default(false);
             $table->integer('client_user_id')->unsigned()->index()->nullable();
-            $table->text('client_name')->nullable();
-            $table->text('client_location')->nullable();
             $table->integer('client_rating')->nullable();
             $table->text('client_comment')->nullable();
 
+            $table->string('invite_name')->nullable();
+            $table->string('invite_location')->nullable();
             $table->string('invite_hash')->nullable()->index();
-            $table->string('invite_subject')->nullable();
             $table->string('invite_email')->nullable();
+            $table->string('invite_subject')->nullable();
             $table->text('invite_message')->nullable();
             $table->timestamps();
         });

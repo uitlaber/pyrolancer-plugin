@@ -1,0 +1,16 @@
+subject = "{{ review.invite_subject }}"
+==
+<p>Hello,</p>
+
+<p>{{ user.name }} from {{ worker.business_name }} would like you to write a testimonial about them on {{ site_name }}.</p>
+
+<blockquote>
+    <p>Subject: {{ review.invite_subject }}</p>
+    <p>Message: {{ review.invite_message }}</p>
+</blockquote>
+
+<p>
+    <a href="{{ link }}">
+        Write a testimonial for {{ worker.business_name }}
+    </a>
+</p>
