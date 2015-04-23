@@ -92,6 +92,9 @@ class WorkerManage extends ComponentBase
         ];
 
         Mail::sendTo(post('Testimonial[invite_email]'), 'ahoy.pyrolancer::mail.worker-testimonial-request', $params);
+
+        $this->page['success'] = true;
+        $this->page['email'] = post('Testimonial[invite_email]');
     }
 
     //

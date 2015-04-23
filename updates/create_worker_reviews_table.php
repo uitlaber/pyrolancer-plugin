@@ -20,6 +20,7 @@ class CreateWorkerReviewsTable extends Migration
             $table->integer('rating')->nullable();
             $table->text('comment')->nullable();
             $table->text('breakdown')->nullable();
+            $table->boolean('is_recommend')->default(true);
 
             $table->boolean('client_is_visible')->default(false);
             $table->integer('client_user_id')->unsigned()->index()->nullable();
