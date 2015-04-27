@@ -52,9 +52,9 @@ class WorkerReview extends Model
      */
     public static $allowedSortingOptions = array(
         'created_at asc' => 'Posted date (ascending)',
-        'created_at desc' => 'Posted date (descending)',
+        'created_at' => 'Posted date (descending)',
         'updated_at asc' => 'Last updated (ascending)',
-        'updated_at desc' => 'Last updated (descending)',
+        'updated_at' => 'Last updated (descending)',
     );
 
     public static function createTestimonial($worker, $data)
