@@ -45,6 +45,11 @@ class Worker extends Model
     ];
 
     /**
+     * @var array List of attribute names which are json encoded and decoded from the database.
+     */
+    protected $jsonable = ['rating_breakdown'];
+
+    /**
      * @var array Relations
      */
     public $belongsTo = [
@@ -52,11 +57,12 @@ class Worker extends Model
         'budget'   => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
     ];
 
-    /**
-     * @var array Relations
-     */
     public $belongsToMany = [
         'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_workers_skills', 'order' => 'name']
+    ];
+
+    public $hasMany = [
+        'reviews' => ['Ahoy\Pyrolancer\Models\WorkerReview', 'key' => 'user_id', 'otherKey' => 'user_id']
     ];
 
     public $hasOne = [
@@ -94,6 +100,48 @@ class Worker extends Model
         }
 
         return $user->worker;
+    }
+
+    public function getRecommendPercentAttribute()
+    {
+        if (!$this->count_ratings) return 0;
+
+        return round(($this->count_recommend / $this->count_ratings) * 100);
+    }
+
+    public function setRatingStats()
+    {
+        $overall = 0;
+        $total = 0;
+        $recommend = 0;
+        $breakdown = [];
+
+        foreach ($this->reviews as $review) {
+            if (!$review->is_visible) continue;
+
+            $total++;
+            $overall += $review->rating;
+            if ($review->is_recommend) {
+                $recommend++;
+            }
+
+            foreach ($review->breakdown as $item => $rating) {
+                $breakdown[$item][0] = (int) array_get($breakdown, $item.'.0', 0) + (int) $rating;
+                $breakdown[$item][1] = (int) array_get($breakdown, $item.'.1', 0) + 1;
+            }
+        }
+
+        $finalBreakdown = [];
+        foreach ($breakdown as $item => $score) {
+            list($bdOverall, $bdTotal) = array_values($score);
+            $finalBreakdown[$item] = $bdOverall / $bdTotal;
+        }
+
+traceLog($overall .'/'.$total);
+        $this->rating_overall = $overall / $total;
+        $this->rating_breakdown = $finalBreakdown;
+        $this->count_ratings = $total;
+        $this->count_recommend = $recommend;
     }
 
 }

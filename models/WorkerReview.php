@@ -93,6 +93,11 @@ class WorkerReview extends Model
         $this->fill($data);
         $this->is_visible = true;
         $this->save();
+
+        // @todo This could be deferred to the Queue
+        $this->worker->setRatingStats();
+        $this->worker->save();
+
         return $this;
     }
 

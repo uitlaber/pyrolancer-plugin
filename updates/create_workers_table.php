@@ -26,6 +26,11 @@ class CreateFreelancersTable extends Migration
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
 
+            $table->decimal('rating_overall', 3, 2)->nullable();
+            $table->text('rating_breakdown')->nullable();
+
+            $table->integer('count_recommend')->default(0);
+            $table->integer('count_ratings')->default(0);
             $table->integer('count_bids')->default(0);
             $table->dateTime('last_active_at')->index()->nullable();
             $table->timestamps();

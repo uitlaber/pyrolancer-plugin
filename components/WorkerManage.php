@@ -1,6 +1,5 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\Theme;
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\State;
 use RainLab\User\Models\Country;
