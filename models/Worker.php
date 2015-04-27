@@ -137,7 +137,6 @@ class Worker extends Model
             $finalBreakdown[$item] = $bdOverall / $bdTotal;
         }
 
-traceLog($overall .'/'.$total);
         $this->rating_overall = $overall / $total;
         $this->rating_breakdown = $finalBreakdown;
         $this->count_ratings = $total;

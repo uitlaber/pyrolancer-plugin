@@ -6,6 +6,7 @@ use RainLab\User\Models\Country;
 use Ahoy\Pyrolancer\Models\Skill;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Ahoy\Pyrolancer\Models\WorkerReview;
 
 class WorkerManage extends ComponentBase
 {
@@ -32,6 +33,15 @@ class WorkerManage extends ComponentBase
     public function worker()
     {
         return $this->lookupObject(__FUNCTION__, WorkerModel::getFromUser());
+    }
+
+    public function reviews()
+    {
+        $options = [
+            'users' => $this->worker()->user_id
+        ];
+
+        return $this->lookupObject(__FUNCTION__, WorkerReview::listFrontEnd($options));
     }
 
     //

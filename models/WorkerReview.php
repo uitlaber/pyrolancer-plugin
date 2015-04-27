@@ -46,6 +46,17 @@ class WorkerReview extends Model
         'worker'   => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
 
+    /**
+     * The attributes on which the post list can be ordered
+     * @var array
+     */
+    public static $allowedSortingOptions = array(
+        'created_at asc' => 'Posted date (ascending)',
+        'created_at desc' => 'Posted date (descending)',
+        'updated_at asc' => 'Last updated (ascending)',
+        'updated_at desc' => 'Last updated (descending)',
+    );
+
     public static function createTestimonial($worker, $data)
     {
         $review = new self;
@@ -101,6 +112,9 @@ class WorkerReview extends Model
         return $this;
     }
 
+    /**
+     * Calculates an overall rating based on the breakdown
+     */
     protected function calculateRating($breakdown)
     {
         $count = 0;
@@ -112,6 +126,73 @@ class WorkerReview extends Model
         }
 
         return $total / $count;
+    }
+
+    //
+    // Scopes
+    //
+
+    public function scopeIsVisible($query)
+    {
+        return $query->where('is_visible', true);
+    }
+
+    /**
+     * Lists reviews for the front end
+     * @param  array $options Display options
+     * @return self
+     */
+    public function scopeListFrontEnd($query, $options = [])
+    {
+        /*
+         * Default options
+         */
+        extract(array_merge([
+            'page'       => 1,
+            'perPage'    => 30,
+            'sort'       => 'created_at',
+            'users'      => null,
+            'search'     => '',
+            'visible'    => true
+        ], $options));
+
+        $searchableFields = ['name', 'comment'];
+
+        if ($visible)
+            $query->isVisible();
+
+        /*
+         * Sorting
+         */
+        if (!is_array($sort)) $sort = [$sort];
+        foreach ($sort as $_sort) {
+
+            if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
+                $parts = explode(' ', $_sort);
+                if (count($parts) < 2) array_push($parts, 'desc');
+                list($sortField, $sortDirection) = $parts;
+
+                $query->orderBy($sortField, $sortDirection);
+            }
+        }
+
+        /*
+         * Search
+         */
+        $search = trim($search);
+        if (strlen($search)) {
+            $query->searchWhere($search, $searchableFields);
+        }
+
+        /*
+         * Users
+         */
+        if ($users !== null) {
+            if (!is_array($users)) $users = [$users];
+            $query->whereIn('user_id', $users);
+        }
+
+        return $query->paginate($perPage, $page);
     }
 
 }
