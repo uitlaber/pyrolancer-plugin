@@ -72,16 +72,17 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-           '\Ahoy\Pyrolancer\Components\AttributeValues' => 'attributeValues',
-           '\Ahoy\Pyrolancer\Components\Dashboard'       => 'dashboard',
-           '\Ahoy\Pyrolancer\Components\Projects'        => 'projects',
-           '\Ahoy\Pyrolancer\Components\Project'         => 'project',
-           '\Ahoy\Pyrolancer\Components\ProjectSubmit'   => 'projectSubmit',
-           '\Ahoy\Pyrolancer\Components\Worker'          => 'worker',
-           '\Ahoy\Pyrolancer\Components\WorkerManage'    => 'workerManage',
-           '\Ahoy\Pyrolancer\Components\WorkerRegister'  => 'workerRegister',
-           '\Ahoy\Pyrolancer\Components\ClientProjects'  => 'clientProjects',
-           '\Ahoy\Pyrolancer\Components\PortfolioManage' => 'portfolioManage',
+           '\Ahoy\Pyrolancer\Components\AttributeValues'   => 'attributeValues',
+           '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
+           '\Ahoy\Pyrolancer\Components\Projects'          => 'projects',
+           '\Ahoy\Pyrolancer\Components\Project'           => 'project',
+           '\Ahoy\Pyrolancer\Components\ProjectSubmit'     => 'projectSubmit',
+           '\Ahoy\Pyrolancer\Components\Worker'            => 'worker',
+           '\Ahoy\Pyrolancer\Components\WorkerManage'      => 'workerManage',
+           '\Ahoy\Pyrolancer\Components\WorkerRegister'    => 'workerRegister',
+           '\Ahoy\Pyrolancer\Components\WorkerTestimonial' => 'workerTestimonial',
+           '\Ahoy\Pyrolancer\Components\ClientProjects'    => 'clientProjects',
+           '\Ahoy\Pyrolancer\Components\PortfolioManage'   => 'portfolioManage',
         ];
     }
 
