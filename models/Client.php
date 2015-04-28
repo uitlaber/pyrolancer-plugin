@@ -61,10 +61,6 @@ class Client extends Model
         return $user->client;
     }
 
-    //
-    // Client
-    //
-
     /**
      * Sets the "url" attribute with a URL to this object
      * @param string $pageName
@@ -73,8 +69,8 @@ class Client extends Model
     public function setUrl($pageName, $controller)
     {
         $params = [
-            'id' => $this->id,
-            'code' => $this->shortEncodeId($this->id),
+            'id' => $this->user_id,
+            'code' => $this->shortEncodeId($this->user_id),
             'tab' => 'client'
         ];
 

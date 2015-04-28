@@ -9,6 +9,7 @@ use Model;
 class Worker extends Model
 {
 
+    use \Ahoy\Traits\GeneralUtils;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
 
@@ -100,6 +101,22 @@ class Worker extends Model
         }
 
         return $user->worker;
+    }
+
+    /**
+     * Sets the "url" attribute with a URL to this object
+     * @param string $pageName
+     * @param Cms\Classes\Controller $controller
+     */
+    public function setUrl($pageName, $controller)
+    {
+        $params = [
+            'id' => $this->user_id,
+            'code' => $this->shortEncodeId($this->user_id),
+            'tab' => 'worker'
+        ];
+
+        return $this->url = $controller->pageUrl($pageName, $params);
     }
 
     public function getRecommendPercentAttribute()
