@@ -31,6 +31,7 @@ class Plugin extends PluginBase
     {
         User::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
+            $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
         });
     }
 
@@ -80,9 +81,10 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\Worker'            => 'worker',
            '\Ahoy\Pyrolancer\Components\WorkerManage'      => 'workerManage',
            '\Ahoy\Pyrolancer\Components\WorkerRegister'    => 'workerRegister',
+           '\Ahoy\Pyrolancer\Components\WorkerPortfolio'   => 'workerPortfolio',
            '\Ahoy\Pyrolancer\Components\WorkerTestimonial' => 'workerTestimonial',
            '\Ahoy\Pyrolancer\Components\ClientProjects'    => 'clientProjects',
-           '\Ahoy\Pyrolancer\Components\WorkerPortfolio'   => 'workerPortfolio',
+           '\Ahoy\Pyrolancer\Components\Profile'           => 'profile',
         ];
     }
 

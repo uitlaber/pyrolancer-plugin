@@ -12,7 +12,6 @@ use Ahoy\Pyrolancer\Models\ProjectExtraDetail;
 
 class Project extends ComponentBase
 {
-
     use \Ahoy\Traits\ComponentUtils;
 
     public function componentDetails()
@@ -41,10 +40,14 @@ class Project extends ComponentBase
 
     public function project()
     {
-        return $this->lookupModel(new ProjectModel, function($query) {
+        $project = $this->lookupModel(new ProjectModel, function($query) {
             $query->with('bids.user.avatar');
             $query->with('bids.worker.logo');
         });
+
+        $project->client->setUrl('profile', $this->controller);
+
+        return $project;
     }
 
     //

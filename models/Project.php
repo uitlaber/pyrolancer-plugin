@@ -80,6 +80,7 @@ class Project extends Model
         'country'          => ['RainLab\User\Models\Country'],
         'state'            => ['RainLab\User\Models\State'],
         'user'             => ['RainLab\User\Models\User'],
+        'client'           => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
 
     public $attachMany = [

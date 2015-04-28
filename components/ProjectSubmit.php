@@ -7,6 +7,7 @@ use Ahoy\Pyrolancer\Classes\ProjectData;
 use Ahoy\Pyrolancer\Models\ProjectStatusLog;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
+use Ahoy\Pyrolancer\Models\Client as ClientModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectCategory;
 use Cms\Classes\ComponentBase;
@@ -89,6 +90,10 @@ class ProjectSubmit extends ComponentBase
 
         $user->is_client = true;
         $user->save();
+
+        $client = ClientModel::getFromUser($user);
+        $client->count_projects++;
+        $client->save();
 
         ProjectStatusLog::updateProjectStatus($project, ProjectModel::STATUS_PENDING);
 
