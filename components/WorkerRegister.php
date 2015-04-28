@@ -48,7 +48,6 @@ class WorkerRegister extends ComponentBase
         $redirectAway =  (!$user = Auth::getUser()) || $user->is_worker;
         $redirectUrl = $this->controller->pageUrl($this->property('redirect'));
         if ($redirectAway && $redirectUrl) {
-            // return Redirect::intended($redirectUrl);
             return Redirect::to($redirectUrl);
         }
     }

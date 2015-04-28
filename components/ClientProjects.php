@@ -25,7 +25,12 @@ class ClientProjects extends ComponentBase
 
     public function onRun()
     {
-        $this->projects = ProjectModel::applyOwner()->get();
+        $this->projects = ProjectModel::make()
+            ->with('status')
+            ->with('project_type')
+            ->applyOwner()
+            ->get()
+        ;
     }
 
 }

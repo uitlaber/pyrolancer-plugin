@@ -76,7 +76,7 @@ class Worker extends Model
     /**
      * @var array Auto generated slug
      */
-    public $slugs = ['slug' => 'username'];
+    public $slugs = ['slug' => 'business_name'];
 
     /**
      * Automatically creates a freelancer profile for a user if not one already.
@@ -107,6 +107,14 @@ class Worker extends Model
         if (!$this->count_ratings) return 0;
 
         return round(($this->count_recommend / $this->count_ratings) * 100);
+    }
+
+    public function resetSlug()
+    {
+        if (!$this->isDirty('business_name')) return;
+        if ($this->getOriginal('business_name') == $this->business_name) return;
+        $this->slug = null;
+        $this->slugAttributes();
     }
 
     public function setRatingStats()

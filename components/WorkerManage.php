@@ -1,5 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Auth;
+use Redirect;
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\State;
 use RainLab\User\Models\Country;
@@ -23,7 +25,34 @@ class WorkerManage extends ComponentBase
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'redirect' => [
+                'title'       => 'Redirect',
+                'description' => 'A page to redirect if the worker has no profile set up',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ]
+        ];
+    }
+
+    public function getRedirectOptions()
+    {
+        return [''=>'- none -'] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
+
+    /**
+     * Executed when this component is bound to a page or layout.
+     */
+    public function onRun()
+    {
+        /*
+         * User must have a profile set up to view this page
+         */
+        $redirectAway =  ($user = Auth::getUser()) && !$user->is_worker;
+        $redirectUrl = $this->controller->pageUrl($this->property('redirect'));
+        if ($redirectAway && $redirectUrl) {
+            return Redirect::to($redirectUrl);
+        }
     }
 
     //
@@ -52,6 +81,7 @@ class WorkerManage extends ComponentBase
     {
         $worker = $this->worker();
         $worker->fill((array) post('Worker'));
+        $worker->resetSlug();
         $worker->save();
 
         $user = $this->lookupUser();

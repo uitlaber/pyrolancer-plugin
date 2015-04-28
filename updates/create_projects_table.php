@@ -23,6 +23,9 @@ class CreateProjectsTable extends Migration
             $table->integer('status_id')->unsigned()->index()->nullable();
             $table->integer('category_id')->unsigned()->index()->nullable();
 
+            // Stats
+            $table->integer('count_bids')->default(0);
+
             // Location
             $table->boolean('is_remote')->default(false);
             $table->string('address')->nullable();

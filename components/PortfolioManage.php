@@ -5,7 +5,7 @@ use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
 use Ahoy\Pyrolancer\Models\PortfolioItem;
 
-class PortfolioManage extends ComponentBase
+class WorkerPortfolio extends ComponentBase
 {
 
     use \Ahoy\Traits\ComponentUtils;
