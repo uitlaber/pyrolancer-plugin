@@ -10,8 +10,14 @@ class Worker extends Model
 {
 
     use \Ahoy\Traits\GeneralUtils;
+    use \October\Rain\Database\Traits\Purgeable;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
+
+    /**
+     * @var array List of attribute names which should not be saved to the database.
+     */
+    protected $purgeable = ['url'];
 
     /*
      * Validation

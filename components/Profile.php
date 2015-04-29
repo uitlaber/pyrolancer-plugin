@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Cms\Classes\ComponentBase;
+use Ahoy\Pyrolancer\Models\WorkerReview;
 use RainLab\User\Models\User as UserModel;
 
 class Profile extends ComponentBase
@@ -36,6 +37,15 @@ class Profile extends ComponentBase
     {
         $id = $this->shortDecodeId($this->property('code'));
         return $this->lookupObject(__FUNCTION__, UserModel::find($id));
+    }
+
+    public function workerReviews()
+    {
+        $options = [
+            'users' => $this->user()->id
+        ];
+
+        return $this->lookupObject(__FUNCTION__, WorkerReview::listFrontEnd($options));
     }
 
 }
