@@ -13,6 +13,7 @@ class CreateClientsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
+            $table->string('display_name')->nullable();
             $table->integer('count_projects')->default(0);
             $table->integer('count_ratings')->default(0);
             $table->decimal('rating_overall', 3, 2)->default(0)->nullable();

@@ -74,6 +74,7 @@ class Plugin extends PluginBase
     {
         return [
            '\Ahoy\Pyrolancer\Components\AttributeValues'   => 'attributeValues',
+           '\Ahoy\Pyrolancer\Components\Activity'          => 'activity',
            '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
            '\Ahoy\Pyrolancer\Components\Projects'          => 'projects',
            '\Ahoy\Pyrolancer\Components\Project'           => 'project',

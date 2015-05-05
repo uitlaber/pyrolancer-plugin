@@ -50,12 +50,20 @@ class Client extends Model
         if (!$user)
             return null;
 
+        $displayName = self::makeDisplayName($user);
+
         if (!$user->client) {
             $client = new static;
             $client->user = $user;
+            $client->display_name = $displayName;
             $client->forceSave();
 
             $user->client = $client;
+        }
+        elseif ($user->client->display_name != $displayName) {
+            $client = $user->client;
+            $client->display_name = $displayName;
+            $client->forceSave();
         }
 
         return $user->client;
@@ -77,9 +85,13 @@ class Client extends Model
         return $this->url = $controller->pageUrl($pageName, $params);
     }
 
-    public function getNameAttribute()
+    /**
+     * Generates a display name from a user's name.
+     * @return string
+     */
+    public static function makeDisplayName($user)
     {
-        $name = $this->user->name;
+        $name = $user->name;
         $parts = explode(' ', $name);
         $firstPart = array_shift($parts);
 
