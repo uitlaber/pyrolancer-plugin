@@ -13,6 +13,7 @@ class CreatePortfoliosTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
+            $table->boolean('is_visible')->default(false);
             $table->timestamps();
         });
     }

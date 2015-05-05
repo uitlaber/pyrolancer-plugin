@@ -78,8 +78,7 @@ class Client extends Model
     {
         $params = [
             'id' => $this->user_id,
-            'code' => $this->shortEncodeId($this->user_id),
-            'tab' => 'client'
+            'code' => $this->shortEncodeId($this->user_id)
         ];
 
         return $this->url = $controller->pageUrl($pageName, $params);

@@ -46,7 +46,7 @@ class Skill extends Model
         'category' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
     ];
 
-    public function scopeIsVisible($query)
+    public function scopeApplyVisible($query)
     {
         return $query
             ->whereNotNull('is_visible')

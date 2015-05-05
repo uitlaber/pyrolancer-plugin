@@ -36,14 +36,16 @@ class Activity extends ComponentBase
 
         $feed->add(
             'project',
-            ProjectModel::isVisible()
+            ProjectModel::applyVisible()
                 ->with('user.client'),
             'created_at'
         );
 
         $feed->add(
             'portfolio',
-            PortfolioModel::with('user'),
+            PortfolioModel::applyVisible()
+                ->with('user.worker')
+                ->with('items'),
             'created_at'
         );
 
@@ -51,10 +53,10 @@ class Activity extends ComponentBase
 
         $results->each(function($result){
             if ($result->tag_name == 'worker') {
-                $result->setUrl('profile', $this->controller);
+                $result->setUrl('worker', $this->controller);
             }
             elseif ($result->tag_name == 'project') {
-                $result->user->client->setUrl('profile', $this->controller);
+                $result->user->client->setUrl('client', $this->controller);
             }
         });
 
@@ -66,7 +68,7 @@ class Activity extends ComponentBase
         $results = WorkerModel::limit(5)->get();
 
         $results->each(function($result){
-            $result->setUrl('profile', $this->controller);
+            $result->setUrl('worker', $this->controller);
         });
 
         return $results;

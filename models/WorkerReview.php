@@ -132,7 +132,7 @@ class WorkerReview extends Model
     // Scopes
     //
 
-    public function scopeIsVisible($query)
+    public function scopeApplyVisible($query)
     {
         return $query->where('is_visible', true);
     }
@@ -159,7 +159,7 @@ class WorkerReview extends Model
         $searchableFields = ['name', 'comment'];
 
         if ($visible)
-            $query->isVisible();
+            $query->applyVisible();
 
         /*
          * Sorting

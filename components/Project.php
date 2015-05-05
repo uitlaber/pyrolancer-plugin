@@ -45,7 +45,7 @@ class Project extends ComponentBase
             $query->with('bids.worker.logo');
         });
 
-        $project->client->setUrl('profile', $this->controller);
+        $project->client->setUrl('client', $this->controller);
 
         return $project;
     }

@@ -143,7 +143,7 @@ class Project extends Model
         $searchableFields = ['name', 'slug', 'description'];
 
         if ($visible)
-            $query->isVisible();
+            $query->applyVisible();
 
         /*
          * Sorting
@@ -198,7 +198,7 @@ class Project extends Model
     // Scopes
     //
 
-    public function scopeIsVisible($query)
+    public function scopeApplyVisible($query)
     {
         return $query->where('is_visible', true);
     }

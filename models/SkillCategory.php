@@ -45,7 +45,7 @@ class SkillCategory extends Model
         ]
     ];
 
-    public function scopeIsVisible($query)
+    public function scopeApplyVisible($query)
     {
         return $query
             ->whereNotNull('is_visible')

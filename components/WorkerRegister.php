@@ -106,6 +106,7 @@ class WorkerRegister extends ComponentBase
     {
         $worker = $this->worker();
         $worker->fill((array) post('Worker'));
+        $worker->resetSlug();
         $worker->save();
 
         $user = $this->lookupUser();

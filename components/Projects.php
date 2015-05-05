@@ -47,7 +47,7 @@ class Projects extends ComponentBase
 
     public function skillCategories()
     {
-        return SkillCategory::isVisible()->get();
+        return SkillCategory::applyVisible()->get();
     }
 
     //

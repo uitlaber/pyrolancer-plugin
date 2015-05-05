@@ -60,4 +60,13 @@ class Portfolio extends Model
         return $worker->portfolio;
     }
 
+    //
+    // Scopes
+    //
+
+    public function scopeApplyVisible($query)
+    {
+        return $query->where('is_visible', true);
+    }
+
 }
