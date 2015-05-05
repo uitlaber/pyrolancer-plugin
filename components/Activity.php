@@ -25,15 +25,51 @@ class Activity extends ComponentBase
     public function feed()
     {
         $feed = new DataFeed;
-        $feed->add('worker', new WorkerModel);
-        $feed->add('project', ProjectModel::with('user'));
-        $feed->add('portfolio', new PortfolioModel);
-        return $feed->limit(25)->get();
+
+        $feed->add(
+            'worker',
+            WorkerModel::with('user')
+                ->with('skills')
+                ->with('logo'),
+            'created_at'
+        );
+
+        $feed->add(
+            'project',
+            ProjectModel::isVisible()
+                ->with('user.client'),
+            'created_at'
+        );
+
+        $feed->add(
+            'portfolio',
+            PortfolioModel::with('user'),
+            'created_at'
+        );
+
+        $results = $feed->limit(25)->get();
+
+        $results->each(function($result){
+            if ($result->tag_name == 'worker') {
+                $result->setUrl('profile', $this->controller);
+            }
+            elseif ($result->tag_name == 'project') {
+                $result->user->client->setUrl('profile', $this->controller);
+            }
+        });
+
+        return $results;
     }
 
     public function recentWorkers()
     {
-        return WorkerModel::all();
+        $results = WorkerModel::limit(5)->get();
+
+        $results->each(function($result){
+            $result->setUrl('profile', $this->controller);
+        });
+
+        return $results;
     }
 
 }
