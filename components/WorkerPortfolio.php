@@ -44,7 +44,18 @@ class WorkerPortfolio extends ComponentBase
 
     public function hasPortfolio()
     {
-        return $this->portfolio()->items->count() > 0;
+        $portfolio = $this->portfolio();
+        $result = $portfolio->items->count() > 0;
+
+        if (
+            ($result && !$portfolio->is_visible) ||
+            (!$result && $portfolio->is_visible)
+        ) {
+            $portfolio->is_visible = !!$result;
+            $portfolio->save();
+        }
+
+        return $result;
     }
 
     //

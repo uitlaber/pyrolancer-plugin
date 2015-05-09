@@ -41,7 +41,7 @@ fields:
 
     address:
         label: Address
-        type: geoaddress
+        type: addressfinder
         fieldMap:
             latitude: latitude
             longitude: longitude

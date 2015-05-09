@@ -35,7 +35,7 @@ tabs:
 
         address:
             label: Address
-            type: geoaddress
+            type: addressfinder
             tab: Location
             fieldMap:
                 latitude: latitude

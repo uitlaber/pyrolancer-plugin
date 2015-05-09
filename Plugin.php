@@ -2,7 +2,8 @@
 
 use Backend;
 use System\Classes\PluginBase;
-use RainLab\User\Models\User;
+use RainLab\User\Models\User as UserModel;
+use RainLab\User\Controllers\Users as UsersController;
 
 /**
  * Pyrolancer Plugin Information File
@@ -10,7 +11,7 @@ use RainLab\User\Models\User;
 class Plugin extends PluginBase
 {
 
-    public $require = ['RainLab.User'];
+    public $require = ['RainLab.User', 'RainLab.Location'];
 
     /**
      * Returns information about this plugin.
@@ -29,9 +30,23 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        User::extend(function($model) {
+        UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
+
+            $model->implement[] = 'RainLab.Location.Behaviors.LocationModel';
+        });
+
+        UsersController::extendFormFields(function($widget){
+            $widget->addTabFields([
+                'phone' => ['label' => 'Phone', 'tab' => 'Profile', 'span' => 'left'],
+                'mobile' => ['label' => 'Mobile', 'tab' => 'Profile', 'span' => 'right'],
+                'street_addr' => ['label' => 'Street Address', 'tab' => 'Profile'],
+                'city' => ['label' => 'City', 'tab' => 'Profile', 'span' => 'left'],
+                'zip' => ['label' => 'Zip', 'tab' => 'Profile', 'span' => 'right'],
+                'country' => ['label' => 'country', 'type' => 'dropdown', 'tab' => 'Profile', 'span' => 'left'],
+                'state' => ['label' => 'state', 'type' => 'dropdown', 'tab' => 'Profile', 'span' => 'right', 'dependsOn' => 'country']
+            ]);
         });
     }
 
@@ -75,6 +90,7 @@ class Plugin extends PluginBase
         return [
            '\Ahoy\Pyrolancer\Components\AttributeValues'   => 'attributeValues',
            '\Ahoy\Pyrolancer\Components\Activity'          => 'activity',
+           '\Ahoy\Pyrolancer\Components\Account'           => 'account',
            '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
            '\Ahoy\Pyrolancer\Components\Projects'          => 'projects',
            '\Ahoy\Pyrolancer\Components\Project'           => 'project',

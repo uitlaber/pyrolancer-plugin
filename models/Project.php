@@ -23,7 +23,8 @@ class Project extends Model
     use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
-    use \Responsiv\Geolocation\Traits\LocationCode;
+
+    public $implement = ['RainLab.Location.Behaviors.LocationModel'];
 
     /*
      * Validation
