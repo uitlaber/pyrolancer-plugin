@@ -34,6 +34,8 @@ class Plugin extends PluginBase
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
 
+            $model->addFillable(['phone', 'mobile', 'street_addr', 'city', 'zip']);
+
             $model->implement[] = 'RainLab.Location.Behaviors.LocationModel';
         });
 

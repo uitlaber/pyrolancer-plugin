@@ -14,6 +14,14 @@ Database: MySQL, SQLite, PostgreSQL, SQL Server
 - Single profile for each worker, using multiple skills.
 - Online portfolio
 
+### Starter Clone Scripts
+
+What's the difference between a starter clone script and other clone scripts?
+
+Starter clone scripts are designed for developers, they are built as a starting point for another developer and are designed to be highly customizable. These scripts can be used to build a community from day one, however a developer is recommended for any bespoke customization. We do not offer customization services and only provide support to developers.
+
+Most other clone scripts are designed poorly with many assumptions made about your new business. They are notoriously difficult to customize and often have the code encrypted, preventing a third-party developer from working on it. They offer all the sizzle but no steak, they show promise on the outside but often the code behind is rotten to the core.
+
 ### Sample project content 1
 
 We have an opening for an experienced Zendesk technical consultant to implement and build customised solutions from the Zendesk API. This is a short term contract, approximately 4-8 weeks with the possibility of ongoing work and maintenance contracts for the right candidate.
