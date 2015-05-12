@@ -31,17 +31,8 @@ class Account extends ComponentBase
 
     public function onPatch()
     {
-        if (!$user = $this->user()) {
-            throw new ApplicationException('You must be logged in!');
-        }
-
-        $attributes = array_map('trim', explode(',', post('propertyName')));
-        $data = array_where(post(), function($key, $value) use ($attributes) {
-            return in_array($key, $attributes);
-        });
-
-        $user->rules = array_intersect_key($user->rules, array_flip($attributes));
-        $user->fill($data);
+        $user = $this->lookupUser();
+        $data = $this->patchModel($user);
         $user->save();
 
         $this->page['user'] = $user;

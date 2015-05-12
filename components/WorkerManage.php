@@ -107,6 +107,18 @@ class WorkerManage extends ComponentBase
         }
     }
 
+    public function onPatch()
+    {
+        if (!$worker = $this->worker()) {
+            throw new ApplicationException('You must be logged in!');
+        }
+
+        $data = $this->patchModel($worker, post('Worker'));
+        $worker->save();
+
+        $this->page['worker'] = $worker;
+    }
+
     //
     // Skills
     //
