@@ -3,8 +3,8 @@
 use Auth;
 use Redirect;
 use Cms\Classes\ComponentBase;
-use RainLab\User\Models\State;
-use RainLab\User\Models\Country;
+use RainLab\Location\Models\State;
+use RainLab\Location\Models\Country;
 use Ahoy\Pyrolancer\Models\Skill;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
@@ -117,6 +117,20 @@ class WorkerManage extends ComponentBase
         $worker->save();
 
         $this->page['worker'] = $worker;
+
+        if (strpos(post('propertyName'), 'street_addr') !== false) {
+            $this->onPatchUser();
+        }
+    }
+
+    public function onPatchUser()
+    {
+        $user = $this->lookupUser();
+
+        $data = $this->patchModel($user, post());
+        $user->save();
+
+        $this->page['user'] = $user;
     }
 
     //

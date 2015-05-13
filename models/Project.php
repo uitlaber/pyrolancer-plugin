@@ -78,8 +78,6 @@ class Project extends Model
         'budget_fixed'     => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.fixed'"],
         'budget_hourly'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.hourly'"],
         'budget_timeframe' => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.timeframe'"],
-        'country'          => ['RainLab\User\Models\Country'],
-        'state'            => ['RainLab\User\Models\State'],
         'user'             => ['RainLab\User\Models\User'],
         'client'           => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
