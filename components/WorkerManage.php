@@ -9,6 +9,7 @@ use Ahoy\Pyrolancer\Models\Skill;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\WorkerReview;
+use ApplicationException;
 
 class WorkerManage extends ComponentBase
 {
@@ -93,6 +94,18 @@ class WorkerManage extends ComponentBase
         $user->save();
     }
 
+    public function onSaveSkills()
+    {
+        $worker = $this->worker();
+        $skillIds = post('skills', []);
+
+        if (count($skillIds) > 20) {
+            throw new ApplicationException('You can only select a maximum of 20 skills!');
+        }
+
+        $worker->skills()->sync($skillIds);
+    }
+
     public function onChangeLocation()
     {
         $country = Country::isEnabled()->whereCode(post('country_code'))->first();
@@ -142,6 +155,7 @@ class WorkerManage extends ComponentBase
         $result = [];
         $result['skills'] = Skill::lists('name', 'id');
         $result['skillTree'] = $this->makeSkillTree();
+        $result['selectedSkills'] = $this->worker()->skills()->lists('name', 'id');
         return $result;
     }
 
