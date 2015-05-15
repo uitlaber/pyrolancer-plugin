@@ -62,7 +62,7 @@ class WorkerPortfolio extends ComponentBase
     // AJAX
     //
 
-    public function onCompleteProfile()
+    public function onCreatePortfolio()
     {
         $this->onCreateItem();
     }
