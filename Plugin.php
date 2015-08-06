@@ -104,6 +104,7 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\WorkerTestimonial' => 'workerTestimonial',
            '\Ahoy\Pyrolancer\Components\ClientProjects'    => 'clientProjects',
            '\Ahoy\Pyrolancer\Components\Profile'           => 'profile',
+           '\Ahoy\Pyrolancer\Components\Portfolios'        => 'portfolios',
         ];
     }
 
