@@ -13,6 +13,7 @@ class CreateProjectsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->boolean('is_visible')->default(false);
+            $table->boolean('is_approved')->default(false);
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->index();
             $table->text('description')->nullable();
@@ -35,6 +36,7 @@ class CreateProjectsTable extends Migration
             $table->integer('state_id')->unsigned()->nullable()->index();
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
+            $table->string('fallback_location')->nullable();
 
             // Project options
             $table->integer('project_type_id')->unsigned()->index()->nullable();

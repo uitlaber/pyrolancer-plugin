@@ -9,6 +9,7 @@ use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Client as ClientModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
 use Ahoy\Pyrolancer\Models\ProjectCategory;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
@@ -47,7 +48,7 @@ class ProjectSubmit extends ComponentBase
     public function onRun()
     {
         if (!$this->property('editMode') && !get('edit')) {
-            // ProjectData::reset();
+            ProjectData::reset();
         }
 
         $this->project = $this->getProject();
@@ -82,12 +83,17 @@ class ProjectSubmit extends ComponentBase
 
     public function onCompleteProject()
     {
-        if (!$user = Auth::getUser())
+        if (!$user = Auth::getUser()) {
             $user = $this->handleAuth();
+        }
 
-        if (!$project = ProjectData::submitProject($user))
+        if (!$project = ProjectData::submitProject($user)) {
             throw new ApplicationException('Unable to submit project, please contact support.');
+        }
 
+        /*
+         * User is now a client
+         */
         $user->is_client = true;
         $user->save();
 
@@ -95,12 +101,21 @@ class ProjectSubmit extends ComponentBase
         $client->count_projects++;
         $client->save();
 
-        ProjectStatusLog::updateProjectStatus($project, ProjectModel::STATUS_PENDING);
+        /*
+         * Set project status
+         */
+        if (SettingsModel::get('auto_approve_projects', false)) {
+            $project->markApproved();
+        }
+        else {
+            $project->markSubmitted();
+        }
 
         Flash::success('Your project has been submitted successfully!');
 
-        if ($redirect = post('redirect'))
+        if ($redirect = post('redirect')) {
             return Redirect::to($this->pageUrl($redirect, ['slug' => $project->slug]));
+        }
     }
 
     //

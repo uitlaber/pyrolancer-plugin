@@ -1,0 +1,13 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        auto_approve_projects:
+            span: auto
+            label: Automatic approval
+            comment: Switch this on to automatically approve projects.
+            type: switch
+            tab: Projects

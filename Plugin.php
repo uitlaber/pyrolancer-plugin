@@ -60,7 +60,7 @@ class Plugin extends PluginBase
                 'url'         => Backend::url('ahoy/pyrolancer/projects'),
                 'icon'        => 'icon-briefcase',
                 'permissions' => ['blog.*'],
-                'order'       => 500,
+                'order'       => 10,
 
                 'sideMenu' => [
                     'projects' => [
@@ -115,6 +115,21 @@ class Plugin extends PluginBase
             'ahoy.pyrolancer::mail.project-approval-request' => 'Sent to managers when a new project needs approval.',
             'ahoy.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
             'ahoy.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
+        ];
+    }
+
+    public function registerSettings()
+    {
+        return [
+            'settings' => [
+                'label'       => 'Freelance settings',
+                'description' => 'Manage freelance features and settings.',
+                'category'    => 'Freelance',
+                'icon'        => 'icon-briefcase',
+                'class'       => 'Ahoy\Pyrolancer\Models\Settings',
+                'order'       => 500,
+                'keywords'    => 'project worker client'
+            ]
         ];
     }
 }

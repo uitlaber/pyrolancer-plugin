@@ -34,8 +34,9 @@ class ProjectData
 
 
         $validation = Validator::make($data, $rules);
-        if ($validation->fails())
+        if ($validation->fails()) {
             throw new ValidationException($validation);
+        }
 
         self::reset();
         self::saveProjectData();
@@ -62,8 +63,13 @@ class ProjectData
             'description'      => 'required',
         ];
 
-        if (!array_get($data, 'is_remote'))
+        if (!array_get($data, 'is_remote')) {
             $rules['address'] = 'required';
+            $rules['country_code'] = 'required';
+            $rules['state_code'] = 'required';
+            $rules['latitude'] = 'required';
+            $rules['longitude'] = 'required';
+        }
 
         $projectTypes = Attribute::forType(Attribute::PROJECT_TYPE)->lists('id', 'code');
 
@@ -90,8 +96,9 @@ class ProjectData
         }
 
         $validation = Validator::make($data, $rules);
-        if ($validation->fails())
+        if ($validation->fails()) {
             throw new ValidationException($validation);
+        }
 
         self::saveProjectData();
     }
@@ -105,8 +112,9 @@ class ProjectData
         if (!$user)
             return false;
 
-        if (!$project = self::getProjectObject())
+        if (!$project = self::getProjectObject()) {
             throw new ApplicationException('Unable to find project in session.');
+        }
 
         $project->user = $user;
         $project->save();
@@ -119,16 +127,32 @@ class ProjectData
     public static function getProjectObject()
     {
         $data = self::load();
-        if (empty($data))
-            return new ProjectModel;
+        $project = new ProjectModel;
 
-        $project = new ProjectModel($data);
+        if (empty($data)) return $project;
 
-        if (!empty($project->description))
+        $project->forceFill($data);
+
+        if (!empty($project->description)) {
             $project->description_html = Markdown::parse(trim($project->description));
+        }
 
-        if (!empty($project->instructions))
+        if (!empty($project->instructions)) {
             $project->instructions_html = Markdown::parse(trim($project->instructions));
+        }
+
+        /*
+         * If the Location plugin can't find a state or country for the codes,
+         * this will save a fallback value to use instead of showing an empty
+         * location.
+         */
+        if (!array_get($data, 'fallback_location')) {
+            $fallbackLocation = '';
+            $fallbackLocation .= array_get($data, 'state_code');
+            $fallbackLocation .= strlen($fallbackLocation) ? ', ' : '';
+            $fallbackLocation .= array_get($data, 'country_code');
+            $project->fallback_location = $fallbackLocation;
+        }
 
         return $project;
     }
@@ -150,8 +174,9 @@ class ProjectData
     public static function getSessionKey()
     {
         $data = self::load();
-        if (isset($data['session_key']))
+        if (isset($data['session_key'])) {
             return $data['session_key'];
+        }
 
         return null;
     }

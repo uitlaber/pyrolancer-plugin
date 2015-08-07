@@ -30,6 +30,7 @@ class ProjectBid extends Model
      */
     public $rules = [
         'details' => 'required',
+        'type' => 'required',
     ];
 
     /**
@@ -77,6 +78,22 @@ class ProjectBid extends Model
             $this->status = Attribute::forType(Attribute::BID_STATUS)
                 ->whereCode('active')
                 ->first();
+        }
+    }
+
+    public function beforeValidate()
+    {
+        if ($this->type == self::TYPE_FIXED) {
+            $this->hourly_rate = 0;
+            $this->hourly_hours = null;
+            $this->rules['fixed_rate'] = 'required';
+            $this->rules['fixed_days'] = 'required';
+        }
+        else {
+            $this->fixed_rate = 0;
+            $this->fixed_days = null;
+            $this->rules['hourly_rate'] = 'required';
+            $this->rules['hourly_hours'] = 'required';
         }
     }
 

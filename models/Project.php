@@ -120,6 +120,16 @@ class Project extends Model
         }
     }
 
+    public function beforeValidate()
+    {
+        if (!$this->is_remote) {
+            $this->rules['country_code'] = 'required';
+            $this->rules['state_code'] = 'required';
+            $this->rules['latitude'] = 'required';
+            $this->rules['longitude'] = 'required';
+        }
+    }
+
     /**
      * Lists projects for the front end
      * @param  array $options Display options
@@ -265,7 +275,7 @@ class Project extends Model
 
     public function markApproved()
     {
-        $this->update(['is_visible' => true]);
+        $this->update(['is_visible' => true, 'is_approved' => true]);
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
     }
 
