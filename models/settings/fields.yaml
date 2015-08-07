@@ -5,9 +5,14 @@
 tabs:
     fields:
 
+        notify_admin_group:
+            span: auto
+            label: Notification group
+            comment: Select the administration group to notify about site activity, such as approval notifications.
+            type: dropdown
+
         auto_approve_projects:
             span: auto
             label: Automatic approval
             comment: Switch this on to automatically approve projects.
             type: switch
-            tab: Projects

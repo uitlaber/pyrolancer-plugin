@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Backend\Models\UserGroup;
 use Model;
 
 class Settings extends Model
@@ -11,6 +12,12 @@ class Settings extends Model
 
     public function initSettingsData()
     {
+        $this->notify_admin_group = UserGroup::DEFAULT_CODE;
         $this->auto_approve_projects = false;
+    }
+
+    public function getNotifyAdminGroupOptions()
+    {
+        return UserGroup::lists('name', 'code');
     }
 }

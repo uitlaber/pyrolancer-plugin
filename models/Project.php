@@ -123,8 +123,6 @@ class Project extends Model
     public function beforeValidate()
     {
         if (!$this->is_remote) {
-            $this->rules['country_code'] = 'required';
-            $this->rules['state_code'] = 'required';
             $this->rules['latitude'] = 'required';
             $this->rules['longitude'] = 'required';
         }

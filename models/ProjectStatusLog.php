@@ -4,6 +4,7 @@ use Mail;
 use Model;
 use October\Rain\Support\Str;
 use Backend\Models\UserGroup;
+use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
 
 /**
  * A log of project moderation events
@@ -100,7 +101,8 @@ class ProjectStatusLog extends Model
 
     public static function processApprovalRequest($project, $log, $data = null)
     {
-        if (!$group = UserGroup::whereCode('managers')->first())
+        $adminGroup = SettingsModel::get('notify_admin_group');
+        if (!$group = UserGroup::whereCode($adminGroup)->first())
             return;
 
         $params = [
