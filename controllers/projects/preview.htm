@@ -7,23 +7,32 @@
 
 <?php if (!$this->fatalError): ?>
 
-    <?= $this->makePartial('scoreboard') ?>
+    <div class="scoreboard">
+        <div data-control="toolbar">
+            <?= $this->makePartial('preview_scoreboard') ?>
+        </div>
+    </div>
 
-    <div class="control-tabs content-tabs" data-control="tab">
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <?= $this->makePartial('preview_toolbar') ?>
+        </div>
+    </div>
+
+    <div class="control-tabs content-tabs tabs-inset" data-control="tab">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#details">Details</a></li>
             <li><a href="#bids">Bids</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane pane-inset active">
 
-                <div class="form-preview form-flush">
-                    <?= $this->makePartial('preview_toolbar') ?>
+                <div class="padded-container">
                     <?= $this->formRenderPreview() ?>
                 </div>
 
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane pane-inset">
                 <div class="relation-flush">
                     <?= $this->relationRender('bids') ?>
                 </div>

@@ -30,8 +30,9 @@ class Projects extends Controller
     public function preview($recordId = null, $context = null)
     {
         $result = $this->asExtension('FormController')->preview($recordId, $context);
-        if ($this->fatalError)
+        if ($this->fatalError) {
             return $result;
+        }
 
         $this->addcss('/plugins/ahoy/pyrolancer/assets/css/pyrolancer.css');
         $this->addJs('/plugins/ahoy/pyrolancer/assets/js/project-preview.js');
@@ -50,8 +51,9 @@ class Projects extends Controller
 
         Flash::success('This project has been approved.');
 
-        if ($redirect = $this->makeRedirect('preview', $model))
+        if ($redirect = $this->makeRedirect('preview', $model)) {
             return $redirect;
+        }
     }
 
     public function preview_onReject($recordId = null)
@@ -62,8 +64,9 @@ class Projects extends Controller
             $model->markRejected($reason);
             Flash::success('This project has been rejected.');
 
-            if ($redirect = $this->makeRedirect('preview', $model))
+            if ($redirect = $this->makeRedirect('preview', $model)) {
                 return $redirect;
+            }
         }
         else {
             throw new ApplicationException('Please supply a reason.');
