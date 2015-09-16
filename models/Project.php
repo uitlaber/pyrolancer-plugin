@@ -1,8 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use App;
 use Auth;
 use Model;
 use Backend;
+use BackendAuth;
+use Cms\Classes\Page as CmsPage;
 use Markdown;
 
 /**
@@ -23,6 +26,7 @@ class Project extends Model
     use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Revisionable;
 
     public $implement = ['RainLab.Location.Behaviors.LocationModel'];
 
@@ -56,6 +60,11 @@ class Project extends Model
     ];
 
     /**
+     * @var array Monitor these attributes for changes.
+     */
+    protected $revisionable = ['description', 'instructions'];
+
+    /**
      * @var array Relations
      */
     public $belongsToMany = [
@@ -64,7 +73,6 @@ class Project extends Model
 
     public $hasMany = [
         'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
-        'extra_details'    => ['Ahoy\Pyrolancer\Models\ProjectExtraDetail'],
         'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
         'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
@@ -84,6 +92,10 @@ class Project extends Model
 
     public $attachMany = [
         'files' => ['System\Models\File'],
+    ];
+
+    public $morphMany = [
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
     ];
 
     /**
@@ -114,7 +126,7 @@ class Project extends Model
     public function beforeCreate()
     {
         if (!$this->status_id) {
-            $this->status = Attribute::forType(Attribute::PROJECT_STATUS)
+            $this->status = Attribute::applyType(Attribute::PROJECT_STATUS)
                 ->whereCode(self::STATUS_DRAFT)
                 ->first();
         }
@@ -195,10 +207,17 @@ class Project extends Model
 
     public function getUrl()
     {
-        return \Cms\Classes\Page::url('project', [
+        return CmsPage::url('project', [
             'id' => $this->id,
             'slug' => $this->slug,
         ]);
+    }
+
+    public function getRevisionableUser()
+    {
+        if (App::runningInBackend()) {
+            return BackendAuth::getUser();
+        }
     }
 
     //

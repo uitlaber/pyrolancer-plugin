@@ -77,10 +77,10 @@ class Projects extends ComponentBase
                 $filterObject = SkillModel::whereSlug($filterValue)->first();
                 break;
             case 'position':
-                $filterObject = AttributeModel::forType(AttributeModel::POSITION_TYPE)->whereCode($filterValue)->first();
+                $filterObject = AttributeModel::applyType(AttributeModel::POSITION_TYPE)->whereCode($filterValue)->first();
                 break;
             case 'type':
-                $filterObject = AttributeModel::forType(AttributeModel::PROJECT_TYPE)->whereCode($filterValue)->first();
+                $filterObject = AttributeModel::applyType(AttributeModel::PROJECT_TYPE)->whereCode($filterValue)->first();
                 break;
         }
 

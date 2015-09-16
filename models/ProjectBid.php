@@ -75,7 +75,7 @@ class ProjectBid extends Model
     public function beforeCreate()
     {
         if (!$this->status_id) {
-            $this->status = Attribute::forType(Attribute::BID_STATUS)
+            $this->status = Attribute::applyType(Attribute::BID_STATUS)
                 ->whereCode('active')
                 ->first();
         }

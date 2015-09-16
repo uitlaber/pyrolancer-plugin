@@ -75,7 +75,6 @@ class SeedCategoryAndSkillTables extends Seeder
                 'Ghostwriting',
                 'eBooks',
                 'Translation',
-                'Proofreading',
                 'SEO',
             ],
             'Sales & Marketing' => [

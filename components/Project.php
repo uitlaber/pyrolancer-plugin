@@ -51,18 +51,27 @@ class Project extends ComponentBase
     }
 
     //
+    // Generic
+    //
+
+    public function onLoadRevisionHistoryForm()
+    {
+        $project = $this->lookupModel(new ProjectModel);
+        $this->page['project'] = $project;
+        $this->page['revisionHistory'] = $project->revision_history;
+    }
+
+    //
     // Client
     //
 
-    public function onAddExtraDetails()
+    public function onEditDescription()
     {
         if (!$project = $this->lookupModelSecure(new ProjectModel))
             throw new ApplicationException('Action failed');
 
-        $extra = new ProjectExtraDetail;
-        $extra->description = post('description');
-        $extra->project = $project;
-        $extra->save();
+        $project->description = post('description');
+        $project->save();
 
         $this->page['project'] = $project;
     }

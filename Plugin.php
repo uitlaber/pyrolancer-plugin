@@ -3,7 +3,6 @@
 use Backend;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
-use RainLab\User\Controllers\Users as UsersController;
 
 /**
  * Pyrolancer Plugin Information File
@@ -11,7 +10,7 @@ use RainLab\User\Controllers\Users as UsersController;
 class Plugin extends PluginBase
 {
 
-    public $require = ['RainLab.User', 'RainLab.Location'];
+    public $require = ['RainLab.User', 'RainLab.Location', 'RainLab.UserPlus'];
 
     /**
      * Returns information about this plugin.
@@ -33,22 +32,6 @@ class Plugin extends PluginBase
         UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
-
-            $model->addFillable(['phone', 'mobile', 'street_addr', 'city', 'zip']);
-
-            $model->implement[] = 'RainLab.Location.Behaviors.LocationModel';
-        });
-
-        UsersController::extendFormFields(function($widget){
-            $widget->addTabFields([
-                'phone' => ['label' => 'Phone', 'tab' => 'Profile', 'span' => 'left'],
-                'mobile' => ['label' => 'Mobile', 'tab' => 'Profile', 'span' => 'right'],
-                'street_addr' => ['label' => 'Street Address', 'tab' => 'Profile'],
-                'city' => ['label' => 'City', 'tab' => 'Profile', 'span' => 'left'],
-                'zip' => ['label' => 'Zip', 'tab' => 'Profile', 'span' => 'right'],
-                'country' => ['label' => 'country', 'type' => 'dropdown', 'tab' => 'Profile', 'span' => 'left'],
-                'state' => ['label' => 'state', 'type' => 'dropdown', 'tab' => 'Profile', 'span' => 'right', 'dependsOn' => 'country']
-            ]);
         });
     }
 

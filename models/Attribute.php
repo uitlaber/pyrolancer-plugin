@@ -43,7 +43,7 @@ class Attribute extends Model
         return strlen($value) ? $value : $this->name;
     }
 
-    public function scopeForType($query, $type)
+    public function scopeApplyType($query, $type)
     {
         return $query->where('type', $type);
     }

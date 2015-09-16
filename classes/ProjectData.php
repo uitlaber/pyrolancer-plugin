@@ -71,7 +71,7 @@ class ProjectData
             $rules['longitude'] = 'required';
         }
 
-        $projectTypes = Attribute::forType(Attribute::PROJECT_TYPE)->lists('id', 'code');
+        $projectTypes = Attribute::applyType(Attribute::PROJECT_TYPE)->lists('id', 'code');
 
         /*
          * Advertisement
@@ -84,7 +84,7 @@ class ProjectData
          * Auction
          */
         else if (array_get($data, 'project_type') == array_get($projectTypes, 'auction')) {
-            $budgetTypes = Attribute::forType(Attribute::BUDGET_TYPE)->lists('id', 'code');
+            $budgetTypes = Attribute::applyType(Attribute::BUDGET_TYPE)->lists('id', 'code');
 
             $rules['budget_type'] = 'required';
 

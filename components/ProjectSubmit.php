@@ -94,8 +94,10 @@ class ProjectSubmit extends ComponentBase
         /*
          * User is now a client
          */
-        $user->is_client = true;
-        $user->save();
+        if (!$user->is_client) {
+            $user->is_client = true;
+            $user->save();
+        }
 
         $client = ClientModel::getFromUser($user);
         $client->count_projects++;

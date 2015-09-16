@@ -23,9 +23,9 @@ columns:
 
     created_at:
         label: Submitted
-        type: date
+        type: timetense
 
     updated_at:
         label: Last updated
         invisible: true
-        type: date
+        type: timetense

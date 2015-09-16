@@ -8,7 +8,6 @@
     - create_projects_table.php
     - create_project_bids_table.php
     - create_project_categories_table.php
-    - create_project_extra_details_table.php
     - create_project_messages_table.php
     - create_skills_table.php
     - create_skill_categories_table.php
@@ -23,6 +22,3 @@
 1.0.4:
     - Add client or worker flags to user
     - add_flags_to_users_table.php
-1.0.5:
-    - Add profile fields to users
-    - user_add_profile_fields.php
