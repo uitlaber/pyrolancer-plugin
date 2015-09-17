@@ -8,10 +8,10 @@ use Model;
  */
 class ProjectMessage extends Model
 {
-
-    use \October\Rain\Database\Traits\SoftDeleting;
-    use \October\Rain\Database\Traits\Validation;
+    use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\SimpleTree;
+    use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\SoftDeleting;
 
     const TREE_LABEL = 'created_at';
 
@@ -67,4 +67,30 @@ class ProjectMessage extends Model
         return $this->user_id == $user->id;
     }
 
+
+
+    //
+    // Tree Collection
+    //
+
+    // public $hasMany = [
+    //     'children' => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'key' => 'parent_id']
+    // ];
+
+    // /**
+    //  * Get value of the model parent_id column.
+    //  * @return int
+    //  */
+    // public function getParentId()
+    // {
+    //     return $this->parent_id;
+    // }
+
+    // /**
+    //  * Return a custom TreeCollection collection
+    //  */
+    // public function newCollection(array $models = [])
+    // {
+    //     return new TreeCollection($models);
+    // }
 }

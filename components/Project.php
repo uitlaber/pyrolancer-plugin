@@ -133,7 +133,10 @@ class Project extends ComponentBase
 
         $message->save();
 
-        return $this->page['message'] = $message;
+        $this->page['project'] = $project;
+        $this->page['message'] = $message;
+
+        return $message;
     }
 
     public function onPostMessageReply()

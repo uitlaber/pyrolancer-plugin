@@ -263,6 +263,17 @@ class Project extends Model
     }
 
     /**
+     * Returns true if the project has unanswered messages.
+     * @return bool
+     */
+    public function hasUnansweredMessages()
+    {
+        return $this->messages->filter(function($message) {
+            return !$message->parent_id && !$message->getChildCount();
+        })->count() > 0;
+    }
+
+    /**
      * Can new messages be posted to this project
      */
     public function canMessage($user = null)
