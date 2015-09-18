@@ -2,6 +2,7 @@
 
 use Auth;
 use Model;
+use Markdown;
 
 /**
  * ProjectMessage Model
@@ -43,7 +44,15 @@ class ProjectMessage extends Model
     public $belongsTo = [
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
         'user'    => ['RainLab\User\Models\User'],
+        'worker' => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'client' => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
+
+    public function beforeSave()
+    {
+        if ($this->isDirty('content'))
+            $this->content_html = Markdown::parse(trim($this->content));
+    }
 
     public function isProjectOwner()
     {

@@ -43,9 +43,22 @@ class Project extends ComponentBase
         $project = $this->lookupModel(new ProjectModel, function($query) {
             $query->with('bids.user.avatar');
             $query->with('bids.worker.logo');
+            $query->with('messages.worker.logo');
         });
 
-        $project->client->setUrl('client', $this->controller);
+        $project->client->setUrl('profile/client', $this->controller);
+
+        $project->messages->each(function($message) use ($project) {
+            $message->setRelation('project', $project);
+            if ($message->isProjectOwner()) {
+                $message->setRelation('client', $project->client);
+            }
+            else {
+                $message->worker->setUrl('profile/worker', $this->controller);
+            }
+        });
+
+        $project->setRelation('messages', $project->messages->toNested());
 
         return $project;
     }

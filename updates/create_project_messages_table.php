@@ -16,6 +16,7 @@ class CreateProjectMessagesTable extends Migration
             $table->integer('project_id')->unsigned()->index()->nullable();
             $table->integer('parent_id')->unsigned()->index()->nullable();
             $table->text('content')->nullable();
+            $table->text('content_html')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

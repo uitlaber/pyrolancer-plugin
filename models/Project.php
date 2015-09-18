@@ -73,7 +73,7 @@ class Project extends Model
 
     public $hasMany = [
         'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
-        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => "parent_id is null"],
+        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage'],
         'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
 
