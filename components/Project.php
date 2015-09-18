@@ -142,7 +142,9 @@ class Project extends ComponentBase
     public function onPostMessageReply()
     {
         $message = $this->onPostMessage();
-        return $this->page['message'] = $message->getParent();
+        $this->page['message'] = $message->parent ?: $message;
+
+        return ['messageId' => $message->id];
     }
 
     public function onUpdateMessage()

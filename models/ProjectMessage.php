@@ -67,30 +67,4 @@ class ProjectMessage extends Model
         return $this->user_id == $user->id;
     }
 
-
-
-    //
-    // Tree Collection
-    //
-
-    // public $hasMany = [
-    //     'children' => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'key' => 'parent_id']
-    // ];
-
-    // /**
-    //  * Get value of the model parent_id column.
-    //  * @return int
-    //  */
-    // public function getParentId()
-    // {
-    //     return $this->parent_id;
-    // }
-
-    // /**
-    //  * Return a custom TreeCollection collection
-    //  */
-    // public function newCollection(array $models = [])
-    // {
-    //     return new TreeCollection($models);
-    // }
 }
