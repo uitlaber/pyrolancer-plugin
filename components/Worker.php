@@ -33,7 +33,7 @@ class Worker extends ComponentBase
 
     public function worker()
     {
-        return $this->lookupModel(new WorkerModel, function($query) {
+        return $this->loadModel(new WorkerModel, function($query) {
             $query->with('portfolio.items.image');
         });
     }

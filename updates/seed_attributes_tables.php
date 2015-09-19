@@ -16,9 +16,13 @@ class SeedAttributesTables extends Seeder
             ['name' => 'Rejected', 'code' => ProjectModel::STATUS_REJECTED],
             ['name' => 'Active', 'code' => ProjectModel::STATUS_ACTIVE],
             ['name' => 'Suspended', 'code' => ProjectModel::STATUS_SUSPENDED],
-            ['name' => 'Closed', 'code' => ProjectModel::STATUS_CLOSED],
-            ['name' => 'Cancelled', 'code' => ProjectModel::STATUS_CANCELLED],
             ['name' => 'Expired', 'code' => ProjectModel::STATUS_EXPIRED],
+            ['name' => 'Cancelled', 'code' => ProjectModel::STATUS_CANCELLED],
+            ['name' => 'Wait', 'code' => ProjectModel::STATUS_WAIT],
+            ['name' => 'Development', 'code' => ProjectModel::STATUS_DEVELOPMENT],
+            ['name' => 'Terminated', 'code' => ProjectModel::STATUS_TERMINATED],
+            ['name' => 'Completed', 'code' => ProjectModel::STATUS_COMPLETED],
+            ['name' => 'Closed', 'code' => ProjectModel::STATUS_CLOSED],
         ];
 
         $projectTypes = [

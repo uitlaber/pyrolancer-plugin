@@ -40,7 +40,7 @@ class Project extends ComponentBase
 
     public function project()
     {
-        $project = $this->lookupModel(new ProjectModel, function($query) {
+        $project = $this->loadModel(new ProjectModel, function($query) {
             $query->with('bids.user.avatar');
             $query->with('bids.worker.logo');
             $query->with('messages.worker.logo');
@@ -69,7 +69,7 @@ class Project extends ComponentBase
 
     public function onLoadRevisionHistoryForm()
     {
-        $project = $this->lookupModel(new ProjectModel);
+        $project = $this->loadModel(new ProjectModel);
         $this->page['project'] = $project;
         $this->page['revisionHistory'] = $project->revision_history;
     }
@@ -80,13 +80,32 @@ class Project extends ComponentBase
 
     public function onEditDescription()
     {
-        if (!$project = $this->lookupModelSecure(new ProjectModel))
+        if (!$project = $this->lookupModelSecure(new ProjectModel)) {
             throw new ApplicationException('Action failed');
+        }
 
         $project->description = post('description');
         $project->save();
 
         $this->page['project'] = $project;
+    }
+
+    public function onLoadBidAcceptForm()
+    {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        if (!$bid = $this->lookupModel(new ProjectBid)) {
+            throw new ApplicationException('Bid not found');
+        }
+
+        if ($bid->project_id != $project->id) {
+            throw new ApplicationException('Permission denied');
+        }
+
+        $this->page['project'] = $project;
+        $this->page['bid'] = $bid;
     }
 
     //
@@ -96,7 +115,7 @@ class Project extends ComponentBase
     public function onSubmitBid()
     {
         $user = $this->lookupUser();
-        $project = $this->lookupModel(new ProjectModel);
+        $project = $this->loadModel(new ProjectModel);
 
         if (!$bid = $project->hasBid()) {
             $this->page['bidCreated'] = true;
@@ -118,7 +137,7 @@ class Project extends ComponentBase
 
     public function onRemoveBid()
     {
-        $project = $this->lookupModel(new ProjectModel);
+        $project = $this->loadModel(new ProjectModel);
 
         if ($bid = $project->hasBid()) {
             $bid->delete();
@@ -134,7 +153,7 @@ class Project extends ComponentBase
     public function onPostMessage()
     {
         $user = $this->lookupUser();
-        $project = $this->lookupModel(new ProjectModel);
+        $project = $this->loadModel(new ProjectModel);
 
         $message = new ProjectMessage;
         $message->user = $user;

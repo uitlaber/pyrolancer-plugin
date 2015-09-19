@@ -19,9 +19,13 @@ class Project extends Model
     const STATUS_REJECTED = 'rejected';
     const STATUS_ACTIVE = 'active';
     const STATUS_SUSPENDED = 'suspended';
-    const STATUS_CLOSED = 'closed';
     const STATUS_CANCELLED = 'cancelled';
     const STATUS_EXPIRED = 'expired';
+    const STATUS_WAIT = 'wait';
+    const STATUS_DEVELOPMENT = 'development';
+    const STATUS_TERMINATED = 'terminated';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CLOSED = 'closed';
 
     use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Sluggable;

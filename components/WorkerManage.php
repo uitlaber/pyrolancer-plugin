@@ -166,10 +166,9 @@ class WorkerManage extends ComponentBase
         /*
          * Eager load skills
          */
-        $skillCategory = new SkillCategory;
-        $skillCategory->setTreeOrderBy('sort_order');
-        $categories = $skillCategory->getAll();
+        $categories = SkillCategory::orderBy('sort_order')->get();
         $categories->load('skills');
+        $categories = $categories->toNested();
 
         /*
          * Make the tree
@@ -205,7 +204,7 @@ class WorkerManage extends ComponentBase
             return $result;
         };
 
-        return $buildResult($skillCategory->getAllRoot());
+        return $buildResult($categories);
     }
 
 }
