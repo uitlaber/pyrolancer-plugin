@@ -76,7 +76,8 @@ class Project extends Model
     ];
 
     public $hasMany = [
-        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
+        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'conditions' => 'is_hidden <> 1'],
+        'hidden_bids'      => ['Ahoy\Pyrolancer\Models\ProjectBid', 'conditions' => 'is_hidden = 1'],
         'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage'],
         'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
@@ -92,6 +93,7 @@ class Project extends Model
         'budget_timeframe' => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.timeframe'"],
         'user'             => ['RainLab\User\Models\User'],
         'client'           => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'chosen_bid'       => ['Ahoy\Pyrolancer\Models\ProjectBid'],
     ];
 
     public $attachMany = [
@@ -313,7 +315,9 @@ class Project extends Model
 
     public function markRejected($reason = null)
     {
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_REJECTED);
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_REJECTED, [
+            'message_md' => $reason
+        ]);
     }
 
     public function markSuspended()

@@ -16,12 +16,6 @@ class ProjectBid extends Model
     use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Validation;
 
-    const STATUS_DRAFT = 'draft';
-    const STATUS_ACTIVE = 'active';
-    const STATUS_HIDDEN = 'hidden';
-    const STATUS_SHORTLISTED = 'shortlisted';
-    const STATUS_ACCEPTED = 'accepted';
-
     const TYPE_FIXED = 'fixed';
     const TYPE_HOURLY = 'hourly';
 
@@ -62,7 +56,6 @@ class ProjectBid extends Model
         'user'    => ['RainLab\User\Models\User'],
         'worker'  => ['Ahoy\Pyrolancer\Models\Worker'],
         'project' => ['Ahoy\Pyrolancer\Models\Project'],
-        'status'  => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'bid.status'"],
         'type'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'bid.type'"],
     ];
 
@@ -70,15 +63,6 @@ class ProjectBid extends Model
     {
         if ($this->isDirty('details'))
             $this->details_html = Markdown::parse(trim($this->details));
-    }
-
-    public function beforeCreate()
-    {
-        if (!$this->status_id) {
-            $this->status = Attribute::applyType(Attribute::BID_STATUS)
-                ->whereCode('active')
-                ->first();
-        }
     }
 
     public function beforeValidate()

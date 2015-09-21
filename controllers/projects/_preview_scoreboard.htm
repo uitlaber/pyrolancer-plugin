@@ -15,6 +15,8 @@
         <p><?= $formModel->status->name ?></p>
         <?php if ($formModel->status->code == 'draft'): ?>
             <p class="description">Needs approval</p>
+        <?php elseif ($formModel->status->code == 'rejected'): ?>
+            <p class="description">Waiting for a response</p>
         <?php else: ?>
             <p class="description">Everything's OK</p>
         <?php endif ?>

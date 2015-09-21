@@ -92,20 +92,20 @@ class Project extends ComponentBase
 
     public function onLoadBidAcceptForm()
     {
-        if (!$project = $this->loadModelSecure(new ProjectModel)) {
-            throw new ApplicationException('Action failed');
-        }
+        $bid = $this->findProjectBid();
 
-        if (!$bid = $this->lookupModel(new ProjectBid)) {
-            throw new ApplicationException('Bid not found');
-        }
-
-        if ($bid->project_id != $project->id) {
-            throw new ApplicationException('Permission denied');
-        }
-
-        $this->page['project'] = $project;
         $this->page['bid'] = $bid;
+        $this->page['project'] = $bid->project;
+    }
+
+    public function onToggleBid()
+    {
+        $bid = $this->findProjectBid();
+
+        $bid->is_hidden = !$bid->is_hidden;
+        $bid->save();
+
+        $this->page['project'] = $bid->project;
     }
 
     //
@@ -202,6 +202,29 @@ class Project extends ComponentBase
 
         $this->page['mode'] = $mode;
         $this->page['message'] = $message;
+    }
+
+    //
+    // Helpers
+    //
+
+    protected function findProjectBid()
+    {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        if (!$bid = $this->lookupModel(new ProjectBid)) {
+            throw new ApplicationException('Bid not found');
+        }
+
+        if ($bid->project_id != $project->id) {
+            throw new ApplicationException('Permission denied');
+        }
+
+        $bid->setRelation('project', $project);
+
+        return $bid;
     }
 
 }

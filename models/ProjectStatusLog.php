@@ -2,6 +2,7 @@
 
 use Mail;
 use Model;
+use Markdown;
 use October\Rain\Support\Str;
 use Backend\Models\UserGroup;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
@@ -18,16 +19,17 @@ class ProjectStatusLog extends Model
      */
     protected $fillable = ['type', 'message_md', 'message_html'];
 
+    /**
+     * @var array Relations
+     */
     public $belongsTo = [
         'user' => ['RainLab\User\Models\User'],
     ];
 
     /**
-     * @var array Relations
+     * @var array List of attribute names which are json encoded and decoded from the database.
      */
-    public $morphTo = [
-        'project' => []
-    ];
+    protected $jsonable = ['data'];
 
     public static function createForProject($project)
     {
@@ -126,8 +128,8 @@ class ProjectStatusLog extends Model
 
     public static function processProjectRejected($project, $log, $data = null)
     {
-        $log->message_md = array_get($data, 'reason');
-        $log->message_html = Markdown::parse(trim($this->message_md));
+        $data['message_html'] = Markdown::parse(array_get($data, 'message_md'));
+        $log->data = $data;
 
         $params = [
             'project' => $project,

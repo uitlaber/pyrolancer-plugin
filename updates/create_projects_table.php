@@ -23,6 +23,7 @@ class CreateProjectsTable extends Migration
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->integer('status_id')->unsigned()->index()->nullable();
             $table->integer('category_id')->unsigned()->index()->nullable();
+            $table->integer('chosen_bid_id')->unsigned()->nullable();
 
             // Stats
             $table->integer('count_bids')->default(0);

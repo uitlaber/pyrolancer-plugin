@@ -69,14 +69,6 @@ class SeedAttributesTables extends Seeder
             ['name' => 'Not specified', 'label' => "I don't know"],
         ];
 
-        $bidStatus = [
-            ['name' => 'Draft', 'code' => ProjectBid::STATUS_DRAFT],
-            ['name' => 'Active', 'code' => ProjectBid::STATUS_ACTIVE],
-            ['name' => 'Hidden', 'code' => ProjectBid::STATUS_HIDDEN],
-            ['name' => 'Short listed', 'code' => ProjectBid::STATUS_SHORTLISTED],
-            ['name' => 'Accepted', 'code' => ProjectBid::STATUS_ACCEPTED],
-        ];
-
         $bidType = [
             ['name' => 'Fixed', 'label' => 'Fixed rate', 'code' => ProjectBid::TYPE_FIXED, 'is_default' => true],
             ['name' => 'Hourly', 'label' => 'Hourly rate', 'code' => ProjectBid::TYPE_HOURLY],
@@ -98,7 +90,6 @@ class SeedAttributesTables extends Seeder
             Attribute::BUDGET_FIXED => $budgetFixed,
             Attribute::BUDGET_HOURLY => $budgetHourly,
             Attribute::BUDGET_TIMEFRAME => $budgetTimeframe,
-            Attribute::BID_STATUS => $bidStatus,
             Attribute::BID_TYPE => $bidType,
             Attribute::WORKER_BUDGET => $workerBudget,
         ];
