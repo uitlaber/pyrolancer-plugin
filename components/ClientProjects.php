@@ -28,6 +28,7 @@ class ClientProjects extends ComponentBase
         $this->projects = ProjectModel::make()
             ->with('status')
             ->with('project_type')
+            ->orderBy('created_at', 'desc')
             ->applyOwner()
             ->get()
         ;

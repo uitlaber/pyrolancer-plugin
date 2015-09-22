@@ -80,7 +80,7 @@ class Project extends ComponentBase
 
     public function onEditDescription()
     {
-        if (!$project = $this->lookupModelSecure(new ProjectModel)) {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
             throw new ApplicationException('Action failed');
         }
 
@@ -106,6 +106,26 @@ class Project extends ComponentBase
         $bid->save();
 
         $this->page['project'] = $bid->project;
+    }
+
+    public function onCancel()
+    {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $project->markCancelled();
+        return Redirect::refresh();
+    }
+
+    public function onResubmit()
+    {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $project->markSubmitted();
+        return Redirect::refresh();
     }
 
     //

@@ -6,6 +6,7 @@ use ApplicationException;
 use Ahoy\Pyrolancer\Models\Attribute;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Markdown;
+use Exception;
 
 /**
  * ProjectBid Model
@@ -96,6 +97,21 @@ class ProjectBid extends Model
         $bid->project = $project;
         $bid->worker = $worker;
         return $bid;
+    }
+
+    public function getTotalEstimate()
+    {
+        try {
+            if ($this->type == self::TYPE_FIXED) {
+                return $this->fixed_rate;
+            }
+            else {
+                return $this->hourly_rate * $this->hourly_hours;
+            }
+        }
+        catch (Exception $ex) {
+            return 0;
+        }
     }
 
 }

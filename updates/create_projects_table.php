@@ -27,6 +27,7 @@ class CreateProjectsTable extends Migration
 
             // Stats
             $table->integer('count_bids')->default(0);
+            $table->decimal('average_bid', 15, 2)->default(0);
 
             // Location
             $table->boolean('is_remote')->default(false);

@@ -76,8 +76,7 @@ class Project extends Model
     ];
 
     public $hasMany = [
-        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'conditions' => 'is_hidden <> 1'],
-        'hidden_bids'      => ['Ahoy\Pyrolancer\Models\ProjectBid', 'conditions' => 'is_hidden = 1'],
+        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
         'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage'],
         'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
@@ -226,6 +225,43 @@ class Project extends Model
         }
     }
 
+    /**
+     * Rebuilds the statistics for the channel
+     * @return void
+     */
+    public function rebuildStats()
+    {
+        $this->count_bids = $this->bids->count();
+
+        $totalBids = $this->count_bids ?: 1;
+        $totalAmount = 0;
+        foreach ($this->bids as $bid) {
+            $totalAmount += $bid->getTotalEstimate();
+        }
+
+        $this->average_bid = $totalAmount / $totalBids;
+        return $this;
+    }
+
+
+    //
+    // Attributes
+    //
+
+    public function getVisibleBidsAttribute()
+    {
+        return $this->bids->filter(function($bid) {
+            return !$bid->is_hidden;
+        });
+    }
+
+    public function getHiddenBidsAttribute()
+    {
+        return $this->bids->filter(function($bid) {
+            return $bid->is_hidden;
+        });
+    }
+
     //
     // Scopes
     //
@@ -295,7 +331,21 @@ class Project extends Model
      */
     public function canEdit($user = null)
     {
-        return $this->isOwner($user);
+        return $this->isOwner($user) && !$this->hasFinished();
+    }
+
+    /**
+     * The project has reached the end of the line, no further actions
+     * can be made on these projects.
+     */
+    public function hasFinished()
+    {
+        return in_array($this->status->code, [
+            self::STATUS_CANCELLED,
+            self::STATUS_TERMINATED,
+            self::STATUS_COMPLETED,
+            self::STATUS_CLOSED,
+        ]);
     }
 
     //
@@ -324,6 +374,12 @@ class Project extends Model
     {
         $this->update(['is_visible' => false]);
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_SUSPENDED);
+    }
+
+    public function markCancelled()
+    {
+        $this->update(['is_visible' => false]);
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_CANCELLED);
     }
 
 }
