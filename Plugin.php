@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer;
 
+use Event;
 use Backend;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
@@ -33,6 +34,31 @@ class Plugin extends PluginBase
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
         });
+
+        Event::listen('backend.form.extendFields', function ($widget) {
+            if (
+                !$widget->getController() instanceof \RainLab\Pages\Controllers\Index ||
+                !$widget->model instanceof \RainLab\Pages\Classes\MenuItem
+            ) {
+                return;
+            }
+
+            $widget->addTabFields([
+                'viewBag[visibleTo]' => [
+                    'tab' => 'User group',
+                    'commentAbove' => 'Make this menu item visible only to the following groups.',
+                    'type' => 'radio',
+                    'default' => 'all',
+                    'options' => [
+                        'all' => 'Everyone',
+                        'clients' => 'Clients',
+                        'workers' => 'Workers',
+                        'users' => 'Users',
+                    ]
+                ]
+            ]);
+        });
+
     }
 
     public function registerNavigation()
