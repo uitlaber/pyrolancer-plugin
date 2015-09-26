@@ -99,11 +99,11 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
+           '\Ahoy\Pyrolancer\Components\Jobs'              => 'jobs',
            '\Ahoy\Pyrolancer\Components\AttributeValues'   => 'attributeValues',
            '\Ahoy\Pyrolancer\Components\Activity'          => 'activity',
            '\Ahoy\Pyrolancer\Components\Account'           => 'account',
            '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
-           '\Ahoy\Pyrolancer\Components\Projects'          => 'projects',
            '\Ahoy\Pyrolancer\Components\Project'           => 'project',
            '\Ahoy\Pyrolancer\Components\ProjectSubmit'     => 'projectSubmit',
            '\Ahoy\Pyrolancer\Components\Worker'            => 'worker',

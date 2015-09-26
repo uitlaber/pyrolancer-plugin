@@ -166,8 +166,9 @@ class Project extends Model
 
         $searchableFields = ['name', 'slug', 'description'];
 
-        if ($visible)
+        if ($visible) {
             $query->applyVisible();
+        }
 
         /*
          * Sorting
