@@ -159,16 +159,13 @@ class Project extends Model
             'page'       => 1,
             'perPage'    => 30,
             'sort'       => 'created_at',
+            'types'      => null,
+            'positions'  => null,
             'skills'     => null,
-            'search'     => '',
-            'visible'    => true
+            'search'     => ''
         ], $options));
 
         $searchableFields = ['name', 'slug', 'description'];
-
-        if ($visible) {
-            $query->applyVisible();
-        }
 
         /*
          * Sorting
@@ -183,6 +180,17 @@ class Project extends Model
 
                 $query->orderBy($sortField, $sortDirection);
             }
+        }
+
+        /*
+         * Type & Position
+         */
+        if ($types) {
+            $query->whereIn('project_type_id', (array) $types);
+        }
+
+        if ($positions) {
+            $query->whereIn('position_type_id', (array) $positions);
         }
 
         /*

@@ -81,6 +81,12 @@ class Jobs extends ComponentBase
         return $result;
     }
 
+    public function onFilterJobs()
+    {
+        $options = post('Filter');
+        $this->page['projects'] = $this->projects($options);
+    }
+
     //
     // Filtering
     //
@@ -92,7 +98,7 @@ class Jobs extends ComponentBase
         }
 
         $options = [];
-        $options[$this->filterType] = $this->filterObject->id;
+        $options[$this->filterType] = (array) $this->filterObject->id;
         return $options;
     }
 
@@ -114,11 +120,13 @@ class Jobs extends ComponentBase
                 $filterObject = AttributeModel::applyType(AttributeModel::POSITION_TYPE)
                     ->whereCode($filterValue)
                     ->first();
+                $filterType = 'positions';
                 break;
             case 'type':
                 $filterObject = AttributeModel::applyType(AttributeModel::PROJECT_TYPE)
                     ->whereCode($filterValue)
                     ->first();
+                $filterType = 'types';
                 break;
         }
 
