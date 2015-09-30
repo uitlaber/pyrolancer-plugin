@@ -59,12 +59,21 @@ class CreateProjectsTable extends Migration
             $table->integer('skill_id')->unsigned();
             $table->primary(['project_id', 'skill_id'], 'project_skill');
         });
+
+        Schema::create('ahoy_pyrolancer_projects_skill_categories', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->integer('project_id')->unsigned();
+            $table->integer('category_id')->unsigned();
+            $table->primary(['project_id', 'category_id'], 'project_category');
+        });
     }
 
     public function down()
     {
         Schema::dropIfExists('ahoy_pyrolancer_projects');
         Schema::dropIfExists('ahoy_pyrolancer_projects_skills');
+        Schema::dropIfExists('ahoy_pyrolancer_projects_skill_categories');
     }
 
 }

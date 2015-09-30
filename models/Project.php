@@ -72,7 +72,8 @@ class Project extends Model
      * @var array Relations
      */
     public $belongsToMany = [
-        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_projects_skills', 'order' => 'name']
+        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_projects_skills', 'order' => 'name'],
+        'skill_categories' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'table' => 'ahoy_pyrolancer_projects_skill_categories', 'order' => 'name', 'otherKey' => 'category_id']
     ];
 
     public $hasMany = [
@@ -135,6 +136,11 @@ class Project extends Model
                 ->whereCode(self::STATUS_DRAFT)
                 ->first();
         }
+    }
+
+    public function afterCreate()
+    {
+        $this->assignSkillCategories();
     }
 
     public function beforeValidate()
@@ -252,6 +258,24 @@ class Project extends Model
         return $this;
     }
 
+    public function assignSkillCategories()
+    {
+        if (!$this->skills) {
+            return;
+        }
+
+        $categoryIds = [];
+        foreach ($this->skills as $skill) {
+            $categoryId = $skill->category_id;
+            if ($categoryId && !isset($categoryIds[$categoryId])) {
+                $categoryIds[$categoryId] = $categoryId;
+            }
+        }
+
+        if (count($categoryIds)) {
+            $this->skill_categories()->sync($categoryIds);
+        }
+    }
 
     //
     // Attributes
