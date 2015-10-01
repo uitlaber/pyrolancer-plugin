@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Request;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
@@ -29,6 +30,8 @@ class Jobs extends ComponentBase
     public function onRun()
     {
         $this->handleFilter();
+
+        $this->page['paginationCurrentUrl'] = $this->paginationCurrentUrl();
     }
 
     public function projects($options = null)
@@ -60,7 +63,10 @@ class Jobs extends ComponentBase
             'type' => null,
             'position' => null,
             'skills' => null,
-            'skillCategories' => null,
+            'categories' => null,
+            'sort' => null,
+            'search' => null,
+            'page' => null,
         ];
 
         if ($requestSelection = $this->getFilterOptionsFromRequest()) {
@@ -68,6 +74,20 @@ class Jobs extends ComponentBase
         }
 
         return $selection;
+    }
+
+    public function paginationCurrentUrl()
+    {
+        $currentUrl = Request::url();
+        $hasQuery = strpos($currentUrl, '?');
+        if ($hasQuery !== false) {
+            $currentUrl = substr($currentUrl, 0, $hasQuery);
+        }
+
+        $params = [];
+        $params['page'] = '';
+
+        return $currentUrl . '?' . http_build_query($params);
     }
 
     //
@@ -84,7 +104,12 @@ class Jobs extends ComponentBase
     public function onFilterJobs()
     {
         $options = post('Filter');
+        $options['page'] = post('page', 1);
         $this->page['projects'] = $this->projects($options);
+        $this->page['pageEventName'] = 'onFilterJobs';
+        $this->page['updatePartialName'] = 'jobs/projects';
+        $this->page['updateElement'] = '#partialJobsProjects';
+        $this->page['onSuccess'] = "jobsAfterPaginate()";
     }
 
     //
@@ -93,12 +118,20 @@ class Jobs extends ComponentBase
 
     protected function getFilterOptionsFromRequest()
     {
-        if (!$this->filterType || !$this->filterObject) {
-            return [];
+        $options = [];
+
+        if ($searchQuery = input('search')) {
+            $options['search'] = $searchQuery;
         }
 
-        $options = [];
-        $options[$this->filterType] = (array) $this->filterObject->id;
+        if ($pageNumber = input('page')) {
+            $options['page'] = $pageNumber;
+        }
+
+        if ($this->filterType && $this->filterObject) {
+            $options[$this->filterType] = (array) $this->filterObject->id;
+        }
+
         return $options;
     }
 
@@ -115,6 +148,10 @@ class Jobs extends ComponentBase
             case 'skill':
                 $filterObject = SkillModel::whereSlug($filterValue)->first();
                 $filterType = 'skills';
+                break;
+            case 'category':
+                $filterObject = SkillCategory::whereSlug($filterValue)->first();
+                $filterType = 'categories';
                 break;
             case 'position':
                 $filterObject = AttributeModel::applyType(AttributeModel::POSITION_TYPE)

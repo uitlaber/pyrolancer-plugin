@@ -109,12 +109,12 @@ class Project extends Model
      * @var array
      */
     public static $allowedSortingOptions = array(
-        'name asc' => 'Name (ascending)',
-        'name desc' => 'Name (descending)',
-        'created_at asc' => 'Posted date (ascending)',
         'created_at desc' => 'Posted date (descending)',
-        'updated_at asc' => 'Last updated (ascending)',
+        'created_at asc' => 'Posted date (ascending)',
         'updated_at desc' => 'Last updated (descending)',
+        'updated_at asc' => 'Last updated (ascending)',
+        'name desc' => 'Name (descending)',
+        'name asc' => 'Name (ascending)',
     );
 
     public function setDescriptionAttribute($value)
@@ -140,7 +140,7 @@ class Project extends Model
 
     public function afterCreate()
     {
-        $this->assignSkillCategories();
+        $this->syncSkillCategories();
     }
 
     public function beforeValidate()
@@ -164,10 +164,11 @@ class Project extends Model
         extract(array_merge([
             'page'       => 1,
             'perPage'    => 30,
-            'sort'       => 'created_at',
+            'sort'       => 'created_at desc',
             'types'      => null,
             'positions'  => null,
             'skills'     => null,
+            'categories' => null,
             'search'     => ''
         ], $options));
 
@@ -217,6 +218,16 @@ class Project extends Model
             });
         }
 
+        /*
+         * Skills categories
+         */
+        if ($categories !== null) {
+            if (!is_array($categories)) $categories = [$categories];
+            $query->whereHas('skill_categories', function($q) use ($categories) {
+                $q->whereIn('id', $categories);
+            });
+        }
+
         return $query->paginate($perPage, $page);
     }
 
@@ -258,7 +269,11 @@ class Project extends Model
         return $this;
     }
 
-    public function assignSkillCategories()
+    /**
+     * Reassigns the skill categories for this project, based on the 
+     * specified skills.
+     */
+    public function syncSkillCategories()
     {
         if (!$this->skills) {
             return;
