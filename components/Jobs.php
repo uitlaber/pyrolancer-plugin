@@ -40,7 +40,7 @@ class Jobs extends ComponentBase
             $options = $this->getFilterOptionsFromRequest();
         }
 
-        return $this->lookupObject(__FUNCTION__, ProjectModel::listFrontEnd($options));
+        return $this->lookupObject(__FUNCTION__, ProjectModel::applyVisible()->listFrontEnd($options));
     }
 
     //
