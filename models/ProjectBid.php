@@ -62,8 +62,9 @@ class ProjectBid extends Model
 
     public function beforeSave()
     {
-        if ($this->isDirty('details'))
+        if ($this->isDirty('details')) {
             $this->details_html = Markdown::parse(trim($this->details));
+        }
     }
 
     public function beforeValidate()

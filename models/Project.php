@@ -73,7 +73,8 @@ class Project extends Model
      */
     public $belongsToMany = [
         'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_projects_skills', 'order' => 'name'],
-        'skill_categories' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'table' => 'ahoy_pyrolancer_projects_skill_categories', 'order' => 'name', 'otherKey' => 'category_id']
+        'skill_categories' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'table' => 'ahoy_pyrolancer_projects_skill_categories', 'order' => 'name', 'otherKey' => 'category_id'],
+        'applicants' => ['RainLab\User\Models\User', 'table' => 'ahoy_pyrolancer_projects_applicants', 'timestamps' => true],
     ];
 
     public $hasMany = [
@@ -342,8 +343,9 @@ class Project extends Model
      */
     public function hasBid($user = null)
     {
-        if (!$user = $this->lookupUser($user))
+        if (!$user = $this->lookupUser($user)) {
             return false;
+        }
 
         $userBid = $this->bids->first(function($key, $bid) use ($user) {
             return $bid->user_id == $user->id;
@@ -368,8 +370,9 @@ class Project extends Model
      */
     public function canMessage($user = null)
     {
-        if (!$user = $this->lookupUser($user))
+        if (!$user = $this->lookupUser($user)) {
             return false;
+        }
 
         return true;
     }
@@ -428,6 +431,23 @@ class Project extends Model
     {
         $this->update(['is_visible' => false]);
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_CANCELLED);
+    }
+
+    //
+    // Advert
+    //
+
+    public function hasApplicant($user = null)
+    {
+        if (!$user = $this->lookupUser($user)) {
+            return false;
+        }
+
+        $userApplicant = $this->applicants->first(function($key, $applicant) use ($user) {
+            return $applicant->id == $user->id;
+        });
+
+        return is_null($userApplicant) ? false : $userApplicant;
     }
 
 }

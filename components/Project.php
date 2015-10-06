@@ -41,10 +41,17 @@ class Project extends ComponentBase
     public function project()
     {
         $project = $this->loadModel(new ProjectModel, function($query) {
-            $query->with('bids.user.avatar');
-            $query->with('bids.worker.logo');
             $query->with('messages.worker.logo');
         });
+
+        if ($project->project_type->code == 'advert') {
+            $project->load('applicants.avatar');
+            $project->load('applicants.worker');
+        }
+        else {
+            $project->load('bids.user.avatar');
+            $project->load('bids.worker.logo');
+        }
 
         $project->client->setUrl('profile/client', $this->controller);
 
@@ -85,6 +92,18 @@ class Project extends ComponentBase
         }
 
         $project->description = post('description');
+        $project->save();
+
+        $this->page['project'] = $project;
+    }
+
+    public function onEditInstructions()
+    {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $project->instructions = post('instructions');
         $project->save();
 
         $this->page['project'] = $project;
@@ -166,6 +185,23 @@ class Project extends ComponentBase
         return Redirect::refresh();
     }
 
+    public function onAdvertApply()
+    {
+        $user = $this->lookupUser();
+
+        if (!$project = $this->loadModel(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        if (!$project->hasApplicant($user)) {
+            $project->applicants()->add($user);
+        }
+
+        $project->reloadRelations();
+
+        $this->page['project'] = $project;
+    }
+
     //
     // Messaging
     //
@@ -180,8 +216,9 @@ class Project extends ComponentBase
         $message->project = $project;
         $message->content = post('content');
 
-        if ($parentId = post('parent_id'))
+        if ($parentId = post('parent_id')) {
             $message->parent_id = $parentId;
+        }
 
         $message->save();
 
@@ -201,20 +238,16 @@ class Project extends ComponentBase
 
     public function onUpdateMessage()
     {
-        if (!$message = $this->lookupModelSecure(new ProjectMessage))
+        if (!$message = $this->lookupModelSecure(new ProjectMessage)) {
             throw new ApplicationException('Action failed');
+        }
 
         /*
          * Supported modes: edit, view, delete, save
          */
         $mode = post('mode', 'edit');
         if ($mode == 'save') {
-
-            // if (__canPostToThis__)
-            //     throw new ApplicationException('Action failed');
-
             $message->save(post());
-
         }
         elseif ($mode == 'delete') {
             $message->delete();
