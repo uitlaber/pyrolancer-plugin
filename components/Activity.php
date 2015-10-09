@@ -51,27 +51,12 @@ class Activity extends ComponentBase
 
         $results = $feed->limit(25)->get();
 
-        $results->each(function($result){
-            if ($result->tag_name == 'worker') {
-                $result->setUrl('worker', $this->controller);
-            }
-            elseif ($result->tag_name == 'project') {
-                $result->user->client->setUrl('client', $this->controller);
-            }
-        });
-
         return $results;
     }
 
     public function recentWorkers()
     {
-        $results = WorkerModel::limit(5)->get();
-
-        $results->each(function($result){
-            $result->setUrl('worker', $this->controller);
-        });
-
-        return $results;
+        return WorkerModel::limit(5)->get();
     }
 
 }

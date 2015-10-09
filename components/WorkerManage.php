@@ -62,9 +62,7 @@ class WorkerManage extends ComponentBase
 
     public function worker()
     {
-        $worker = $this->lookupObject(__FUNCTION__, WorkerModel::getFromUser());
-        $worker->setUrl('worker', $this->controller);
-        return $worker;
+        return $this->lookupObject(__FUNCTION__, WorkerModel::getFromUser());
     }
 
     public function reviews()

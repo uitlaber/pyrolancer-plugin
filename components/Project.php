@@ -53,15 +53,10 @@ class Project extends ComponentBase
             $project->load('bids.worker.logo');
         }
 
-        $project->client->setUrl('profile/client', $this->controller);
-
         $project->messages->each(function($message) use ($project) {
             $message->setRelation('project', $project);
             if ($message->isProjectOwner()) {
                 $message->setRelation('client', $project->client);
-            }
-            else {
-                $message->worker->setUrl('profile/worker', $this->controller);
             }
         });
 

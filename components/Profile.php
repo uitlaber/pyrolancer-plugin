@@ -26,6 +26,20 @@ class Profile extends ComponentBase
                 'default'     => '{{ :code }}',
                 'type'        => 'string',
             ],
+            'isPrimaryWorker' => [
+                'title'       => 'Primary Worker page',
+                'description' => 'Link to this page when clicking on a worker.',
+                'type'        => 'checkbox',
+                'default'     => false,
+                'showExternalParam' => false
+            ],
+            'isPrimaryClient' => [
+                'title'       => 'Primary Client page',
+                'description' => 'Link to this page when clicking on a client.',
+                'type'        => 'checkbox',
+                'default'     => false,
+                'showExternalParam' => false
+            ],
         ];
     }
 

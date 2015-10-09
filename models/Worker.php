@@ -9,15 +9,10 @@ use Model;
 class Worker extends Model
 {
 
+    use \Ahoy\Traits\UrlMaker;
     use \Ahoy\Traits\GeneralUtils;
-    use \October\Rain\Database\Traits\Purgeable;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
-
-    /**
-     * @var array List of attribute names which should not be saved to the database.
-     */
-    protected $purgeable = ['url'];
 
     /*
      * Validation
@@ -86,6 +81,28 @@ class Worker extends Model
     public $slugs = ['slug' => 'business_name'];
 
     /**
+     * @var string The component to use for generating URLs.
+     */
+    protected $urlComponentName = 'profile';
+
+    /**
+     * @var string The property name to determine a primary component.
+     */
+    protected $urlComponentProperty = 'isPrimaryWorker';
+
+    /**
+     * Returns an array of values to use in URL generation.
+     * @return @array
+     */
+    public function getUrlParams()
+    {
+        return [
+            'id' => $this->user_id,
+            'code' => $this->shortEncodeId($this->user_id)
+        ];
+    }
+
+    /**
      * Automatically creates a freelancer profile for a user if not one already.
      * @param  RainLab\User\Models\User $user
      * @return Ahoy\Pyrolancer\Models\Worker
@@ -109,20 +126,6 @@ class Worker extends Model
         return $user->worker;
     }
 
-    /**
-     * Sets the "url" attribute with a URL to this object
-     * @param string $pageName
-     * @param Cms\Classes\Controller $controller
-     */
-    public function setUrl($pageName, $controller)
-    {
-        $params = [
-            'id' => $this->user_id,
-            'code' => $this->shortEncodeId($this->user_id)
-        ];
-
-        return $this->url = $controller->pageUrl($pageName, $params);
-    }
 
     public function getRecommendPercentAttribute()
     {

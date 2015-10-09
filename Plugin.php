@@ -117,7 +117,6 @@ class Plugin extends PluginBase
         ];
     }
 
-
     public function registerMailTemplates()
     {
         return [
