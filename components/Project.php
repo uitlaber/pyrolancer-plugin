@@ -3,12 +3,14 @@
 use Auth;
 use Input;
 use Redirect;
-use ApplicationException;
+use Validator;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage;
 use Ahoy\Pyrolancer\Models\ProjectBid;
 use Ahoy\Pyrolancer\Models\ProjectExtraDetail;
+use ValidationException;
+use ApplicationException;
 
 class Project extends ComponentBase
 {
@@ -106,10 +108,61 @@ class Project extends ComponentBase
 
     public function onLoadBidAcceptForm()
     {
+        $user = $this->lookupUser();
         $bid = $this->findProjectBid();
 
         $this->page['bid'] = $bid;
+        $this->page['user'] = $user;
         $this->page['project'] = $bid->project;
+    }
+
+    public function onAcceptBid()
+    {
+        $user = $this->lookupUser();
+        $bid = $this->findProjectBid();
+        $project = $this->loadModelSecure(new ProjectModel);
+
+        $rules = [
+            'name' => 'required',
+            'surname' => 'required',
+            'phone' => 'required',
+            'street_addr' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+        ];
+
+        $data = array_only(post(), [
+            'name',
+            'surname',
+            'phone',
+            'mobile',
+            'street_addr',
+            'city',
+            'zip',
+            'country_id',
+            'state_id'
+        ]);
+
+        $validation = Validator::make($data, $rules);
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        $project->markAccepted($bid);
+        $user->fill($data);
+        $user->save();
+
+        return Redirect::refresh();
+    }
+
+    public function onRetractOffer()
+    {
+        $project = $this->loadModelSecure(new ProjectModel);
+        $project->markAccepted(null);
+
+        return Redirect::refresh();
     }
 
     public function onToggleBid()
@@ -151,6 +204,10 @@ class Project extends ComponentBase
         $user = $this->lookupUser();
         $project = $this->loadModel(new ProjectModel);
 
+        if ($project->hasChosenBid()) {
+            throw new ApplicationException('Action failed');
+        }
+
         if (!$bid = $project->hasBid()) {
             $this->page['bidCreated'] = true;
             $bid = ProjectBid::makeForProject($project);
@@ -175,6 +232,10 @@ class Project extends ComponentBase
     {
         $project = $this->loadModel(new ProjectModel);
 
+        if ($project->hasChosenBid()) {
+            throw new ApplicationException('Action failed');
+        }
+
         if ($bid = $project->hasBid()) {
             $bid->delete();
         }
@@ -183,6 +244,51 @@ class Project extends ComponentBase
         $project->save();
 
         return Redirect::refresh();
+    }
+
+    public function onLoadOfferDeclineForm()
+    {
+        $user = $this->lookupUser();
+        $project = $this->loadModel(new ProjectModel);
+
+        if (!$bid = $project->hasChosenBid()) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $this->page['bid'] = $bid;
+        $this->page['user'] = $user;
+        $this->page['project'] = $project;
+    }
+
+    public function onDeclineOffer()
+    {
+        $reason = post('reason');
+        $rules = ['reason' => 'required'];
+        $data = ['reason' => $reason];
+
+        $validation = Validator::make($data, $rules);
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        $user = $this->lookupUser();
+        $project = $this->loadModel(new ProjectModel);
+
+        if (!$bid = $project->hasChosenBid()) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $project->markDeclined($reason);
+
+        $bid->is_hidden = true;
+        $bid->save();
+
+        return Redirect::refresh();
+    }
+
+    public function onAcceptOffer()
+    {
+
     }
 
     public function onAdvertApply()

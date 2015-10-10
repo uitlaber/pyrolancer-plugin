@@ -19,6 +19,7 @@ class SeedAttributesTables extends Seeder
             ['name' => 'Expired', 'code' => ProjectModel::STATUS_EXPIRED],
             ['name' => 'Cancelled', 'code' => ProjectModel::STATUS_CANCELLED],
             ['name' => 'Wait', 'code' => ProjectModel::STATUS_WAIT],
+            ['name' => 'Declined', 'code' => ProjectModel::STATUS_DECLINED],
             ['name' => 'Development', 'code' => ProjectModel::STATUS_DEVELOPMENT],
             ['name' => 'Terminated', 'code' => ProjectModel::STATUS_TERMINATED],
             ['name' => 'Completed', 'code' => ProjectModel::STATUS_COMPLETED],
@@ -27,7 +28,7 @@ class SeedAttributesTables extends Seeder
 
         $projectTypes = [
             ['name' => 'Bid request', 'label' => 'Give an estimate on how much it will cost', 'code' => 'auction'],
-            ['name' => 'Position vacant', 'label' => 'Send an application with credentials', 'code' => 'advert'],
+            ['name' => 'Position vacant', 'label' => 'Send me an application with credentials', 'code' => 'advert'],
         ];
 
         $positionTypes = [

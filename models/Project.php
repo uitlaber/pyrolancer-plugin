@@ -6,6 +6,7 @@ use Model;
 use Backend;
 use BackendAuth;
 use Cms\Classes\Page as CmsPage;
+use Carbon\Carbon;
 use Markdown;
 
 /**
@@ -22,6 +23,7 @@ class Project extends Model
     const STATUS_CANCELLED = 'cancelled';
     const STATUS_EXPIRED = 'expired';
     const STATUS_WAIT = 'wait';
+    const STATUS_DECLINED = 'declined';
     const STATUS_DEVELOPMENT = 'development';
     const STATUS_TERMINATED = 'terminated';
     const STATUS_COMPLETED = 'completed';
@@ -40,6 +42,12 @@ class Project extends Model
     public $rules = [
         'name' => 'required',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     * @var array
+     */
+    protected $dates = ['expired_at', 'chosen_at'];
 
     /**
      * @var string The database table used by the model.
@@ -379,7 +387,7 @@ class Project extends Model
             return false;
         }
 
-        return $this->chosen_bid_id == $bid->id;
+        return $this->chosen_bid_id == $bid->id ? $bid : false;
     }
 
     /**
@@ -427,6 +435,32 @@ class Project extends Model
         ]);
     }
 
+    public function hasActiveStatus()
+    {
+        return in_array($this->status->code, [
+            self::STATUS_ACTIVE,
+            self::STATUS_WAIT,
+            self::STATUS_DECLINED,
+        ]);
+    }
+
+    /**
+     * Can the client repick another worker.
+     */
+    public function canRepick()
+    {
+        return Carbon::now()->gt($this->repick_at);
+    }
+
+    /**
+     * Allowed to repick from this datetime onwards.
+     */
+    public function getRepickAtAttribute()
+    {
+        $hours = -24;
+        return $this->chosen_at->addHours($hours);
+    }
+
     //
     // Status workflow
     //
@@ -438,7 +472,10 @@ class Project extends Model
 
     public function markApproved()
     {
-        $this->update(['is_visible' => true, 'is_approved' => true]);
+        $this->is_approved = true;
+        $this->is_visible = true;
+        $this->save();
+
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
     }
 
@@ -451,14 +488,57 @@ class Project extends Model
 
     public function markSuspended()
     {
-        $this->update(['is_visible' => false]);
+        $this->is_visible = false;
+        $this->save();
+
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_SUSPENDED);
     }
 
     public function markCancelled()
     {
-        $this->update(['is_visible' => false]);
+        $this->is_visible = false;
+        $this->save();
+
         ProjectStatusLog::updateProjectStatus($this, self::STATUS_CANCELLED);
+    }
+
+    /**
+     * A worker has been selected, waiting for confirmation.
+     */
+    public function markAccepted($bid = null)
+    {
+        $this->bids()
+            ->where('is_chosen', true)
+            ->update(['is_chosen' => false])
+        ;
+
+        if ($bid === null) {
+            $this->chosen_bid_id = null;
+            $this->chosen_at = null;
+            $this->save();
+
+            ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
+        }
+        else {
+            $this->chosen_bid_id = $bid->id;
+            $this->chosen_at = $this->freshTimestamp();
+            $this->save();
+
+            $bid->is_chosen = true;
+            $bid->save();
+
+            ProjectStatusLog::updateProjectStatus($this, self::STATUS_WAIT);
+        }
+    }
+
+    /**
+     * The selected worker has declined the job.
+     */
+    public function markDeclined($reason = null)
+    {
+        ProjectStatusLog::updateProjectStatus($this, self::STATUS_DECLINED, [
+            'message_md' => $reason
+        ]);
     }
 
     //

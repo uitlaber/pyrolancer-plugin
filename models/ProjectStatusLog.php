@@ -88,6 +88,10 @@ class ProjectStatusLog extends Model
                 self::processProjectRejected($project, $log, $data);
             }
 
+            if ($oldStatus->code == Project::STATUS_WAIT && $status->code == Project::STATUS_DECLINED) {
+                self::processProjectDeclined($project, $log, $data);
+            }
+
             if ($status->code == Project::STATUS_SUSPENDED) {
                 self::processProjectSuspended($project, $log, $data);
             }
@@ -138,6 +142,20 @@ class ProjectStatusLog extends Model
         ];
 
         Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.client-project-rejected', $params);
+    }
+
+    public static function processProjectDeclined($project, $log, $data = null)
+    {
+        $data['message_html'] = Markdown::parse(array_get($data, 'message_md'));
+        $log->data = $data;
+
+        $params = [
+            'project' => $project,
+            'user' => $project->user,
+            'reason' => $log->message_html,
+        ];
+
+        // Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.worker-project-declined', $params);
     }
 
     public static function processProjectSuspended($project, $log, $data = null)
