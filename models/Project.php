@@ -78,7 +78,7 @@ class Project extends Model
     ];
 
     public $hasMany = [
-        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid'],
+        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate'],
         'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage'],
         'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
@@ -258,15 +258,31 @@ class Project extends Model
      */
     public function rebuildStats()
     {
-        $this->count_bids = $this->bids->count();
-
-        $totalBids = $this->count_bids ?: 1;
-        $totalAmount = 0;
-        foreach ($this->bids as $bid) {
-            $totalAmount += $bid->getTotalEstimate();
+        if (!$this->project_type_id) {
+            return;
         }
 
-        $this->average_bid = $totalAmount / $totalBids;
+        /*
+         * Advert
+         */
+        if ($this->project_type->code == 'advert') {
+            $this->count_applicants = $this->applicants->count();
+        }
+        /*
+         * Auction
+         */
+        else {
+            $this->count_bids = $this->bids->count();
+
+            $totalBids = $this->count_bids ?: 1;
+            $totalAmount = 0;
+            foreach ($this->bids as $bid) {
+                $totalAmount += $bid->total_estimate;
+            }
+
+            $this->average_bid = $totalAmount / $totalBids;
+        }
+
         return $this;
     }
 
@@ -352,6 +368,18 @@ class Project extends Model
         });
 
         return is_null($userBid) ? false : $userBid;
+    }
+
+    /**
+     * Checks if supplied user has bid, and it is chosen by the client.
+     */
+    public function hasChosenBid($user = null)
+    {
+        if (!$bid = $this->hasBid($user)) {
+            return false;
+        }
+
+        return $this->chosen_bid_id == $bid->id;
     }
 
     /**

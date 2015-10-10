@@ -163,6 +163,8 @@ class Project extends ComponentBase
         $bid->save();
 
         $project->reloadRelations();
+        $project->rebuildStats();
+        $project->save();
 
         $this->page['bid'] = $bid;
         $this->page['bids'] = $project->bids;
@@ -176,6 +178,9 @@ class Project extends ComponentBase
         if ($bid = $project->hasBid()) {
             $bid->delete();
         }
+
+        $project->rebuildStats();
+        $project->save();
 
         return Redirect::refresh();
     }
@@ -193,6 +198,8 @@ class Project extends ComponentBase
         }
 
         $project->reloadRelations();
+        $project->rebuildStats();
+        $project->save();
 
         $this->page['project'] = $project;
     }

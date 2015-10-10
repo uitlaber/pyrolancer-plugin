@@ -65,6 +65,8 @@ class ProjectBid extends Model
         if ($this->isDirty('details')) {
             $this->details_html = Markdown::parse(trim($this->details));
         }
+
+        $this->total_estimate = $this->calcTotalEstimate();
     }
 
     public function beforeValidate()
@@ -100,7 +102,7 @@ class ProjectBid extends Model
         return $bid;
     }
 
-    public function getTotalEstimate()
+    public function calcTotalEstimate()
     {
         try {
             if ($this->type == self::TYPE_FIXED) {
