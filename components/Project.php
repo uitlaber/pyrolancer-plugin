@@ -204,7 +204,7 @@ class Project extends ComponentBase
         $user = $this->lookupUser();
         $project = $this->loadModel(new ProjectModel);
 
-        if ($project->hasChosenBid()) {
+        if (!$project->canBid()) {
             throw new ApplicationException('Action failed');
         }
 
@@ -232,7 +232,7 @@ class Project extends ComponentBase
     {
         $project = $this->loadModel(new ProjectModel);
 
-        if ($project->hasChosenBid()) {
+        if (!$project->canBid()) {
             throw new ApplicationException('Action failed');
         }
 
@@ -288,7 +288,16 @@ class Project extends ComponentBase
 
     public function onAcceptOffer()
     {
+        $user = $this->lookupUser();
+        $project = $this->loadModel(new ProjectModel);
 
+        if (!$bid = $project->hasChosenBid()) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $project->markDevelopment();
+
+        return Redirect::refresh();
     }
 
     public function onAdvertApply()

@@ -67,13 +67,27 @@ class ProjectMessage extends Model
      */
     public function canEdit($user = null)
     {
-        if (!$user)
-            $user = Auth::getUser();
-
-        if (!$user)
+        if (!$user = Auth::getUser()) {
             return false;
+        }
 
         return $this->user_id == $user->id;
+    }
+
+    /**
+     * Can the user reply to another user message.
+     */
+    public function canReply($user = null)
+    {
+        if (!$user = Auth::getUser()) {
+            return false;
+        }
+
+        if ($this->isOwner($user)) {
+            return false;
+        }
+
+        return true;
     }
 
 }

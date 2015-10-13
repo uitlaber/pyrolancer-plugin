@@ -349,15 +349,37 @@ class Project extends Model
     //
 
     /**
+     * Can new messages be posted to this project
+     */
+    public function canMessage($user = null)
+    {
+        if ($this->isOwner($user)) {
+            return false;
+        }
+
+        if ($this->hasFinished()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Can the user bid on this project
      */
     public function canBid($user = null)
     {
-        if (!$user = $this->lookupUser($user))
+        if ($this->isOwner($user)) {
             return false;
+        }
 
-        if ($this->isOwner($user))
+        if ($this->hasChosenBid($user)) {
             return false;
+        }
+
+        if ($this->hasFinished()) {
+            return false;
+        }
 
         return true;
     }
@@ -402,18 +424,6 @@ class Project extends Model
     }
 
     /**
-     * Can new messages be posted to this project
-     */
-    public function canMessage($user = null)
-    {
-        if (!$user = $this->lookupUser($user)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Can the user, or logged in user, edit this project.
      */
     public function canEdit($user = null)
@@ -429,6 +439,7 @@ class Project extends Model
     {
         return in_array($this->status->code, [
             self::STATUS_CANCELLED,
+            self::STATUS_DEVELOPMENT,
             self::STATUS_TERMINATED,
             self::STATUS_COMPLETED,
             self::STATUS_CLOSED,
@@ -457,7 +468,7 @@ class Project extends Model
      */
     public function getRepickAtAttribute()
     {
-        $hours = -24;
+        $hours = 24;
         return $this->chosen_at->addHours($hours);
     }
 
@@ -465,9 +476,14 @@ class Project extends Model
     // Status workflow
     //
 
+    public function markStatus($code, $data = null)
+    {
+        ProjectStatusLog::updateProjectStatus($this, $code, $data);
+    }
+
     public function markSubmitted()
     {
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_PENDING);
+        $this->markStatus(self::STATUS_PENDING);
     }
 
     public function markApproved()
@@ -476,12 +492,12 @@ class Project extends Model
         $this->is_visible = true;
         $this->save();
 
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
+        $this->markStatus(self::STATUS_ACTIVE);
     }
 
     public function markRejected($reason = null)
     {
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_REJECTED, [
+        $this->markStatus(self::STATUS_REJECTED, [
             'message_md' => $reason
         ]);
     }
@@ -491,7 +507,7 @@ class Project extends Model
         $this->is_visible = false;
         $this->save();
 
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_SUSPENDED);
+        $this->markStatus(self::STATUS_SUSPENDED);
     }
 
     public function markCancelled()
@@ -499,7 +515,7 @@ class Project extends Model
         $this->is_visible = false;
         $this->save();
 
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_CANCELLED);
+        $this->markStatus(self::STATUS_CANCELLED);
     }
 
     /**
@@ -517,7 +533,7 @@ class Project extends Model
             $this->chosen_at = null;
             $this->save();
 
-            ProjectStatusLog::updateProjectStatus($this, self::STATUS_ACTIVE);
+            $this->markStatus(self::STATUS_ACTIVE);
         }
         else {
             $this->chosen_bid_id = $bid->id;
@@ -527,7 +543,7 @@ class Project extends Model
             $bid->is_chosen = true;
             $bid->save();
 
-            ProjectStatusLog::updateProjectStatus($this, self::STATUS_WAIT);
+            $this->markStatus(self::STATUS_WAIT);
         }
     }
 
@@ -536,9 +552,14 @@ class Project extends Model
      */
     public function markDeclined($reason = null)
     {
-        ProjectStatusLog::updateProjectStatus($this, self::STATUS_DECLINED, [
+        $this->markStatus(self::STATUS_DECLINED, [
             'message_md' => $reason
         ]);
+    }
+
+    public function markDevelopment()
+    {
+        $this->markStatus(self::STATUS_DEVELOPMENT);
     }
 
     //
