@@ -48,10 +48,15 @@ class ProjectMessage extends Model
         'client' => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
 
+    public $attachMany = [
+        'attachments' => ['System\Models\File']
+    ];
+
     public function beforeSave()
     {
-        if ($this->isDirty('content'))
+        if ($this->isDirty('content')) {
             $this->content_html = Markdown::parse(trim($this->content));
+        }
     }
 
     public function isProjectOwner()

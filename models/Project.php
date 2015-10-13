@@ -87,7 +87,8 @@ class Project extends Model
 
     public $hasMany = [
         'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate'],
-        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage'],
+        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 1'],
+        'private_messages' => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 0'],
         'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
     ];
 

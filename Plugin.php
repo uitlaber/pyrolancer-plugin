@@ -106,6 +106,7 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
            '\Ahoy\Pyrolancer\Components\Project'           => 'project',
            '\Ahoy\Pyrolancer\Components\ProjectSubmit'     => 'projectSubmit',
+           '\Ahoy\Pyrolancer\Components\ProjectCollab'     => 'projectCollab',
            '\Ahoy\Pyrolancer\Components\Worker'            => 'worker',
            '\Ahoy\Pyrolancer\Components\WorkerManage'      => 'workerManage',
            '\Ahoy\Pyrolancer\Components\WorkerRegister'    => 'workerRegister',
