@@ -1,7 +1,12 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Flash;
+use Redirect;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
+use ApplicationException;
+use Exception;
 
 class ProjectCollab extends ComponentBase
 {
@@ -33,27 +38,66 @@ class ProjectCollab extends ComponentBase
 
     public function project()
     {
-        $project = $this->loadModel(new ProjectModel, function($query) {
-            $query->with('private_messages.worker.logo');
-        });
+        return $this->loadModel(new ProjectModel, function($query) {
+            $query->with('private_messages.user.avatar');
+            $query->with('private_messages.client');
+            $query->with('private_messages.worker');
+        },
+        function($project){
+            if ($project->project_type->code == 'advert') {
+                return false;
+            }
 
-        // if ($project->project_type->code == 'advert') {
-        //     $project->load('applicants.avatar');
-        //     $project->load('applicants.worker');
-        // }
-        // else {
-        //     $project->load('bids.user.avatar');
-        //     $project->load('bids.worker.logo');
-        // }
+            if (!$project->hasFinished()) {
+                return false;
+            }
 
-        $project->private_messages->each(function($message) use ($project) {
-            $message->setRelation('project', $project);
-            if ($message->isProjectOwner()) {
-                $message->setRelation('client', $project->client);
+            if (!$project->isOwner() && !$project->hasChosenBid()) {
+                return false;
             }
         });
+    }
 
-        return $project;
+    public function otherUser()
+    {
+        if (!$project = $this->project()) {
+            return null;
+        }
+
+        if ($project->isOwner()) {
+            return $project->chosen_bid->user;
+        }
+
+        return $project->user;
+    }
+
+    public function onSubmitMessage()
+    {
+        try {
+            if (!$project = $this->project()) {
+                throw new ApplicationException('Project not found!');
+            }
+
+            $user = $this->lookupUser();
+            $sessionKey = post('_session_key', uniqid('message', true));
+
+            $message = new ProjectMessageModel;
+            $message->is_public = false;
+            $message->user = $user;
+            $message->project = $project;
+            $message->content = post('content');
+
+            $this->setAttachmentsOnModel($message, $sessionKey);
+
+            $message->save(null, $sessionKey);
+
+            Flash::success('The message has been posted successfully.');
+
+            return Redirect::refresh();
+        }
+        catch (Exception $ex) {
+            Flash::error($ex->getMessage());
+        }
     }
 
 }

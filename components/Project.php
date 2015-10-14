@@ -42,29 +42,28 @@ class Project extends ComponentBase
 
     public function project()
     {
-        $project = $this->loadModel(new ProjectModel, function($query) {
+        return $this->loadModel(new ProjectModel, function($query) {
             $query->with('messages.worker.logo');
-        });
-
-        if ($project->project_type->code == 'advert') {
-            $project->load('applicants.avatar');
-            $project->load('applicants.worker');
-        }
-        else {
-            $project->load('bids.user.avatar');
-            $project->load('bids.worker.logo');
-        }
-
-        $project->messages->each(function($message) use ($project) {
-            $message->setRelation('project', $project);
-            if ($message->isProjectOwner()) {
-                $message->setRelation('client', $project->client);
+        },
+        function($project) {
+            if ($project->project_type->code == 'advert') {
+                $project->load('applicants.avatar');
+                $project->load('applicants.worker');
             }
+            else {
+                $project->load('bids.user.avatar');
+                $project->load('bids.worker.logo');
+            }
+
+            $project->messages->each(function($message) use ($project) {
+                $message->setRelation('project', $project);
+                if ($message->isProjectOwner()) {
+                    $message->setRelation('client', $project->client);
+                }
+            });
+
+            $project->setRelation('messages', $project->messages->toNested());
         });
-
-        $project->setRelation('messages', $project->messages->toNested());
-
-        return $project;
     }
 
     //
