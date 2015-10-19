@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Auth;
+use Mail;
 use Model;
 
 /**
@@ -20,6 +21,12 @@ class Worker extends Model
     public $rules = [
         'business_name' => 'required',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     * @var array
+     */
+    protected $dates = ['last_digest_at'];
 
     /**
      * @var string The database table used by the model.
@@ -174,6 +181,37 @@ class Worker extends Model
         $this->rating_breakdown = $finalBreakdown;
         $this->count_ratings = $total;
         $this->count_recommend = $recommend;
+    }
+
+    /**
+     * Sends this worker a digest of relevant jobs.
+     */
+    public function notifyDigest()
+    {
+        $skills = $this->skills()->lists('id');
+
+        $projects = Project::make()
+            ->where('is_visible', true)
+            ->whereHas('skills', function($q) use ($skills) {
+                $q->whereIn('id', $skills);
+            });
+
+        if ($this->last_digest_at) {
+            $projects->where('created_at', '>', $this->last_digest_at);
+        }
+
+        $projects = $projects->get();
+
+        if (!count($projects)) {
+            return false;
+        }
+
+        $params = [
+            'user' => $this->user,
+            'projects' => $projects
+        ];
+
+        Mail::sendTo($this->user, 'ahoy.pyrolancer::mail.worker-digest', $params);
     }
 
 }

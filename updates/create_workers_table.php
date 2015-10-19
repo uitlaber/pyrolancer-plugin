@@ -32,7 +32,7 @@ class CreateFreelancersTable extends Migration
             $table->integer('count_recommend')->default(0);
             $table->integer('count_ratings')->default(0);
             $table->integer('count_bids')->default(0);
-            $table->dateTime('last_active_at')->index()->nullable();
+            $table->dateTime('last_digest_at')->index()->nullable();
             $table->timestamps();
         });
 

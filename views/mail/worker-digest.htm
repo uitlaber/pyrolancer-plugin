@@ -1,0 +1,25 @@
+subject = "You have new job offers"
+==
+
+<p>Hello,</p>
+
+<p>Here is a list of recent jobs that match your profile on {{ site_name }}.</p>
+
+{% for project in projects %}
+
+    <h3>
+        <a href="{{ project.url }}">
+            {{ project.name }}
+        </a>
+    </h3>
+    <p>
+        {{ str_limit(project.description, 255) }}
+        {% if project.description|length > 255 %}
+            <a href="{{ project.url }}">See more</a>
+        {% endif %}
+    </p>
+
+    <hr />
+{% endfor %}
+
+Good luck and have a great day!

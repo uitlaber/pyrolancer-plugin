@@ -28,6 +28,11 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function register()
+    {
+        $this->registerConsoleCommand('jobs.run', 'Ahoy\Pyrolancer\Console\JobsRun');
+    }
+
     public function boot()
     {
         UserModel::extend(function($model) {
@@ -140,5 +145,12 @@ class Plugin extends PluginBase
                 'keywords'    => 'project worker client'
             ]
         ];
+    }
+
+    public function registerSchedule($schedule)
+    {
+        $schedule->call(function(){
+            SupportWorker::instance()->process();
+        })->everyFiveMinutes();
     }
 }
