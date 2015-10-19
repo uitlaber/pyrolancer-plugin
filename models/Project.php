@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Db;
 use App;
 use Auth;
 use Model;
@@ -179,6 +180,8 @@ class Project extends Model
             'positions'  => null,
             'skills'     => null,
             'categories' => null,
+            'latitude'   => null,
+            'longitude'  => null,
             'search'     => ''
         ], $options));
 
@@ -238,7 +241,54 @@ class Project extends Model
             });
         }
 
+        /*
+         * Location
+         */
+        if ($latitude !== null && $longitude != null) {
+            $query->where(function($q) use ($latitude, $longitude) {
+                $q->applyArea($latitude, $longitude);
+                $q->orWhere('is_remote', true);
+            });
+        }
+
         return $query->paginate($perPage, $page);
+    }
+
+    public function scopeApplyArea($query, $lat, $lng, $radius = null, $type = null)
+    {
+        /*
+         * Defaults
+         */
+        if ($radius == null) {
+            $radius = 100;
+        }
+
+        if ($type == null) {
+            $type = 'km';
+        }
+
+        /*
+         * Maximum 1000, self imposed limit
+         */
+        if (!floatval($radius) || floatval($radius) > 1000) {
+            $radius = 1000;
+        }
+
+        $unit = $type == 'km'
+            ? 6371 // kms
+            : 3959; // miles
+
+        $queryArr = [];
+        $queryArr[] = sprintf('( %s * acos(', Db::getPdo()->quote($unit));
+        $queryArr[] = sprintf('cos( radians( %s ) )', Db::getPdo()->quote($lat));
+        $queryArr[] = '* cos( radians( latitude ) )';
+        $queryArr[] = sprintf('* cos( radians( longitude ) - radians( %s ) )', Db::getPdo()->quote($lng));
+        $queryArr[] = sprintf('+ sin( radians( %s ) )', Db::getPdo()->quote($lat));
+        $queryArr[] = '* sin( radians( latitude ) )';
+        $queryArr[] = sprintf(') ) < %s', Db::getPdo()->quote($radius));
+
+        $query->whereRaw(implode('', $queryArr));
+        return $query;
     }
 
     public function getBackendUrl()

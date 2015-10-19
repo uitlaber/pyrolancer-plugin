@@ -200,6 +200,16 @@ class Worker extends Model
             $projects->where('created_at', '>', $this->last_digest_at);
         }
 
+        if ($this->latitude && $this->longitude) {
+            $query->where(function($q) {
+                $q->applyArea($this->latitude, $this->longitude);
+                $q->orWhere('is_remote', true);
+            });
+        }
+        else {
+            $query->where('is_remote', true);
+        }
+
         $projects = $projects->get();
 
         if (!count($projects)) {

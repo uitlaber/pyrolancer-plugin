@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Auth;
 use Request;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
@@ -130,6 +131,14 @@ class Jobs extends ComponentBase
 
         if ($this->filterType && $this->filterObject) {
             $options[$this->filterType] = (array) $this->filterObject->id;
+        }
+
+        if (
+            !array_get($options, 'skills') &&
+            ($user = Auth::getUser()) &&
+            $user->is_worker
+        ) {
+            $options['skills'] = $user->worker->skills->lists('id');
         }
 
         return $options;
