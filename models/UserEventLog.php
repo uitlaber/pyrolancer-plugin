@@ -24,10 +24,26 @@ class UserEventLog extends Model
     public static function add($type, $user, $related = null, $otherUser = null)
     {
         $obj = new self;
-        $obj->user_id = $user;
+        $obj->user_id = $user->id;
         $obj->type = $type;
         $obj->save();
 
         return $obj;
+    }
+
+    /**
+     * Log items related to a user.
+     */
+    public function scopeApplyUser($query, $user)
+    {
+        return $query->where('user_id', $user->id);
+    }
+
+    /**
+     * Log items related to the public.
+     */
+    public function scopeApplyVisible($query)
+    {
+        return $query->whereNotIn('type', [self::TYPE_USER_CREATED]);
     }
 }

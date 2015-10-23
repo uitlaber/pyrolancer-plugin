@@ -4,6 +4,7 @@ use Event;
 use Backend;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
+use Ahoy\Pyrolancer\Models\UserEventLog;
 
 /**
  * Pyrolancer Plugin Information File
@@ -38,6 +39,10 @@ class Plugin extends PluginBase
         UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker'];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
+
+            $model->bindEvent('model.afterCreate', function() use ($model) {
+                UserEventLog::add(UserEventLog::TYPE_USER_CREATED, $model);
+            });
         });
 
         Event::listen('backend.form.extendFields', function ($widget) {
