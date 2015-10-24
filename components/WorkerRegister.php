@@ -113,8 +113,9 @@ class WorkerRegister extends ComponentBase
         $user->fill((array) post('User'));
         $user->country_id = post('country_id');
         $user->state_id = post('state_id');
-        $user->is_worker = true;
         $user->save();
+
+        $worker->completeProfile();
     }
 
 }

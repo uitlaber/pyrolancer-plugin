@@ -127,6 +127,11 @@ class ProjectStatusLog extends Model
             'user' => $project->user,
         ];
 
+        UserEventLog::add(UserEventLog::TYPE_PROJECT_CREATED, [
+            'user' => $project->user,
+            'related' => $project,
+        ]);
+
         Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.client-project-approved', $params);
     }
 

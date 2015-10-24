@@ -41,7 +41,10 @@ class Plugin extends PluginBase
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client'];
 
             $model->bindEvent('model.afterCreate', function() use ($model) {
-                UserEventLog::add(UserEventLog::TYPE_USER_CREATED, $model);
+                UserEventLog::add(UserEventLog::TYPE_USER_CREATED, [
+                    'user' => $model,
+                    'createdAt' => $model->created_at
+                ]);
             });
         });
 

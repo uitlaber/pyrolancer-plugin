@@ -65,6 +65,10 @@ class WorkerPortfolio extends ComponentBase
     public function onCreatePortfolio()
     {
         $this->onCreateItem();
+
+        if ($portfolio = $this->portfolio()) {
+            $portfolio->completePortfolio();
+        }
     }
 
     public function onDeleteItem()
@@ -91,11 +95,6 @@ class WorkerPortfolio extends ComponentBase
         $item->portfolio = $portfolio;
         $item->fill((array) post('PortfolioItem'));
         $item->save(null, post('_session_key'));
-
-        if (!$portfolio->is_visible) {
-            $portfolio->is_visible = true;
-            $portfolio->save();
-        }
     }
 
     public function onUpdateItem()

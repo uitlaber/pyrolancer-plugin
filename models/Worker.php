@@ -127,12 +127,39 @@ class Worker extends Model
             $worker->user = $user;
             $worker->forceSave();
 
-            $user->worker = $worker;
+            $user->setRelation('worker', $worker);
         }
 
         return $user->worker;
     }
 
+    public function completeProfile($businessName = null, $skillIds = null)
+    {
+        if ($this->user->is_worker) {
+            return false;
+        }
+
+        if ($businessName) {
+            $this->business_name = $businessName;
+            $this->resetSlug();
+        }
+
+        if ($skillIds) {
+            $this->skills = $skillIds;
+        }
+
+        if ($businessName || $skillIds) {
+            $this->save();
+        }
+
+        $this->user->is_worker = true;
+        $this->user->save();
+
+        UserEventLog::add(UserEventLog::TYPE_WORKER_CREATED, [
+            'user' => $this->user,
+            'createdAt' => $this->created_at
+        ]);
+    }
 
     public function getRecommendPercentAttribute()
     {

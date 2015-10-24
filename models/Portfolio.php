@@ -60,6 +60,21 @@ class Portfolio extends Model
         return $worker->portfolio;
     }
 
+    public function completePortfolio()
+    {
+        if ($this->is_visible) {
+            return false;
+        }
+
+        $this->is_visible = true;
+        $this->save();
+
+        UserEventLog::add(UserEventLog::TYPE_PORTFOLIO_CREATED, [
+            'user' => $this->user,
+            'createdAt' => $this->created_at
+        ]);
+    }
+
     //
     // Scopes
     //

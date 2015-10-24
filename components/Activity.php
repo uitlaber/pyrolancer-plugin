@@ -2,9 +2,8 @@
 
 use Cms\Classes\ComponentBase;
 use October\Rain\Database\DataFeed;
+use Ahoy\Pyrolancer\Models\UserEventLog;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
 
 class Activity extends ComponentBase
 {
@@ -24,39 +23,52 @@ class Activity extends ComponentBase
 
     public function feed()
     {
-        $feed = new DataFeed;
+        $currentPage = 1;
 
-        $feed->add(
-            'worker',
-            WorkerModel::with('user')
-                ->with('skills')
-                ->with('logo'),
-            'created_at'
-        );
+        $feed = UserEventLog::applyVisible()
+            ->applyEagerLoads()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10, $currentPage)
+        ;
 
-        $feed->add(
-            'project',
-            ProjectModel::applyVisible()
-                ->with('user.client'),
-            'created_at'
-        );
-
-        $feed->add(
-            'portfolio',
-            PortfolioModel::applyVisible()
-                ->with('user.worker')
-                ->with('items'),
-            'created_at'
-        );
-
-        $results = $feed->limit(25)->get();
-
-        return $results;
+        return $feed;
     }
+
+    // public function feed2()
+    // {
+    //     $feed = new DataFeed;
+
+    //     $feed->add(
+    //         'worker',
+    //         WorkerModel::with('user')
+    //             ->with('skills')
+    //             ->with('logo'),
+    //         'created_at'
+    //     );
+
+    //     $feed->add(
+    //         'project',
+    //         ProjectModel::applyVisible()
+    //             ->with('user.client'),
+    //         'created_at'
+    //     );
+
+    //     $feed->add(
+    //         'portfolio',
+    //         PortfolioModel::applyVisible()
+    //             ->with('user.worker')
+    //             ->with('items'),
+    //         'created_at'
+    //     );
+
+    //     $results = $feed->limit(25)->get();
+
+    //     return $results;
+    // }
 
     public function recentWorkers()
     {
-        return WorkerModel::limit(5)->get();
+        return WorkerModel::with('user.avatar')->limit(5)->get();
     }
 
 }
