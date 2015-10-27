@@ -45,6 +45,10 @@ class UserEventLog extends Model
             $obj->created_at = $createdAt;
         }
 
+        if ($otherUser) {
+            $obj->other_user_id = $otherUser->id;
+        }
+
         if ($related) {
             $obj->related_type = get_class($related);
             $obj->related_id = $related->id;
@@ -58,9 +62,20 @@ class UserEventLog extends Model
     /**
      * Log items related to the public.
      */
-    public function scopeApplyVisible($query)
+    public function scopeApplyPublic($query)
     {
         return $query->whereNotIn('type', [self::TYPE_USER_CREATED]);
+    }
+
+    public function scopeApplyPrivate($query, $user = null)
+    {
+        if (!$user = $this->lookupUser($user)) {
+            return $query->whereRaw('1 = 2');
+        }
+
+        return $query->where(function($q) use ($user) {
+            $q->where('user_id', $user->id)->orWhere('other_user_id', $user->id);
+        });
     }
 
     /**

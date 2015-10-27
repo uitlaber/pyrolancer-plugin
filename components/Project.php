@@ -8,7 +8,7 @@ use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage;
 use Ahoy\Pyrolancer\Models\ProjectBid;
-use Ahoy\Pyrolancer\Models\ProjectExtraDetail;
+use Ahoy\Pyrolancer\Models\UserEventLog;
 use ValidationException;
 use ApplicationException;
 
@@ -337,6 +337,14 @@ class Project extends ComponentBase
         }
 
         $message->save();
+
+        if (!$message->parent_id) {
+            UserEventLog::add(UserEventLog::TYPE_PROJECT_MESSAGE, [
+                'user' => $user,
+                'otherUser' => $project->user,
+                'related' => $message
+            ]);
+        }
 
         $this->page['project'] = $project;
         $this->page['message'] = $message;

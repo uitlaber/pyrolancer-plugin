@@ -25,7 +25,7 @@ class Activity extends ComponentBase
     {
         $currentPage = 1;
 
-        $feed = UserEventLog::applyVisible()
+        $feed = UserEventLog::applyPublic()
             ->applyEagerLoads()
             ->orderBy('created_at', 'desc')
             ->paginate(10, $currentPage)
