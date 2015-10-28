@@ -184,6 +184,11 @@ class Project extends ComponentBase
         return Redirect::refresh();
     }
 
+    public function onLoadResubmitForm()
+    {
+
+    }
+
     public function onResubmit()
     {
         if (!$project = $this->loadModelSecure(new ProjectModel)) {
