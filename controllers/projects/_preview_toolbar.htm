@@ -1,24 +1,26 @@
-<a href="<?= Backend::url('ahoy/pyrolancer/projects/update/'.$formModel->id) ?>" class="btn btn-primary">
-    <i class="icon-pencil"></i>
+<a
+    href="<?= Backend::url('ahoy/pyrolancer/projects/update/'.$formModel->id) ?>"
+    class="btn btn-primary oc-icon-pencil">
     Update details
 </a>
 
 <?php if ($formModel->status->code == 'pending'): ?>
-    <a
-        href="javascript:;"
-        data-request="onApprove"
-        data-request-confirm="Are you sure you want to approve this project?"
-        class="btn btn-default btn-success oc-icon-check-circle"
-        data-stripe-load-indicator>
-        Approve
-    </a>
-    <a
-        href="javascript:;"
-        data-control="popup"
-        data-size="large"
-        data-handler="onLoadRejectForm"
-        class="btn btn-default btn-danger oc-icon-ban">
-        Reject
-    </a>
+    <div class="btn-group">
+        <a
+            href="javascript:;"
+            data-request="onApprove"
+            data-request-confirm="Are you sure you want to approve this project?"
+            class="btn btn-default btn-success oc-icon-check-circle"
+            data-stripe-load-indicator>
+            Approve
+        </a>
+        <a
+            href="javascript:;"
+            data-control="popup"
+            data-size="large"
+            data-handler="onLoadRejectForm"
+            class="btn btn-default btn-danger oc-icon-ban">
+            Reject
+        </a>
+    </div>
 <?php endif ?>
-

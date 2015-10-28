@@ -1,0 +1,18 @@
+subject = "Your project has been rejected: {{ project.name }}"
+==
+
+<p>Hi {{ user.name }},</p>
+
+<p>We are sorry, but the user you chose for your project has declined your offer.</p>
+
+<p><a href="{{ project.getUrl }}">Click here</a> to open the project management page.</p>
+
+<hr />
+
+<blockquote>
+    {% if reason %}
+        {{ reason|raw }}
+    {% else %}
+        A reason has not been specified.
+    {% endif %}
+</blockquote>

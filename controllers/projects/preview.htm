@@ -19,6 +19,10 @@
         </div>
     </div>
 
+    <?php if ($formModel->status == $formModel::STATUS_PENDING): ?>
+        <?= $this->makePartial('status_resubmit_reason') ?>
+    <?php endif ?>
+
     <div class="control-tabs content-tabs tabs-inset" data-control="tab">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#details">Details</a></li>

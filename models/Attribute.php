@@ -50,8 +50,8 @@ class Attribute extends Model
 
     public static function listAll($type)
     {
-        if (self::$recordCache !== null) {
-            return array_get(self::$recordCache, $type);
+        if ($result = array_get(self::$recordCache, $type)) {
+            return $result;
         }
 
         $cache = [];
@@ -64,19 +64,24 @@ class Attribute extends Model
         return array_get($cache, $type);
     }
 
+    public static function listType($type)
+    {
+        if ($result = array_get(self::$recordCache, $type)) {
+            return $result;
+        }
+
+        $records = self::applyType($type)->get();
+        return self::$recordCache[$type] = $records;
+    }
+
     public static function listCodes($type)
     {
         if ($cached = array_get(self::$codeCache, $type)) {
             return $cached;
         }
 
-        $cache = [];
-        $records = self::listAll($type);
-        foreach ($records as $record) {
-            $cache[$record->code] = $record->id;
-        }
-
-        return self::$codeCache[$type] = $cache;
+        $records = self::applyType($type)->lists('id', 'code');
+        return self::$codeCache[$type] = $records;
     }
 
     /**

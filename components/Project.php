@@ -195,7 +195,9 @@ class Project extends ComponentBase
             throw new ApplicationException('Action failed');
         }
 
-        $project->markSubmitted();
+        $reason = post('reason');
+
+        $project->markSubmitted($reason);
         return Redirect::refresh();
     }
 

@@ -1,0 +1,22 @@
+subject = "Project (re)approval requested: {{ project.name }}"
+layout = "system"
+==
+
+<p>Hello,</p>
+
+<p>Client {{ user.name }} requested you have another look at their project {{ project.name }}.</p>
+
+<p>
+    You can approve or reject the project here:<br />
+    <a href="{{ project.getBackendUrl }}">{{ project.getBackendUrl }}</a>
+</p>
+
+<hr />
+
+<blockquote>
+    {% if reason %}
+        {{ reason|raw }}
+    {% else %}
+        A reapproval message has not been specified.
+    {% endif %}
+</blockquote>

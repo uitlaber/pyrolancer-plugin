@@ -23,7 +23,8 @@ class ProjectStatusLog extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'user' => ['RainLab\User\Models\User'],
+        'user' => 'RainLab\User\Models\User',
+        'project' => 'Ahoy\Pyrolancer\Models\Project',
     ];
 
     /**
@@ -31,17 +32,32 @@ class ProjectStatusLog extends Model
      */
     protected $jsonable = ['data'];
 
+    public $notifyUserTemplate = null;
+    public $notifyStaffTemplate = null;
+
     public static function createForProject($project)
     {
         $obj = new self;
-        $obj->project_id = $project->id;
+        $obj->project = $project;
         return $obj;
+    }
+
+    public function afterCreate()
+    {
+        if ($this->notifyUserTemplate !== null) {
+            $this->notifyUser();
+        }
+
+        if ($this->notifyStaffTemplate !== null) {
+            $this->notifyStaff();
+        }
     }
 
     public function getMessagePreview($length = 256)
     {
-        if (strlen($this->message_preview))
+        if (strlen($this->message_preview)) {
             return $this->message_preview;
+        }
 
         $this->timestamps = false;
         $this->message_preview = Str::limitHtml($this->message_html, $length);
@@ -65,8 +81,14 @@ class ProjectStatusLog extends Model
             return false;
 
         // Same status
-        if ($status->id == $project->status_id)
+        if ($status->id == $project->status_id) {
             return;
+        }
+
+        // Process message markdown
+        if (is_array($data) && isset($data['message_md'])) {
+            $data['message_html'] = Markdown::parse(array_get($data, 'message_md'));
+        }
 
         $oldStatus = $project->status;
 
@@ -77,27 +99,37 @@ class ProjectStatusLog extends Model
         if ($oldStatus) {
 
             if ($oldStatus->code == Project::STATUS_DRAFT && $status->code == Project::STATUS_PENDING) {
-                self::processApprovalRequest($project, $log, $data);
+                $log->notifyStaffTemplate = 'ahoy.pyrolancer::mail.project-approval-request';
+            }
+
+            if ($oldStatus->code == Project::STATUS_REJECTED && $status->code == Project::STATUS_PENDING) {
+                $log->notifyStaffTemplate = 'ahoy.pyrolancer::mail.project-reapproval-request';
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_ACTIVE) {
-                self::processProjectApproved($project, $log, $data);
+                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-project-approved';
+
+                UserEventLog::add(UserEventLog::TYPE_PROJECT_CREATED, [
+                    'user' => $project->user,
+                    'related' => $project,
+                ]);
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_REJECTED) {
-                self::processProjectRejected($project, $log, $data);
+                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-project-rejected';
             }
 
             if ($oldStatus->code == Project::STATUS_WAIT && $status->code == Project::STATUS_DECLINED) {
-                self::processProjectDeclined($project, $log, $data);
+                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.worker-project-declined';
             }
 
             if ($status->code == Project::STATUS_SUSPENDED) {
-                self::processProjectSuspended($project, $log, $data);
+                // @todo
             }
 
         }
 
+        $log->data = $data;
         $log->save();
 
         $project->status_log()->add($log);
@@ -105,67 +137,36 @@ class ProjectStatusLog extends Model
         $project->save();
     }
 
-    public static function processApprovalRequest($project, $log, $data = null)
+    protected function notifyUser($template = null)
     {
-        $adminGroup = SettingsModel::get('notify_admin_group');
-        if (!$group = UserGroup::whereCode($adminGroup)->first())
-            return;
+        $template = $template ?: $this->notifyUserTemplate;
 
         $params = [
-            'project' => $project,
-            'user' => $project->user,
+            'project' => $this->project,
+            'user' => $this->project->user,
+            'reason' => array_get($this->data, 'message_html'),
+        ];
+
+        Mail::sendTo($this->project->user, $template, $params);
+    }
+
+    protected function notifyStaff($template = null)
+    {
+        $template = $template ?: $this->notifyStaffTemplate;
+
+        $adminGroup = SettingsModel::get('notify_admin_group');
+        if (!$group = UserGroup::whereCode($adminGroup)->first()) {
+            return;
+        }
+
+        $params = [
+            'project' => $this->project,
+            'user' => $this->project->user,
+            'reason' => array_get($this->data, 'message_html'),
         ];
 
         $admins = $group->users()->lists('first_name', 'email');
-        Mail::sendTo($admins, 'ahoy.pyrolancer::mail.project-approval-request', $params);
-    }
-
-    public static function processProjectApproved($project, $log, $data = null)
-    {
-        $params = [
-            'project' => $project,
-            'user' => $project->user,
-        ];
-
-        UserEventLog::add(UserEventLog::TYPE_PROJECT_CREATED, [
-            'user' => $project->user,
-            'related' => $project,
-        ]);
-
-        Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.client-project-approved', $params);
-    }
-
-    public static function processProjectRejected($project, $log, $data = null)
-    {
-        $data['message_html'] = Markdown::parse(array_get($data, 'message_md'));
-        $log->data = $data;
-
-        $params = [
-            'project' => $project,
-            'user' => $project->user,
-            'reason' => $log->message_html,
-        ];
-
-        Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.client-project-rejected', $params);
-    }
-
-    public static function processProjectDeclined($project, $log, $data = null)
-    {
-        $data['message_html'] = Markdown::parse(array_get($data, 'message_md'));
-        $log->data = $data;
-
-        $params = [
-            'project' => $project,
-            'user' => $project->user,
-            'reason' => $log->message_html,
-        ];
-
-        // Mail::sendTo($project->user, 'ahoy.pyrolancer::mail.worker-project-declined', $params);
-    }
-
-    public static function processProjectSuspended($project, $log, $data = null)
-    {
-
+        Mail::sendTo($admins, $template, $params);
     }
 
 }

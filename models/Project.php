@@ -393,6 +393,24 @@ class Project extends Model
         });
     }
 
+    public function getLastStatusMessageAttribute()
+    {
+        if (!$lastStatus = $this->status_log->first()) {
+            return null;
+        }
+
+        return array_get($lastStatus->data, 'message_html');
+    }
+
+    /**
+     * Allowed to repick from this datetime onwards.
+     */
+    public function getRepickAtAttribute()
+    {
+        $hours = 24;
+        return $this->chosen_at->addHours($hours);
+    }
+
     //
     // Scopes
     //
@@ -440,6 +458,14 @@ class Project extends Model
         }
 
         return true;
+    }
+
+    /**
+     * Can the client repick another worker.
+     */
+    public function canRepick()
+    {
+        return Carbon::now()->gt($this->repick_at);
     }
 
     /**
@@ -513,23 +539,6 @@ class Project extends Model
         ]);
     }
 
-    /**
-     * Can the client repick another worker.
-     */
-    public function canRepick()
-    {
-        return Carbon::now()->gt($this->repick_at);
-    }
-
-    /**
-     * Allowed to repick from this datetime onwards.
-     */
-    public function getRepickAtAttribute()
-    {
-        $hours = 24;
-        return $this->chosen_at->addHours($hours);
-    }
-
     //
     // Status workflow
     //
@@ -539,9 +548,11 @@ class Project extends Model
         ProjectStatusLog::updateProjectStatus($this, $code, $data);
     }
 
-    public function markSubmitted()
+    public function markSubmitted($reason = null)
     {
-        $this->markStatus(self::STATUS_PENDING);
+        $this->markStatus(self::STATUS_PENDING, [
+            'message_md' => $reason
+        ]);
     }
 
     public function markApproved()

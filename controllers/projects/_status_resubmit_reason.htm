@@ -1,0 +1,17 @@
+<div class="callout callout-warning">
+    <div class="header">
+        <i class="icon-sticky-note"></i>
+        <h3>Approval message</h3>
+        <p>
+            <?= $formModel->user->name ?> has submitted a message with this project for your consideration, you can
+            <a href="javascript:;"
+                class="toggle-reason"
+                onclick="$('.content, a.toggle-reason > span', $(this).closest('.callout')).toggle()">
+                <span>view</span><span style="display: none">hide</span>
+                the message</a>.
+        </p>
+    </div>
+    <div class="content" style="display: none">
+        <?= $formModel->last_status_message ?>
+    </div>
+</div>
