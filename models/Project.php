@@ -291,6 +291,13 @@ class Project extends Model
         return $query;
     }
 
+    public function scopeApplyStatus($query, $codes)
+    {
+        $statuses = Attribute::listCodes(Attribute::PROJECT_STATUS);
+        $statusIds = array_only($statuses, (array) $codes);
+        return $query->whereIn('status_id', $statusIds);
+    }
+
     public function getBackendUrl()
     {
         return Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
@@ -580,6 +587,7 @@ class Project extends Model
         ;
 
         if ($bid === null) {
+            $this->chosen_user_id = null;
             $this->chosen_bid_id = null;
             $this->chosen_at = null;
             $this->save();
@@ -587,6 +595,7 @@ class Project extends Model
             $this->markStatus(self::STATUS_ACTIVE);
         }
         else {
+            $this->chosen_user_id = $bid->user_id;
             $this->chosen_bid_id = $bid->id;
             $this->chosen_at = $this->freshTimestamp();
             $this->save();
