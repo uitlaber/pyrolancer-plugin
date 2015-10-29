@@ -67,6 +67,11 @@ class ProjectSubmit extends ComponentBase
         return ProjectData::getProjectObject();
     }
 
+    public function getSessionKey()
+    {
+        return ProjectData::getSessionKey();
+    }
+
     //
     // AJAX
     //

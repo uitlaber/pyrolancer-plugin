@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Classes;
 
+use Form;
 use Session;
 use Validator;
 use ApplicationException;
@@ -40,6 +41,7 @@ class ProjectData
 
         self::reset();
         self::saveProjectData();
+        self::saveSessionKey();
     }
 
     /**
@@ -117,7 +119,7 @@ class ProjectData
         }
 
         $project->user = $user;
-        $project->save();
+        $project->save(null, self::getSessionKey());
 
         self::reset();
 
@@ -126,7 +128,7 @@ class ProjectData
 
     public static function getProjectObject()
     {
-        $data = self::load();
+        $data = array_except(self::load(), ['session_key']);
         $project = new ProjectModel;
 
         if (empty($data)) return $project;
@@ -140,6 +142,24 @@ class ProjectData
         if (!empty($project->instructions)) {
             $project->instructions_html = Markdown::parse(trim($project->instructions));
         }
+
+        if (!$project->latitude) {
+            $project->latitude = null;
+        }
+
+        if (!$project->longitude) {
+            $project->longitude = null;
+        }
+
+        /*
+         * Files
+         */
+        $project->setRelation('files', $project
+            ->files()
+            ->withDeferred(self::getSessionKey())
+            ->orderBy('id', 'desc')
+            ->get()
+        );
 
         /*
          * If the Location plugin can't find a state or country for the codes,
@@ -167,7 +187,7 @@ class ProjectData
     public static function saveSessionKey()
     {
         $data = self::load();
-        $data['session_key'] = input('session_key');
+        $data['session_key'] = input('_session_key', Form::getSessionKey());
         self::save($data);
     }
 
