@@ -36,6 +36,14 @@ class Project extends ComponentBase
         ];
     }
 
+    public function init()
+    {
+        if (($project = $this->project()) && $project->isOwner()) {
+            $component = $this->addComponent('fileUploader', 'editFileUploader', ['deferredBinding' => false]);
+            $component->bindModel('files', $project);
+        }
+    }
+
     //
     // Object properties
     //
@@ -101,6 +109,17 @@ class Project extends ComponentBase
 
         $project->instructions = post('instructions');
         $project->save();
+
+        $this->page['project'] = $project;
+    }
+
+    public function onEditFiles()
+    {
+        if (!$project = $this->loadModelSecure(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $this->pageCycle();
 
         $this->page['project'] = $project;
     }
