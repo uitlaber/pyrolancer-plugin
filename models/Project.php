@@ -543,7 +543,7 @@ class Project extends Model
     // Status workflow
     //
 
-    public function markStatus($code, $data = null)
+    protected function markStatus($code, $data = null)
     {
         ProjectStatusLog::updateProjectStatus($this, $code, $data);
     }
@@ -628,9 +628,27 @@ class Project extends Model
         ]);
     }
 
+    /**
+     * The selected worker has accepted the job.
+     */
     public function markDevelopment()
     {
         $this->markStatus(self::STATUS_DEVELOPMENT);
+    }
+
+    public function markTerminated($reason = null, $closedBy = 'system')
+    {
+        $this->markStatus(self::STATUS_TERMINATED, [
+            'message_md' => $reason,
+            'closed_by' => $closedBy
+        ]);
+    }
+
+    public function markCompleted($closedBy = 'system')
+    {
+        $this->markStatus(self::STATUS_COMPLETED, [
+            'closed_by' => $closedBy
+        ]);
     }
 
     //

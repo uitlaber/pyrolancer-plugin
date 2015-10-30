@@ -70,6 +70,7 @@ class Dashboard extends ComponentBase
             return ProjectModel::make()
                 ->applyStatus([
                     ProjectModel::STATUS_DEVELOPMENT,
+                    ProjectModel::STATUS_TERMINATED,
                     ProjectModel::STATUS_COMPLETED,
                 ])
                 ->where(function($q) use ($user) {

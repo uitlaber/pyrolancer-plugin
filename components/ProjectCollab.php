@@ -2,6 +2,7 @@
 
 use Flash;
 use Redirect;
+use Validator;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
@@ -100,4 +101,40 @@ class ProjectCollab extends ComponentBase
         }
     }
 
+    public function onLoadTerminateForm()
+    {
+    }
+
+    public function onTerminate()
+    {
+        if (!$project = $this->project()) {
+            throw new ApplicationException('Project not found!');
+        }
+
+        $user = $this->lookupUser();
+
+        $reason = post('reason');
+        $rules = ['reason' => 'required'];
+        $data = ['reason' => $reason];
+
+        $validation = Validator::make($data, $rules);
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        $project->markTerminated($reason, $user->id);
+        return Redirect::refresh();
+    }
+
+    public function onComplete()
+    {
+        if (!$project = $this->project()) {
+            throw new ApplicationException('Project not found!');
+        }
+
+        $user = $this->lookupUser();
+        $project->markCompleted($user->id);
+
+        return Redirect::refresh();
+    }
 }

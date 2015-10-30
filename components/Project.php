@@ -205,7 +205,6 @@ class Project extends ComponentBase
 
     public function onLoadResubmitForm()
     {
-
     }
 
     public function onResubmit()
