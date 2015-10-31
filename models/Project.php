@@ -48,7 +48,7 @@ class Project extends Model
      * The attributes that should be mutated to dates.
      * @var array
      */
-    protected $dates = ['expired_at', 'chosen_at'];
+    protected $dates = ['expires_at', 'chosen_at', 'closed_at'];
 
     /**
      * @var string The database table used by the model.
@@ -105,6 +105,7 @@ class Project extends Model
         'user'             => ['RainLab\User\Models\User'],
         'client'           => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
         'chosen_bid'       => ['Ahoy\Pyrolancer\Models\ProjectBid'],
+        'chosen_user'      => ['RainLab\User\Models\User'],
     ];
 
     public $attachMany = [
@@ -638,6 +639,9 @@ class Project extends Model
 
     public function markTerminated($reason = null, $closedBy = 'system')
     {
+        $this->closed_at = $this->freshTimestamp();
+        $this->save();
+
         $this->markStatus(self::STATUS_TERMINATED, [
             'message_md' => $reason,
             'closed_by' => $closedBy
@@ -646,6 +650,9 @@ class Project extends Model
 
     public function markCompleted($closedBy = 'system')
     {
+        $this->closed_at = $this->freshTimestamp();
+        $this->save();
+
         $this->markStatus(self::STATUS_COMPLETED, [
             'closed_by' => $closedBy
         ]);

@@ -51,7 +51,8 @@ class CreateProjectsTable extends Migration
             $table->integer('budget_timeframe_id')->unsigned()->index()->nullable();
 
             $table->dateTime('chosen_at')->nullable();
-            $table->dateTime('expired_at')->nullable();
+            $table->dateTime('expires_at')->nullable();
+            $table->dateTime('closed_at')->nullable();
             $table->timestamps();
         });
 

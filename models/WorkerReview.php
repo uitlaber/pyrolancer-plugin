@@ -19,6 +19,12 @@ class WorkerReview extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     * @var array
+     */
+    protected $dates = ['rating_at', 'client_rating_at'];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'ahoy_pyrolancer_worker_reviews';
@@ -42,8 +48,10 @@ class WorkerReview extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'user'     => ['RainLab\User\Models\User'],
-        'worker'   => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'user'        => 'RainLab\User\Models\User',
+        'client_user' => 'RainLab\User\Models\User',
+        'project'     => 'Ahoy\Pyrolancer\Models\Project',
+        'worker'      => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
 
     /**
@@ -57,9 +65,80 @@ class WorkerReview extends Model
         'updated_at' => 'Last updated (descending)',
     );
 
+    public static function getForProject($project)
+    {
+        $review = self::where('project_id', $project->id)
+            ->where('user_id', $project->chosen_user_id)
+            ->first();
+
+        if ($review) {
+            $review->setRelation('project', $project);
+            return $review;
+        }
+
+        $review = new static;
+        $review->project = $project;
+        $review->user_id = $project->chosen_user_id;
+        $review->client_user_id = $project->user_id;
+        $review->is_testimonial = false;
+        $review->forceSave();
+
+        return $review;
+    }
+
+    /**
+     * Completes a review for the worker
+     */
+    public function completeWorkerReview($data)
+    {
+        $this->rules += [
+            'rating' => 'required|numeric|min:1|max:5',
+            'is_recommend' => 'boolean',
+        ];
+
+        $this->fillable([
+            'comment',
+            'breakdown',
+            'rating',
+            'is_recommend'
+        ]);
+
+        $this->rating_at = $this->freshTimestamp();
+        $this->is_visible = true;
+        $this->fill($data);
+        $this->save();
+
+        // @todo This could be deferred to the Queue
+        $this->worker->setRatingStats();
+        $this->worker->save();
+    }
+
+    /**
+     * Completes a review for the client
+     */
+    public function completeClientReview($data)
+    {
+        $this->rules += [
+            'client_rating' => 'required|numeric|min:1|max:5',
+        ];
+
+        $this->fillable([
+            'client_comment',
+            'client_rating'
+        ]);
+
+        $this->client_rating_at = $this->freshTimestamp();
+        $this->client_is_visible = true;
+        $this->fill($data);
+        $this->save();
+
+        // @todo Stats for client?
+    }
+
     public static function createTestimonial($worker, $data)
     {
         $review = new self;
+        $review->is_testimonial = true;
         $review->user_id = $worker->user_id;
         $review->invite_hash = md5(Str::quickRandom());
 
@@ -99,10 +178,8 @@ class WorkerReview extends Model
             'is_recommend'
         ]);
 
-        $data['rating'] = $this->calculateRating(array_get($data, 'breakdown'));
-
-        $this->fill($data);
         $this->is_visible = true;
+        $this->fill($data);
         $this->save();
 
         // @todo This could be deferred to the Queue
@@ -110,6 +187,13 @@ class WorkerReview extends Model
         $this->worker->save();
 
         return $this;
+    }
+
+    public function beforeValidate()
+    {
+        if ($this->breakdown) {
+            $this->rating = $this->calculateRating($this->breakdown);
+        }
     }
 
     /**
