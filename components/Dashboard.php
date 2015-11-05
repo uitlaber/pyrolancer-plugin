@@ -120,15 +120,18 @@ class Dashboard extends ComponentBase
             $user = $this->lookupUser();
 
             return ProjectModel::make()
-                ->applyStatus(ProjectModel::STATUS_COMPLETED)
+                ->with('review')
+                ->applyStatus([
+                    ProjectModel::STATUS_TERMINATED,
+                    ProjectModel::STATUS_COMPLETED,
+                ])
                 ->where(function($q) use ($user) {
                     $q->where('user_id', $user->id);
                     $q->orWhere('chosen_user_id', $user->id);
                 })
                 ->get()
                 ->filter(function($project) {
-                    // @todo Filter projects user has already rated
-                    return true;
+                    return !$project->hasReview();
                 })
             ;
         });

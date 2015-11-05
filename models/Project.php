@@ -86,6 +86,10 @@ class Project extends Model
         'applicants' => ['RainLab\User\Models\User', 'table' => 'ahoy_pyrolancer_projects_applicants', 'timestamps' => true],
     ];
 
+    public $hasOne = [
+        'review' => 'Ahoy\Pyrolancer\Models\WorkerReview',
+    ];
+
     public $hasMany = [
         'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate'],
         'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 1'],
@@ -673,6 +677,28 @@ class Project extends Model
         });
 
         return is_null($userApplicant) ? false : $userApplicant;
+    }
+
+    //
+    // Reviews
+    //
+
+    public function hasReview($user = null)
+    {
+        if (!$user = $this->lookupUser($user)) {
+            return false;
+        }
+
+        if (!$this->review) {
+            return false;
+        }
+
+        if ($this->isOwner($user)) {
+            return $this->review->is_visible;
+        }
+        else {
+            return $this->review->client_is_visible;
+        }
     }
 
 }
