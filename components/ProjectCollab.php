@@ -75,6 +75,42 @@ class ProjectCollab extends ComponentBase
     }
 
     //
+    // Update quote
+    //
+
+    public function onLoadUpdateQuoteForm()
+    {
+        if (!$project = $this->project()) {
+            return null;
+        }
+
+        if ((!$bid = $project->chosen_bid) || !$bid->isOwner()) {
+            throw new ApplicationException('Action failed!');
+        }
+
+        $this->page['otherUser'] = $this->otherUser();
+        $this->page['bid'] = $bid;
+    }
+
+    public function onUpdateQuote()
+    {
+        if (!$project = $this->project()) {
+            return null;
+        }
+
+        if ((!$bid = $project->chosen_bid) || !$bid->isOwner()) {
+            throw new ApplicationException('Action failed!');
+        }
+
+        $bid->fill((array) post('Bid'));
+        $bid->save();
+
+        // @todo Email
+
+        return Redirect::refresh();
+    }
+
+    //
     // Closing
     //
 

@@ -74,14 +74,14 @@ class ProjectBid extends Model
         if ($this->type == self::TYPE_FIXED) {
             $this->hourly_rate = 0;
             $this->hourly_hours = null;
-            $this->rules['fixed_rate'] = 'required';
-            $this->rules['fixed_days'] = 'required';
+            $this->rules['fixed_rate'] = 'required|numeric';
+            $this->rules['fixed_days'] = 'required|numeric';
         }
         else {
             $this->fixed_rate = 0;
             $this->fixed_days = null;
-            $this->rules['hourly_rate'] = 'required';
-            $this->rules['hourly_hours'] = 'required';
+            $this->rules['hourly_rate'] = 'required|numeric';
+            $this->rules['hourly_hours'] = 'required|numeric';
         }
     }
 
