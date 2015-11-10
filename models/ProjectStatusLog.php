@@ -120,7 +120,7 @@ class ProjectStatusLog extends Model
             }
 
             if ($oldStatus->code == Project::STATUS_WAIT && $status->code == Project::STATUS_DECLINED) {
-                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.worker-project-declined';
+                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-bid-declined';
             }
 
             if ($status->code == Project::STATUS_SUSPENDED) {
