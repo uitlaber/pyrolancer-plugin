@@ -79,6 +79,14 @@ class WorkerTestimonial extends ComponentBase
 
         $testimonial->completeTestimonial(post('Testimonial'));
 
+        $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
+            'review' => $testimonial->toArray(),
+            'url' => $testimonial->worker->url
+        ];
+
+        Mail::sendTo($testimonial->user, 'ahoy.pyrolancer::mail.worker-testimonial-complete', $params);
+
         return Redirect::refresh();
     }
 

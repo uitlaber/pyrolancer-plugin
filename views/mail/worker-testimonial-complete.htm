@@ -3,12 +3,12 @@ subject = "{{ review.invite_name }} wrote a testimonial about you!"
 
 <p>Hello,</p>
 
-<p>{{ review.invite_name }} has provided a testimonial about you on {{ site_name }}.</p>
+<p>Good news! {{ review.invite_name }} has provided a testimonial about you on {{ site_name }}.</p>
 
 <blockquote>
     <p>Location: {{ review.invite_location }}</p>
     <p>Email: {{ review.invite_email }}</p>
-    <p>Comment: {{ comment }}</p>
+    <p>Comment: {{ review.comment }}</p>
 </blockquote>
 
 <p>

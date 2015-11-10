@@ -135,8 +135,11 @@ class Plugin extends PluginBase
     {
         return [
             'ahoy.pyrolancer::mail.project-approval-request' => 'Sent to managers when a new project needs approval.',
+            'ahoy.pyrolancer::mail.project-reapproval-request' => 'Sent to managers when a previously rejected project has been resubmitted for approval.',
             'ahoy.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
             'ahoy.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
+            'ahoy.pyrolancer::mail.worker-testimonial-request' => "Sent to the worker's previous client or workplace, requesting they submit a testimonial about the worker.",
+            'ahoy.pyrolancer::mail.worker-testimonial-complete' => "Sent to the worker when a previous client has left a testimonial about them.",
         ];
     }
 
