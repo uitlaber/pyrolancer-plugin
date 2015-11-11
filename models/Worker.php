@@ -12,6 +12,7 @@ class Worker extends Model
 
     use \Ahoy\Traits\UrlMaker;
     use \Ahoy\Traits\GeneralUtils;
+    use \Ahoy\Pyrolancer\Traits\GeoModel;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
 
@@ -81,6 +82,19 @@ class Worker extends Model
     public $attachOne = [
         'logo' => ['System\Models\File']
     ];
+
+    /**
+     * The attributes on which the post list can be ordered
+     * @var array
+     */
+    public static $allowedSortingOptions = array(
+        'created_at desc' => 'Join date (descending)',
+        'created_at asc' => 'Join date (ascending)',
+        'updated_at desc' => 'Last updated (descending)',
+        'updated_at asc' => 'Last updated (ascending)',
+        'name desc' => 'Name (descending)',
+        'name asc' => 'Name (ascending)',
+    );
 
     /**
      * @var array Auto generated slug
@@ -249,6 +263,75 @@ class Worker extends Model
         ];
 
         Mail::sendTo($this->user, 'ahoy.pyrolancer::mail.worker-digest', $params);
+    }
+
+    //
+    // Scopes
+    //
+
+    /**
+     * Lists projects for the front end
+     * @param  array $options Display options
+     * @return self
+     */
+    public function scopeListFrontEnd($query, $options = [])
+    {
+        /*
+         * Default options
+         */
+        extract(array_merge([
+            'page'       => 1,
+            'perPage'    => 30,
+            'sort'       => 'created_at desc',
+            'skills'     => null,
+            'latitude'   => null,
+            'longitude'  => null,
+            'search'     => ''
+        ], $options));
+
+        $searchableFields = ['business_name', 'slug', 'description'];
+
+        /*
+         * Sorting
+         */
+        if (!is_array($sort)) $sort = [$sort];
+        foreach ($sort as $_sort) {
+
+            if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
+                $parts = explode(' ', $_sort);
+                if (count($parts) < 2) array_push($parts, 'desc');
+                list($sortField, $sortDirection) = $parts;
+
+                $query->orderBy($sortField, $sortDirection);
+            }
+        }
+
+        /*
+         * Search
+         */
+        $search = trim($search);
+        if (strlen($search)) {
+            $query->searchWhere($search, $searchableFields);
+        }
+
+        /*
+         * Skills
+         */
+        if ($skills !== null) {
+            if (!is_array($skills)) $skills = [$skills];
+            $query->whereHas('skills', function($q) use ($skills) {
+                $q->whereIn('id', $skills);
+            });
+        }
+
+        /*
+         * Location
+         */
+        if ($latitude !== null && $longitude != null) {
+            $query->applyArea($latitude, $longitude);
+        }
+
+        return $query->paginate($perPage, $page);
     }
 
 }
