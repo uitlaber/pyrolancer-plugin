@@ -17,7 +17,7 @@ class ProjectStatusLog extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ['type', 'message_md', 'message_html'];
+    protected $fillable = ['type', 'message', 'message_html'];
 
     /**
      * @var array Relations
@@ -86,8 +86,8 @@ class ProjectStatusLog extends Model
         }
 
         // Process message markdown
-        if (is_array($data) && isset($data['message_md'])) {
-            $data['message_html'] = Markdown::parse(array_get($data, 'message_md'));
+        if (is_array($data) && isset($data['message'])) {
+            $data['message_html'] = Markdown::parse(array_get($data, 'message'));
         }
 
         $oldStatus = $project->status;

@@ -3,6 +3,7 @@
 use Auth;
 use Mail;
 use Model;
+use Markdown;
 
 /**
  * Worker Model
@@ -121,6 +122,12 @@ class Worker extends Model
             'id' => $this->user_id,
             'code' => $this->shortEncodeId($this->user_id)
         ];
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = $value;
+        $this->attributes['description_html'] = Markdown::parse(trim($value));
     }
 
     /**

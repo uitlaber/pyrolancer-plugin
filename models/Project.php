@@ -522,7 +522,7 @@ class Project extends Model
     public function markSubmitted($reason = null)
     {
         $this->markStatus(self::STATUS_PENDING, [
-            'message_md' => $reason
+            'message' => $reason
         ]);
     }
 
@@ -538,7 +538,7 @@ class Project extends Model
     public function markRejected($reason = null)
     {
         $this->markStatus(self::STATUS_REJECTED, [
-            'message_md' => $reason
+            'message' => $reason
         ]);
     }
 
@@ -595,7 +595,7 @@ class Project extends Model
     public function markDeclined($reason = null)
     {
         $this->markStatus(self::STATUS_DECLINED, [
-            'message_md' => $reason
+            'message' => $reason
         ]);
     }
 
@@ -613,7 +613,7 @@ class Project extends Model
         $this->save();
 
         $this->markStatus(self::STATUS_TERMINATED, [
-            'message_md' => $reason,
+            'message' => $reason,
             'closed_by' => $closedBy
         ]);
     }

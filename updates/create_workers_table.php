@@ -20,6 +20,7 @@ class CreateFreelancersTable extends Migration
             $table->string('contact_phone')->nullable();
             $table->string('website_url')->nullable();
             $table->text('description')->nullable();
+            $table->text('description_html')->nullable();
 
             // Location
             $table->string('address')->nullable();
