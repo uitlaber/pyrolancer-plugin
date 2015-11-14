@@ -13,9 +13,13 @@ class CreatePortfolioItemsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('portfolio_id')->unsigned()->index()->nullable();
-            $table->text('description')->nullable();
-            $table->string('website_url')->nullable();
+            $table->integer('type_id')->unsigned()->index()->nullable();
             $table->boolean('is_primary')->default(false);
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('description_html')->nullable();
+            $table->text('article_sample')->nullable();
+            $table->string('link_url')->nullable();
             $table->timestamps();
         });
     }

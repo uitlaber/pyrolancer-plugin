@@ -1,5 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Redirect;
+use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
@@ -20,7 +22,38 @@ class WorkerPortfolio extends ComponentBase
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'setupPage' => [
+                'title'       => 'Setup page',
+                'description' => 'The user will be redirected to this page if no portfolio exists. Set to "none" to disable the redirect.',
+                'type'        => 'dropdown',
+                'default'     => ''
+            ]
+        ];
+    }
+
+    public function getSetupPageOptions()
+    {
+        return [''=>'- none -'] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
+
+    public function init()
+    {
+        if ($portfolio = $this->portfolio()) {
+            $component = $this->addComponent(
+                'Responsiv\Uploader\Components\FileUploader',
+                'portfolioUploader',
+                ['deferredBinding' => true]
+            );
+            $component->bindModel('uploaded_file', new PortfolioItem);
+        }
+    }
+
+    public function onRun()
+    {
+        if (($setupPage = $this->property('setupPage')) && !$this->hasPortfolio()) {
+            return Redirect::to($this->pageUrl($setupPage));
+        }
     }
 
     //
@@ -68,6 +101,10 @@ class WorkerPortfolio extends ComponentBase
 
         if ($portfolio = $this->portfolio()) {
             $portfolio->completePortfolio();
+        }
+
+        if ($redirectUrl = input('redirect')) {
+            return Redirect::to($redirectUrl);
         }
     }
 

@@ -2,6 +2,7 @@
 
 use Auth;
 use Redirect;
+use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;

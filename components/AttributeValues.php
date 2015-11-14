@@ -21,41 +21,47 @@ class AttributeValues extends ComponentBase
 
     public function projectTypes()
     {
-        return Attribute::applyType(Attribute::PROJECT_TYPE)->get();
+        return Attribute::listType(Attribute::PROJECT_TYPE);
     }
 
     public function positionTypes()
     {
-        return Attribute::applyType(Attribute::POSITION_TYPE)->get();
+        return Attribute::listType(Attribute::POSITION_TYPE);
     }
 
     public function budgetTypes()
     {
-        return Attribute::applyType(Attribute::BUDGET_TYPE)->get();
+        return Attribute::listType(Attribute::BUDGET_TYPE);
     }
 
     public function budgetFixedOptions()
     {
-        return Attribute::applyType(Attribute::BUDGET_FIXED)->get();
+        return Attribute::listType(Attribute::BUDGET_FIXED);
     }
 
     public function budgetHourlyOptions()
     {
-        return Attribute::applyType(Attribute::BUDGET_HOURLY)->get();
+        return Attribute::listType(Attribute::BUDGET_HOURLY);
     }
 
     public function budgetTimeframeOptions()
     {
-        return Attribute::applyType(Attribute::BUDGET_TIMEFRAME)->get();
+        return Attribute::listType(Attribute::BUDGET_TIMEFRAME);
     }
 
     public function bidTypes()
     {
-        return Attribute::applyType(Attribute::BID_TYPE)->get();
+        return Attribute::listType(Attribute::BID_TYPE);
     }
 
     public function workerBudgetOptions()
     {
-        return Attribute::applyType(Attribute::WORKER_BUDGET)->get();
+        return Attribute::listType(Attribute::WORKER_BUDGET);
     }
+
+    public function portfolioTypes()
+    {
+        return Attribute::listType(Attribute::PORTFOLIO_TYPE);
+    }
+
 }

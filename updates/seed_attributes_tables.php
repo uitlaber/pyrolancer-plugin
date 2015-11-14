@@ -3,6 +3,7 @@
 use October\Rain\Database\Updates\Seeder;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectBid;
+use Ahoy\Pyrolancer\Models\PortfolioItem;
 use Ahoy\Pyrolancer\Models\Attribute;
 
 class SeedAttributesTables extends Seeder
@@ -83,6 +84,14 @@ class SeedAttributesTables extends Seeder
             ['name' => 'Over $50,000'],
         ];
 
+        $portfolioTypes = [
+            ['name' => 'Image', 'code' => PortfolioItem::TYPE_IMAGE],
+            ['name' => 'Article', 'code' => PortfolioItem::TYPE_ARTICLE],
+            ['name' => 'Link', 'code' => PortfolioItem::TYPE_LINK],
+            ['name' => 'Audio', 'code' => PortfolioItem::TYPE_AUDIO],
+            ['name' => 'Video', 'code' => PortfolioItem::TYPE_VIDEO],
+        ];
+
         $map = [
             Attribute::PROJECT_STATUS => $projectStatus,
             Attribute::PROJECT_TYPE => $projectTypes,
@@ -93,6 +102,7 @@ class SeedAttributesTables extends Seeder
             Attribute::BUDGET_TIMEFRAME => $budgetTimeframe,
             Attribute::BID_TYPE => $bidType,
             Attribute::WORKER_BUDGET => $workerBudget,
+            Attribute::PORTFOLIO_TYPE => $portfolioTypes,
         ];
 
         foreach ($map as $type => $items) {

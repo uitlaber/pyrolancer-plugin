@@ -11,6 +11,7 @@ use Ahoy\Pyrolancer\Models\Client as ClientModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
 use Ahoy\Pyrolancer\Models\ProjectCategory;
+use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
 
@@ -43,6 +44,11 @@ class ProjectSubmit extends ComponentBase
                 'default'     => ''
             ]
         ];
+    }
+
+    public function getRedirectOptions()
+    {
+        return [''=>'- none -'] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
     public function onRun()

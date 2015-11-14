@@ -2,6 +2,7 @@
 
 use Auth;
 use Redirect;
+use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Location\Models\State;
 use RainLab\Location\Models\Country;
