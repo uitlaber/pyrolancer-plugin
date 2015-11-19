@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Model;
+use Markdown;
 
 /**
  * PortfolioItem Model
@@ -43,7 +44,7 @@ class PortfolioItem extends Model
     protected $fillable = [
         'title',
         'description',
-        'article_sample',
+        'sample',
         'link_url',
         'type',
     ];
@@ -59,6 +60,17 @@ class PortfolioItem extends Model
     public $attachOne = [
         'uploaded_file' => 'System\Models\File'
     ];
+
+    public function beforeSave()
+    {
+        if ($this->isDirty('description')) {
+            $this->description_html = Markdown::parse(trim($this->description));
+        }
+
+        if ($this->isDirty('sample')) {
+            $this->sample_html = Markdown::parse(trim($this->sample));
+        }
+    }
 
     public function beforeValidate()
     {

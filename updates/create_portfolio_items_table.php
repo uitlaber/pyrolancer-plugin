@@ -18,7 +18,8 @@ class CreatePortfolioItemsTable extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->text('description_html')->nullable();
-            $table->text('article_sample')->nullable();
+            $table->text('sample')->nullable();
+            $table->text('sample_html')->nullable();
             $table->string('link_url')->nullable();
             $table->timestamps();
         });

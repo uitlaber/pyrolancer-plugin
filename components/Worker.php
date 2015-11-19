@@ -34,7 +34,7 @@ class Worker extends ComponentBase
     public function worker()
     {
         return $this->loadModel(new WorkerModel, function($query) {
-            $query->with('portfolio.items.image');
+            $query->with('portfolio.items.uploaded_file');
         });
     }
 

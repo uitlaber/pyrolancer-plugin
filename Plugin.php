@@ -118,6 +118,7 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\Account'           => 'account',
            '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
            '\Ahoy\Pyrolancer\Components\Directory'         => 'directory',
+           '\Ahoy\Pyrolancer\Components\Profile'           => 'profile',
            '\Ahoy\Pyrolancer\Components\Project'           => 'project',
            '\Ahoy\Pyrolancer\Components\ProjectSubmit'     => 'projectSubmit',
            '\Ahoy\Pyrolancer\Components\ProjectCollab'     => 'projectCollab',
@@ -127,7 +128,6 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\WorkerPortfolio'   => 'workerPortfolio',
            '\Ahoy\Pyrolancer\Components\WorkerTestimonial' => 'workerTestimonial',
            '\Ahoy\Pyrolancer\Components\ClientProjects'    => 'clientProjects',
-           '\Ahoy\Pyrolancer\Components\Profile'           => 'profile',
         ];
     }
 
