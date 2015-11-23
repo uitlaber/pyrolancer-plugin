@@ -58,7 +58,8 @@ class ProjectWorker
             ;
 
             if ($worker) {
-                $worker->notifyDigest();
+                ProjectNotify::sendDigest($worker, $worker->last_digest_at);
+
                 $worker->last_digest_at = $now;
                 $worker->timestamps = false;
                 $worker->save();

@@ -12,8 +12,6 @@ class CreateProjectsTable extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->boolean('is_visible')->default(false);
-            $table->boolean('is_approved')->default(false);
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->index();
             $table->text('description')->nullable();
@@ -25,6 +23,13 @@ class CreateProjectsTable extends Migration
             $table->integer('category_id')->unsigned()->index()->nullable();
             $table->integer('chosen_bid_id')->unsigned()->nullable();
             $table->integer('chosen_user_id')->unsigned()->nullable();
+
+            $table->boolean('is_visible')->default(false);
+            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_featured')->default(false);
+            $table->boolean('is_urgent')->default(false);
+            $table->boolean('is_sealed')->default(false);
+            $table->boolean('is_private')->default(false);
 
             // Stats
             $table->integer('count_bids')->default(0);

@@ -1,0 +1,22 @@
+subject = "New job alert"
+==
+
+<p>Hello,</p>
+
+<p>An urgent job has been submitted to {{ site_name }} that matches your expertise.</p>
+
+<h3>
+    <a href="{{ project.url }}">
+        {{ project.name }}
+    </a>
+</h3>
+<p>
+    {{ str_limit(project.description, 255) }}
+    {% if project.description|length > 255 %}
+        <a href="{{ project.url }}">See more</a>
+    {% endif %}
+</p>
+
+<hr />
+
+<p>If you're interested, respond quickly to improve your chances of winning.</p>
