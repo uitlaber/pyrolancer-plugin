@@ -2,10 +2,12 @@
 
 use Mail;
 use Model;
+use Queue;
 use Markdown;
 use October\Rain\Support\Str;
 use Backend\Models\UserGroup;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
+use Ahoy\Pyrolancer\Classes\Usher;
 
 /**
  * A log of project moderation events
@@ -113,6 +115,10 @@ class ProjectStatusLog extends Model
                     'user' => $project->user,
                     'related' => $project,
                 ]);
+
+                if ($project->is_urgent) {
+                    Usher::queueUrgentProject($project);
+                }
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_REJECTED) {

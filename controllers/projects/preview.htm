@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <?php if ($formModel->status == $formModel::STATUS_PENDING): ?>
+    <?php if ($formModel->status == $formModel::STATUS_PENDING && $formModel->last_status_message): ?>
         <?= $this->makePartial('status_resubmit_reason') ?>
     <?php endif ?>
 

@@ -7,12 +7,12 @@ use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 /**
  * Notification class, for notifying workers about projects
  */
-class ProjectNotify
+class Notifier
 {
     /**
      * Sends an alert to workers about a specific project
      */
-    public static function sendAlert(ProjectModel $project)
+    public static function sendProjectAlert(ProjectModel $project)
     {
         $skills = $project->skills()->lists('id');
 
@@ -45,7 +45,7 @@ class ProjectNotify
     /**
      * Send a digest of projects to a worker
      */
-    public static function sendDigest(WorkerModel $worker, $fromDate)
+    public static function sendWorkerDigest(WorkerModel $worker, $fromDate)
     {
         $skills = $worker->skills()->lists('id');
 

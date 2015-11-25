@@ -3,7 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Ahoy\Pyrolancer\Classes\ProjectWorker;
+use Ahoy\Pyrolancer\Classes\Worker;
 
 class JobsRun extends Command
 {
@@ -32,7 +32,7 @@ class JobsRun extends Command
      */
     public function fire()
     {
-        $message = ProjectWorker::instance()->process();
+        $message = Worker::instance()->process();
         $this->output->writeln($message);
     }
 

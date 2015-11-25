@@ -10,7 +10,7 @@ use ApplicationException;
 /**
  * Worker class, engaged by the automated worker
  */
-class ProjectWorker
+class Worker
 {
 
     use \October\Rain\Support\Traits\Singleton;
@@ -58,7 +58,7 @@ class ProjectWorker
             ;
 
             if ($worker) {
-                ProjectNotify::sendDigest($worker, $worker->last_digest_at);
+                Notifier::sendWorkerDigest($worker, $worker->last_digest_at);
 
                 $worker->last_digest_at = $now;
                 $worker->timestamps = false;
