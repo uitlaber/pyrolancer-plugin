@@ -106,6 +106,31 @@ class ProjectData
     }
 
     /**
+     * This will set extras and the project duration.
+     * @return void
+     */
+    public static function completeProject()
+    {
+        $data = self::load();
+        if (!$data) $data = input('Project');
+        else $data = array_merge($data, input('Project'));
+
+        /*
+         * Validate input
+         */
+        $rules = [
+            'duration' => 'required',
+        ];
+
+        $validation = Validator::make($data, $rules);
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        self::saveProjectData();
+    }
+
+    /**
      * This create the project and assign it to the user
      * @return void
      */
@@ -141,14 +166,6 @@ class ProjectData
 
         if (!empty($project->instructions)) {
             $project->instructions_html = Markdown::parse(trim($project->instructions));
-        }
-
-        if (!$project->latitude) {
-            $project->latitude = null;
-        }
-
-        if (!$project->longitude) {
-            $project->longitude = null;
         }
 
         /*

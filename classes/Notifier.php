@@ -50,7 +50,7 @@ class Notifier
         $skills = $worker->skills()->lists('id');
 
         $projects = ProjectModel::make()
-            ->where('is_visible', true)
+            ->where('is_active', true)
             ->whereHas('skills', function($q) use ($skills) {
                 $q->whereIn('id', $skills);
             });

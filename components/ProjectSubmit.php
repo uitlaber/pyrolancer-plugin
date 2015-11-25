@@ -94,6 +94,8 @@ class ProjectSubmit extends ComponentBase
 
     public function onCompleteProject()
     {
+        ProjectData::completeProject();
+
         if (!$user = Auth::getUser()) {
             $user = $this->handleAuth();
         }

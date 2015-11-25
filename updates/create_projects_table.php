@@ -18,13 +18,14 @@ class CreateProjectsTable extends Migration
             $table->text('description_html')->nullable();
             $table->text('instructions')->nullable();
             $table->text('instructions_html')->nullable();
+            $table->integer('duration')->default(30);
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->integer('status_id')->unsigned()->index()->nullable();
             $table->integer('category_id')->unsigned()->index()->nullable();
             $table->integer('chosen_bid_id')->unsigned()->nullable();
             $table->integer('chosen_user_id')->unsigned()->nullable();
 
-            $table->boolean('is_visible')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_urgent')->default(false);

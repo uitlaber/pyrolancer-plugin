@@ -166,6 +166,18 @@ class Project extends Model
             $this->rules['latitude'] = 'required';
             $this->rules['longitude'] = 'required';
         }
+
+        if (!$this->latitude) {
+            $this->latitude = null;
+        }
+
+        if (!$this->longitude) {
+            $this->longitude = null;
+        }
+
+        if (!$this->duration) {
+            $this->duration = 30;
+        }
     }
 
     /**
@@ -260,8 +272,6 @@ class Project extends Model
         return $query->paginate($perPage, $page);
     }
 
-
-
     public function scopeApplyStatus($query, $codes)
     {
         $statuses = Attribute::listCodes(Attribute::PROJECT_STATUS);
@@ -350,6 +360,11 @@ class Project extends Model
     // Attributes
     //
 
+    public function getIsNewAttribute()
+    {
+        return (bool) $this->freshTimestamp()->subDays(2)->lt($this->created_at);
+    }
+
     public function getVisibleBidsAttribute()
     {
         return $this->bids->filter(function($bid) {
@@ -388,7 +403,7 @@ class Project extends Model
 
     public function scopeApplyVisible($query)
     {
-        return $query->where('is_visible', true);
+        return $query->where('is_active', true);
     }
 
     //
@@ -529,7 +544,8 @@ class Project extends Model
     public function markApproved()
     {
         $this->is_approved = true;
-        $this->is_visible = true;
+        $this->is_active = true;
+        $this->expires_at = $this->freshTimestamp()->addDays((int) $this->duration);
         $this->save();
 
         $this->markStatus(self::STATUS_ACTIVE);
@@ -544,7 +560,7 @@ class Project extends Model
 
     public function markSuspended()
     {
-        $this->is_visible = false;
+        $this->is_active = false;
         $this->save();
 
         $this->markStatus(self::STATUS_SUSPENDED);
@@ -552,7 +568,7 @@ class Project extends Model
 
     public function markCancelled()
     {
-        $this->is_visible = false;
+        $this->is_active = false;
         $this->save();
 
         $this->markStatus(self::STATUS_CANCELLED);
