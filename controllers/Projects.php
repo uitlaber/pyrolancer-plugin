@@ -2,8 +2,10 @@
 
 use Flash;
 use Markdown;
+use Backend;
 use BackendMenu;
 use Backend\Classes\Controller;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
 /**
  * Projects Back-end Controller
@@ -51,9 +53,7 @@ class Projects extends Controller
 
         Flash::success('This project has been approved.');
 
-        if ($redirect = $this->makeRedirect('preview', $model)) {
-            return $redirect;
-        }
+        return $this->redirectToNextUnapprovedProject();
     }
 
     public function preview_onReject($recordId = null)
@@ -64,9 +64,7 @@ class Projects extends Controller
             $model->markRejected($reason);
             Flash::success('This project has been rejected.');
 
-            if ($redirect = $this->makeRedirect('preview', $model)) {
-                return $redirect;
-            }
+            return $this->redirectToNextUnapprovedProject();
         }
         else {
             throw new ApplicationException('Please supply a reason.');
@@ -80,5 +78,14 @@ class Projects extends Controller
         return [
             'preview' => $previewHtml
         ];
+    }
+
+    protected function redirectToNextUnapprovedProject()
+    {
+        $project = ProjectModel::applyStatus(ProjectModel::STATUS_PENDING)->first();
+
+        $redirectUri = $project ? 'projects/preview/'.$project->id : 'projects';
+
+        return Backend::redirect('ahoy/pyrolancer/'.$redirectUri);
     }
 }

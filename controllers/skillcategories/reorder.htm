@@ -6,36 +6,4 @@
     </ul>
 <?php Block::endPut() ?>
 
-<?= $toolbar->render() ?>
-
-<?= Form::open() ?>
-    <div
-        id="reorderTreeList"
-        class="control-treelist"
-        data-control="treelist"
-        data-handle="> li > .record > a.move"
-        data-nested="0"
-        data-stripe-load-indicator>
-        <ol id="reorderRecords">
-            <?= $this->makePartial('reorder_records', ['records' => $records]) ?>
-        </ol>
-    </div>
-<?= Form::close() ?>
-
-<script>
-
-    /*
-     * Post back the original sort orders and the new ordered identifiers
-     */
-    var sortOrders = [];
-    $('#reorderTreeList li').each(function(){
-        sortOrders.push($(this).data('recordSortOrder'))
-    })
-
-    $('#reorderTreeList').on('move.oc.treelist', function(ev, data){
-        $('#reorderTreeList').request('onMove', {
-            data: { sort_orders: sortOrders }
-        })
-    })
-
-</script>
+<?= $this->reorderRender() ?>
