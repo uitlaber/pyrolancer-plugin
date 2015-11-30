@@ -64,9 +64,10 @@ class Plugin extends PluginBase
                     'default' => 'all',
                     'options' => [
                         'all' => 'Everyone',
+                        'users' => 'Users',
                         'clients' => 'Clients',
                         'workers' => 'Workers',
-                        'users' => 'Users',
+                        'hybrid' => 'Hybrid',
                     ]
                 ]
             ]);

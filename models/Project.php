@@ -216,6 +216,7 @@ class Project extends Model
                 if (count($parts) < 2) array_push($parts, 'desc');
                 list($sortField, $sortDirection) = $parts;
 
+                $query->orderBy('is_active', 'desc');
                 $query->orderBy($sortField, $sortDirection);
             }
         }
@@ -365,6 +366,11 @@ class Project extends Model
         return (bool) $this->freshTimestamp()->subDays(2)->lt($this->created_at);
     }
 
+    public function getIsExpiringSoonAttribute()
+    {
+        return $this->freshTimestamp() > $this->expires_at->subDays(7);
+    }
+
     public function getVisibleBidsAttribute()
     {
         return $this->bids->filter(function($bid) {
@@ -403,7 +409,7 @@ class Project extends Model
 
     public function scopeApplyVisible($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('is_approved', true);
     }
 
     //
@@ -512,6 +518,7 @@ class Project extends Model
             self::STATUS_DEVELOPMENT,
             self::STATUS_TERMINATED,
             self::STATUS_COMPLETED,
+            self::STATUS_EXPIRED,
             self::STATUS_CLOSED,
         ]);
     }
@@ -551,6 +558,18 @@ class Project extends Model
         $this->markStatus(self::STATUS_ACTIVE);
     }
 
+    public function markExtended()
+    {
+        if (!$this->is_approved) {
+            return;
+        }
+
+        $this->expires_at = $this->freshTimestamp()->addDays(30);
+        $this->save();
+
+        $this->markStatus(self::STATUS_ACTIVE);
+    }
+
     public function markRejected($reason = null)
     {
         $this->markStatus(self::STATUS_REJECTED, [
@@ -572,6 +591,15 @@ class Project extends Model
         $this->save();
 
         $this->markStatus(self::STATUS_CANCELLED);
+    }
+
+    public function markExpired()
+    {
+        $this->is_active = false;
+        $this->expires_at = $this->freshTimestamp();
+        $this->save();
+
+        $this->markStatus(self::STATUS_EXPIRED);
     }
 
     /**

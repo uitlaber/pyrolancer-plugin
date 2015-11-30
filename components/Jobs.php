@@ -31,6 +31,7 @@ class Jobs extends ComponentBase
     public function onRun()
     {
         $this->handleFilter();
+        $this->setActiveMenuItem();
 
         $this->page['paginationCurrentUrl'] = $this->paginationCurrentUrl();
     }
@@ -134,6 +135,7 @@ class Jobs extends ComponentBase
         }
 
         if (
+            $this->filterType == 'worker' &&
             !array_get($options, 'skills') &&
             ($user = Auth::getUser()) &&
             $user->is_worker
@@ -148,6 +150,13 @@ class Jobs extends ComponentBase
     {
         $filterType = strtolower($this->param('filter'));
         $filterValue = $this->param('with');
+
+        // Special case
+        if ($filterType == 'worker') {
+            $this->filterType = 'worker';
+            return;
+        }
+
         if (!$filterType || !$filterValue) {
             return;
         }
@@ -182,6 +191,16 @@ class Jobs extends ComponentBase
 
         $this->filterType = $filterType;
         $this->filterObject = $filterObject;
+    }
+
+    protected function setActiveMenuItem()
+    {
+        if ($this->filterType == 'worker') {
+            $this->page['activeMenuItem'] = 'worker-jobs';
+        }
+        else {
+            $this->page['activeMenuItem'] = 'jobs';
+        }
     }
 
 }

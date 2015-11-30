@@ -30,9 +30,29 @@ class Worker
      */
     public function process()
     {
+        $this->isReady && $this->processExpiredProjects();
         $this->isReady && $this->processWorkerDigest();
 
         return $this->logMessage;
+    }
+
+    /**
+     * Locates active projects that have passed their expired date.
+     */
+    public function processExpiredProjects()
+    {
+        $projects = ProjectModel::where('expires_at', '<', Carbon::now())->get();
+
+        if ($totalProjects = count($projects)) {
+            foreach ($projects as $project) {
+                $project->markExpired();
+            }
+
+            $this->logActivity(sprintf(
+                'Marked %s projects(s) as expired.',
+                $totalProjects
+            ));
+        }
     }
 
     /**

@@ -89,6 +89,21 @@ class Project extends ComponentBase
     // Client
     //
 
+    public function onExtendExpiry()
+    {
+        if (!$project = $this->loadModel(new ProjectModel)) {
+            throw new ApplicationException('Action failed');
+        }
+
+        if (!$project->isOwner()) {
+            throw new ApplicationException('Action failed');
+        }
+
+        $project->markExtended();
+
+        return Redirect::refresh();
+    }
+
     public function onEditDescription()
     {
         if (!$project = $this->loadModelSecure(new ProjectModel)) {
