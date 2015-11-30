@@ -114,6 +114,15 @@ class Jobs extends ComponentBase
         $this->page['onSuccess'] = "jobsAfterPaginate()";
     }
 
+    public function onLoadSkillsPopup()
+    {
+        if (!$project = ProjectModel::find(post('id'))) {
+            throw new ApplicationException('Action failed!');
+        }
+
+        $this->page['project'] = $project;
+    }
+
     //
     // Filtering
     //

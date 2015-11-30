@@ -6,6 +6,7 @@ use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Cms\Classes\ComponentBase;
+use ApplicationException;
 
 class Directory extends ComponentBase
 {
@@ -98,6 +99,15 @@ class Directory extends ComponentBase
         $this->page['updatePartialName'] = 'directory/workers';
         $this->page['updateElement'] = '#partialDirectoryWorkers';
         $this->page['onSuccess'] = "directoryAfterPaginate()";
+    }
+
+    public function onLoadSkillsPopup()
+    {
+        if (!$worker = WorkerModel::find(post('id'))) {
+            throw new ApplicationException('Action failed!');
+        }
+
+        $this->page['worker'] = $worker;
     }
 
     //

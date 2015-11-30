@@ -41,7 +41,9 @@ class Worker
      */
     public function processExpiredProjects()
     {
-        $projects = ProjectModel::where('expires_at', '<', Carbon::now())->get();
+        $projects = ProjectModel::make()
+            ->applyStatus(ProjectModel::STATUS_ACTIVE)
+            ->where('expires_at', '<', Carbon::now())->get();
 
         if ($totalProjects = count($projects)) {
             foreach ($projects as $project) {

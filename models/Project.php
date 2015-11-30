@@ -361,6 +361,15 @@ class Project extends Model
     // Attributes
     //
 
+    public function getLocationSummaryAttribute()
+    {
+        if (!$this->state_id || !$this->country_id) {
+            return 'a'.$this->fallback_location;
+        }
+
+        return $this->state->name.', '.$this->country->name;
+    }
+
     public function getIsNewAttribute()
     {
         return (bool) $this->freshTimestamp()->subDays(2)->lt($this->created_at);
@@ -564,6 +573,7 @@ class Project extends Model
             return;
         }
 
+        $this->is_active = true;
         $this->expires_at = $this->freshTimestamp()->addDays(30);
         $this->save();
 
