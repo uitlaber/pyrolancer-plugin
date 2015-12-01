@@ -17,6 +17,7 @@ class CreateClientsTable extends Migration
             $table->integer('count_projects')->default(0);
             $table->integer('count_ratings')->default(0);
             $table->decimal('rating_overall', 3, 2)->default(0)->nullable();
+            $table->dateTime('last_digest_at')->index()->nullable();
             $table->timestamps();
         });
     }

@@ -421,6 +421,14 @@ class Project extends Model
         return $query->where('is_approved', true);
     }
 
+    public function scopeApplyActive($query)
+    {
+        return $query
+            ->where('is_active', true)
+            ->where('is_approved', true)
+        ;
+    }
+
     //
     // Helpers
     //

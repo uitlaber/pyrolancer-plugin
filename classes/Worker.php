@@ -3,6 +3,7 @@
 use Mail;
 use Event;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Ahoy\Pyrolancer\Models\Client as ClientModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Carbon\Carbon;
 use ApplicationException;
@@ -30,8 +31,17 @@ class Worker
      */
     public function process()
     {
-        $this->isReady && $this->processExpiredProjects();
-        $this->isReady && $this->processWorkerDigest();
+        $methods = [
+            'processExpiredProjects',
+            'processClientDigest',
+            'processWorkerDigest'
+        ];
+
+        shuffle($methods);
+
+        foreach ($methods as $method) {
+            $this->isReady && $this->$method();
+        }
 
         return $this->logMessage;
     }
@@ -62,6 +72,8 @@ class Worker
      * where the last digest date exceeds the specified digest frequency,
      * finds jobs that were submitted between now and last digest date,
      * matches the worker profile and emails them in chunks of 100.
+     *
+     * Default frequency: 1 day
      */
     public function processWorkerDigest()
     {
@@ -81,17 +93,58 @@ class Worker
 
             if ($worker) {
                 Notifier::sendWorkerDigest($worker, $worker->last_digest_at);
+                $count++;
 
                 $worker->last_digest_at = $now;
                 $worker->timestamps = false;
                 $worker->save();
-                $count++;
             }
         }
 
         if ($count > 0) {
             $this->logActivity(sprintf(
                 'Sent job digest to %s worker(s).',
+                $count
+            ));
+        }
+    }
+
+    /**
+     * This will list all clients, sorted by the last digest date,
+     * Similar to worker digest and notifies them about questions,
+     * bids and applicants to their projects.
+     *
+     * Default frequency: 1 hour
+     */
+    public function processClientDigest()
+    {
+        $hours = max(1, 1); // Must always be greater than 1
+        $loop = 100;
+
+        $now = Carbon::now();
+        $start = Carbon::now()->subHours($hours);
+
+        $count = 0;
+        for ($i = 0; $i < $loop; $i++) {
+            $client = ClientModel::make()
+                ->where('last_digest_at', '<', $start)
+                ->orWhereNull('last_digest_at')
+                ->first()
+            ;
+
+            if ($client) {
+                Notifier::sendClientDigest($client, $client->last_digest_at);
+                $count++;
+
+                $client->last_digest_at = $now;
+                $client->timestamps = false;
+                $client->save();
+            }
+        }
+
+        if ($count > 0) {
+            $this->logActivity(sprintf(
+                'Sent project digest to %s clients(s).',
                 $count
             ));
         }

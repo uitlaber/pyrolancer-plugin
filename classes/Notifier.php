@@ -2,6 +2,7 @@
 
 use Mail;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Ahoy\Pyrolancer\Models\Client as ClientModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
 /**
@@ -40,6 +41,7 @@ class Notifier
             Mail::sendTo($worker->user, 'ahoy.pyrolancer::mail.worker-alert', $params);
         }
 
+        return true;
     }
 
     /**
@@ -50,7 +52,7 @@ class Notifier
         $skills = $worker->skills()->lists('id');
 
         $projects = ProjectModel::make()
-            ->where('is_active', true)
+            ->applyActive()
             ->whereHas('skills', function($q) use ($skills) {
                 $q->whereIn('id', $skills);
             });
@@ -81,6 +83,62 @@ class Notifier
         ];
 
         Mail::sendTo($worker->user, 'ahoy.pyrolancer::mail.worker-digest', $params);
+        return true;
+    }
+
+    /**
+     * Send a digest of questions, bids and applicants to a client
+     */
+    public static function sendClientDigest(ClientModel $client, $fromDate)
+    {
+        $projects = ProjectModel::make()
+            ->with('project_type')
+            ->applyActive()
+            ->where('user_id', $client->user_id)
+            ->get();
+
+        foreach ($projects as $project) {
+
+            $messages = $project->messages()->where('user_id', '<>', $client->user_id);
+            if ($fromDate) {
+                $messages->where('created_at', '>', $fromDate);
+            }
+            $messages = $messages->get();
+
+            if ($project->project_type->code == 'advert') {
+
+                $contacts = $project->applicants();
+                if ($fromDate) {
+                    $contacts->where('created_at', '>', $fromDate);
+                }
+                $contacts = $contacts->get();
+
+            }
+            else {
+
+                $contacts = $project->bids();
+                if ($fromDate) {
+                    $contacts->where('created_at', '>', $fromDate);
+                }
+                $contacts = $contacts->get();
+
+            }
+
+            if (!count($messages) && !count($contacts)) {
+                return false;
+            }
+
+            $params = [
+                'project' => $project,
+                'projectType' => $project->project_type->code,
+                'messages' => $messages,
+                'contacts' => $contacts
+            ];
+
+            Mail::sendTo($client->user, 'ahoy.pyrolancer::mail.client-digest', $params);
+            return true;
+        }
+
     }
 
 }

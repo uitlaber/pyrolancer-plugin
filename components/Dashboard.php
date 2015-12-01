@@ -69,7 +69,7 @@ class Dashboard extends ComponentBase
 
             return ProjectModel::make()
                 ->orderBy('created_at', 'desc')
-                ->applyVisible()
+                ->applyActive()
                 ->whereHas('skills', function($q) use ($skills) {
                     $q->whereIn('id', $skills);
                 })

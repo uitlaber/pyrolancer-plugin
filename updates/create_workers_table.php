@@ -3,7 +3,7 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class CreateFreelancersTable extends Migration
+class CreateWorkersTable extends Migration
 {
 
     public function up()

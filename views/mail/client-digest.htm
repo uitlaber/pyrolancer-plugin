@@ -1,0 +1,69 @@
+subject = "New activity for project: {{ project.name }}"
+==
+
+<p>Hello,</p>
+
+<p>Here is a list of recent activity for your project {{ project.name }}.</p>
+
+{% if messages %}
+    <h3>New messages</h3>
+
+    {% for message in messages %}
+        <p>Message from <strong>{{ message.worker.business_name }}</strong></p>
+        <blockquote>
+            {{ str_limit(message.content_html, 255) }}
+            {% if message.content_html|length > 255 %}
+                <a href="{{ project.url }}">See more</a>
+            {% endif %}
+        </blockquote>
+    {% endfor %}
+
+{% endif %}
+
+{% if projectType == 'advert' and contacts %}
+
+    <h3>New applicants</h3>
+    <p>These users expressed an interest:</p>
+    <ul>
+        {% for user in contacts %}
+            <li>
+                <p>
+                    <strong>{{ user.name }}</strong>
+                    from {{ user.worker.business_name }}
+                    - <a href="{{ user.worker.url }}">View profile</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% elseif contacts %}
+
+    <h3>New bids</h3>
+    <p>These users haved placed bids:</p>
+    <ul>
+        {% for bid in contacts %}
+            <li>
+                <p>
+                    <strong>{{ bid.worker.business_name }}</strong>
+                    quoted
+                    {% if bid.type == 'fixed' %}
+                        ${{ bid.fixed_rate|round }}
+                    {% else %}
+                        ${{ bid.hourly_rate|round }}/hr
+                    {% endif %}
+                </p>
+                <blockquote>
+                    {{ str_limit(bid.details_html, 255) }}
+                    {% if bid.details_html|length > 255 %}
+                        <a href="{{ project.url }}">See more</a>
+                    {% endif %}
+                </blockquote>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endif %}
+
+<p><a href="{{ project.url }}">Click here</a> to open the project management page.</p>
+
+<p>Thanks for using {{ site_name }}!</p>

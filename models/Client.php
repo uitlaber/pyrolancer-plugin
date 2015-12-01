@@ -17,6 +17,12 @@ class Client extends Model
     public $rules = [];
 
     /**
+     * The attributes that should be mutated to dates.
+     * @var array
+     */
+    protected $dates = ['last_digest_at'];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'ahoy_pyrolancer_clients';
