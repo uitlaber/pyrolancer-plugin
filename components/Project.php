@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
+use Mail;
 use Input;
 use Redirect;
 use Validator;
@@ -186,6 +187,14 @@ class Project extends ComponentBase
         $project->markAccepted($bid);
         $user->fill($data);
         $user->save();
+
+        $params = [
+            'user' => $bid->user,
+            'bid' => $bid,
+            'project' => $project,
+            'client' => $project->client
+        ];
+        Mail::sendTo($bid->user, 'ahoy.pyrolancer::mail.worker-bid-accepted', $params);
 
         return Redirect::refresh();
     }

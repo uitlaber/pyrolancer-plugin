@@ -1,0 +1,28 @@
+subject = "You have been chosen for: {{ project.name }}"
+==
+
+<p>Hi {{ user.name }},</p>
+
+<p>Congratulations! Your quote on the project "{{ project.name }}" was chosen by {{ client.display_name }}.</p>
+
+<p>
+    You quoted
+    {% if bid.type == 'fixed' %}
+        <strong>${{ bid.fixed_rate|round }}</strong>
+    {% else %}
+        <strong>${{ bid.hourly_rate|round }}/hr</strong>
+    {% endif %}
+</p>
+<blockquote>
+    {{ str_limit(bid.details_html, 255) }}
+    {% if bid.details_html|length > 255 %}
+        <a href="{{ project.url }}">See more</a>
+    {% endif %}
+</blockquote>
+
+<p>
+    <a href="{{ project.url }}">Click here</a> to open the project page and accept the quote.
+    Be quick to make a decision because {{ client.display_name }} still has the option to pick someone else.
+</p>
+
+<p>Thanks for using {{ site_name }}!</p>
