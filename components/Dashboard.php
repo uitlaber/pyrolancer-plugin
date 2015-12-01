@@ -57,6 +57,27 @@ class Dashboard extends ComponentBase
         );
     }
 
+    public function workerProjects()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            $user = $this->lookupUser();
+            if (!$user->worker) {
+                return null;
+            }
+
+            $skills = $user->worker->skills->lists('id');
+
+            return ProjectModel::make()
+                ->orderBy('created_at', 'desc')
+                ->applyVisible()
+                ->whereHas('skills', function($q) use ($skills) {
+                    $q->whereIn('id', $skills);
+                })
+                ->limit(3)
+                ->get();
+        });
+    }
+
     public function hasProjectsInDevelopment()
     {
         return $this->projectsInDevelopment()->count() > 0;

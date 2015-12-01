@@ -658,11 +658,15 @@ class Project extends Model
      */
     public function markDevelopment()
     {
+        $this->is_active = false;
+        $this->save();
+
         $this->markStatus(self::STATUS_DEVELOPMENT);
     }
 
     public function markTerminated($reason = null, $closedBy = 'system')
     {
+        $this->is_active = false;
         $this->closed_at = $this->freshTimestamp();
         $this->save();
 
@@ -674,6 +678,7 @@ class Project extends Model
 
     public function markCompleted($closedBy = 'system')
     {
+        $this->is_active = false;
         $this->closed_at = $this->freshTimestamp();
         $this->save();
 
