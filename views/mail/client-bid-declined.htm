@@ -1,9 +1,9 @@
-subject = "Your project has been rejected: {{ project.name }}"
+subject = "Your offer has been declined: {{ project.name }}"
 ==
 
 <p>Hi {{ user.name }},</p>
 
-<p>We are sorry, but the user you chose for your project has declined your offer.</p>
+<p>We are sorry, but the user you chose for your project "{{ project.name }}" has declined your offer.</p>
 
 <p><a href="{{ project.getUrl }}">Click here</a> to open the project management page.</p>
 

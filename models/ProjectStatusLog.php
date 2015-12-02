@@ -129,6 +129,10 @@ class ProjectStatusLog extends Model
                 $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-bid-declined';
             }
 
+            if ($oldStatus->code == Project::STATUS_WAIT && $status->code == Project::STATUS_DEVELOPMENT) {
+                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-bid-confirmed';
+            }
+
             if ($oldStatus->code == Project::STATUS_ACTIVE && $status->code == Project::STATUS_EXPIRED) {
                 $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-project-expired';
             }
