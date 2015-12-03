@@ -5,7 +5,7 @@ subject = "New activity for project: {{ project.name }}"
 
 <p>Here is a list of recent activity for your project {{ project.name }}.</p>
 
-{% if messages %}
+{% if messages|length %}
     <h3>New messages</h3>
 
     {% for message in messages %}
@@ -20,7 +20,7 @@ subject = "New activity for project: {{ project.name }}"
 
 {% endif %}
 
-{% if projectType == 'advert' and contacts %}
+{% if projectType == 'advert' and contacts|length %}
 
     <h3>New applicants</h3>
     <p>These users expressed an interest:</p>
@@ -36,7 +36,7 @@ subject = "New activity for project: {{ project.name }}"
         {% endfor %}
     </ul>
 
-{% elseif contacts %}
+{% elseif contacts|length %}
 
     <h3>New bids</h3>
     <p>These users haved placed bids:</p>

@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use Mail;
 use Flash;
 use Redirect;
 use Validator;
@@ -258,6 +259,20 @@ class ProjectCollab extends ComponentBase
             $message->save(null, $sessionKey);
 
             Flash::success('The message has been posted successfully.');
+
+            $project->resetUrlComponent('projectCollab');
+
+            /*
+             * Notify other user
+             */
+            $otherUser = $this->otherUser();
+            $params = [
+                'project' => $project,
+                'user' => $otherUser,
+                'otherUser' => $user,
+                'collabMessage' => $message,
+            ];
+            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-user-message', $params);
 
             return Redirect::refresh();
         }

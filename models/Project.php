@@ -30,6 +30,7 @@ class Project extends Model
     const STATUS_COMPLETED = 'completed';
     const STATUS_CLOSED = 'closed';
 
+    use \Ahoy\Traits\UrlMaker;
     use \Ahoy\Traits\ModelUtils;
     use \Ahoy\Pyrolancer\Traits\GeoModel;
     use \October\Rain\Database\Traits\Sluggable;
@@ -133,6 +134,23 @@ class Project extends Model
         'name desc' => 'Name (descending)',
         'name asc' => 'Name (ascending)',
     );
+
+    /**
+     * @var string The component to use for generating URLs.
+     */
+    protected $urlComponentName = 'project';
+
+    /**
+     * Returns an array of values to use in URL generation.
+     * @return @array
+     */
+    public function getUrlParams()
+    {
+        return [
+            'id' => $this->user_id,
+            'slug' => $this->slug,
+        ];
+    }
 
     public function setDescriptionAttribute($value)
     {
@@ -283,14 +301,6 @@ class Project extends Model
     public function getBackendUrl()
     {
         return Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
-    }
-
-    public function getUrl()
-    {
-        return CmsPage::url('project', [
-            'id' => $this->id,
-            'slug' => $this->slug,
-        ]);
     }
 
     public function getRevisionableUser()
