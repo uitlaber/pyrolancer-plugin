@@ -12,7 +12,7 @@ use Ahoy\Pyrolancer\Models\WorkerReview;
 use ApplicationException;
 use Exception;
 
-class ProjectCollab extends ComponentBase
+class Collab extends ComponentBase
 {
     use \Ahoy\Traits\ComponentUtils;
 
@@ -260,7 +260,7 @@ class ProjectCollab extends ComponentBase
 
             Flash::success('The message has been posted successfully.');
 
-            $project->resetUrlComponent('projectCollab');
+            $project->resetUrlComponent('collab');
 
             /*
              * Notify other user

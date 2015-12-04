@@ -22,14 +22,9 @@ class ProjectMessage extends Model
     public $table = 'ahoy_pyrolancer_project_messages';
 
     /**
-     * @var array Guarded fields
-     */
-    protected $guarded = ['*'];
-
-    /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = ['content'];
 
     /*
      * Validation
