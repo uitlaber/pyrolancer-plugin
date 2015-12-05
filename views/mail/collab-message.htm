@@ -4,7 +4,7 @@ subject = "{{ otherUser.name }} posted a message about: {{ project.name }}"
     Dear {{ user.name }},
 </p>
 <p>
-    This a message posted by <strong>{{ otherUser.name }}</strong> in the collaboration area for your project <a href="{{ project.url }}">{{ project.name }}</a>.
+    This a message posted by <strong>{{ otherUser.name }}</strong> in the collaboration area for the project <a href="{{ project.url }}">{{ project.name }}</a>.
 </p>
 <blockquote>
     {{ collabMessage.content_html|raw }}

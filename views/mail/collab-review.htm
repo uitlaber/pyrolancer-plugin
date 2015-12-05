@@ -1,0 +1,23 @@
+subject = "{{ otherUser.name }} has left a review about you"
+==
+<p>
+    Dear {{ user.name }},
+</p>
+<p>
+    <strong>{{ otherUser.name }}</strong> has left a review about you, in relation to the project <a href="{{ project.url }}">{{ project.name }}</a>.
+</p>
+<p>
+    Rating: {{ rating|round }} stars
+</p>
+<blockquote>
+    {{ content }}
+</blockquote>
+<p>
+    Use the following link to review the contents:
+    <br />
+    <a href="{{ project.url }}#message-{{ collabMessage.id }}">
+        {{ project.url }}#message-{{ collabMessage.id }}
+    </a>
+</p>
+
+<p>Thanks for using {{ site_name }}!</p>

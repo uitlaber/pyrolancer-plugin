@@ -75,6 +75,15 @@ class Collab extends ComponentBase
         return $project->user;
     }
 
+    public function messages()
+    {
+        if (!$project = $this->project()) {
+            return null;
+        }
+
+        return $project->private_messages()->paginate(20);
+    }
+
     //
     // Update quote
     //
@@ -106,8 +115,6 @@ class Collab extends ComponentBase
         $bid->fill((array) post('Bid'));
         $bid->save();
 
-        // @todo Email
-
         return Redirect::refresh();
     }
 
@@ -137,6 +144,20 @@ class Collab extends ComponentBase
         }
 
         $project->markTerminated($reason, $user->id);
+
+        /*
+         * Send notification
+         */
+        $project->resetUrlComponent('collab');
+        $otherUser = $this->otherUser();
+        $params = [
+            'project' => $project,
+            'user' => $otherUser,
+            'otherUser' => $user,
+            'reason' => $reason,
+        ];
+        Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-terminated', $params);
+
         return Redirect::refresh();
     }
 
@@ -148,6 +169,18 @@ class Collab extends ComponentBase
 
         $user = $this->lookupUser();
         $project->markCompleted($user->id);
+
+        /*
+         * Send notification
+         */
+        $project->resetUrlComponent('collab');
+        $otherUser = $this->otherUser();
+        $params = [
+            'project' => $project,
+            'user' => $otherUser,
+            'otherUser' => $user,
+        ];
+        Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-complete', $params);
 
         return Redirect::refresh();
     }
@@ -272,7 +305,7 @@ class Collab extends ComponentBase
                 'otherUser' => $user,
                 'collabMessage' => $message,
             ];
-            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-user-message', $params);
+            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-message', $params);
 
             return Redirect::refresh();
         }
@@ -296,11 +329,30 @@ class Collab extends ComponentBase
 
         if ($project->isOwner()) {
             // Review for worker
+            $isNewReview = !$review->is_visible;
             $review->completeWorkerReview(post('Review'));
         }
         else {
             // Review for client
+            $isNewReview = !$review->client_is_visible;
             $review->completeClientReview(post('Review'));
+        }
+
+        /*
+         * Send notification
+         */
+        if ($isNewReview) {
+            $user = $this->lookupUser();
+            $project->resetUrlComponent('collab');
+            $otherUser = $this->otherUser();
+            $params = [
+                'project' => $project,
+                'user' => $otherUser,
+                'otherUser' => $user,
+                'rating' => $project->isOwner() ? $review->rating : $review->client_rating,
+                'content' => $project->isOwner() ? $review->comment : $review->client_comment,
+            ];
+            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-review', $params);
         }
 
         $this->page['project'] = $project;

@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
+use Mail;
 use Flash;
 use Request;
 use Redirect;
@@ -90,14 +91,27 @@ class CollabUpdate extends ComponentBase
                 throw new ApplicationException('Message cannot be found.');
             }
 
-            if (!post('minor_update', true)) {
-                // @todo Send notitication
-            }
-
             $message->fill(post());
             $message->save();
 
             Flash::success('The message has been updated successfully.');
+
+            /*
+             * Notify other user
+             */
+            if (!post('minor_update', true)) {
+                $project = $message->project;
+                $project->resetUrlComponent('collab');
+
+                $otherUser = $project->isOwner() ? $project->chosen_user : $project->user;
+                $params = [
+                    'project' => $project,
+                    'user' => $otherUser,
+                    'otherUser' => $message->user,
+                    'collabMessage' => $message,
+                ];
+                Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-update', $params);
+            }
 
             /*
              * Redirect to the collab page

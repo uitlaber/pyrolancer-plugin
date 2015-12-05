@@ -1,0 +1,23 @@
+subject = "{{ otherUser.name }} updated a message about: {{ project.name }}"
+==
+<p>
+    Dear {{ user.name }},
+</p>
+<p>
+    <strong>{{ otherUser.name }}</strong> updated a message in the collaboration area for the project <a href="{{ project.url }}">{{ project.name }}</a>.
+</p>
+<p>
+    Updated message text:
+</p>
+<blockquote>
+    {{ collabMessage.content_html|raw }}
+</blockquote>
+<p>
+    Please do not reply to this message directly. Use the following link to review or reply to the message:
+    <br />
+    <a href="{{ project.url }}#message-{{ collabMessage.id }}">
+        {{ project.url }}#message-{{ collabMessage.id }}
+    </a>
+</p>
+
+<p>Thanks for using {{ site_name }}!</p>

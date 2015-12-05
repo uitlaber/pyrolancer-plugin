@@ -1,0 +1,17 @@
+subject = "{{ otherUser.name }} completed project: {{ project.name }}"
+==
+<p>
+    Dear {{ user.name }},
+</p>
+<p>
+    <strong>{{ otherUser.name }}</strong> has marked the project <a href="{{ project.url }}">{{ project.name }}</a> as complete.
+</p>
+<p>
+    Please provide feedback on your experience, open the link below to submit a review:
+    <br />
+    <a href="{{ project.url }}#message-{{ collabMessage.id }}">
+        {{ project.url }}#message-{{ collabMessage.id }}
+    </a>
+</p>
+
+<p>Thanks for using {{ site_name }}!</p>
