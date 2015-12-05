@@ -34,38 +34,6 @@ class Activity extends ComponentBase
         return $feed;
     }
 
-    // public function feed2()
-    // {
-    //     $feed = new DataFeed;
-
-    //     $feed->add(
-    //         'worker',
-    //         WorkerModel::with('user')
-    //             ->with('skills')
-    //             ->with('logo'),
-    //         'created_at'
-    //     );
-
-    //     $feed->add(
-    //         'project',
-    //         ProjectModel::applyVisible()
-    //             ->with('user.client'),
-    //         'created_at'
-    //     );
-
-    //     $feed->add(
-    //         'portfolio',
-    //         PortfolioModel::applyVisible()
-    //             ->with('user.worker')
-    //             ->with('items'),
-    //         'created_at'
-    //     );
-
-    //     $results = $feed->limit(25)->get();
-
-    //     return $results;
-    // }
-
     public function recentWorkers()
     {
         return WorkerModel::with('user.avatar')->limit(5)->get();

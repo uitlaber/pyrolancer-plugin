@@ -85,6 +85,11 @@ class ProjectBid extends Model
         }
     }
 
+    public function afterDelete()
+    {
+        UserEventLog::remove(UserEventLog::TYPE_PROJECT_BID, ['related' => $this]);
+    }
+
     public static function makeForProject($project, $user = null)
     {
         if ($user === null)

@@ -59,6 +59,31 @@ class UserEventLog extends Model
         return $obj;
     }
 
+    public static function remove($type, $options = [])
+    {
+        extract(array_merge([
+            'user' => null,
+            'otherUser' => null,
+            'createdAt' => null,
+            'related' => null,
+        ], $options));
+
+        $filtersApplied = 0;
+        $obj = self::where('type', $type);
+
+        if ($related) {
+            $obj = $obj
+                ->where('related_id', $related->id)
+                ->where('related_type', get_class($related))
+            ;
+            $filtersApplied++;
+        }
+
+        if ($filtersApplied > 0) {
+            $obj->delete();
+        }
+    }
+
     /**
      * Log items related to the public.
      */

@@ -54,6 +54,13 @@ class ProjectMessage extends Model
         }
     }
 
+    public function afterDelete()
+    {
+        if ($this->is_public) {
+            UserEventLog::remove(UserEventLog::TYPE_PROJECT_MESSAGE, ['related' => $this]);
+        }
+    }
+
     public function isProjectOwner()
     {
         if (!$this->project)

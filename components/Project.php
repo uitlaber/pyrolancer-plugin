@@ -257,10 +257,12 @@ class Project extends ComponentBase
         }
 
         if (!$bid = $project->hasBid()) {
+            $isNewBid = true;
             $this->page['bidCreated'] = true;
             $bid = ProjectBid::makeForProject($project);
         }
         else {
+            $isNewBid = false;
             $this->page['bidUpdated'] = true;
         }
 
@@ -270,6 +272,14 @@ class Project extends ComponentBase
         $project->reloadRelations();
         $project->rebuildStats();
         $project->save();
+
+        if ($isNewBid) {
+            UserEventLog::add(UserEventLog::TYPE_PROJECT_BID, [
+                'user' => $user,
+                'otherUser' => $project->user,
+                'related' => $bid
+            ]);
+        }
 
         $this->page['bid'] = $bid;
         $this->page['bids'] = $project->bids;
