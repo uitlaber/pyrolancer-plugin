@@ -14,6 +14,7 @@ class Worker extends Model
     use \Ahoy\Traits\ModelUtils;
     use \Ahoy\Traits\GeneralUtils;
     use \Ahoy\Pyrolancer\Traits\GeoModel;
+    use \Ahoy\Pyrolancer\Traits\UserProxyModel;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
 
@@ -49,10 +50,12 @@ class Worker extends Model
         'address',
         'latitude',
         'longitude',
+        'vicinity',
         'contact_email',
         'contact_phone',
         'website_url',
         'budget',
+        'fallback_location',
     ];
 
     /**
@@ -124,12 +127,6 @@ class Worker extends Model
         ];
     }
 
-    public function setDescriptionAttribute($value)
-    {
-        $this->attributes['description'] = $value;
-        $this->attributes['description_html'] = Markdown::parse(trim($value));
-    }
-
     /**
      * Automatically creates a freelancer profile for a user if not one already.
      * @param  RainLab\User\Models\User $user
@@ -182,13 +179,6 @@ class Worker extends Model
         ]);
     }
 
-    public function getRecommendPercentAttribute()
-    {
-        if (!$this->count_ratings) return 0;
-
-        return round(($this->count_recommend / $this->count_ratings) * 100);
-    }
-
     public function resetSlug()
     {
         if (!$this->isDirty('business_name')) return;
@@ -229,6 +219,23 @@ class Worker extends Model
         $this->rating_breakdown = $finalBreakdown;
         $this->count_ratings = $total;
         $this->count_recommend = $recommend;
+    }
+
+    //
+    // Attributes
+    //
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = $value;
+        $this->attributes['description_html'] = Markdown::parse(trim($value));
+    }
+
+    public function getRecommendPercentAttribute()
+    {
+        if (!$this->count_ratings) return 0;
+
+        return round(($this->count_recommend / $this->count_ratings) * 100);
     }
 
     //

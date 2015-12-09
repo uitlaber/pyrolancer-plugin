@@ -40,8 +40,7 @@ tabs:
             fieldMap:
                 latitude: latitude
                 longitude: longitude
-                city: city
-                zip: zip
+                vicinity: vicinity
                 country: country_code
                 state: state_code
             attributes:
@@ -49,8 +48,8 @@ tabs:
                 data-trigger: 'input[name="Project[is_remote]"]'
                 data-trigger-condition: checked
 
-        city:
-            label: City
+        vicinity:
+            label: Vicinity
             tab: Location
             span: auto
             attributes:

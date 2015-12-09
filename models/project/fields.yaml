@@ -45,7 +45,7 @@ fields:
         fieldMap:
             latitude: latitude
             longitude: longitude
-            city: city
+            vicinity: vicinity
             zip: zip
             country: country_code
             state: state_code
@@ -54,8 +54,8 @@ fields:
             data-trigger: 'input[name="Project[is_remote]"]'
             data-trigger-condition: checked
 
-    city:
-        label: City
+    vicinity:
+        label: Vicinity
         span: auto
         attributes:
             readonly: 1

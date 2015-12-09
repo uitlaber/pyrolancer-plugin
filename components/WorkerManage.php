@@ -109,9 +109,9 @@ class WorkerManage extends ComponentBase
     {
         $country = Country::isEnabled()->whereCode(post('country_code'))->first();
         if ($country) {
-            $state = State::whereCode(post('state_code'))->first();
+            $state = State::where('country_id', $country->id)->whereCode(post('state_code'))->first();
             $this->page['countryId'] = $country->id;
-            $this->page['stateId'] = $state->id;
+            $this->page['stateId'] = $state ? $state->id : -1;
         }
         else {
             $this->page['countryId'] = -1;
@@ -125,14 +125,16 @@ class WorkerManage extends ComponentBase
             throw new ApplicationException('You must be logged in!');
         }
 
+        $isLocation = strpos(post('propertyName'), 'street_addr') !== false;
+        if ($isLocation) {
+            $this->onPatchUser();
+            $worker->fallback_location = $this->makeFallbackLocation();
+        }
+
         $data = $this->patchModel($worker, post('Worker'));
         $worker->save();
 
         $this->page['worker'] = $worker;
-
-        if (strpos(post('propertyName'), 'street_addr') !== false) {
-            $this->onPatchUser();
-        }
     }
 
     public function onPatchUser()
@@ -143,6 +145,25 @@ class WorkerManage extends ComponentBase
         $user->save();
 
         $this->page['user'] = $user;
+    }
+
+    protected function makeFallbackLocation()
+    {
+        $fallbackLocation = null;
+
+        /*
+         * If the Location plugin can't find a state or country for the codes,
+         * this will save a fallback value to use instead of showing an empty
+         * location.
+         */
+        if (!post('Worker[fallback_location]')) {
+            $fallbackLocation = '';
+            $fallbackLocation .= post('state_code');
+            $fallbackLocation .= strlen($fallbackLocation) ? ', ' : '';
+            $fallbackLocation .= post('country_code');
+        }
+
+        return $fallbackLocation;
     }
 
     //
