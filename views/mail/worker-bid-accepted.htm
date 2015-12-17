@@ -8,9 +8,9 @@ subject = "You have been chosen for: {{ project.name }}"
 <p>
     You quoted
     {% if bid.type == 'fixed' %}
-        <strong>${{ bid.fixed_rate|round }}</strong>
+        <strong>{{ bid.fixed_rate|currency }}</strong>
     {% else %}
-        <strong>${{ bid.hourly_rate|round }}/hr</strong>
+        <strong>{{ bid.hourly_rate|currency }}/hr</strong>
     {% endif %}
 </p>
 <blockquote>

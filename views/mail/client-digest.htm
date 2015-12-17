@@ -47,9 +47,9 @@ subject = "New activity for project: {{ project.name }}"
                     <strong>{{ bid.worker.business_name }}</strong>
                     quoted
                     {% if bid.type == 'fixed' %}
-                        ${{ bid.fixed_rate|round }}
+                        {{ bid.fixed_rate|currency }}
                     {% else %}
-                        ${{ bid.hourly_rate|round }}/hr
+                        {{ bid.hourly_rate|currency }}/hr
                     {% endif %}
                 </p>
                 <blockquote>
