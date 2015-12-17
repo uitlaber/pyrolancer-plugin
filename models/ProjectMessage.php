@@ -63,7 +63,7 @@ class ProjectMessage extends Model
 
     public function afterCreate()
     {
-        if ($this->is_public && !$message->parent_id) {
+        if ($this->is_public && !$this->parent_id) {
             UserEventLog::add(UserEventLog::TYPE_PROJECT_MESSAGE, [
                 'user' => $this->user,
                 'otherUser' => $this->project->user,
