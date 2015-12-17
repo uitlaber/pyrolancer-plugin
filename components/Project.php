@@ -9,7 +9,6 @@ use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage;
 use Ahoy\Pyrolancer\Models\ProjectBid;
-use Ahoy\Pyrolancer\Models\UserEventLog;
 use ValidationException;
 use ApplicationException;
 
@@ -256,30 +255,20 @@ class Project extends ComponentBase
             throw new ApplicationException('Action failed');
         }
 
-        if (!$bid = $project->hasBid()) {
-            $isNewBid = true;
-            $this->page['bidCreated'] = true;
-            $bid = ProjectBid::makeForProject($project);
-        }
-        else {
-            $isNewBid = false;
+        if ($project->hasBid()) {
             $this->page['bidUpdated'] = true;
         }
+        else {
+            $this->page['bidCreated'] = true;
+        }
 
+        $bid = ProjectBid::makeForProject($project);
         $bid->fill((array) post('Bid'));
         $bid->save();
 
         $project->reloadRelations();
         $project->rebuildStats();
         $project->save();
-
-        if ($isNewBid) {
-            UserEventLog::add(UserEventLog::TYPE_PROJECT_BID, [
-                'user' => $user,
-                'otherUser' => $project->user,
-                'related' => $bid
-            ]);
-        }
 
         $this->page['bid'] = $bid;
         $this->page['bids'] = $project->bids;
@@ -387,6 +376,7 @@ class Project extends ComponentBase
         $project = $this->loadModel(new ProjectModel);
 
         $message = new ProjectMessage;
+        $message->is_public = true;
         $message->user = $user;
         $message->project = $project;
         $message->content = post('content');
@@ -396,14 +386,6 @@ class Project extends ComponentBase
         }
 
         $message->save();
-
-        if (!$message->parent_id) {
-            UserEventLog::add(UserEventLog::TYPE_PROJECT_MESSAGE, [
-                'user' => $user,
-                'otherUser' => $project->user,
-                'related' => $message
-            ]);
-        }
 
         $this->page['project'] = $project;
         $this->page['message'] = $message;

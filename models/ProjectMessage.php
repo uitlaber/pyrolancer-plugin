@@ -61,10 +61,22 @@ class ProjectMessage extends Model
         }
     }
 
+    public function afterCreate()
+    {
+        if ($this->is_public && !$message->parent_id) {
+            UserEventLog::add(UserEventLog::TYPE_PROJECT_MESSAGE, [
+                'user' => $this->user,
+                'otherUser' => $this->project->user,
+                'related' => $this
+            ]);
+        }
+    }
+
     public function isProjectOwner()
     {
-        if (!$this->project)
+        if (!$this->project) {
             return false;
+        }
 
         return $this->project->user_id == $this->user_id;
     }

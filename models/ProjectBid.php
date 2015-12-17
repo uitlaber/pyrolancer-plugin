@@ -90,13 +90,28 @@ class ProjectBid extends Model
         UserEventLog::remove(UserEventLog::TYPE_PROJECT_BID, ['related' => $this]);
     }
 
+    public function afterCreate()
+    {
+        UserEventLog::add(UserEventLog::TYPE_PROJECT_BID, [
+            'user' => $this->user,
+            'otherUser' => $this->project->user,
+            'related' => $this
+        ]);
+    }
+
     public static function makeForProject($project, $user = null)
     {
-        if ($user === null)
+        if ($user === null) {
             $user = Auth::getUser();
+        }
 
-        if (!$user)
+        if (!$user) {
             throw new ApplicationException('You must be logged in!');
+        }
+
+        if ($bid = $project->hasBid($user)) {
+            return $bid;
+        }
 
         $worker = WorkerModel::getFromUser($user);
 
