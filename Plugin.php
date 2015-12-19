@@ -138,10 +138,22 @@ class Plugin extends PluginBase
         return [
             'ahoy.pyrolancer::mail.project-approval-request' => 'Sent to managers when a new project needs approval.',
             'ahoy.pyrolancer::mail.project-reapproval-request' => 'Sent to managers when a previously rejected project has been resubmitted for approval.',
-            'ahoy.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
-            'ahoy.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
             'ahoy.pyrolancer::mail.worker-testimonial-request' => "Sent to the worker's previous client or workplace, requesting they submit a testimonial about the worker.",
             'ahoy.pyrolancer::mail.worker-testimonial-complete' => "Sent to the worker when a previous client has left a testimonial about them.",
+            'ahoy.pyrolancer::mail.worker-alert' => "Sent to a worker when an urgent project is submitted.",
+            'ahoy.pyrolancer::mail.worker-digest' => "Sent to a worker with a compilation of related projects.",
+            'ahoy.pyrolancer::mail.worker-bid-accepted' => "Sent to the worker when their bid on a project was accepted by the client.",
+            'ahoy.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
+            'ahoy.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
+            'ahoy.pyrolancer::mail.client-bid-confirmed' => "Sent to the client when a project enters development status.",
+            'ahoy.pyrolancer::mail.client-bid-declined' => "Sent to the client when the worker's bid was chosen but declined the offer.",
+            'ahoy.pyrolancer::mail.client-digest' => "Sent to a client when a new bid or question is placed on their project.",
+            'ahoy.pyrolancer::mail.client-project-expired' => "Sent to the client when one of their projects has expired.",
+            'ahoy.pyrolancer::mail.collab-message' => "Sent when a user submits a new message to the project collaboration area.",
+            'ahoy.pyrolancer::mail.collab-update' => "Sent when a user updates an exisiting collaboration area message with a major update.",
+            'ahoy.pyrolancer::mail.collab-terminated' => "Someone terminated the project collaboration.",
+            'ahoy.pyrolancer::mail.collab-complete' => "Someone marked the project collaboration as complete.",
+            'ahoy.pyrolancer::mail.collab-review' => "Sent to the user when a review is left about them.",
         ];
     }
 

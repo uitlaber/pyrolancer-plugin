@@ -2,6 +2,7 @@
 
 use Auth;
 use Cms\Classes\ComponentBase;
+use RainLab\User\Models\MailBlocker;
 use ApplicationException;
 
 class Account extends ComponentBase
@@ -42,6 +43,68 @@ class Account extends ComponentBase
          */
         if (array_get($data, 'password')) {
             Auth::login($user->reload(), true);
+        }
+    }
+
+    //
+    // Notifications
+    //
+
+    public function notificationBlocks()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            $templates = MailBlocker::checkAllForUser($this->lookupUser());
+            return array_build($templates, function($key, $value) {
+                return [str_replace('ahoy.pyrolancer::mail.', '', $value), $key];
+            });
+        });
+    }
+
+    public function isNotificationBlockAll()
+    {
+        return MailBlocker::isBlockAll($this->lookupUser());
+    }
+
+    public function isNotificationBlocked($template)
+    {
+        $userBlocks = $this->notificationBlocks();
+        $templates = explode('|', $template);
+        foreach ($templates as $_template) {
+            if (isset($userBlocks[$_template])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function onUpdateNotifications()
+    {
+        $user = $this->lookupUser();
+        $blockAll = post('Notification[all]', false);
+
+        if ($blockAll) {
+            MailBlocker::blockAll($user);
+        }
+        else {
+            $templates = array_except((array) post('Notification'), 'all');
+
+            // Break open multi templates
+            foreach ($templates as $template => $value) {
+                if (strpos($template, '|') === false) continue;
+                unset($templates[$template]);
+                $parts = explode('|', $template);
+                foreach ($parts as $part) {
+                    $templates[$part] = $value;
+                }
+            }
+
+            $templates = array_build($templates, function($key, $value) {
+                return ['ahoy.pyrolancer::mail.'.$key, $value];
+            });
+
+            MailBlocker::unblockAll($user);
+            MailBlocker::setPreferences($user, $templates, ['verify' => true]);
         }
     }
 
