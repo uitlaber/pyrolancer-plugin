@@ -216,8 +216,10 @@ class Project extends Model
             'positions'  => null,
             'skills'     => null,
             'categories' => null,
+            'countries'  => null,
             'latitude'   => null,
             'longitude'  => null,
+            'isRemote'   => null,
             'search'     => ''
         ], $options));
 
@@ -279,13 +281,25 @@ class Project extends Model
         }
 
         /*
+         * Countries
+         */
+        if ($countries !== null) {
+            if (!is_array($countries)) $countries = [$countries];
+            $query->whereIn('country_id', $countries);
+        }
+
+        /*
+         * Remote jobs
+         */
+        if ($isRemote) {
+            $query->where('is_remote', true);
+        }
+
+        /*
          * Location
          */
         if ($latitude !== null && $longitude != null) {
-            $query->where(function($q) use ($latitude, $longitude) {
-                $q->applyArea($latitude, $longitude);
-                $q->orWhere('is_remote', true);
-            });
+            $query->applyArea($latitude, $longitude);
         }
 
         return $query->paginate($perPage, $page);

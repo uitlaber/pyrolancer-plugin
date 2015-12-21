@@ -42,7 +42,25 @@ class Jobs extends ComponentBase
             $options = $this->getFilterOptionsFromRequest();
         }
 
-        return $this->lookupObject(__FUNCTION__, ProjectModel::applyVisible()->listFrontEnd($options));
+        return $this->lookupObject(__FUNCTION__, function() use ($options) {
+            return ProjectModel::applyVisible()->listFrontEnd($options);
+        });
+    }
+
+    //
+    // Helpers
+    //
+
+    public function makePageTitle($options)
+    {
+        if ($this->filterType && ($title = array_get($options, $this->filterType))) {
+            return $title;
+        }
+        elseif ($this->filterObject && isset($this->filterObject->name)) {
+            return str_replace('%s', $this->filterObject->name, array_get($options, 'filtered'));
+        }
+
+        return array_get($options, 'default');
     }
 
     //
@@ -62,13 +80,15 @@ class Jobs extends ComponentBase
     public function activeFilters()
     {
         $selection = [
-            'type' => null,
+            'types' => null,
             'position' => null,
             'skills' => null,
             'categories' => null,
+            'countries' => null,
             'sort' => null,
             'search' => null,
             'page' => null,
+            'isRemote' => null
         ];
 
         if ($requestSelection = $this->getFilterOptionsFromRequest()) {
@@ -152,6 +172,10 @@ class Jobs extends ComponentBase
             $options['skills'] = $user->worker->skills->lists('id');
         }
 
+        if ($this->filterType == 'isRemote') {
+            $options['isRemote'] = true;
+        }
+
         return $options;
     }
 
@@ -163,6 +187,10 @@ class Jobs extends ComponentBase
         // Special case
         if ($filterType == 'worker') {
             $this->filterType = 'worker';
+            return;
+        }
+        elseif ($filterType == 'remote') {
+            $this->filterType = 'isRemote';
             return;
         }
 

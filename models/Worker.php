@@ -257,6 +257,7 @@ class Worker extends Model
             'perPage'    => 30,
             'sort'       => 'created_at desc',
             'skills'     => null,
+            'countries'  => null,
             'latitude'   => null,
             'longitude'  => null,
             'search'     => ''
@@ -294,6 +295,16 @@ class Worker extends Model
             if (!is_array($skills)) $skills = [$skills];
             $query->whereHas('skills', function($q) use ($skills) {
                 $q->whereIn('id', $skills);
+            });
+        }
+
+        /*
+         * Countries
+         */
+        if ($countries !== null) {
+            if (!is_array($countries)) $countries = [$countries];
+            $query->whereHas('user', function($q) use ($countries) {
+                $q->whereIn('country_id', $countries);
             });
         }
 

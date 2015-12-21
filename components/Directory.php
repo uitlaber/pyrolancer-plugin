@@ -53,6 +53,7 @@ class Directory extends ComponentBase
     {
         $selection = [
             'skills' => null,
+            'countries' => null,
             'sort' => null,
             'search' => null,
             'page' => null,
