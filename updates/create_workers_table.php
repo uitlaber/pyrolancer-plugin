@@ -22,6 +22,8 @@ class CreateWorkersTable extends Migration
             $table->text('description')->nullable();
             $table->text('description_html')->nullable();
 
+            $table->boolean('has_portfolio')->default(false);
+
             // Location
             $table->string('address')->nullable();
             $table->string('vicinity', 100)->nullable();

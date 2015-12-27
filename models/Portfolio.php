@@ -29,6 +29,7 @@ class Portfolio extends Model
      * @var array Relations
      */
     public $belongsTo = [
+        'worker'   => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
         'user'     => ['RainLab\User\Models\User'],
     ];
 
@@ -43,11 +44,13 @@ class Portfolio extends Model
      */
     public static function getFromWorker($worker = null)
     {
-        if ($worker === null)
+        if ($worker === null) {
             $worker = Worker::getFromUser();
+        }
 
-        if (!$worker)
+        if (!$worker) {
             return null;
+        }
 
         if (!$worker->portfolio) {
             $portfolio = new static;
@@ -66,13 +69,35 @@ class Portfolio extends Model
             return false;
         }
 
+        $this->worker->has_portfolio = true;
+        $this->worker->save();
+
         $this->is_visible = true;
         $this->save();
 
         UserEventLog::add(UserEventLog::TYPE_PORTFOLIO_CREATED, [
             'user' => $this->user,
+            'related' => $this,
             'createdAt' => $this->created_at
         ]);
+    }
+
+    public function hasPortfolio()
+    {
+        $result = $this->items->count() > 0;
+
+        if (
+            ($result && !$this->is_visible) ||
+            (!$result && $this->is_visible)
+        ) {
+            $this->worker->has_portfolio = !!$result;
+            $this->worker->save();
+
+            $this->is_visible = !!$result;
+            $this->save();
+        }
+
+        return $result;
     }
 
     //

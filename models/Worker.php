@@ -242,6 +242,11 @@ class Worker extends Model
     // Scopes
     //
 
+    public function scopeApplyPortfolio($query)
+    {
+        return $query->where('has_portfolio', true);
+    }
+
     /**
      * Lists projects for the front end
      * @param  array $options Display options
