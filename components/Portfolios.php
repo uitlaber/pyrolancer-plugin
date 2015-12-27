@@ -2,6 +2,7 @@
 
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
+use Ahoy\Pyrolancer\Models\SkillCategory;
 use Cms\Classes\ComponentBase;
 
 class Portfolios extends ComponentBase
@@ -21,10 +22,18 @@ class Portfolios extends ComponentBase
         return [];
     }
 
-    public function portfolios()
+    public function skillCategories()
+    {
+        return SkillCategory::applyVisible()->get();
+    }
+
+    public function workers()
     {
         return $this->lookupObject(__FUNCTION__, function() {
-            return WorkerModel::applyPortfolio()->listFrontEnd();
+            return WorkerModel::with('portfolio')
+                ->applyPortfolio()
+                ->listFrontEnd()
+            ;
         });
     }
 
