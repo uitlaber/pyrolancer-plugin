@@ -217,6 +217,7 @@ class Project extends Model
             'positions'  => null,
             'skills'     => null,
             'categories' => null,
+            'vicinities' => null,
             'countries'  => null,
             'latitude'   => null,
             'longitude'  => null,
@@ -287,6 +288,14 @@ class Project extends Model
         if ($countries !== null) {
             if (!is_array($countries)) $countries = [$countries];
             $query->whereIn('country_id', $countries);
+        }
+
+        /*
+         * Vicinities
+         */
+        if ($vicinities !== null) {
+            if (!is_array($vicinities)) $vicinities = [$vicinities];
+            $query->whereIn('vicinity_id', $vicinities);
         }
 
         /*

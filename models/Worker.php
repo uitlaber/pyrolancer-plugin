@@ -271,6 +271,7 @@ class Worker extends Model
             'perPage'    => 30,
             'sort'       => 'created_at desc',
             'skills'     => null,
+            'vicinities' => null,
             'countries'  => null,
             'latitude'   => null,
             'longitude'  => null,
@@ -320,6 +321,14 @@ class Worker extends Model
             $query->whereHas('user', function($q) use ($countries) {
                 $q->whereIn('country_id', $countries);
             });
+        }
+
+        /*
+         * Vicinities
+         */
+        if ($vicinities !== null) {
+            if (!is_array($vicinities)) $vicinities = [$vicinities];
+            $query->whereIn('vicinity_id', $vicinities);
         }
 
         /*

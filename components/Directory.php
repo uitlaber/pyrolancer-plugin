@@ -4,6 +4,7 @@ use Auth;
 use Request;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
+use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
@@ -54,6 +55,7 @@ class Directory extends ComponentBase
         $selection = [
             'skills' => null,
             'countries' => null,
+            'vicinity' => null,
             'sort' => null,
             'search' => null,
             'page' => null,
@@ -147,6 +149,10 @@ class Directory extends ComponentBase
             case 'skill':
                 $filterObject = SkillModel::whereSlug($filterValue)->first();
                 $filterType = 'skills';
+                break;
+            case 'vicinity':
+                $filterObject = VicinityModel::whereSlug($filterValue)->first();
+                $filterType = 'vicinities';
                 break;
         }
 

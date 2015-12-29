@@ -6,6 +6,7 @@ use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
+use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
 use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
 
 class Jobs extends ComponentBase
@@ -85,6 +86,7 @@ class Jobs extends ComponentBase
             'skills' => null,
             'categories' => null,
             'countries' => null,
+            'vicinity' => null,
             'sort' => null,
             'search' => null,
             'page' => null,
@@ -219,6 +221,10 @@ class Jobs extends ComponentBase
                     ->whereCode($filterValue)
                     ->first();
                 $filterType = 'types';
+                break;
+            case 'vicinity':
+                $filterObject = VicinityModel::whereSlug($filterValue)->first();
+                $filterType = 'vicinities';
                 break;
         }
 
