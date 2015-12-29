@@ -7,9 +7,19 @@ use Db;
  */
 trait UserProxyModel
 {
+    public function getCountryIdAttribute()
+    {
+        return $this->user->country_id;
+    }
+
     public function getCountryAttribute()
     {
         return $this->user->country;
+    }
+
+    public function getStateIdAttribute()
+    {
+        return $this->user->state_id;
     }
 
     public function getStateAttribute()

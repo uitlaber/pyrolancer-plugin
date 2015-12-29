@@ -111,6 +111,7 @@ class Project extends Model
         'user'             => ['RainLab\User\Models\User'],
         'client'           => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
         'chosen_bid'       => ['Ahoy\Pyrolancer\Models\ProjectBid'],
+        'vicinity_obj'     => ['Ahoy\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
         'chosen_user'      => ['RainLab\User\Models\User'],
     ];
 

@@ -119,6 +119,10 @@ class ProjectStatusLog extends Model
                 if ($project->is_urgent) {
                     Usher::queueUrgentProject($project);
                 }
+
+                if (!$project->is_remote) {
+                    Usher::queueProjectVicinity($project);
+                }
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_REJECTED) {

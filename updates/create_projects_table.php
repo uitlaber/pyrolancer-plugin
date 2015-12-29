@@ -40,9 +40,9 @@ class CreateProjectsTable extends Migration
             // Location
             $table->boolean('is_remote')->default(false);
             $table->string('address')->nullable();
-            $table->string('vicinity', 100)->nullable();
-            $table->string('vicinity_code', 100)->index()->nullable();
+            $table->string('vicinity')->nullable();
             $table->string('zip', 20)->nullable();
+            $table->integer('vicinity_id')->unsigned()->index()->nullable();
             $table->integer('country_id')->unsigned()->nullable()->index();
             $table->integer('state_id')->unsigned()->nullable()->index();
             $table->decimal('latitude', 10, 6)->nullable();

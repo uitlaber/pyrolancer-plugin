@@ -1,7 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Classes;
 
 use Queue;
+use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
 
 /**
  * Usher class, for guiding jobs in to the queue
@@ -20,4 +22,31 @@ class Usher
             $job->delete();
         });
     }
+
+    public static function queueProjectVicinity(ProjectModel $project)
+    {
+        $projectId = $project->id;
+
+        Queue::push(function($job) use ($projectId) {
+            $project = ProjectModel::find($projectId);
+
+            VicinityModel::processProjectVicinity($project);
+
+            $job->delete();
+        });
+    }
+
+    public static function queueWorkerVicinity(WorkerModel $worker)
+    {
+        $workerId = $worker->id;
+
+        Queue::push(function($job) use ($workerId) {
+            $worker = WorkerModel::find($workerId);
+
+            VicinityModel::processWorkerVicinity($worker);
+
+            $job->delete();
+        });
+    }
+
 }

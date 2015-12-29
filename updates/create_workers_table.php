@@ -26,8 +26,8 @@ class CreateWorkersTable extends Migration
 
             // Location
             $table->string('address')->nullable();
-            $table->string('vicinity', 100)->nullable();
-            $table->string('vicinity_code', 100)->index()->nullable();
+            $table->string('vicinity')->nullable();
+            $table->integer('vicinity_id')->unsigned()->index()->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
             $table->string('fallback_location')->nullable();

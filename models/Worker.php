@@ -3,6 +3,7 @@
 use Auth;
 use Model;
 use Markdown;
+use Ahoy\Pyrolancer\Classes\Usher;
 
 /**
  * Worker Model
@@ -67,8 +68,9 @@ class Worker extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'user'     => ['RainLab\User\Models\User'],
-        'budget'   => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
+        'user'         => ['RainLab\User\Models\User'],
+        'budget'       => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
+        'vicinity_obj' => ['Ahoy\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
     ];
 
     public $belongsToMany = [
@@ -125,6 +127,13 @@ class Worker extends Model
             'id' => $this->user_id,
             'code' => $this->shortEncodeId($this->user_id)
         ];
+    }
+
+    public function afterUpdate()
+    {
+        if ($this->isDirty('vicinity')) {
+            Usher::queueWorkerVicinity($this);
+        }
     }
 
     /**
