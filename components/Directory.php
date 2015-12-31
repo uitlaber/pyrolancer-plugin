@@ -5,6 +5,7 @@ use Request;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
+use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Cms\Classes\ComponentBase;
 use ApplicationException;
@@ -42,7 +43,9 @@ class Directory extends ComponentBase
             $options = $this->getFilterOptionsFromRequest();
         }
 
-        return $this->lookupObject(__FUNCTION__, WorkerModel::listFrontEnd($options));
+        return $this->lookupObject(__FUNCTION__, function() use ($options) {
+            return WorkerModel::applyVisible()->listFrontEnd($options);
+        });
     }
 
     public function skillCategories()
@@ -56,6 +59,7 @@ class Directory extends ComponentBase
             'skills' => null,
             'countries' => null,
             'vicinity' => null,
+            'budget' => null,
             'sort' => null,
             'search' => null,
             'page' => null,
@@ -97,6 +101,10 @@ class Directory extends ComponentBase
     {
         $options = post('Filter');
         $options['page'] = post('page', 1);
+        if (!array_get($options, 'budgets')) {
+            unset($options['budgets']);
+        }
+
         $this->page['workers'] = $this->workers($options);
         $this->page['pageEventName'] = 'onFilterWorkers';
         $this->page['updatePartialName'] = 'directory/workers';
@@ -153,6 +161,12 @@ class Directory extends ComponentBase
             case 'vicinity':
                 $filterObject = VicinityModel::whereSlug($filterValue)->first();
                 $filterType = 'vicinities';
+                break;
+            case 'budget':
+                $filterObject = AttributeModel::applyType(AttributeModel::WORKER_BUDGET)
+                    ->whereCode($filterValue)
+                    ->first();
+                $filterType = 'budgets';
                 break;
         }
 

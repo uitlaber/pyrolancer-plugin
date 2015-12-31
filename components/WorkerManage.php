@@ -51,9 +51,9 @@ class WorkerManage extends ComponentBase
          * User must have a profile set up to view this page
          */
         $redirectAway = ($user = Auth::getUser()) && !$user->is_worker;
-        $redirectUrl = $this->controller->pageUrl($this->property('redirect'));
-        if ($redirectAway && $redirectUrl) {
-            return Redirect::to($redirectUrl);
+        $redirectPage = $this->property('redirect');
+        if ($redirectAway && $redirectPage) {
+            return Redirect::to($this->controller->pageUrl($redirectPage));
         }
     }
 

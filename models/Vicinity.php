@@ -59,13 +59,14 @@ class Vicinity extends Model
             return;
         }
 
-        $vicinity->rebuildStats();
-
         $project
             ->newQuery()
             ->where('id', $project->id)
             ->update(['vicinity_id' => $vicinity->id])
         ;
+
+        $vicinity->rebuildStats();
+        $vicinity->save();
     }
 
     public static function processWorkerVicinity($worker)
@@ -75,13 +76,14 @@ class Vicinity extends Model
             return;
         }
 
-        $vicinity->rebuildStats();
-
         $worker
             ->newQuery()
             ->where('id', $worker->id)
             ->update(['vicinity_id' => $vicinity->id])
         ;
+
+        $vicinity->rebuildStats();
+        $vicinity->save();
     }
 
     /**
@@ -156,7 +158,8 @@ class Vicinity extends Model
 
     public function rebuildStats()
     {
-        
+        $this->count_workers = Worker::where('vicinity_id', $this->id)->count();
+        $this->count_projects = Project::where('vicinity_id', $this->id)->count();
     }
 
 }

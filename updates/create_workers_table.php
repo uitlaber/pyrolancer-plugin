@@ -14,6 +14,7 @@ class CreateWorkersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->integer('budget_id')->unsigned()->index()->nullable();
+            $table->integer('category_id')->unsigned()->index()->nullable();
             $table->string('business_name')->nullable();
             $table->string('slug')->nullable();
             $table->string('contact_email')->nullable();
@@ -22,6 +23,7 @@ class CreateWorkersTable extends Migration
             $table->text('description')->nullable();
             $table->text('description_html')->nullable();
 
+            $table->boolean('is_visible')->default(false);
             $table->boolean('has_portfolio')->default(false);
 
             // Location

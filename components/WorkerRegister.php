@@ -47,9 +47,9 @@ class WorkerRegister extends ComponentBase
          * Only non workers can register a new profile
          */
         $redirectAway =  (!$user = Auth::getUser()) || $user->is_worker;
-        $redirectUrl = $this->controller->pageUrl($this->property('redirect'));
-        if ($redirectAway && $redirectUrl) {
-            return Redirect::to($redirectUrl);
+        $redirectPage = $this->property('redirect');
+        if ($redirectAway && $redirectPage) {
+            return Redirect::to($this->controller->pageUrl($redirectPage));
         }
     }
 
@@ -79,18 +79,24 @@ class WorkerRegister extends ComponentBase
 
     public function onSelectCategory()
     {
-        if ($id = post('id')) {
-            $this->page['category'] = SkillCategory::find($id);
+        if (($id = post('id')) && ($category = SkillCategory::find($id))) {
+            $worker = $this->worker();
+            $worker->category_id = $category->id;
+            $worker->forceSave();
+
+            $this->page['category'] = $category;
             $this->page['step'] = 2;
         }
     }
 
     public function onReturnSkills()
     {
-        $this->onSelectCategory();
-        $this->page['step'] = 2;
-
-        if (!$this->page->category) {
+        $worker = $this->worker();
+        if ($worker->category) {
+            $this->page['category'] = $worker->category;
+            $this->page['step'] = 2;
+        }
+        else {
             $this->onReturnCategory();
         }
     }
@@ -108,6 +114,7 @@ class WorkerRegister extends ComponentBase
         $worker = $this->worker();
         $worker->fill((array) post('Worker'));
         $worker->resetSlug();
+        $worker->is_visible = true;
         $worker->save();
 
         $user = $this->lookupUser();

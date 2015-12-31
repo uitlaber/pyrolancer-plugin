@@ -70,6 +70,7 @@ class Worker extends Model
     public $belongsTo = [
         'user'         => ['RainLab\User\Models\User'],
         'budget'       => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
+        'category'     => ['Ahoy\Pyrolancer\Models\SkillCategory'],
         'vicinity_obj' => ['Ahoy\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
     ];
 
@@ -251,6 +252,11 @@ class Worker extends Model
     // Scopes
     //
 
+    public function scopeApplyVisible($query)
+    {
+        return $query->where('is_visible', true);
+    }
+
     public function scopeApplyPortfolio($query)
     {
         return $query->where('has_portfolio', true);
@@ -271,8 +277,10 @@ class Worker extends Model
             'perPage'    => 30,
             'sort'       => 'created_at desc',
             'skills'     => null,
+            'categories' => null,
             'vicinities' => null,
             'countries'  => null,
+            'budgets'    => null,
             'latitude'   => null,
             'longitude'  => null,
             'search'     => ''
@@ -314,6 +322,14 @@ class Worker extends Model
         }
 
         /*
+         * Categories
+         */
+        if ($categories !== null) {
+            if (!is_array($categories)) $categories = [$categories];
+            $query->whereIn('category_id', $categories);
+        }
+
+        /*
          * Countries
          */
         if ($countries !== null) {
@@ -321,6 +337,14 @@ class Worker extends Model
             $query->whereHas('user', function($q) use ($countries) {
                 $q->whereIn('country_id', $countries);
             });
+        }
+
+        /*
+         * Budgets
+         */
+        if ($budgets !== null) {
+            if (!is_array($budgets)) $budgets = [$budgets];
+            $query->whereIn('budget_id', $budgets);
         }
 
         /*
