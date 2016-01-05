@@ -1,0 +1,105 @@
+<?php namespace Ahoy\Pyrolancer\Models;
+
+use Model;
+use Session;
+
+/**
+ * Favorite Model
+ */
+class Favorite extends Model
+{
+
+    const SESSION_KEY = 'ahoy.pyrolancer.favorites';
+
+    /**
+     * @var string The database table used by the model.
+     */
+    public $table = 'ahoy_pyrolancer_favorites';
+
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = ['*'];
+
+    /**
+     * @var array Fillable fields
+     */
+    protected $fillable = [];
+
+    /**
+     * @var array Relations
+     */
+    public $belongsTo = [
+        'user'           => ['RainLab\User\Models\User'],
+    ];
+
+    public $belongsToMany = [
+        'workers' => ['Ahoy\Pyrolancer\Models\Worker', 'table' => 'ahoy_pyrolancer_favorites_workers']
+    ];
+
+    public static function createList($user = null)
+    {
+        if ($list = static::hasList($user)) {
+            return $list;
+        }
+
+        $list = new static;
+
+        if ($user) {
+            $list->user = $user;
+        }
+
+        $list->save();
+
+        Session::put(self::SESSION_KEY, $list->hash);
+
+        return $list;
+    }
+
+    public static function hasList($user = null)
+    {
+        $hasSession = Session::has(self::SESSION_KEY);
+        if (!$user && !$hasSession) {
+            return false;
+        }
+
+        if ($hasSession) {
+            return static::where('hash', Session::get(self::SESSION_KEY))->first();
+        }
+        else {
+            return static::where('user_id', $user->id)->first();
+        }
+    }
+
+    public function beforeCreate()
+    {
+        $this->generateHash();
+    }
+
+    public function getPublicKey()
+    {
+        return strtolower(substr($this->hash, 0, 8)) . $this->id;
+    }
+
+    /**
+     * Internal helper, and set generate a unique hash for this list.
+     * @return string
+     */
+    protected function generateHash()
+    {
+        $this->hash = $this->createHash();
+        while ($this->newQuery()->where('hash', $this->hash)->count() > 0) {
+            $this->hash = $this->createHash();
+        }
+    }
+
+    /**
+     * Internal helper, create a hash for this list.
+     * @return string
+     */
+    protected function createHash()
+    {
+        return md5(uniqid('favorites', microtime()));
+    }
+
+}

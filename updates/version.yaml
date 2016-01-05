@@ -16,6 +16,7 @@
     - create_portfolio_items_table.php
     - create_user_event_log_table.php
     - create_vicinities_table.php
+    - create_favorites_table.php
 1.0.3:
     - Seed all database tables
     - seed_category_and_skill_tables.php
