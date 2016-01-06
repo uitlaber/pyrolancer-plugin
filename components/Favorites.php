@@ -4,7 +4,7 @@ use Auth;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Favorite as FavoriteModel;
-use ApplcationException;
+use ApplicationException;
 
 class Favorites extends ComponentBase
 {
@@ -42,8 +42,29 @@ class Favorites extends ComponentBase
     public function onToggleFavorite()
     {
         if ((!$id = post('id')) || (!$worker = WorkerModel::find($id))) {
-            throw new ApplcationException('Action failed!');
+            throw new ApplicationException('Action failed!');
         }
+
+        $list = $this->findOrFirstFavoriteList();
+
+        if ($list->workers->contains($worker)) {
+            $list->workers()->remove($worker);
+            $isFavorited = 0;
+        }
+        else {
+            $list->workers()->add($worker);
+            $isFavorited = 1;
+        }
+
+
+        $this->page['isFavorited'] = $isFavorited;
+        $this->page['worker'] = $worker;
+        $this->page['mode'] = 'view';
+    }
+
+    protected function findOrFirstFavoriteList()
+    {
+        return $this->favoriteList() ?: FavoriteModel::createList(Auth::getUser());
     }
 
 }
