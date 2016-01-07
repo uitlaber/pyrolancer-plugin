@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
+use Redirect;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Favorite as FavoriteModel;
@@ -23,10 +24,27 @@ class Favorites extends ComponentBase
         return [];
     }
 
+    public function isPublic()
+    {
+        return !!$this->param('key');
+    }
+
+    public function isOwner()
+    {
+        return !$this->isPublic() && $this->hasList();
+    }
+
+    public function hasList()
+    {
+        return !!($list = $this->favoriteList()) && !!$list->workers->count();
+    }
+
     public function favoriteList()
     {
         return $this->lookupObject(__FUNCTION__, function() {
-            return FavoriteModel::hasList(Auth::getUser());
+            return ($listKey = $this->param('key'))
+                ? FavoriteModel::listFromKey($listKey)
+                : FavoriteModel::listFromUser(Auth::getUser());
         });
     }
 
@@ -56,10 +74,21 @@ class Favorites extends ComponentBase
             $isFavorited = 1;
         }
 
-
         $this->page['isFavorited'] = $isFavorited;
         $this->page['worker'] = $worker;
         $this->page['mode'] = 'view';
+    }
+
+    public function onEmptyList()
+    {
+        if (!$list = $this->favoriteList()) {
+            return false;
+        }
+
+        // Empty the list
+        $list->workers()->sync([]);
+
+        return Redirect::refresh();
     }
 
     protected function findOrFirstFavoriteList()

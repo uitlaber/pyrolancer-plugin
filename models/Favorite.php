@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Str;
 use Model;
 use Session;
 
@@ -39,7 +40,7 @@ class Favorite extends Model
 
     public static function createList($user = null)
     {
-        if ($list = static::hasList($user)) {
+        if ($list = static::listFromUser($user)) {
             return $list;
         }
 
@@ -56,7 +57,20 @@ class Favorite extends Model
         return $list;
     }
 
-    public static function hasList($user = null)
+    public static function listFromKey($publicKey = null)
+    {
+        $id = (int) substr($publicKey, 8);
+        if (!$list = static::where('id', $id)->first()) {
+            return null;
+        }
+
+        if (!Str::equals($list->public_key, $publicKey)) {
+            return null;
+        }
+        return $list;
+    }
+
+    public static function listFromUser($user = null)
     {
         $hasSession = Session::has(self::SESSION_KEY);
         if (!$user && !$hasSession) {
@@ -76,7 +90,7 @@ class Favorite extends Model
         $this->generateHash();
     }
 
-    public function getPublicKey()
+    public function getPublicKeyAttribute()
     {
         return strtolower(substr($this->hash, 0, 8)) . $this->id;
     }

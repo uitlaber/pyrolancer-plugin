@@ -55,11 +55,17 @@ class Profile extends ComponentBase
 
     public function workerReviews()
     {
-        $options = [
-            'users' => $this->user()->id
-        ];
+        return $this->lookupObject(__FUNCTION__, function() {
+            if (!$user = $this->user()) {
+                return null;
+            }
 
-        return $this->lookupObject(__FUNCTION__, WorkerReview::listFrontEnd($options));
+            $options = [
+                'users' => $user->id
+            ];
+
+            return WorkerReview::listFrontEnd($options);
+        });
     }
 
 }
