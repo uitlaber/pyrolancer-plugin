@@ -34,8 +34,34 @@ class Portfolio extends Model
     ];
 
     public $hasMany = [
-        'items'    => ['Ahoy\Pyrolancer\Models\PortfolioItem'],
+        'items' => ['Ahoy\Pyrolancer\Models\PortfolioItem', 'order' => 'is_primary desc'],
     ];
+
+    public $hasOne = [
+        'primary_item'  => ['Ahoy\Pyrolancer\Models\PortfolioItem', 'conditions' => 'is_primary = 1'],
+    ];
+
+    /**
+     * Ensures this portfolio has a primary item
+     * @return bool
+     */
+    public function checkPrimaryItem()
+    {
+        if (!$this->items->count()) {
+            return;
+        }
+
+        $primaryItem = array_first($this->items, function($key, $item) {
+            return $item->is_primary;
+        });
+
+        if ($primaryItem) {
+            return true;
+        }
+
+        $this->items->first()->makePrimary();
+        return false;
+    }
 
     /**
      * Automatically creates a worker portfolio if not one already.
@@ -74,6 +100,8 @@ class Portfolio extends Model
 
         $this->is_visible = true;
         $this->save();
+
+        $this->checkPrimaryItem();
 
         UserEventLog::add(UserEventLog::TYPE_PORTFOLIO_CREATED, [
             'user' => $this->user,

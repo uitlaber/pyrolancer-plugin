@@ -2,6 +2,7 @@
 
 use Model;
 use Markdown;
+use ValidationException;
 
 /**
  * PortfolioItem Model
@@ -47,6 +48,7 @@ class PortfolioItem extends Model
         'sample',
         'link_url',
         'type',
+        'is_primary',
     ];
 
     /**
@@ -60,6 +62,46 @@ class PortfolioItem extends Model
     public $attachOne = [
         'uploaded_file' => 'System\Models\File'
     ];
+
+    public function afterCreate()
+    {
+        if ($this->is_primary) {
+            $this->makePrimary();
+        }
+    }
+
+    public function beforeUpdate()
+    {
+        if ($this->isDirty('is_primary')) {
+            $this->makePrimary();
+
+            if (!$this->is_primary) {
+                throw new ValidationException(['is_primary' => 'Cannot unset primary portfolio item.']);
+            }
+        }
+    }
+
+    public function afterDelete()
+    {
+        $this->portfolio->checkPrimaryItem();
+    }
+
+    /**
+     * Makes this model the default
+     * @return void
+     */
+    public function makePrimary()
+    {
+        static::where('portfolio_id', $this->portfolio_id)
+            ->where('id', $this->id)
+            ->update(['is_primary' => true])
+        ;
+
+        static::where('portfolio_id', $this->portfolio_id)
+            ->where('id', '<>', $this->id)
+            ->update(['is_primary' => false])
+        ;
+    }
 
     public function beforeSave()
     {

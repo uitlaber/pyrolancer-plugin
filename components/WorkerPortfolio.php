@@ -130,6 +130,8 @@ class WorkerPortfolio extends ComponentBase
         if (!$item->portfolio || !$item->portfolio->isOwner())
             return;
 
+        $item->portfolio->checkPrimaryItem();
+
         $item->fill((array) post('PortfolioItem'));
         $item->save(null, post('_session_key'));
     }
