@@ -2,6 +2,7 @@
 
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\WorkerReview;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use RainLab\User\Models\User as UserModel;
 
 class Profile extends ComponentBase
@@ -49,8 +50,10 @@ class Profile extends ComponentBase
 
     public function user()
     {
-        $id = $this->shortDecodeId($this->property('code'));
-        return $this->lookupObject(__FUNCTION__, UserModel::find($id));
+        return $this->lookupObject(__FUNCTION__, function() {
+            $id = $this->shortDecodeId($this->property('code'));
+            return UserModel::find($id);
+        });
     }
 
     public function workerReviews()
@@ -65,6 +68,37 @@ class Profile extends ComponentBase
             ];
 
             return WorkerReview::listFrontEnd($options);
+        });
+    }
+
+    public function clientReviews()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            if (!$user = $this->user()) {
+                return null;
+            }
+
+            $options = [
+                'clientUsers' => $user->id
+            ];
+
+            return WorkerReview::listFrontEnd($options);
+        });
+    }
+
+    public function clientProjects()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            if (!$user = $this->user()) {
+                return null;
+            }
+
+            $options = [
+                'users' => $user->id,
+                'perPage' => 10
+            ];
+
+            return ProjectModel::applyVisible()->listFrontEnd($options);
         });
     }
 

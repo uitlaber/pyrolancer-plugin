@@ -52,6 +52,7 @@ class WorkerReview extends Model
         'client_user' => 'RainLab\User\Models\User',
         'project'     => 'Ahoy\Pyrolancer\Models\Project',
         'worker'      => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'client'      => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'client_user_id'],
     ];
 
     /**
@@ -132,7 +133,9 @@ class WorkerReview extends Model
         $this->fill($data);
         $this->save();
 
-        // @todo Stats for client?
+        // @todo This could be deferred to the Queue
+        $this->client->setRatingStats();
+        $this->client->save();
     }
 
     public static function createTestimonial($worker, $data)
@@ -221,6 +224,11 @@ class WorkerReview extends Model
         return $query->where('is_visible', true);
     }
 
+    public function scopeApplyClientVisible($query)
+    {
+        return $query->where('client_is_visible', true);
+    }
+
     /**
      * Lists reviews for the front end
      * @param  array $options Display options
@@ -232,12 +240,13 @@ class WorkerReview extends Model
          * Default options
          */
         extract(array_merge([
-            'page'       => 1,
-            'perPage'    => 30,
-            'sort'       => 'created_at',
-            'users'      => null,
-            'search'     => '',
-            'visible'    => true
+            'page'        => 1,
+            'perPage'     => 30,
+            'sort'        => 'created_at',
+            'users'       => null,
+            'clientUsers' => null,
+            'search'      => '',
+            'visible'     => true
         ], $options));
 
         $searchableFields = ['name', 'comment'];
@@ -274,6 +283,14 @@ class WorkerReview extends Model
         if ($users !== null) {
             if (!is_array($users)) $users = [$users];
             $query->whereIn('user_id', $users);
+        }
+
+        /*
+         * Client users
+         */
+        if ($clientUsers !== null) {
+            if (!is_array($clientUsers)) $clientUsers = [$clientUsers];
+            $query->whereIn('client_user_id', $clientUsers);
         }
 
         return $query->paginate($perPage, $page);

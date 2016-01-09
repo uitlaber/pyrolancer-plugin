@@ -144,11 +144,13 @@ class Worker extends Model
      */
     public static function getFromUser($user = null)
     {
-        if ($user === null)
+        if ($user === null) {
             $user = Auth::getUser();
+        }
 
-        if (!$user)
+        if (!$user) {
             return null;
+        }
 
         if (!$user->worker) {
             $worker = new static;

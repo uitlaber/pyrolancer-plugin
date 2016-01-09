@@ -147,6 +147,12 @@ class ProjectStatusLog extends Model
 
         }
 
+        // @todo This could be deferred to the Queue
+        if ($project->client) {
+            $project->client->setRatingStats();
+            $project->client->save();
+        }
+
         $log->data = $data;
         $log->save();
 

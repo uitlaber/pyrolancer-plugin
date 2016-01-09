@@ -199,129 +199,6 @@ class Project extends Model
         }
     }
 
-    /**
-     * Lists projects for the front end
-     * @param  array $options Display options
-     * @return self
-     */
-    public function scopeListFrontEnd($query, $options = [])
-    {
-        /*
-         * Default options
-         */
-        extract(array_merge([
-            'page'       => 1,
-            'perPage'    => 30,
-            'sort'       => 'created_at desc',
-            'types'      => null,
-            'positions'  => null,
-            'skills'     => null,
-            'categories' => null,
-            'vicinities' => null,
-            'countries'  => null,
-            'latitude'   => null,
-            'longitude'  => null,
-            'isRemote'   => null,
-            'search'     => ''
-        ], $options));
-
-        $searchableFields = ['name', 'slug', 'description'];
-
-        /*
-         * Sorting
-         */
-        if (!is_array($sort)) $sort = [$sort];
-        foreach ($sort as $_sort) {
-
-            if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
-                $parts = explode(' ', $_sort);
-                if (count($parts) < 2) array_push($parts, 'desc');
-                list($sortField, $sortDirection) = $parts;
-
-                $query->orderBy('is_active', 'desc');
-                $query->orderBy($sortField, $sortDirection);
-            }
-        }
-
-        /*
-         * Type & Position
-         */
-        if ($types) {
-            $query->whereIn('project_type_id', (array) $types);
-        }
-
-        if ($positions) {
-            $query->whereIn('position_type_id', (array) $positions);
-        }
-
-        /*
-         * Search
-         */
-        $search = trim($search);
-        if (strlen($search)) {
-            $query->searchWhere($search, $searchableFields);
-        }
-
-        /*
-         * Skills
-         */
-        if ($skills !== null) {
-            if (!is_array($skills)) $skills = [$skills];
-            $query->whereHas('skills', function($q) use ($skills) {
-                $q->whereIn('id', $skills);
-            });
-        }
-
-        /*
-         * Skills categories
-         */
-        if ($categories !== null) {
-            if (!is_array($categories)) $categories = [$categories];
-            $query->whereHas('skill_categories', function($q) use ($categories) {
-                $q->whereIn('id', $categories);
-            });
-        }
-
-        /*
-         * Countries
-         */
-        if ($countries !== null) {
-            if (!is_array($countries)) $countries = [$countries];
-            $query->whereIn('country_id', $countries);
-        }
-
-        /*
-         * Vicinities
-         */
-        if ($vicinities !== null) {
-            if (!is_array($vicinities)) $vicinities = [$vicinities];
-            $query->whereIn('vicinity_id', $vicinities);
-        }
-
-        /*
-         * Remote jobs
-         */
-        if ($isRemote) {
-            $query->where('is_remote', true);
-        }
-
-        /*
-         * Location
-         */
-        if ($latitude !== null && $longitude != null) {
-            $query->applyArea($latitude, $longitude);
-        }
-
-        return $query->paginate($perPage, $page);
-    }
-
-    public function scopeApplyStatus($query, $codes)
-    {
-        $statuses = Attribute::listCodes(Attribute::PROJECT_STATUS);
-        $statusIds = array_only($statuses, (array) $codes);
-        return $query->whereIn('status_id', $statusIds);
-    }
-
     public function getBackendUrl()
     {
         return Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
@@ -456,6 +333,138 @@ class Project extends Model
             ->where('is_active', true)
             ->where('is_approved', true)
         ;
+    }
+
+    /**
+     * Lists projects for the front end
+     * @param  array $options Display options
+     * @return self
+     */
+    public function scopeListFrontEnd($query, $options = [])
+    {
+        /*
+         * Default options
+         */
+        extract(array_merge([
+            'page'       => 1,
+            'perPage'    => 30,
+            'sort'       => 'created_at desc',
+            'users'      => null,
+            'types'      => null,
+            'positions'  => null,
+            'skills'     => null,
+            'categories' => null,
+            'vicinities' => null,
+            'countries'  => null,
+            'latitude'   => null,
+            'longitude'  => null,
+            'isRemote'   => null,
+            'search'     => ''
+        ], $options));
+
+        $searchableFields = ['name', 'slug', 'description'];
+
+        /*
+         * Sorting
+         */
+        if (!is_array($sort)) $sort = [$sort];
+        foreach ($sort as $_sort) {
+
+            if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
+                $parts = explode(' ', $_sort);
+                if (count($parts) < 2) array_push($parts, 'desc');
+                list($sortField, $sortDirection) = $parts;
+
+                $query->orderBy('is_active', 'desc');
+                $query->orderBy($sortField, $sortDirection);
+            }
+        }
+
+        /*
+         * Type & Position
+         */
+        if ($types) {
+            $query->whereIn('project_type_id', (array) $types);
+        }
+
+        if ($positions) {
+            $query->whereIn('position_type_id', (array) $positions);
+        }
+
+        /*
+         * Search
+         */
+        $search = trim($search);
+        if (strlen($search)) {
+            $query->searchWhere($search, $searchableFields);
+        }
+
+        /*
+         * Users
+         */
+        if ($users !== null) {
+            if (!is_array($users)) $users = [$users];
+            $query->whereIn('user_id', $users);
+        }
+
+        /*
+         * Skills
+         */
+        if ($skills !== null) {
+            if (!is_array($skills)) $skills = [$skills];
+            $query->whereHas('skills', function($q) use ($skills) {
+                $q->whereIn('id', $skills);
+            });
+        }
+
+        /*
+         * Skills categories
+         */
+        if ($categories !== null) {
+            if (!is_array($categories)) $categories = [$categories];
+            $query->whereHas('skill_categories', function($q) use ($categories) {
+                $q->whereIn('id', $categories);
+            });
+        }
+
+        /*
+         * Countries
+         */
+        if ($countries !== null) {
+            if (!is_array($countries)) $countries = [$countries];
+            $query->whereIn('country_id', $countries);
+        }
+
+        /*
+         * Vicinities
+         */
+        if ($vicinities !== null) {
+            if (!is_array($vicinities)) $vicinities = [$vicinities];
+            $query->whereIn('vicinity_id', $vicinities);
+        }
+
+        /*
+         * Remote jobs
+         */
+        if ($isRemote) {
+            $query->where('is_remote', true);
+        }
+
+        /*
+         * Location
+         */
+        if ($latitude !== null && $longitude != null) {
+            $query->applyArea($latitude, $longitude);
+        }
+
+        return $query->paginate($perPage, $page);
+    }
+
+    public function scopeApplyStatus($query, $codes)
+    {
+        $statuses = Attribute::listCodes(Attribute::PROJECT_STATUS);
+        $statusIds = array_only($statuses, (array) $codes);
+        return $query->whereIn('status_id', $statusIds);
     }
 
     //

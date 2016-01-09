@@ -44,6 +44,11 @@ class Client extends Model
         'user'     => ['RainLab\User\Models\User'],
     ];
 
+    public $hasMany = [
+        'reviews' => ['Ahoy\Pyrolancer\Models\WorkerReview', 'key' => 'client_user_id', 'otherKey' => 'user_id'],
+        'projects' => ['Ahoy\Pyrolancer\Models\Project'],
+    ];
+
     /**
      * @var string The component to use for generating URLs.
      */
@@ -115,6 +120,13 @@ class Client extends Model
         array_unshift($parts, $firstPart);
 
         return implode(' ', $parts);
+    }
+
+    public function setRatingStats()
+    {
+        $this->count_ratings = $this->reviews()->applyClientVisible()->count();
+        $this->count_projects = $this->projects()->applyVisible()->count();
+        $this->count_projects_active = $this->projects()->applyActive()->count();
     }
 
 }
