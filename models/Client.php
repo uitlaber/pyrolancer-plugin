@@ -46,7 +46,7 @@ class Client extends Model
 
     public $hasMany = [
         'reviews' => ['Ahoy\Pyrolancer\Models\WorkerReview', 'key' => 'client_user_id', 'otherKey' => 'user_id'],
-        'projects' => ['Ahoy\Pyrolancer\Models\Project'],
+        'projects' => ['Ahoy\Pyrolancer\Models\Project', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
 
     /**
@@ -124,7 +124,19 @@ class Client extends Model
 
     public function setRatingStats()
     {
-        $this->count_ratings = $this->reviews()->applyClientVisible()->count();
+        $overall = 0;
+        $total = 0;
+
+        foreach ($this->reviews as $review) {
+            if (!$review->client_is_visible) continue;
+
+            $total++;
+            $overall += $review->client_rating;
+        }
+
+        $this->rating_overall = $total ? ($overall / $total) : 0;
+        $this->count_ratings = $total;
+
         $this->count_projects = $this->projects()->applyVisible()->count();
         $this->count_projects_active = $this->projects()->applyActive()->count();
     }

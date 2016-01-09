@@ -227,7 +227,7 @@ class Worker extends Model
             $finalBreakdown[$item] = $bdOverall / $bdTotal;
         }
 
-        $this->rating_overall = $overall / $total;
+        $this->rating_overall = $total ? ($overall / $total) : 0;
         $this->rating_breakdown = $finalBreakdown;
         $this->count_ratings = $total;
         $this->count_recommend = $recommend;
