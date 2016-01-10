@@ -52,7 +52,7 @@ class WorkerReview extends Model
         'client_user' => 'RainLab\User\Models\User',
         'project'     => 'Ahoy\Pyrolancer\Models\Project',
         'worker'      => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
-        'client'      => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'client_user_id'],
+        'client'      => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'client_user_id', 'otherKey' => 'user_id'],
     ];
 
     /**
