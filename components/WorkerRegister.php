@@ -7,6 +7,7 @@ use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
 class WorkerRegister extends ComponentBase
 {
@@ -65,6 +66,15 @@ class WorkerRegister extends ComponentBase
     public function categories()
     {
         return $this->lookupObject(__FUNCTION__, SkillCategory::all());
+    }
+
+    public function recentProjects()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            return ProjectModel::applyVisible()->listFrontEnd([
+                'perPage' => 4
+            ]);
+        });
     }
 
     //

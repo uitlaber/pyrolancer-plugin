@@ -47,6 +47,7 @@ class Worker extends Model
      */
     protected $fillable = [
         'business_name',
+        'tagline',
         'description',
         'address',
         'latitude',

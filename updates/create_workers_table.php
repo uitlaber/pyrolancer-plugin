@@ -16,6 +16,7 @@ class CreateWorkersTable extends Migration
             $table->integer('budget_id')->unsigned()->index()->nullable();
             $table->integer('category_id')->unsigned()->index()->nullable();
             $table->string('business_name')->nullable();
+            $table->string('tagline')->nullable();
             $table->string('slug')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('contact_phone')->nullable();
