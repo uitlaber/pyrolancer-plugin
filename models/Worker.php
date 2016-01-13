@@ -18,6 +18,7 @@ class Worker extends Model
     use \Ahoy\Pyrolancer\Traits\UserProxyModel;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /*
      * Validation

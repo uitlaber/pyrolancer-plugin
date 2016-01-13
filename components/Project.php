@@ -144,6 +144,10 @@ class Project extends ComponentBase
         $user = $this->lookupUser();
         $bid = $this->findProjectBid();
 
+        if (!$bid->user) {
+            throw new ApplicationException('Action failed');
+        }
+
         $this->page['bid'] = $bid;
         $this->page['user'] = $user;
         $this->page['project'] = $bid->project;
@@ -154,6 +158,10 @@ class Project extends ComponentBase
         $user = $this->lookupUser();
         $bid = $this->findProjectBid();
         $project = $this->loadModelSecure(new ProjectModel);
+
+        if (!$bid->user) {
+            throw new ApplicationException('Action failed');
+        }
 
         $rules = [
             'name' => 'required',

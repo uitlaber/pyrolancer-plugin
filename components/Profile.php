@@ -64,7 +64,8 @@ class Profile extends ComponentBase
             }
 
             $options = [
-                'users' => $user->id
+                'users' => $user->id,
+                'visible' => true
             ];
 
             return WorkerReview::listFrontEnd($options);
@@ -79,7 +80,8 @@ class Profile extends ComponentBase
             }
 
             $options = [
-                'clientUsers' => $user->id
+                'clientUsers' => $user->id,
+                'clientVisible' => true
             ];
 
             return WorkerReview::listFrontEnd($options);

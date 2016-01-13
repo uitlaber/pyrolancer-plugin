@@ -90,25 +90,27 @@ class Collab extends ComponentBase
 
     public function onLoadUpdateQuoteForm()
     {
-        if (!$project = $this->project()) {
-            return null;
-        }
-
-        if ((!$bid = $project->chosen_bid) || !$bid->isOwner()) {
+        if (
+            (!$project = $this->project()) ||
+            (!$bid = $project->chosen_bid) ||
+            (!$otherUser = $this->otherUser()) ||
+            !$bid->isOwner()
+        ) {
             throw new ApplicationException('Action failed!');
         }
 
-        $this->page['otherUser'] = $this->otherUser();
+        $this->page['otherUser'] = $otherUser;
         $this->page['bid'] = $bid;
     }
 
     public function onUpdateQuote()
     {
-        if (!$project = $this->project()) {
-            return null;
-        }
-
-        if ((!$bid = $project->chosen_bid) || !$bid->isOwner()) {
+        if (
+            (!$project = $this->project()) ||
+            (!$bid = $project->chosen_bid) ||
+            (!$otherUser = $this->otherUser()) ||
+            !$bid->isOwner()
+        ) {
             throw new ApplicationException('Action failed!');
         }
 
@@ -149,14 +151,15 @@ class Collab extends ComponentBase
          * Send notification
          */
         $project->resetUrlComponent('collab');
-        $otherUser = $this->otherUser();
-        $params = [
-            'project' => $project,
-            'user' => $otherUser,
-            'otherUser' => $user,
-            'reason' => $reason,
-        ];
-        Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-terminated', $params);
+        if ($otherUser = $this->otherUser()) {
+            $params = [
+                'project' => $project,
+                'user' => $otherUser,
+                'otherUser' => $user,
+                'reason' => $reason,
+            ];
+            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-terminated', $params);
+        }
 
         return Redirect::refresh();
     }
@@ -174,13 +177,14 @@ class Collab extends ComponentBase
          * Send notification
          */
         $project->resetUrlComponent('collab');
-        $otherUser = $this->otherUser();
-        $params = [
-            'project' => $project,
-            'user' => $otherUser,
-            'otherUser' => $user,
-        ];
-        Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-complete', $params);
+        if ($otherUser = $this->otherUser()) {
+            $params = [
+                'project' => $project,
+                'user' => $otherUser,
+                'otherUser' => $user,
+            ];
+            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-complete', $params);
+        }
 
         return Redirect::refresh();
     }
@@ -252,6 +256,10 @@ class Collab extends ComponentBase
             return null;
         }
 
+        if (!$this->otherUser()) {
+            return false;
+        }
+
         return $project->status->code != $project::STATUS_DEVELOPMENT;
     }
 
@@ -298,14 +306,15 @@ class Collab extends ComponentBase
             /*
              * Notify other user
              */
-            $otherUser = $this->otherUser();
-            $params = [
-                'project' => $project,
-                'user' => $otherUser,
-                'otherUser' => $user,
-                'collabMessage' => $message,
-            ];
-            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-message', $params);
+            if ($otherUser = $this->otherUser()) {
+                $params = [
+                    'project' => $project,
+                    'user' => $otherUser,
+                    'otherUser' => $user,
+                    'collabMessage' => $message,
+                ];
+                Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-message', $params);
+            }
 
             return Redirect::refresh();
         }

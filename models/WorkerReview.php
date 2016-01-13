@@ -240,19 +240,25 @@ class WorkerReview extends Model
          * Default options
          */
         extract(array_merge([
-            'page'        => 1,
-            'perPage'     => 30,
-            'sort'        => 'created_at',
-            'users'       => null,
-            'clientUsers' => null,
-            'search'      => '',
-            'visible'     => true
+            'page'          => 1,
+            'perPage'       => 30,
+            'sort'          => 'created_at',
+            'users'         => null,
+            'clientUsers'   => null,
+            'search'        => '',
+            'visible'       => false,
+            'clientVisible' => false
         ], $options));
 
         $searchableFields = ['name', 'comment'];
 
-        if ($visible)
+        if ($visible) {
             $query->applyVisible();
+        }
+
+        if ($clientVisible) {
+            $query->applyClientVisible();
+        }
 
         /*
          * Sorting

@@ -10,6 +10,7 @@ class Client extends Model
     use \Ahoy\Traits\UrlMaker;
     use \Ahoy\Traits\GeneralUtils;
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /*
      * Validation

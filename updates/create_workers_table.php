@@ -42,6 +42,7 @@ class CreateWorkersTable extends Migration
             $table->integer('count_ratings')->default(0);
             $table->integer('count_bids')->default(0);
             $table->dateTime('last_digest_at')->index()->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
