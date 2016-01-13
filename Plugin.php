@@ -60,10 +60,11 @@ class Plugin extends PluginBase
                 'viewBag[visibleTo]' => [
                     'tab' => 'User group',
                     'commentAbove' => 'Make this menu item visible only to the following groups.',
-                    'type' => 'radio',
+                    'type' => 'dropdown',
                     'default' => 'all',
                     'options' => [
                         'all' => 'Everyone',
+                        'guests' => 'Guests',
                         'users' => 'Users',
                         'clients' => 'Clients',
                         'workers' => 'Workers',
