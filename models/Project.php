@@ -36,6 +36,7 @@ class Project extends Model
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Revisionable;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     public $implement = ['RainLab.Location.Behaviors.LocationModel'];
 
@@ -120,6 +121,7 @@ class Project extends Model
     ];
 
     public $morphMany = [
+        // 'event_log'        => ['Ahoy\Pyrolancer\Models\UserEventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
         'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
     ];
 

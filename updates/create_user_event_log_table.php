@@ -18,6 +18,7 @@ class CreateUserEventLogTable extends Migration
             $table->string('related_id')->index()->nullable();
             $table->string('related_type')->index()->nullable();
             $table->index(['user_id', 'created_at'], 'event_user_created');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

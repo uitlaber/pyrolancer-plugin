@@ -9,6 +9,7 @@ use Ahoy\Pyrolancer\Classes\EventLogCollection;
 class UserEventLog extends Model
 {
     use \Ahoy\Traits\ModelUtils;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     const TYPE_USER_CREATED = 'user-created';
     const TYPE_WORKER_CREATED = 'worker-created';

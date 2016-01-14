@@ -46,8 +46,18 @@ class Client extends Model
     ];
 
     public $hasMany = [
-        'reviews' => ['Ahoy\Pyrolancer\Models\WorkerReview', 'key' => 'client_user_id', 'otherKey' => 'user_id'],
-        'projects' => ['Ahoy\Pyrolancer\Models\Project', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'reviews' => [
+            'Ahoy\Pyrolancer\Models\WorkerReview',
+            'key' => 'client_user_id',
+            'otherKey' => 'user_id'
+        ],
+        'projects' => [
+            'Ahoy\Pyrolancer\Models\Project',
+            'key' => 'user_id',
+            'otherKey' => 'user_id',
+            'delete' => true,
+            'softDelete' => true
+        ],
     ];
 
     /**

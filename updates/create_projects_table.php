@@ -60,6 +60,7 @@ class CreateProjectsTable extends Migration
             $table->dateTime('chosen_at')->nullable();
             $table->dateTime('expires_at')->nullable();
             $table->dateTime('closed_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 

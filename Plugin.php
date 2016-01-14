@@ -39,6 +39,7 @@ class Plugin extends PluginBase
         UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker', 'delete' => true, 'softDelete' => true];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client', 'delete' => true, 'softDelete' => true];
+            $model->hasOne['event_log'] = ['Ahoy\Pyrolancer\Models\UserEventLog', 'delete' => true, 'softDelete' => true];
 
             $model->bindEvent('model.afterCreate', function() use ($model) {
                 UserEventLog::add(UserEventLog::TYPE_USER_CREATED, [
