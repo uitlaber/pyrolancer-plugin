@@ -94,10 +94,10 @@ class Project extends Model
     ];
 
     public $hasMany = [
-        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate'],
-        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 1'],
-        'private_messages' => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 0', 'order' => 'created_at desc'],
-        'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc'],
+        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate', 'delete' => true],
+        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 1', 'delete' => true],
+        'private_messages' => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 0', 'order' => 'created_at desc', 'delete' => true],
+        'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc', 'delete' => true],
     ];
 
     public $belongsTo = [
@@ -122,7 +122,7 @@ class Project extends Model
 
     public $morphMany = [
         // 'event_log'        => ['Ahoy\Pyrolancer\Models\UserEventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
-        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable', 'delete' => true]
     ];
 
     /**

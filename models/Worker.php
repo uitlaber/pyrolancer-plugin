@@ -85,7 +85,7 @@ class Worker extends Model
     ];
 
     public $hasOne = [
-        'portfolio' => ['Ahoy\Pyrolancer\Models\Portfolio', 'key' => 'user_id', 'otherKey' => 'user_id']
+        'portfolio' => ['Ahoy\Pyrolancer\Models\Portfolio', 'key' => 'user_id', 'otherKey' => 'user_id', 'delete' => true]
     ];
 
     public $attachOne = [

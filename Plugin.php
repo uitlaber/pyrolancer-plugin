@@ -121,6 +121,7 @@ class Plugin extends PluginBase
            '\Ahoy\Pyrolancer\Components\Account'           => 'account',
            '\Ahoy\Pyrolancer\Components\Collab'            => 'collab',
            '\Ahoy\Pyrolancer\Components\CollabUpdate'      => 'collabUpdate',
+           '\Ahoy\Pyrolancer\Components\ContactForm'       => 'contactForm',
            '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
            '\Ahoy\Pyrolancer\Components\Directory'         => 'directory',
            '\Ahoy\Pyrolancer\Components\Favorites'         => 'favorites',
