@@ -59,6 +59,7 @@ class Worker extends Model
         'website_url',
         'budget',
         'fallback_location',
+        'category_id'
     ];
 
     /**

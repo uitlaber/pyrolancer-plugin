@@ -47,7 +47,7 @@ class WorkerRegister extends ComponentBase
         /*
          * Only non workers can register a new profile
          */
-        $redirectAway =  (!$user = Auth::getUser()) || $user->is_worker;
+        $redirectAway = (!$user = Auth::getUser()) || $user->is_worker;
         $redirectPage = $this->property('redirect');
         if ($redirectAway && $redirectPage) {
             return Redirect::to($this->controller->pageUrl($redirectPage));
@@ -60,12 +60,16 @@ class WorkerRegister extends ComponentBase
 
     public function worker()
     {
-        return $this->lookupObject(__FUNCTION__, WorkerModel::getFromUser());
+        return $this->lookupObject(__FUNCTION__, function() {
+            return WorkerModel::getFromUser();
+        });
     }
 
     public function categories()
     {
-        return $this->lookupObject(__FUNCTION__, SkillCategory::all());
+        return $this->lookupObject(__FUNCTION__, function() {
+            return SkillCategory::all();
+        });
     }
 
     public function recentProjects()

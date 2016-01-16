@@ -75,6 +75,13 @@ class WorkerManage extends ComponentBase
         return $this->lookupObject(__FUNCTION__, WorkerReview::listFrontEnd($options));
     }
 
+    public function categories()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            return SkillCategory::all();
+        });
+    }
+
     //
     // AJAX
     //
