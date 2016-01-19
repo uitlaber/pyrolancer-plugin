@@ -69,7 +69,8 @@ class WorkerManage extends ComponentBase
     public function reviews()
     {
         $options = [
-            'users' => $this->worker()->user_id
+            'users' => $this->worker()->user_id,
+            'visible' => true
         ];
 
         return $this->lookupObject(__FUNCTION__, WorkerReview::listFrontEnd($options));
