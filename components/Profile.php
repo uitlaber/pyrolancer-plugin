@@ -56,6 +56,21 @@ class Profile extends ComponentBase
         });
     }
 
+    public function allReviews()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            if (!$user = $this->user()) {
+                return null;
+            }
+
+            $options = [
+                'page' => input('page'),
+            ];
+
+            return WorkerReview::applyHybridUser($user)->listFrontEnd($options);
+        });
+    }
+
     public function workerReviews()
     {
         return $this->lookupObject(__FUNCTION__, function() {
@@ -64,11 +79,29 @@ class Profile extends ComponentBase
             }
 
             $options = [
+                'page' => input('page'),
                 'users' => $user->id,
                 'visible' => true
             ];
 
             return WorkerReview::listFrontEnd($options);
+        });
+    }
+
+    public function workerTestimonials()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            if (!$user = $this->user()) {
+                return null;
+            }
+
+            $options = [
+                'page' => input('page'),
+                'users' => $user->id,
+                'visible' => true
+            ];
+
+            return WorkerReview::applyTestimonial()->listFrontEnd($options);
         });
     }
 
@@ -80,6 +113,7 @@ class Profile extends ComponentBase
             }
 
             $options = [
+                'page' => input('page'),
                 'clientUsers' => $user->id,
                 'clientVisible' => true
             ];

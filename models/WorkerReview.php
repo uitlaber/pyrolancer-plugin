@@ -229,6 +229,27 @@ class WorkerReview extends Model
         return $query->where('client_is_visible', true);
     }
 
+    public function scopeApplyTestimonial($query, $value = true)
+    {
+        return $query->where('is_testimonial', $value);
+    }
+
+    public function scopeApplyHybridUser($query, $user)
+    {
+        $userId = $user->id;
+
+        return $query->where(function($query) use ($userId) {
+            $query->where(function($query) use ($userId) {
+                $query->where('user_id', $userId);
+                $query->where('is_visible', true);
+            });
+            $query->orWhere(function($query) use ($userId) {
+                $query->where('client_user_id', $userId);
+                $query->where('client_is_visible', true);
+            });
+        });
+    }
+
     /**
      * Lists reviews for the front end
      * @param  array $options Display options
