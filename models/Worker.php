@@ -98,6 +98,8 @@ class Worker extends Model
      * @var array
      */
     public static $allowedSortingOptions = array(
+        'rating_overall desc' => 'Bested rated',
+        'count_ratings desc' => 'Most rated',
         'created_at desc' => 'Join date (descending)',
         'created_at asc' => 'Join date (ascending)',
         'updated_at desc' => 'Last updated (descending)',
@@ -280,7 +282,7 @@ class Worker extends Model
         extract(array_merge([
             'page'       => 1,
             'perPage'    => 30,
-            'sort'       => 'created_at desc',
+            'sort'       => null,
             'skills'     => null,
             'categories' => null,
             'vicinities' => null,
@@ -296,16 +298,25 @@ class Worker extends Model
         /*
          * Sorting
          */
-        if (!is_array($sort)) $sort = [$sort];
-        foreach ($sort as $_sort) {
+        if ($sort) {
+            if (!is_array($sort)) $sort = [$sort];
+            foreach ($sort as $_sort) {
 
-            if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
-                $parts = explode(' ', $_sort);
-                if (count($parts) < 2) array_push($parts, 'desc');
-                list($sortField, $sortDirection) = $parts;
+                if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
+                    $parts = explode(' ', $_sort);
+                    if (count($parts) < 2) array_push($parts, 'desc');
+                    list($sortField, $sortDirection) = $parts;
 
-                $query->orderBy($sortField, $sortDirection);
+                    $query->orderBy($sortField, $sortDirection);
+                }
             }
+        }
+        else {
+            // Defaults
+            $query->orderBy('count_ratings', 'desc');
+            $query->orderBy('rating_overall', 'desc');
+            $query->orderBy('count_bids', 'desc');
+            $query->orderBy('updated_at', 'desc');
         }
 
         /*

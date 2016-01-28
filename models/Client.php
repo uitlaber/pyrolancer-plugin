@@ -120,7 +120,7 @@ class Client extends Model
      */
     public static function makeDisplayName($user)
     {
-        $name = $user->name;
+        $name = trim($user->name . ' ' . $user->surname);
         $parts = explode(' ', $name);
         $firstPart = array_shift($parts);
 

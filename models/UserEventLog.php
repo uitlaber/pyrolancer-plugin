@@ -20,6 +20,9 @@ class UserEventLog extends Model
 
     public $table = 'ahoy_pyrolancer_user_event_log';
 
+    /**
+     * @var array Relations
+     */
     public $belongsTo = [
         'user' => 'RainLab\User\Models\User',
         'other_user' => 'RainLab\User\Models\User'
