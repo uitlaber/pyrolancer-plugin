@@ -36,7 +36,11 @@ class Activity extends ComponentBase
 
     public function recentWorkers()
     {
-        return WorkerModel::with('user.avatar')->limit(5)->get();
+        return WorkerModel::with('user.avatar')
+            ->orderBy('created_at', 'desc')
+            ->limit(15)
+            ->get()
+        ;
     }
 
 }

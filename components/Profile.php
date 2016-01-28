@@ -105,6 +105,22 @@ class Profile extends ComponentBase
         });
     }
 
+    public function workerPortfolioItems()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            if (
+                (!$user = $this->user()) ||
+                !$user->is_worker ||
+                !$user->worker ||
+                !$user->worker->has_portfolio
+            ) {
+                return null;
+            }
+
+            return $user->worker->portfolio->items()->limit(4)->get();
+        });
+    }
+
     public function clientReviews()
     {
         return $this->lookupObject(__FUNCTION__, function() {
