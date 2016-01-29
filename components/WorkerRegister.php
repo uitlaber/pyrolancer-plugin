@@ -8,6 +8,7 @@ use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use ApplicationException;
 
 class WorkerRegister extends ComponentBase
 {
@@ -117,9 +118,17 @@ class WorkerRegister extends ComponentBase
 
     public function onSelectSkills()
     {
+        $maxSkills = 20;
+
         $user = $this->lookupUser();
         $worker = $this->worker();
-        $worker->skills = post('skills');
+        $skillIds = post('skills', []);
+
+        if (count($skillIds) > $maxSkills) {
+            throw new ApplicationException(sprintf('You can only select a maximum of %s skills! Please unselect %s skills.', $maxSkills, count($skillIds)));
+        }
+
+        $worker->skills = $skillIds;
         $worker->forceSave();
     }
 

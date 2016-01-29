@@ -142,6 +142,17 @@ class Worker extends Model
         }
     }
 
+    public function beforeValidate()
+    {
+        if (!$this->latitude) {
+            $this->latitude = null;
+        }
+
+        if (!$this->longitude) {
+            $this->longitude = null;
+        }
+    }
+
     /**
      * Automatically creates a freelancer profile for a user if not one already.
      * @param  RainLab\User\Models\User $user

@@ -122,6 +122,8 @@ class WorkerPortfolio extends ComponentBase
         $item->portfolio = $portfolio;
         $item->fill((array) post('PortfolioItem'));
         $item->save(null, post('_session_key'));
+
+        $item->portfolio->touch();
     }
 
     public function onUpdateItem()

@@ -4,6 +4,8 @@ use Event;
 use Backend;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
+use RainLab\Location\Models\State as StateModel;
+use RainLab\Location\Models\Country as CountryModel;
 use Ahoy\Pyrolancer\Models\UserEventLog;
 
 /**
@@ -47,6 +49,14 @@ class Plugin extends PluginBase
                     'createdAt' => $model->created_at
                 ]);
             });
+        });
+
+        StateModel::extend(function($model) {
+            $model->hasMany['vicinities'] = ['Ahoy\Pyrolancer\Models\Vicinity'];
+        });
+
+        CountryModel::extend(function($model) {
+            $model->hasMany['user_count'] = ['RainLab\User\Models\User', 'count' => true];
         });
 
         Event::listen('backend.form.extendFields', function ($widget) {

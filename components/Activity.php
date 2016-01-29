@@ -25,10 +25,12 @@ class Activity extends ComponentBase
     {
         $currentPage = 1;
 
-        $feed = UserEventLog::applyPublic()
+        $feed = UserEventLog::has('user')
+            ->applyPublic()
             ->applyEagerLoads()
             ->orderBy('created_at', 'desc')
-            ->paginate(10, $currentPage)
+            ->limit(11)
+            ->get()
         ;
 
         return $feed;
@@ -36,9 +38,11 @@ class Activity extends ComponentBase
 
     public function recentWorkers()
     {
-        return WorkerModel::with('user.avatar')
+        return WorkerModel::has('user.avatar')
+            ->with('user.avatar')
             ->orderBy('created_at', 'desc')
             ->limit(15)
+            ->remember(60)
             ->get()
         ;
     }

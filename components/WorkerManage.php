@@ -105,11 +105,13 @@ class WorkerManage extends ComponentBase
 
     public function onSaveSkills()
     {
+        $maxSkills = 20;
+
         $worker = $this->worker();
         $skillIds = post('skills', []);
 
-        if (count($skillIds) > 20) {
-            throw new ApplicationException('You can only select a maximum of 20 skills!');
+        if (count($skillIds) > $maxSkills) {
+            throw new ApplicationException(sprintf('You can only select a maximum of %s skills!', $maxSkills));
         }
 
         $worker->skills()->sync($skillIds);

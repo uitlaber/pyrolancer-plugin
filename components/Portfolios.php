@@ -1,5 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
+use RainLab\Location\Models\State;
+use RainLab\Location\Models\Country;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
 use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
@@ -40,7 +42,7 @@ class Portfolios extends ComponentBase
 
     public function popularVicinities()
     {
-        return VicinityModel::limit(15)->orderBy('count_workers')->get();
+        return VicinityModel::limit(15)->orderBy('count_workers', 'desc')->get();
     }
 
     public function workers($options = null)
@@ -49,13 +51,38 @@ class Portfolios extends ComponentBase
             $options = $this->getFilterOptionsFromRequest();
         }
 
-        traceLog($options);
-
         return $this->lookupObject(__FUNCTION__, function() use ($options) {
             return WorkerModel::with('portfolio')
                 ->applyVisible()
                 ->applyPortfolio()
-                ->listFrontEnd($options)
+                ->listFrontEnd($options + ['sort' => 'updated_at desc'])
+            ;
+        });
+    }
+
+    public function popularCountries()
+    {
+        traceSql();
+        return $this->lookupObject(__FUNCTION__, function() {
+            return Country::make()
+                ->with('states.vicinities')
+                ->with('user_count')
+                ->isEnabled()
+                ->limit(5)
+                ->get()
+                ->sortBy('user_count.count')
+            ;
+        });
+    }
+
+    public function otherCountries()
+    {
+        return $this->lookupObject(__FUNCTION__, function() {
+            return Country::make()
+                ->isEnabled()
+                ->offset(5)
+                ->limit(0)
+                ->get()
             ;
         });
     }
