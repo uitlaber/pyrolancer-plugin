@@ -80,6 +80,16 @@ class Portfolios extends ComponentBase
                 ->limit(5)
                 ->get()
                 ->sortBy('user_count.count')
+                ->each(function($country) {
+                    $states = $country->states
+                        ->filter(function($state) {
+                            return $state->vicinities->count() > 0;
+                        })
+                        ->sortByDesc(function($state, $id) {
+                            return $state->vicinities->count();
+                        });
+                    $country->setRelation('states', $states);
+                });
             ;
         });
     }
