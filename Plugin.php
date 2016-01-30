@@ -1,12 +1,15 @@
 <?php namespace Ahoy\Pyrolancer;
 
+use View;
 use Event;
 use Backend;
+use Cms\Classes\Theme;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\Location\Models\State as StateModel;
 use RainLab\Location\Models\Country as CountryModel;
 use Ahoy\Pyrolancer\Models\UserEventLog;
+use Ahoy\Pyrolancer\Classes\Worker as JobWorker;
 
 /**
  * Pyrolancer Plugin Information File
@@ -190,7 +193,7 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function(){
-            SupportWorker::instance()->process();
+            JobWorker::instance()->process();
         })->everyFiveMinutes();
     }
 }

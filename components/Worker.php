@@ -27,6 +27,15 @@ class Worker extends ComponentBase
         ];
     }
 
+    public function onRun()
+    {
+        if ($worker = $this->worker()) {
+            $this->page->meta_title = $this->page->meta_title
+                ? str_replace('%s', $worker->business_name, $this->page->meta_title)
+                : $worker->business_name;
+        }
+    }
+
     //
     // Object properties
     //

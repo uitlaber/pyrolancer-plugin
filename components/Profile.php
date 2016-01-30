@@ -44,6 +44,17 @@ class Profile extends ComponentBase
         ];
     }
 
+    public function onRun()
+    {
+        if ($this->property('isPrimaryWorker') && $user = $this->user()) {
+            $this->page->meta_title = $user->worker ? $user->worker->business_name : null;
+        }
+
+        if ($this->property('isPrimaryClient') && $user = $this->user()) {
+            $this->page->meta_title = $user->client ? $user->client->display_name : null;
+        }
+    }
+
     //
     // Object properties
     //

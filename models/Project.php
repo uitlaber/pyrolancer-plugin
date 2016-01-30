@@ -144,6 +144,11 @@ class Project extends Model
     protected $urlComponentName = 'project';
 
     /**
+     * @var string The property name to determine a primary component.
+     */
+    protected $urlComponentProperty = 'isPrimary';
+
+    /**
      * Returns an array of values to use in URL generation.
      * @return @array
      */

@@ -62,7 +62,7 @@ class Notifier
         }
 
         if ($worker->latitude && $worker->longitude) {
-            $projects->where(function($q) {
+            $projects->where(function($q) use ($worker) {
                 $q->applyArea($worker->latitude, $worker->longitude);
                 $q->orWhere('is_remote', true);
             });

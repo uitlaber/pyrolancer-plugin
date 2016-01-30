@@ -33,6 +33,13 @@ class Project extends ComponentBase
                 'default'     => '{{ :slug }}',
                 'type'        => 'string',
             ],
+            'isPrimary' => [
+                'title'       => 'Primary Project page',
+                'description' => 'Use this page when generating a link to a project.',
+                'type'        => 'checkbox',
+                'default'     => false,
+                'showExternalParam' => false
+            ],
         ];
     }
 
@@ -41,6 +48,15 @@ class Project extends ComponentBase
         if (($project = $this->project()) && $project->isOwner()) {
             $component = $this->addComponent('fileUploader', 'editFileUploader', ['deferredBinding' => false]);
             $component->bindModel('files', $project);
+        }
+    }
+
+    public function onRun()
+    {
+        if ($this->property('isPrimary') && $project = $this->project()) {
+            $this->page->meta_title = $this->page->meta_title
+                ? ? str_replace('%s', $project->name, $this->page->meta_title)
+                : $project->name;
         }
     }
 
