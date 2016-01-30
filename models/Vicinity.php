@@ -159,6 +159,7 @@ class Vicinity extends Model
     public function rebuildStats()
     {
         $this->count_workers = Worker::where('vicinity_id', $this->id)->count();
+        $this->count_portfolios = Worker::where('vicinity_id', $this->id)->applyPortfolio()->count();
         $this->count_projects = Project::where('vicinity_id', $this->id)->count();
     }
 

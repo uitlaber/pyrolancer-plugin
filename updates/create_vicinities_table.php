@@ -16,6 +16,7 @@ class CreateVicinitiesTable extends Migration
             $table->string('slug')->nullable()->index();
             $table->integer('count_workers')->default(0);
             $table->integer('count_projects')->default(0);
+            $table->integer('count_portfolios')->default(0);
             $table->integer('country_id')->unsigned()->nullable()->index();
             $table->integer('state_id')->unsigned()->nullable()->index();
             $table->decimal('latitude', 10, 6)->nullable();

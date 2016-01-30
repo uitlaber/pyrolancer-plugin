@@ -42,7 +42,7 @@ class Portfolios extends ComponentBase
 
     public function popularVicinities()
     {
-        return VicinityModel::limit(15)->orderBy('count_workers', 'desc')->get();
+        return VicinityModel::limit(15)->orderBy('count_portfolios', 'desc')->get();
     }
 
     public function workers($options = null)
@@ -72,7 +72,9 @@ class Portfolios extends ComponentBase
     {
         return $this->lookupObject(__FUNCTION__, function() {
             return Country::make()
-                ->with('states.vicinities')
+                ->with(['states.vicinities' => function($query) {
+                    $query->where('count_portfolios', '>', 0);
+                }])
                 ->with('user_count')
                 ->isEnabled()
                 ->limit(5)
