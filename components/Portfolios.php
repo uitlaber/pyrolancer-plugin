@@ -60,9 +60,16 @@ class Portfolios extends ComponentBase
         });
     }
 
+    public function onPageWorkers()
+    {
+        $options = $this->getFilterOptionsFromRequest();
+        $options['page'] = post('page');
+
+        $this->page['workers'] = $this->workers($options);
+    }
+
     public function popularCountries()
     {
-        traceSql();
         return $this->lookupObject(__FUNCTION__, function() {
             return Country::make()
                 ->with('states.vicinities')
