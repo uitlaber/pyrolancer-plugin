@@ -55,7 +55,7 @@ class Project extends ComponentBase
     {
         if ($this->property('isPrimary') && $project = $this->project()) {
             $this->page->meta_title = $this->page->meta_title
-                ? ? str_replace('%s', $project->name, $this->page->meta_title)
+                ? str_replace('%s', $project->name, $this->page->meta_title)
                 : $project->name;
         }
     }
