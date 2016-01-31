@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
+use Url;
 use Auth;
 use Model;
 use Markdown;
@@ -264,6 +265,19 @@ class Worker extends Model
         if (!$this->count_ratings) return 0;
 
         return round(($this->count_recommend / $this->count_ratings) * 100);
+    }
+
+    public function getWebsiteLinkAttribute()
+    {
+        if (!$url = $this->website_url) {
+            return $url;
+        }
+
+        if (Url::isValidUrl($url)) {
+            return $url;
+        }
+
+        return '//'.$url;
     }
 
     //
