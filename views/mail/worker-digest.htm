@@ -8,9 +8,7 @@ subject = "You have new job offers"
 {% for project in projects %}
 
     <h3>
-        <a href="{{ project.url }}">
-            {{ project.name }}
-        </a>
+        <a href="{{ project.url }}">{{ project.name }}</a>
         by {{ project.client.display_name }}
     </h3>
     <p>
