@@ -4,6 +4,7 @@ use Mail;
 use Model;
 use Queue;
 use Markdown;
+use Cms\Classes\Theme;
 use October\Rain\Support\Str;
 use Backend\Models\UserGroup;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
@@ -166,6 +167,7 @@ class ProjectStatusLog extends Model
         $template = $template ?: $this->notifyUserTemplate;
 
         $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
             'project' => $this->project,
             'user' => $this->project->user,
             'reason' => array_get($this->data, 'message_html'),
@@ -184,6 +186,7 @@ class ProjectStatusLog extends Model
         }
 
         $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
             'project' => $this->project,
             'user' => $this->project->user,
             'reason' => array_get($this->data, 'message_html'),

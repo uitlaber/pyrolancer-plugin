@@ -5,6 +5,7 @@ use Validator;
 use ValidationException;
 use ApplicationException;
 use Backend\Models\UserGroup;
+use Cms\Classes\Theme;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
 
@@ -47,7 +48,13 @@ class ContactForm extends ComponentBase
         }
 
         $contacts = $group->users->lists('full_name', 'email');
-        Mail::sendTo($contacts, 'ahoy.pyrolancer::mail.contact-form', post(), function($message) {
+
+        $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
+        ];
+        $params = array_merge($params, (array) post());
+
+        Mail::sendTo($contacts, 'ahoy.pyrolancer::mail.contact-form', $params, function($message) {
             $message->replyTo(post('email'), post('name'));
         });
 

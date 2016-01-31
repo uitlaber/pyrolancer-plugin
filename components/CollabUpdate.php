@@ -5,11 +5,12 @@ use Mail;
 use Flash;
 use Request;
 use Redirect;
+use Cms\Classes\Page;
+use Cms\Classes\Theme;
+use Cms\Classes\ComponentBase;
+use System\Models\File as FileModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
-use System\Models\File as FileModel;
-use Cms\Classes\ComponentBase;
-use Cms\Classes\Page;
 use ApplicationException;
 use Exception;
 
@@ -105,6 +106,7 @@ class CollabUpdate extends ComponentBase
 
                 $otherUser = $project->isOwner() ? $project->chosen_user : $project->user;
                 $params = [
+                    'site_name' => Theme::getActiveTheme()->site_name,
                     'project' => $project,
                     'user' => $otherUser,
                     'otherUser' => $message->user,

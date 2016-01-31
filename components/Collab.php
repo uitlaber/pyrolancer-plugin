@@ -5,6 +5,7 @@ use Flash;
 use Redirect;
 use Validator;
 use Carbon\Carbon;
+use Cms\Classes\Theme;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
@@ -153,6 +154,7 @@ class Collab extends ComponentBase
         $project->resetUrlComponent('collab');
         if ($otherUser = $this->otherUser()) {
             $params = [
+                'site_name' => Theme::getActiveTheme()->site_name,
                 'project' => $project,
                 'user' => $otherUser,
                 'otherUser' => $user,
@@ -179,6 +181,7 @@ class Collab extends ComponentBase
         $project->resetUrlComponent('collab');
         if ($otherUser = $this->otherUser()) {
             $params = [
+                'site_name' => Theme::getActiveTheme()->site_name,
                 'project' => $project,
                 'user' => $otherUser,
                 'otherUser' => $user,
@@ -308,6 +311,7 @@ class Collab extends ComponentBase
              */
             if ($otherUser = $this->otherUser()) {
                 $params = [
+                    'site_name' => Theme::getActiveTheme()->site_name,
                     'project' => $project,
                     'user' => $otherUser,
                     'otherUser' => $user,
@@ -355,6 +359,7 @@ class Collab extends ComponentBase
             $project->resetUrlComponent('collab');
             $otherUser = $this->otherUser();
             $params = [
+                'site_name' => Theme::getActiveTheme()->site_name,
                 'project' => $project,
                 'user' => $otherUser,
                 'otherUser' => $user,

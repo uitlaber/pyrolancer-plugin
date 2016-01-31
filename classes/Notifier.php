@@ -1,6 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Classes;
 
 use Mail;
+use Cms\Classes\Theme;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Client as ClientModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
@@ -34,6 +35,7 @@ class Notifier
 
         foreach ($workers as $worker) {
             $params = [
+                'site_name' => Theme::getActiveTheme()->site_name,
                 'user' => $worker->user,
                 'project' => $project
             ];
@@ -51,7 +53,7 @@ class Notifier
     {
         $skills = $worker->skills()->lists('id');
 
-        $projects = ProjectModel::make()
+        $projects = ProjectModel::with('client')
             ->applyActive()
             ->whereHas('skills', function($q) use ($skills) {
                 $q->whereIn('id', $skills);
@@ -78,6 +80,7 @@ class Notifier
         }
 
         $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
             'user' => $worker->user,
             'projects' => $projects
         ];
@@ -129,6 +132,7 @@ class Notifier
             }
 
             $params = [
+                'site_name' => Theme::getActiveTheme()->site_name,
                 'project' => $project,
                 'projectType' => $project->project_type->code,
                 'messages' => $messages,

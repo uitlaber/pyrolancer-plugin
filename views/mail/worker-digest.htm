@@ -11,6 +11,7 @@ subject = "You have new job offers"
         <a href="{{ project.url }}">
             {{ project.name }}
         </a>
+        by {{ project.client.display_name }}
     </h3>
     <p>
         {{ str_limit(project.description, 255) }}

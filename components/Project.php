@@ -5,6 +5,7 @@ use Mail;
 use Input;
 use Redirect;
 use Validator;
+use Cms\Classes\Theme;
 use Cms\Classes\ComponentBase;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage;
@@ -212,6 +213,7 @@ class Project extends ComponentBase
         $user->save();
 
         $params = [
+            'site_name' => Theme::getActiveTheme()->site_name,
             'user' => $bid->user,
             'bid' => $bid,
             'project' => $project,
