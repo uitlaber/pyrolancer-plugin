@@ -277,6 +277,10 @@ class Project extends ComponentBase
         $user = $this->lookupUser();
         $project = $this->loadModel(new ProjectModel);
 
+        if (!$user->is_worker) {
+            throw new ApplicationException('Missing profile');
+        }
+
         if (!$project->canBid()) {
             throw new ApplicationException('Action failed');
         }
