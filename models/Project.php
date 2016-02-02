@@ -204,6 +204,11 @@ class Project extends Model
         if (!$this->duration) {
             $this->duration = 30;
         }
+
+        // "I want to enter skills by hand"
+        if ($this->category_id == '-1') {
+            $this->category_id = null;
+        }
     }
 
     public function getBackendUrl()
