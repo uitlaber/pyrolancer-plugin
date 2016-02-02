@@ -39,6 +39,7 @@ class Activity extends ComponentBase
     public function recentWorkers()
     {
         return WorkerModel::has('user.avatar')
+            ->applyVisible()
             ->with('user.avatar')
             ->orderBy('created_at', 'desc')
             ->limit(15)
