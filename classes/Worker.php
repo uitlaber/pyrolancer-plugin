@@ -86,6 +86,7 @@ class Worker
         $count = 0;
         for ($i = 0; $i < $loop; $i++) {
             $worker = WorkerModel::make()
+                ->applyVisible()
                 ->where('last_digest_at', '<', $start)
                 ->orWhereNull('last_digest_at')
                 ->first()
@@ -97,7 +98,7 @@ class Worker
 
                 $worker->last_digest_at = $now;
                 $worker->timestamps = false;
-                $worker->save();
+                $worker->forceSave();
             }
         }
 
@@ -138,7 +139,7 @@ class Worker
 
                 $client->last_digest_at = $now;
                 $client->timestamps = false;
-                $client->save();
+                $client->forceSave();
             }
         }
 
