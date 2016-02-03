@@ -121,7 +121,7 @@ class Project extends Model
     ];
 
     public $morphMany = [
-        // 'event_log'        => ['Ahoy\Pyrolancer\Models\UserEventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
+        'event_log'        => ['Ahoy\Pyrolancer\Models\UserEventLog', 'name' => 'related', 'delete' => true],
         'revision_history' => ['System\Models\Revision', 'name' => 'revisionable', 'delete' => true]
     ];
 

@@ -1,5 +1,6 @@
 <?php namespace Ahoy\Pyrolancer\Controllers;
 
+use Lang;
 use Flash;
 use Markdown;
 use Backend;
@@ -28,6 +29,36 @@ class Projects extends Controller
 
         BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'projects');
     }
+
+    public function listExtendQuery($query)
+    {
+        $query->withTrashed();
+    }
+
+    public function formExtendQuery($query)
+    {
+        $query->withTrashed();
+    }
+
+    /**
+     * Force delete a user.
+     */
+    public function update_onDelete($recordId = null)
+    {
+        $model = $this->formFindModelObject($recordId);
+
+        $model->forceDelete();
+
+        Flash::success(Lang::get('backend::lang.form.delete_success'));
+
+        if ($redirect = $this->makeRedirect('delete', $model)) {
+            return $redirect;
+        }
+    }
+
+    //
+    // Preview
+    //
 
     public function preview($recordId = null, $context = null)
     {
