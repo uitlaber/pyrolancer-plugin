@@ -24,6 +24,11 @@ tabs:
             type: textarea
             tab: Details
 
+        instructions:
+            label: Instructions
+            type: textarea
+            tab: Details
+
         #
         # Location
         #

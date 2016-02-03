@@ -31,6 +31,10 @@ fields:
         label: Description
         type: textarea
 
+    instructions:
+        label: Instructions
+        type: textarea
+
     #
     # Location
     #
