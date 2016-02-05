@@ -46,13 +46,29 @@ class Profile extends ComponentBase
 
     public function onRun()
     {
-        if ($this->property('isPrimaryWorker') && $user = $this->user()) {
-            $this->page->meta_title = $user->worker ? $user->worker->business_name : null;
+        $this->page->meta_title = $this->makePageTitle();
+    }
+
+    public function makePageTitle()
+    {
+        $title = $this->page->meta_title;
+
+        if (($user = $this->user()) && ($user->client || $user->worker)) {
+            $name = $user->worker ? $user->worker->business_name : $user->client->display_name;
+
+            if ($this->property('isPrimaryWorker')) {
+                $name = $user->worker ? $user->worker->business_name : null;
+            }
+            elseif ($this->property('isPrimaryClient')) {
+                $name = $user->client ? $user->client->display_name : null;
+            }
+
+            if (strpos($title, ':name') !== false) {
+                $title = strtr($title, [':name' => $name]);
+            }
         }
 
-        if ($this->property('isPrimaryClient') && $user = $this->user()) {
-            $this->page->meta_title = $user->client ? $user->client->display_name : null;
-        }
+        return $title;
     }
 
     //
