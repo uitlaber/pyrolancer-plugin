@@ -224,7 +224,8 @@ class SeoDirectory extends ComponentBase
             return $this->lookupObject(__FUNCTION__, function() use ($vicinity, $skill) {
                 $options = [
                     'skills' => $skill->id,
-                    'vicinities' => $vicinity->id,
+                    'latitude' => $vicinity->latitude,
+                    'longitude' => $vicinity->longitude,
                     'page' => input('page')
                 ];
 
