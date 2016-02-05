@@ -18,7 +18,7 @@ class Notifier
     {
         $skills = $project->skills()->lists('id');
 
-        $workers = WorkerModel::make()
+        $workers = WorkerModel::applyVisible()
             ->whereHas('skills', function($q) use ($skills) {
                 $q->whereIn('id', $skills);
             });

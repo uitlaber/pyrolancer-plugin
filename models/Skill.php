@@ -46,6 +46,10 @@ class Skill extends Model
         'category' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
     ];
 
+    public $belongsToMany = [
+        'workers' => ['Ahoy\Pyrolancer\Models\Worker', 'table' => 'ahoy_pyrolancer_workers_skills']
+    ];
+
     public function scopeApplyVisible($query)
     {
         return $query
