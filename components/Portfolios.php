@@ -165,4 +165,32 @@ class Portfolios extends ComponentBase
         }
     }
 
+    //
+    // Helpers
+    //
+
+    public function makePageTitle($options)
+    {
+        $code = [];
+        $code[] .= $this->param('category', 'any') != 'any' ? 'category' : null;
+        $code[] .= $this->param('vicinity', 'any') != 'any' ? 'vicinity' : null;
+        $code[] .= $this->param('budget', 'any') != 'any' ? 'budget' : null;
+        $code = (string) implode('|', array_filter($code));
+        $title = array_get($options, $code);
+
+        if (strpos($title, ':category') !== false && $this->filterCategory) {
+            $title = strtr($title, [':category' => $this->filterCategory->name]);
+        }
+
+        if (strpos($title, ':vicinity') !== false && $this->filterVicinity) {
+            $title = strtr($title, [':vicinity' => $this->filterVicinity->name]);
+        }
+
+        if (strpos($title, ':budget') !== false && $this->filterBudget) {
+            $title = strtr($title, [':budget' => $this->filterBudget->name]);
+        }
+
+        return $title;
+    }
+
 }
