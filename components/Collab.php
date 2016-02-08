@@ -336,18 +336,24 @@ class Collab extends ComponentBase
             throw new ApplicationException('Project not found!');
         }
 
-        if (!$this->canUpdateReview()) {
+        if (!$this->canReview()) {
             throw new ApplicationException('Action failed');
+        }
+
+        $isNewReview = $project->isOwner()
+            ? !$review->is_visible
+            : !$review->client_is_visible;
+
+        if (!$isNewReview && !$this->canUpdateReview()) {
+            throw new ApplicationException('Review time has expired');
         }
 
         if ($project->isOwner()) {
             // Review for worker
-            $isNewReview = !$review->is_visible;
             $review->completeWorkerReview(post('Review'));
         }
         else {
             // Review for client
-            $isNewReview = !$review->client_is_visible;
             $review->completeClientReview(post('Review'));
         }
 
