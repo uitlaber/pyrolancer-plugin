@@ -104,7 +104,7 @@ class Notifier
 
             $messages = $project->messages()->where('user_id', '<>', $client->user_id);
             if ($fromDate) {
-                $messages->where('created_at', '>', $fromDate);
+                $messages->where('ahoy_pyrolancer_project_messages.created_at', '>', $fromDate);
             }
             $messages = $messages->get();
 
@@ -112,7 +112,7 @@ class Notifier
 
                 $contacts = $project->applicants();
                 if ($fromDate) {
-                    $contacts->where('created_at', '>', $fromDate);
+                    $contacts->where('ahoy_pyrolancer_projects_applicants.created_at', '>', $fromDate);
                 }
                 $contacts = $contacts->get();
 
@@ -121,7 +121,7 @@ class Notifier
 
                 $contacts = $project->bids();
                 if ($fromDate) {
-                    $contacts->where('created_at', '>', $fromDate);
+                    $contacts->where('ahoy_pyrolancer_project_bids.created_at', '>', $fromDate);
                 }
                 $contacts = $contacts->get();
 
