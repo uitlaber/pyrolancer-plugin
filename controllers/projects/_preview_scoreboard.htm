@@ -1,7 +1,3 @@
-<?php
-    $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
-?>
-
 <div class="scoreboard-item title-value">
     <h4>Project</h4>
     <p title="<?= e($formModel->name) ?>"><?= e(Str::limit($formModel->name, 35)) ?></p>
@@ -22,12 +18,17 @@
         <?php endif ?>
     </div>
 <?php endif ?>
-<div class="scoreboard-item title-value">
-    <h4>Requested by</h4>
-    <p><?= $formModel->user->name ?></p>
-    <p class="description">
-        <a href="<?= $userLink ?>">
-            <?= $formModel->user->email ?>
-        </a>
-    </p>
-</div>
+<?php if ($formModel->user): ?>
+    <?php
+        $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
+    ?>
+    <div class="scoreboard-item title-value">
+        <h4>Requested by</h4>
+        <p><?= $formModel->user->name ?></p>
+        <p class="description">
+            <a href="<?= $userLink ?>">
+                <?= $formModel->user->email ?>
+            </a>
+        </p>
+    </div>
+<?php endif ?>
