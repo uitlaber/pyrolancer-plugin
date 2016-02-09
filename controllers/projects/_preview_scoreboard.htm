@@ -1,3 +1,12 @@
+<?php if ($formModel->project_type): ?>
+    <div class="scoreboard-item title-value">
+        <h4>Type</h4>
+        <p><?= e($formModel->project_type->name) ?></p>
+        <p class="description">
+            Duration <?= $formModel->duration ?> days
+        </p>
+    </div>
+<?php endif ?>
 <div class="scoreboard-item title-value">
     <h4>Project</h4>
     <p title="<?= e($formModel->name) ?>"><?= e(Str::limit($formModel->name, 35)) ?></p>
