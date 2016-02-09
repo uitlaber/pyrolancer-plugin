@@ -18,7 +18,9 @@
     <div class="scoreboard-item title-value">
         <h4>Status</h4>
         <p><?= $formModel->status->name ?></p>
-        <?php if ($formModel->status->code == 'draft'): ?>
+        <?php if (!$formModel->user): ?>
+            <p class="description">User missing!</p>
+        <?php elseif ($formModel->status->code == 'pending'): ?>
             <p class="description">Needs approval</p>
         <?php elseif ($formModel->status->code == 'rejected'): ?>
             <p class="description">Waiting for a response</p>
