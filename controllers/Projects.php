@@ -40,6 +40,12 @@ class Projects extends Controller
         $query->withTrashed();
     }
 
+    public function formExtendModel($model)
+    {
+        $model->revisionsEnabled = false;
+        return $model;
+    }
+
     /**
      * Force delete a user.
      */
