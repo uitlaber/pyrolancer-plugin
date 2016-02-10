@@ -129,7 +129,7 @@ class ProjectBid extends Model
                 return $this->fixed_rate;
             }
             else {
-                return $this->hourly_rate * $this->hourly_hours;
+                return $this->hourly_rate * max($this->hourly_hours, 1);
             }
         }
         catch (Exception $ex) {
