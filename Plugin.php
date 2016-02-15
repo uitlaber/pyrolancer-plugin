@@ -29,7 +29,7 @@ class Plugin extends PluginBase
         return [
             'name'        => 'Pyrolancer',
             'description' => 'No description provided yet...',
-            'author'      => 'Scripts Ahoy',
+            'author'      => 'Scripts Ahoy!',
             'icon'        => 'icon-fire'
         ];
     }
