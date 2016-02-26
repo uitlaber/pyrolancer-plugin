@@ -1,13 +1,13 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Str;
-use Model;
+use ActivRecord;
 use Session;
 
 /**
  * Favorite Model
  */
-class Favorite extends Model
+class Favorite extends ActivRecord
 {
 
     const SESSION_KEY = 'ahoy.pyrolancer.favorites';

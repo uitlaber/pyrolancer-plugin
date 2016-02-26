@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 
 /**
  * Project Category Model
  */
-class ProjectCategory extends Model
+class ProjectCategory extends ActivRecord
 {
 
     use \October\Rain\Database\Traits\Sortable;

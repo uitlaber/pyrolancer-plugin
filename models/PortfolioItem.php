@@ -1,13 +1,13 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 use Markdown;
 use ValidationException;
 
 /**
  * PortfolioItem Model
  */
-class PortfolioItem extends Model
+class PortfolioItem extends ActivRecord
 {
 
     const TYPE_IMAGE = 'image';

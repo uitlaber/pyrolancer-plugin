@@ -1,9 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Backend\Models\UserGroup;
-use Model;
+use ActivRecord;
 
-class Settings extends Model
+class Settings extends ActivRecord
 {
     public $implement = ['System.Behaviors.SettingsModel'];
 

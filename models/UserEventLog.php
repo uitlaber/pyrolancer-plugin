@@ -1,12 +1,12 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 use Ahoy\Pyrolancer\Classes\EventLogCollection;
 
 /**
  * A log of user events
  */
-class UserEventLog extends Model
+class UserEventLog extends ActivRecord
 {
     use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\SoftDelete;

@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 
 /**
  * Vicinity Model
  */
-class Vicinity extends Model
+class Vicinity extends ActivRecord
 {
     use \Ahoy\Pyrolancer\Traits\GeoModel;
     use \October\Rain\Database\Traits\Sluggable;

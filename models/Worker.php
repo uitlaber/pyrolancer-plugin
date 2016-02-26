@@ -2,14 +2,14 @@
 
 use Url;
 use Auth;
-use Model;
 use Markdown;
+use ActivRecord;
 use Ahoy\Pyrolancer\Classes\Usher;
 
 /**
  * Worker Model
  */
-class Worker extends Model
+class Worker extends ActivRecord
 {
 
     use \Ahoy\Traits\UrlMaker;

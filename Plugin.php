@@ -10,6 +10,7 @@ use RainLab\Location\Models\State as StateModel;
 use RainLab\Location\Models\Country as CountryModel;
 use Ahoy\Pyrolancer\Models\UserEventLog;
 use Ahoy\Pyrolancer\Classes\Worker as JobWorker;
+use Exception;
 
 /**
  * Pyrolancer Plugin Information File
@@ -41,6 +42,8 @@ class Plugin extends PluginBase
 
     public function boot()
     {
+        $this->checkAhoy();
+
         UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker', 'delete' => true, 'softDelete' => true];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client', 'delete' => true, 'softDelete' => true];
@@ -196,5 +199,12 @@ class Plugin extends PluginBase
         $schedule->call(function(){
             JobWorker::instance()->process();
         })->everyFiveMinutes();
+    }
+
+    protected function checkAhoy()
+    {
+        if (!class_exists('Ahoy')) {
+            throw new Exception('Pyrolancer package cannot boot with Ahoy module.');
+        }
     }
 }

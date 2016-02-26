@@ -3,7 +3,7 @@
 use Db;
 use App;
 use Auth;
-use Model;
+use ActivRecord;
 use Backend;
 use BackendAuth;
 use Cms\Classes\Page as CmsPage;
@@ -13,7 +13,7 @@ use Markdown;
 /**
  * Project Model
  */
-class Project extends Model
+class Project extends ActivRecord
 {
 
     const STATUS_DRAFT = 'draft';

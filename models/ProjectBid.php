@@ -1,7 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Auth;
-use Model;
+use ActivRecord;
 use ApplicationException;
 use Ahoy\Pyrolancer\Models\Attribute;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
@@ -11,7 +11,7 @@ use Exception;
 /**
  * ProjectBid Model
  */
-class ProjectBid extends Model
+class ProjectBid extends ActivRecord
 {
 
     use \Ahoy\Traits\ModelUtils;

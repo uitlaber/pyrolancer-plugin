@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 
 /**
  * Client Model
  */
-class Client extends Model
+class Client extends ActivRecord
 {
     use \Ahoy\Traits\UrlMaker;
     use \Ahoy\Traits\GeneralUtils;

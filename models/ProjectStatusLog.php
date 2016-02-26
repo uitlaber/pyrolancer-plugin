@@ -1,7 +1,7 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Mail;
-use Model;
+use ActivRecord;
 use Queue;
 use Markdown;
 use Cms\Classes\Theme;
@@ -13,7 +13,7 @@ use Ahoy\Pyrolancer\Classes\Usher;
 /**
  * A log of project moderation events
  */
-class ProjectStatusLog extends Model
+class ProjectStatusLog extends ActivRecord
 {
     public $table = 'ahoy_pyrolancer_project_status_log';
 

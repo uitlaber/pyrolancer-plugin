@@ -1,13 +1,13 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Auth;
-use Model;
+use ActivRecord;
 use Markdown;
 
 /**
  * ProjectMessage Model
  */
-class ProjectMessage extends Model
+class ProjectMessage extends ActivRecord
 {
     use \Ahoy\Traits\ModelUtils;
     use \October\Rain\Database\Traits\SimpleTree;

@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 
 /**
  * Portfolio Model
  */
-class Portfolio extends Model
+class Portfolio extends ActivRecord
 {
 
     use \Ahoy\Traits\ModelUtils;

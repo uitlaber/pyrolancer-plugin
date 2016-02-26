@@ -1,12 +1,12 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
 use Str;
-use Model;
+use ActivRecord;
 
 /**
  * WorkerReview Model
  */
-class WorkerReview extends Model
+class WorkerReview extends ActivRecord
 {
 
     use \October\Rain\Database\Traits\Validation;

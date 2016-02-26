@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Models;
 
-use Model;
+use ActivRecord;
 
 /**
  * Skill Model
  */
-class Skill extends Model
+class Skill extends ActivRecord
 {
 
     use \October\Rain\Database\Traits\Sluggable;
