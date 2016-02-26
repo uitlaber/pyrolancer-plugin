@@ -12,10 +12,10 @@ use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
 use Ahoy\Pyrolancer\Models\ProjectCategory;
 use Cms\Classes\Page;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use ApplicationException;
 
-class ProjectSubmit extends ComponentBase
+class ProjectSubmit extends ActivComponent
 {
 
     public $project;

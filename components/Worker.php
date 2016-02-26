@@ -1,9 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 
-class Worker extends ComponentBase
+class Worker extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

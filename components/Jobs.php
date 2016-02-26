@@ -2,14 +2,14 @@
 
 use Auth;
 use Request;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
 use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
 
-class Jobs extends ComponentBase
+class Jobs extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

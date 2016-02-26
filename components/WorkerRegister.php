@@ -3,14 +3,14 @@
 use Auth;
 use Redirect;
 use Cms\Classes\Page;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use ApplicationException;
 
-class WorkerRegister extends ComponentBase
+class WorkerRegister extends ActivComponent
 {
 
     use \Ahoy\Traits\ComponentUtils;

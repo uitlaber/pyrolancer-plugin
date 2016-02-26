@@ -3,7 +3,7 @@
 use Auth;
 use Redirect;
 use Cms\Classes\Page;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use RainLab\Location\Models\State;
 use RainLab\Location\Models\Country;
 use Ahoy\Pyrolancer\Models\Skill;
@@ -12,7 +12,7 @@ use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\WorkerReview;
 use ApplicationException;
 
-class WorkerManage extends ComponentBase
+class WorkerManage extends ActivComponent
 {
 
     use \Ahoy\Traits\ComponentUtils;

@@ -6,10 +6,10 @@ use ValidationException;
 use ApplicationException;
 use Backend\Models\UserGroup;
 use Cms\Classes\Theme;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
 
-class ContactForm extends ComponentBase
+class ContactForm extends ActivComponent
 {
 
     public function componentDetails()

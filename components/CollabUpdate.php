@@ -7,14 +7,14 @@ use Request;
 use Redirect;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use System\Models\File as FileModel;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
 use ApplicationException;
 use Exception;
 
-class CollabUpdate extends ComponentBase
+class CollabUpdate extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

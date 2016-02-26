@@ -6,14 +6,14 @@ use Input;
 use Redirect;
 use Validator;
 use Cms\Classes\Theme;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage;
 use Ahoy\Pyrolancer\Models\ProjectBid;
 use ValidationException;
 use ApplicationException;
 
-class Project extends ComponentBase
+class Project extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

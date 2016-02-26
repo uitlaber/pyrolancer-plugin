@@ -6,14 +6,14 @@ use Redirect;
 use Validator;
 use Carbon\Carbon;
 use Cms\Classes\Theme;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
 use Ahoy\Pyrolancer\Models\WorkerReview;
 use ApplicationException;
 use Exception;
 
-class Collab extends ComponentBase
+class Collab extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

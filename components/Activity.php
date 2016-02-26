@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use October\Rain\Database\DataFeed;
 use Ahoy\Pyrolancer\Models\UserEventLog;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 
-class Activity extends ComponentBase
+class Activity extends ActivComponent
 {
 
     public function componentDetails()

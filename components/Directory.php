@@ -7,10 +7,10 @@ use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
 use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use ApplicationException;
 
-class Directory extends ComponentBase
+class Directory extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

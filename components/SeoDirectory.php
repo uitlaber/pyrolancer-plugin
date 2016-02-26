@@ -1,13 +1,13 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use RainLab\Location\Models\State as StateModel;
 use RainLab\Location\Models\Country as CountryModel;
 use Ahoy\Pyrolancer\Models\Skill as SkillModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 
-class SeoDirectory extends ComponentBase
+class SeoDirectory extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

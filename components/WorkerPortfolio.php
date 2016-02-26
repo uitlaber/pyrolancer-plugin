@@ -2,12 +2,12 @@
 
 use Redirect;
 use Cms\Classes\Page;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
 use Ahoy\Pyrolancer\Models\PortfolioItem;
 
-class WorkerPortfolio extends ComponentBase
+class WorkerPortfolio extends ActivComponent
 {
 
     use \Ahoy\Traits\ComponentUtils;

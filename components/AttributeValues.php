@@ -1,9 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Attribute;
 
-class AttributeValues extends ComponentBase
+class AttributeValues extends ActivComponent
 {
 
     public function componentDetails()

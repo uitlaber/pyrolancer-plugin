@@ -1,12 +1,13 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\WorkerReview;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use RainLab\User\Models\User as UserModel;
 
-class Profile extends ComponentBase
+class Profile extends ActivComponent
 {
+    use \ActivTrait;
     use \Ahoy\Traits\GeneralUtils;
     use \Ahoy\Traits\ComponentUtils;
 

@@ -1,11 +1,11 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
 use Auth;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use RainLab\User\Models\MailBlocker;
 use ApplicationException;
 
-class Account extends ComponentBase
+class Account extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

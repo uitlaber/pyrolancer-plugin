@@ -7,9 +7,9 @@ use Cms\Classes\Page;
 use Cms\Classes\Theme;
 use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 use Ahoy\Pyrolancer\Models\WorkerReview;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 
-class WorkerTestimonial extends ComponentBase
+class WorkerTestimonial extends ActivComponent
 {
 
     use \Ahoy\Traits\ComponentUtils;

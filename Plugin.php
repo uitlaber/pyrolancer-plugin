@@ -42,7 +42,9 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        $this->checkAhoy();
+        if (!class_exists('Ahoy')) {
+            throw new Exception('Pyrolancer package cannot boot without the Ahoy module.');
+        }
 
         UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker', 'delete' => true, 'softDelete' => true];
@@ -199,12 +201,5 @@ class Plugin extends PluginBase
         $schedule->call(function(){
             JobWorker::instance()->process();
         })->everyFiveMinutes();
-    }
-
-    protected function checkAhoy()
-    {
-        if (!class_exists('Ahoy')) {
-            throw new Exception('Pyrolancer package cannot boot with Ahoy module.');
-        }
     }
 }

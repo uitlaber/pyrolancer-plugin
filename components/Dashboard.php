@@ -6,9 +6,9 @@ use Ahoy\Pyrolancer\Models\UserEventLog;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
 use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 
-class Dashboard extends ComponentBase
+class Dashboard extends ActivComponent
 {
 
     use \Ahoy\Traits\ComponentUtils;

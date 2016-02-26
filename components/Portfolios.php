@@ -7,9 +7,9 @@ use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
 use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
 use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
 use Ahoy\Pyrolancer\Models\SkillCategory;
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 
-class Portfolios extends ComponentBase
+class Portfolios extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
 

@@ -1,9 +1,9 @@
 <?php namespace Ahoy\Pyrolancer\Components;
 
-use Cms\Classes\ComponentBase;
+use ActivComponent;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
-class ClientProjects extends ComponentBase
+class ClientProjects extends ActivComponent
 {
 
     use \Ahoy\Traits\ComponentUtils;
