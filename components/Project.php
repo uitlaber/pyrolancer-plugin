@@ -442,7 +442,7 @@ class Project extends ComponentBase
          */
         $mode = post('mode', 'edit');
         if ($mode == 'save') {
-            $message->save(post());
+            $message->sav(post());
         }
         elseif ($mode == 'delete') {
             $message->delete();
