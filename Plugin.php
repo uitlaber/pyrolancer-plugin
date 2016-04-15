@@ -42,10 +42,6 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        if (!class_exists('Ahoy')) {
-            throw new Exception('Pyrolancer package cannot boot without the Ahoy module.');
-        }
-
         UserModel::extend(function($model) {
             $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker', 'delete' => true, 'softDelete' => true];
             $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client', 'delete' => true, 'softDelete' => true];
@@ -92,7 +88,6 @@ class Plugin extends PluginBase
                 ]
             ]);
         });
-
     }
 
     public function registerNavigation()
