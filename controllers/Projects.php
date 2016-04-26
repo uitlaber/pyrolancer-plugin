@@ -5,13 +5,13 @@ use Flash;
 use Markdown;
 use Backend;
 use BackendMenu;
-use Backend\Classes\Controller;
+use ActivController;
 use Ahoy\Pyrolancer\Models\Project as ProjectModel;
 
 /**
  * Projects Back-end Controller
  */
-class Projects extends Controller
+class Projects extends ActivController
 {
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -23,8 +23,17 @@ class Projects extends Controller
     public $listConfig = 'config_list.yaml';
     public $relationConfig = 'config_relation.yaml';
 
+    protected $actionAssets = [
+        'preview' => [
+            '/plugins/ahoy/pyrolancer/assets/css/pyrolancer.css',
+            '/plugins/ahoy/pyrolancer/assets/js/project-preview.js',
+        ]
+    ];
+
     public function __construct()
     {
+        $this->suppressView = true;
+
         parent::__construct();
 
         BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'projects');
@@ -73,8 +82,6 @@ class Projects extends Controller
             return $result;
         }
 
-        $this->addcss('/plugins/ahoy/pyrolancer/assets/css/pyrolancer.css');
-        $this->addJs('/plugins/ahoy/pyrolancer/assets/js/project-preview.js');
         return $result;
     }
 
