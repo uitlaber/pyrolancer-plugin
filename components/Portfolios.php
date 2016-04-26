@@ -53,6 +53,7 @@ class Portfolios extends ActivComponent
 
         return $this->lookupObject(__FUNCTION__, function() use ($options) {
             return WorkerModel::with('portfolio')
+                ->with('user')
                 ->applyVisible()
                 ->applyPortfolio()
                 ->listFrontEnd($options + ['sort' => 'updated_at desc'])
@@ -175,7 +176,8 @@ class Portfolios extends ActivComponent
         $code[] .= $this->param('category', 'any') != 'any' ? 'category' : null;
         $code[] .= $this->param('vicinity', 'any') != 'any' ? 'vicinity' : null;
         $code[] .= $this->param('budget', 'any') != 'any' ? 'budget' : null;
-        $code = (string) implode('|', array_filter($code));
+        $code = implode(':', array_filter($code)) ?: 'default';
+
         $title = array_get($options, $code);
 
         if (strpos($title, ':category') !== false && $this->filterCategory) {

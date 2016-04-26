@@ -47,5 +47,4 @@ class Worker extends ActivComponent
         });
     }
 
-
 }

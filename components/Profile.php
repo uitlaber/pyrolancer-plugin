@@ -45,14 +45,9 @@ class Profile extends ActivComponent
         ];
     }
 
-    public function onRun()
+    public function makePageTitle($options)
     {
-        $this->page->meta_title = $this->makePageTitle();
-    }
-
-    public function makePageTitle()
-    {
-        $title = $this->page->meta_title;
+        $title = array_get($options, 'default');
 
         if (($user = $this->user()) && ($user->client || $user->worker)) {
             $name = $user->worker ? $user->worker->business_name : $user->client->display_name;
