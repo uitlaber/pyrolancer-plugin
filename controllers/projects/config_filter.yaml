@@ -1,0 +1,31 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+scopes:
+
+    status:
+
+        # Filter name
+        label: Status
+
+        # Model Class name
+        modelClass: Ahoy\Pyrolancer\Models\Attribute
+
+        # SQL Conditions
+        conditions: status_id in (:filtered)
+
+        # Available options
+        options: listProjectStatuses
+
+    published:
+
+        # Filter name
+        label: Approved
+
+        # Filter type
+        type: switch
+
+        # SQL Conditions
+        conditions:
+            - is_approved <> '1'
+            - is_approved = '1'

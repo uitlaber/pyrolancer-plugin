@@ -9,8 +9,8 @@
         <a
             href="javascript:;"
             data-request="onApprove"
-            data-request-confirm="Are you sure you want to approve this project?"
-            class="btn btn-default btn-success oc-icon-check-circle"
+            data-request-confirm="Approve this project?"
+            class="btn btn-success oc-icon-check-circle"
             data-stripe-load-indicator>
             Approve
         </a>
@@ -19,8 +19,16 @@
             data-control="popup"
             data-size="large"
             data-handler="onLoadRejectForm"
-            class="btn btn-default btn-danger oc-icon-ban">
+            class="btn btn-danger oc-icon-ban">
             Reject
         </a>
+        <a
+            href="javascript:;"
+            data-request="onFlagSpam"
+            data-request-confirm="Flag this project as spam? It will ban the user and delete the project."
+            class="btn btn-warning oc-icon-exclamation-triangle">
+            Spam
+        </a>
     </div>
+
 <?php endif ?>

@@ -115,6 +115,17 @@ class Projects extends ActivController
         }
     }
 
+    public function preview_onFlagSpam($recordId = null)
+    {
+        $model = $this->formFindModelObject($recordId);
+        $model->user->ban();
+        $model->delete();
+
+        Flash::success('Project marked as spam.');
+
+        return $this->redirectToNextUnapprovedProject();
+    }
+
     public function preview_onRefreshConversationPreview()
     {
         $previewHtml = Markdown::parse(trim(post('reason')));

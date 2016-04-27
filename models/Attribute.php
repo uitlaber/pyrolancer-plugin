@@ -85,6 +85,11 @@ class Attribute extends ActivRecord
         return self::$codeCache[$type] = $records;
     }
 
+    public function listProjectStatuses()
+    {
+        return self::listType(self::PROJECT_STATUS)->lists('name', 'id');
+    }
+
     /**
      * Returning the code is more useful than returning JSON.
      */
