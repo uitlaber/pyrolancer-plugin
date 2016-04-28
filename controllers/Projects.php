@@ -23,7 +23,7 @@ class Projects extends ActivController
     public $listConfig = 'config_list.yaml';
     public $relationConfig = 'config_relation.yaml';
 
-    protected $actionAssets = [
+    public $actionAssets = [
         'preview' => [
             '/plugins/ahoy/pyrolancer/assets/css/pyrolancer.css',
             '/plugins/ahoy/pyrolancer/assets/js/project-preview.js',
