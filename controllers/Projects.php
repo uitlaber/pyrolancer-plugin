@@ -119,7 +119,7 @@ class Projects extends ActivController
     {
         $model = $this->formFindModelObject($recordId);
         $model->user->ban();
-        $model->delete();
+        $model->forceDelete();
 
         Flash::success('Project marked as spam.');
 
