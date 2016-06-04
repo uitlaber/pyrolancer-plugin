@@ -14,6 +14,10 @@ class Settings extends ActivRecord
     {
         $this->notify_admin_group = UserGroup::DEFAULT_CODE;
         $this->auto_approve_projects = false;
+        $this->allow_project_featured = true;
+        $this->allow_project_private = true;
+        $this->allow_project_urgent = true;
+        $this->allow_project_sealed = true;
     }
 
     public function getNotifyAdminGroupOptions()

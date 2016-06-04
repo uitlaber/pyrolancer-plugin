@@ -4,15 +4,50 @@
 
 tabs:
     fields:
-
-        notify_admin_group:
-            span: auto
-            label: Notification group
-            comment: Select the administration group to notify about site activity, such as approval notifications.
-            type: dropdown
-
         auto_approve_projects:
+            tab: Projects
             span: auto
             label: Automatic approval
             comment: Switch this on to automatically approve projects.
             type: switch
+
+        project_options:
+            tab: Projects
+            type: section
+            label: Project options
+            comment: Allow these options to be selected for a project.
+
+        allow_project_featured:
+            span: auto
+            tab: Projects
+            label: Featured
+            type: checkbox
+            comment: Place the project above all other non-featured projects.
+
+        allow_project_private:
+            span: auto
+            tab: Projects
+            label: Private
+            type: checkbox
+            comment: Only allow registered members to see the project.
+
+        allow_project_urgent:
+            span: auto
+            tab: Projects
+            label: Urgent
+            type: checkbox
+            comment: Notify freelancers about the project immediately.
+
+        allow_project_sealed:
+            span: auto
+            tab: Projects
+            label: Sealed
+            type: checkbox
+            comment: Hide bids so freelancers do not know the amount of other bids.
+
+        notify_admin_group:
+            tab: Notifications
+            span: auto
+            label: Notification group
+            comment: Select the administration group to notify about site activity, such as approval notifications.
+            type: dropdown

@@ -57,7 +57,17 @@ class ProjectSubmit extends ActivComponent
             ProjectData::reset();
         }
 
-        $this->project = $this->getProject();
+        $this->project = $project = $this->getProject();
+
+        if ($project) {
+            $this->page['allowProjectFeatured'] = SettingsModel::get('allow_project_featured', true);
+            $this->page['allowProjectPrivate'] = SettingsModel::get('allow_project_private', true);
+            $this->page['allowProjectUrgent'] = SettingsModel::get('allow_project_urgent', true);
+            $this->page['allowProjectSealed'] = (
+                SettingsModel::get('allow_project_sealed', true) &&
+                $project->project_type && $project->project_type->code == 'auction'
+            );
+        }
 
         /*
          * Redirect away when editing a request that does not exist

@@ -14,7 +14,7 @@ class SeedTables extends Seeder
             UserGroup::create([
                 'name' => 'Managers',
                 'code' => 'managers',
-                'description' => 'Managers receive notifications about site activity',
+                'description' => 'Managers receive notifications about site activity.',
                 'is_new_user_default' => true
             ]);
         }
