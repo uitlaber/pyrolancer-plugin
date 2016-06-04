@@ -88,6 +88,11 @@ class Plugin extends PluginBase
                 ]
             ]);
         });
+
+        $theme = Theme::getActiveTheme();
+        if ($theme->hasCustomData()) {
+            View::share('site_name', $theme->site_name);
+        }
     }
 
     public function registerNavigation()
@@ -174,6 +179,7 @@ class Plugin extends PluginBase
             'ahoy.pyrolancer::mail.collab-terminated' => "Someone terminated the project collaboration.",
             'ahoy.pyrolancer::mail.collab-complete' => "Someone marked the project collaboration as complete.",
             'ahoy.pyrolancer::mail.collab-review' => "Sent to the user when a review is left about them.",
+            'ahoy.pyrolancer::mail.profile-contact' => "Sent to the user when a message is sent from their profile.",
         ];
     }
 

@@ -10,6 +10,7 @@ class Profile extends ActivComponent
     use \ActivTrait;
     use \Ahoy\Traits\GeneralUtils;
     use \Ahoy\Traits\ComponentUtils;
+    use \Ahoy\Pyrolancer\Traits\ProfileContactComponent;
 
     public function componentDetails()
     {
@@ -65,6 +66,11 @@ class Profile extends ActivComponent
         }
 
         return $title;
+    }
+
+    protected function getProfileContactUser()
+    {
+        return $this->user();
     }
 
     //

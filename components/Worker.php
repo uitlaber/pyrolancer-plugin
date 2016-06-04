@@ -6,6 +6,7 @@ use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
 class Worker extends ActivComponent
 {
     use \Ahoy\Traits\ComponentUtils;
+    use \Ahoy\Pyrolancer\Traits\ProfileContactComponent;
 
     public function componentDetails()
     {
@@ -34,6 +35,12 @@ class Worker extends ActivComponent
                 ? str_replace('%s', $worker->business_name, $this->page->meta_title)
                 : $worker->business_name;
         }
+    }
+
+    protected function getProfileContactUser()
+    {
+        $worker = $this->worker();
+        return $worker && $worker->user ? $worker->user : null;
     }
 
     //
