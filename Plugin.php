@@ -97,6 +97,7 @@ class Plugin extends PluginBase
                 'label'       => 'Freelance',
                 'url'         => Backend::url('ahoy/pyrolancer/projects'),
                 'icon'        => 'icon-briefcase',
+                'iconSvg'     => 'plugins/ahoy/pyrolancer/assets/images/briefcase-icon.svg',
                 'permissions' => ['blog.*'],
                 'order'       => 10,
 
