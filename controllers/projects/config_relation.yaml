@@ -10,3 +10,12 @@ bids:
         showSearch: true
         recordsPerPage: 25
         toolbarPartial: bids_toolbar
+
+messages:
+    label: Message
+    list: ~/plugins/ahoy/pyrolancer/models/projectmessage/columns.yaml
+    form: ~/plugins/ahoy/pyrolancer/models/projectmessage/fields.yaml
+    view:
+        showSearch: true
+        recordsPerPage: 25
+        toolbarPartial: messages_toolbar
