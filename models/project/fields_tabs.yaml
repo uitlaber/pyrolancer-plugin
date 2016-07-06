@@ -185,3 +185,43 @@ tabs:
             label: Skills
             type: relation
             tab: Skills
+
+        #
+        # Options
+        #
+
+        is_featured:
+            label: Featured
+            comment: Project appears as featured.
+            span: auto
+            type: checkbox
+            tab: Options
+
+        is_urgent:
+            label: Urgent
+            comment: Project appears as urgent, email notitications sent immediately.
+            span: auto
+            type: checkbox
+            tab: Options
+
+        is_sealed:
+            label: Sealed
+            comment: Bids and contacts are hidden from other users.
+            span: auto
+            type: checkbox
+            tab: Options
+
+        is_private:
+            label: Private
+            comment: Project can only be viewed by registered users.
+            span: auto
+            type: checkbox
+            tab: Options
+
+        is_hidden:
+            label: Hidden
+            comment: Project does not appear in the main list of projects.
+            span: auto
+            type: checkbox
+            tab: Options
+

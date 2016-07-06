@@ -31,6 +31,7 @@ class CreateProjectsTable extends Migration
             $table->boolean('is_urgent')->default(false);
             $table->boolean('is_sealed')->default(false);
             $table->boolean('is_private')->default(false);
+            $table->boolean('is_hidden')->default(false);
 
             // Stats
             $table->integer('count_bids')->default(0);

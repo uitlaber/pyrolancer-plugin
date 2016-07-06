@@ -56,7 +56,7 @@ class Projects extends ActivController
     }
 
     /**
-     * Force delete a user.
+     * Force delete a project.
      */
     public function update_onDelete($recordId = null)
     {

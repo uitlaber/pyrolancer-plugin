@@ -336,14 +336,16 @@ class Project extends ActivRecord
 
     public function scopeApplyVisible($query)
     {
-        return $query->where('is_approved', true);
+        return $query
+            ->where('is_approved', 1)
+            ->where('is_hidden', '<>', 1);
     }
 
     public function scopeApplyActive($query)
     {
         return $query
-            ->where('is_active', true)
-            ->where('is_approved', true)
+            ->where('is_active', 1)
+            ->where('is_approved', 1)
         ;
     }
 
