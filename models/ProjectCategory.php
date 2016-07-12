@@ -54,4 +54,17 @@ class ProjectCategory extends ActivRecord
         ;
     }
 
+    public function beforeDelete()
+    {
+        /*
+         * Clean up child categories
+         */
+        $children = $this->children;
+        if ($children && $children->count()) {
+            $children->each(function($child) {
+                $child->delete();
+            });
+        }
+    }
+
 }

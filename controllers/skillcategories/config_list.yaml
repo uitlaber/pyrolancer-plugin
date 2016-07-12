@@ -27,7 +27,7 @@ showSetup: true
 # showSorting: true
 
 # Display checkboxes next to each record
-# showCheckboxes: true
+showCheckboxes: true
 
 # Show tree
 showTree: true
