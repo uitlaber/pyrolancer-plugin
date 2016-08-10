@@ -29,7 +29,7 @@ class Plugin extends PluginBase
     {
         return [
             'name'        => 'Pyrolancer',
-            'description' => 'No description provided yet...',
+            'description' => 'A service based marketplace for online workers.',
             'author'      => 'Scripts Ahoy!',
             'icon'        => 'icon-fire'
         ];
