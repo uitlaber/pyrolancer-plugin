@@ -183,7 +183,8 @@ tabs:
 
         skills:
             label: Skills
-            type: relation
+            type: taglist
+            mode: relation
             tab: Skills
 
         #
