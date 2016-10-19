@@ -3,6 +3,16 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    is_visible:
+        label: Visible
+        type: switch
+        width: 100px
+    
+    is_testimonial:
+        label: Testimonial
+        type: switch
+        width: 100px
+
+    comment:
+        label: Comment
         searchable: true

@@ -7,50 +7,38 @@
 
 <?php if (!$this->fatalError): ?>
 
-    <?php
-        $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
-    ?>
-
     <div class="scoreboard">
         <div data-control="toolbar">
-            <div class="scoreboard-item icon">
-                <a href="<?= $userLink ?>">
-                    <?php if ($formModel->user->avatar): ?>
-                        <img src="<?= $formModel->user->avatar->getThumb(64, 64, ['extension' => 'png', 'mode' => 'crop']) ?>">
-                    <?php else: ?>
-                        <img src="<?= URL::to('/plugins/rainlab/user/assets/images/no-user-avatar.png') ?>">
-                    <?php endif ?>
-                </a>
-            </div>
-            <div class="scoreboard-item title-value">
-                <h4>User</h4>
-                <p><?= $formModel->user->name ?></p>
-                <p class="description">
-                    <a href="<?= $userLink ?>">
-                        <?= $formModel->user->email ?>
-                    </a>
-                </p>
-            </div>
-            <div class="scoreboard-item control-chart" data-control="chart-pie">
-                <ul>
-                    <li data-color="#95b753">Wins <span>84</span></li>
-                    <li data-color="#e5a91a">Bids <span>12</span></li>
-                </ul>
-            </div>
+            <?= $this->makePartial('preview_scoreboard') ?>
         </div>
     </div>
 
-    <div class="layout-item stretch layout-column form-preview">
-
-        <a href="<?= Backend::url('ahoy/pyrolancer/workers/update/'.$formModel->id) ?>" class="btn btn-primary pull-right">
-            <i class="icon-pencil"></i>
-            Update details
-        </a>
-
-        <?= $this->formRenderPreview() ?>
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <?= $this->makePartial('preview_toolbar') ?>
+        </div>
     </div>
 
-    <?= $this->relationRender('skills') ?>
+    <div class="control-tabs content-tabs tabs-inset" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#workerDetails">Details</a></li>
+            <li><a href="#workerSkills">Skills</a></li>
+            <li><a href="#workerReviews">Reviews</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane pane-inset active">
+                <div class="padded-container">
+                    <?= $this->formRenderPreview() ?>
+                </div>
+            </div>
+            <div class="tab-pane pane-inset">
+                <?= $this->relationRender('skills') ?>
+            </div>
+            <div class="tab-pane pane-inset">
+                <?= $this->relationRender('reviews') ?>
+            </div>
+        </div>
+    </div>
 
 <?php else: ?>
 

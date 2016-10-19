@@ -3,6 +3,73 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+
+    is_testimonial:
+        span: auto
+        label: Testimonial
+        type: checkbox
+        comment: This is an off-site testimonial initiated by the worker.
+
+    is_recommend:
+        span: auto
+        label: Recommend
+        type: checkbox
+        comment: The client would recommend this worker for future jobs.
+
+tabs:
+    fields:
+
+        is_visible:
+            tab: Worker
+            label: Visible
+            comment: The worker rating is visible on the front-end.
+            type: checkbox
+
+        breakdown[quality]:
+            label: Quality
+            tab: Worker
+            span: auto
+            comment: How would you rate the quality of their work?
+
+        breakdown[technical]:
+            label: Technical
+            tab: Worker
+            span: auto
+            comment: How would you rate their technical ability?
+
+        breakdown[communication]:
+            label: Communication
+            tab: Worker
+            span: auto
+            comment: How would you rate their communication skills?
+
+        rating:
+            tab: Worker
+            label: Total Rating
+            type: number
+            span: auto
+            comment: Total rating is out of 5 stars.
+
+        comment:
+            tab: Worker
+            label: Comment
+            type: textarea
+            size: small
+
+        client_is_visible:
+            tab: Client
+            label: Visible
+            comment: The client rating is visible on the front-end.
+            type: checkbox
+
+        client_rating:
+            tab: Client
+            label: Rating
+            type: number
+            comment: Total rating is out of 5 stars.
+
+        client_comment:
+            tab: Client
+            label: Comment
+            type: textarea
+            size: small

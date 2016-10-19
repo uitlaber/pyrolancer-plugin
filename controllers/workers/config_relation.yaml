@@ -3,9 +3,19 @@
 # ===================================
 
 skills:
-    label: Skills
+    label: Skill
     list: ~/plugins/ahoy/pyrolancer/models/skill/columns.yaml
     form: ~/plugins/ahoy/pyrolancer/models/skill/fields.yaml
+    manage:
+        showSearch: true
+        recordsPerPage: 10
+
+reviews:
+    label: Review
+    list: ~/plugins/ahoy/pyrolancer/models/workerreview/columns.yaml
+    form: ~/plugins/ahoy/pyrolancer/models/workerreview/fields.yaml
+    view:
+        toolbarButtons: delete
     manage:
         showSearch: true
         recordsPerPage: 10
