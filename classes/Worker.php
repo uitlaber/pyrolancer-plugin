@@ -87,8 +87,10 @@ class Worker
         for ($i = 0; $i < $loop; $i++) {
             $worker = WorkerModel::make()
                 ->applyVisible()
-                ->where('last_digest_at', '<', $start)
-                ->orWhereNull('last_digest_at')
+                ->where(function($q) use ($start) {
+                    $q->where('last_digest_at', '<', $start);
+                    $q->orWhereNull('last_digest_at');
+                })
                 ->first()
             ;
 
@@ -128,8 +130,10 @@ class Worker
         $count = 0;
         for ($i = 0; $i < $loop; $i++) {
             $client = ClientModel::make()
-                ->where('last_digest_at', '<', $start)
-                ->orWhereNull('last_digest_at')
+                ->where(function($q) use ($start) {
+                    $q->where('last_digest_at', '<', $start);
+                    $q->orWhereNull('last_digest_at');
+                })
                 ->first()
             ;
 
