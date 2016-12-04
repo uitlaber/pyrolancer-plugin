@@ -1,0 +1,31 @@
+<?php
+    $userLink = Backend::url('rainlab/user/users/update/'.$formModel->user->id);
+?>
+
+<div class="scoreboard-item icon">
+    <a href="<?= $userLink ?>">
+        <?php if ($formModel->user->avatar): ?>
+            <img src="<?= $formModel->user->avatar->getThumb(64, 64, ['extension' => 'png', 'mode' => 'crop']) ?>">
+        <?php else: ?>
+            <img src="<?= URL::to('/plugins/rainlab/user/assets/images/no-user-avatar.png') ?>">
+        <?php endif ?>
+    </a>
+</div>
+
+<div class="scoreboard-item title-value">
+    <h4>User</h4>
+    <p><?= $formModel->user->name ?></p>
+    <p class="description">
+        <a href="<?= $userLink ?>">
+            <?= $formModel->user->email ?>
+        </a>
+    </p>
+</div>
+
+<div class="scoreboard-item control-chart" data-control="chart-pie">
+    <ul>
+        <li data-color="#95b753">Active Projects <span><?= e($formModel->count_projects_active) ?></span></li>
+        <li data-color="#e5a91a">Projects <span><?= e($formModel->count_projects) ?></span></li>
+        <li data-color="#5bc0de">Ratings <span><?= e($formModel->count_ratings) ?></span></li>
+    </ul>
+</div>

@@ -24,7 +24,8 @@
 
 <div class="scoreboard-item control-chart" data-control="chart-pie">
     <ul>
-        <li data-color="#95b753">Wins <span>84</span></li>
-        <li data-color="#e5a91a">Bids <span>12</span></li>
+        <li data-color="#95b753">Recommendations <span><?= e($formModel->count_recommend) ?></span></li>
+        <li data-color="#e5a91a">Bids <span><?= e($formModel->count_bids) ?></span></li>
+        <li data-color="#5bc0de">Ratings <span><?= e($formModel->count_ratings) ?></span></li>
     </ul>
 </div>
