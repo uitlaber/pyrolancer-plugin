@@ -125,6 +125,12 @@ class Plugin extends PluginBase
                         'url'         => Backend::url('ahoy/pyrolancer/workers'),
                         'permissions' => ['pyrolancer.access_workers'],
                     ],
+                    'clients' => [
+                        'label'       => 'Clients',
+                        'icon'        => 'icon-bell',
+                        'url'         => Backend::url('ahoy/pyrolancer/clients'),
+                        'permissions' => ['pyrolancer.access_clients'],
+                    ],
                 ]
 
             ]

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Client
+
+# Model Form Field configuration
+form: $/ahoy/pyrolancer/models/client/fields.yaml
+
+# Model Class name
+modelClass: Ahoy\Pyrolancer\Models\Client
+
+# Default redirect location
+defaultRedirect: ahoy/pyrolancer/clients
+
+# Create page
+create:
+    title: Create Client
+    redirect: ahoy/pyrolancer/clients/update/:id
+    redirectClose: ahoy/pyrolancer/clients
+
+# Update page
+update:
+    title: Edit Client
+    redirect: ahoy/pyrolancer/clients
+    redirectClose: ahoy/pyrolancer/clients
+
+# Preview page
+preview:
+    title: Preview Client

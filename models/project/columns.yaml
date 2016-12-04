@@ -8,7 +8,7 @@ columns:
         relation: status
         select: name
         type: partial
-        path: status_column
+        path: $/ahoy/pyrolancer/controllers/projects/_status_column.htm
 
     name:
         label: Name

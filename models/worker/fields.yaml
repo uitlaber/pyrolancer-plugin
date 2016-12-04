@@ -3,18 +3,6 @@
 # ===================================
 
 fields:
-
-    # user[avatar]:
-    #     label: rainlab.user::lang.user.avatar
-    #     type: fileupload
-    #     mode: image
-    #     imageHeight: 260
-    #     imageWidth: 260
-
-    # user[name]:
-    #     span: full
-    #     label: rainlab.user::lang.user.name
-
     user:
         label: User
         type: recordfinder

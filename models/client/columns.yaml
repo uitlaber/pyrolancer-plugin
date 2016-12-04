@@ -3,6 +3,14 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    user_name:
+        label: Name
+        relation: user
+        select: name
+        searchable: true
+
+    user_email:
+        label: Email
+        relation: user
+        select: email
         searchable: true

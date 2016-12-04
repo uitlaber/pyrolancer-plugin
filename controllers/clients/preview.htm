@@ -1,0 +1,48 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('ahoy/pyrolancer/clients') ?>">Clients</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="scoreboard">
+        <div data-control="toolbar">
+            <?= $this->makePartial('preview_scoreboard') ?>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <?= $this->makePartial('preview_toolbar') ?>
+        </div>
+    </div>
+
+    <div class="control-tabs content-tabs tabs-inset" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#clientsDetails">Details</a></li>
+            <li><a href="#clientsProjects">Projects</a></li>
+            <li><a href="#clientsReviews">Reviews</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane pane-inset active">
+                <div class="padded-container">
+                    <?= $this->formRenderPreview() ?>
+                </div>
+            </div>
+            <div class="tab-pane pane-inset">
+                <?= $this->relationRender('projects') ?>
+            </div>
+            <div class="tab-pane pane-inset">
+                <?= $this->relationRender('reviews') ?>
+            </div>
+        </div>
+    </div>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('ahoy/pyrolancer/clients') ?>" class="btn btn-default">Return to clients list</a></p>
+
+<?php endif ?>

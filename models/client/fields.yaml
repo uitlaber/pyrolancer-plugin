@@ -3,6 +3,14 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+    user:
+        label: User
+        type: recordfinder
+        context: create
+        list: ~/plugins/rainlab/user/models/user/columns.yaml
+        prompt: Click the %s button to find a user
+        nameFrom: name
+        descriptionFrom: email
+
+    display_name:
+        label: Display name
