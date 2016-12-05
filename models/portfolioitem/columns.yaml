@@ -3,10 +3,6 @@
 # ===================================
 
 columns:
-    is_primary:
-        label: Primary item
-        type: switch
-
     type:
         label: Type
         relation: type
@@ -14,3 +10,7 @@ columns:
 
     title:
         label: Title
+
+    is_primary:
+        label: Primary item
+        type: switch
