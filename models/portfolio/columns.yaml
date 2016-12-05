@@ -5,9 +5,9 @@
 columns:
     worker_business_name:
         label: Business Name
-        searchable: true
+        sortable: false
         relation: worker
-        select: business_name
+        valueFrom: business_name
 
     user_name:
         label: Name
