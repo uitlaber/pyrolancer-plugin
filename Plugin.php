@@ -131,6 +131,12 @@ class Plugin extends PluginBase
                         'url'         => Backend::url('ahoy/pyrolancer/clients'),
                         'permissions' => ['pyrolancer.access_clients'],
                     ],
+                    'portfolios' => [
+                        'label'       => 'Portfolios',
+                        'icon'        => 'icon-camera',
+                        'url'         => Backend::url('ahoy/pyrolancer/portfolios'),
+                        'permissions' => ['pyrolancer.access_portfolios'],
+                    ],
                 ]
 
             ]

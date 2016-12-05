@@ -1,0 +1,31 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('ahoy/pyrolancer/portfolios') ?>">Portfolios</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="scoreboard">
+        <div data-control="toolbar">
+            <?= $this->makePartial('preview_scoreboard') ?>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <?= $this->makePartial('preview_toolbar') ?>
+        </div>
+    </div>
+
+    <div class="relation-inset">
+        <?= $this->relationRender('items') ?>
+    </div>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('ahoy/pyrolancer/portfolios') ?>" class="btn btn-default">Return to portfolios list</a></p>
+
+<?php endif ?>

@@ -2,7 +2,36 @@
 #  Form Field Definitions
 # ===================================
 
-fields:
-    id:
-        label: ID
-        disabled: true
+tabs:
+    fields:
+        title:
+            tab: Item
+            label: Title
+
+        type:
+            tab: Item
+            span: auto
+            label: Type
+            type: relation
+
+        uploaded_file:
+            tab: Item
+            span: auto
+            label: Uploaded file
+            type: fileupload
+            mode: file
+
+        description:
+            tab: Description
+            label: Description
+            type: textarea
+
+        sample:
+            tab: Sample
+            label: Sample
+            type: textarea
+
+        is_primary:
+            tab: Item
+            label: Primary item
+            type: checkbox

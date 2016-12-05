@@ -3,6 +3,14 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
-        searchable: true
+    is_primary:
+        label: Primary item
+        type: switch
+
+    type:
+        label: Type
+        relation: type
+        select: name
+
+    title:
+        label: Title
