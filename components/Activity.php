@@ -29,7 +29,7 @@ class Activity extends ActivComponent
             ->applyPublic()
             ->applyEagerLoads()
             ->orderBy('created_at', 'desc')
-            ->limit(11)
+            ->limit(15)
             ->get()
         ;
 
