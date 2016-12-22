@@ -400,7 +400,7 @@ class Project extends ActivComponent
     // Messaging
     //
 
-    public function onPostMessage()
+    protected function postMessage()
     {
         $user = $this->lookupUser();
         $project = $this->loadModel(new ProjectModel);
@@ -423,9 +423,14 @@ class Project extends ActivComponent
         return $message;
     }
 
+    public function onPostMessage()
+    {
+        $this->postMessage();
+    }
+
     public function onPostMessageReply()
     {
-        $message = $this->onPostMessage();
+        $message = $this->postMessage();
         $this->page['message'] = $message->parent ?: $message;
 
         return ['messageId' => $message->id];
