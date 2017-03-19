@@ -131,6 +131,7 @@ class Jobs extends ActivComponent
         $options['page'] = post('page', 1);
         $this->page['projects'] = $this->projects($options);
         $this->page['pageEventName'] = 'onFilterJobs';
+        $this->page['pageFormElement'] = '#projectsBrowseForm';
         $this->page['updatePartialName'] = 'jobs/projects';
         $this->page['updateElement'] = '#partialJobsProjects';
         $this->page['onSuccess'] = "jobsAfterPaginate()";

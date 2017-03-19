@@ -107,6 +107,7 @@ class Directory extends ActivComponent
 
         $this->page['workers'] = $this->workers($options);
         $this->page['pageEventName'] = 'onFilterWorkers';
+        $this->page['pageFormElement'] = '#workersBrowseForm';
         $this->page['updatePartialName'] = 'directory/workers';
         $this->page['updateElement'] = '#partialDirectoryWorkers';
         $this->page['onSuccess'] = "directoryAfterPaginate()";
