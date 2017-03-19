@@ -43,7 +43,6 @@ class Activity extends ActivComponent
             ->with('user.avatar')
             ->orderBy('created_at', 'desc')
             ->limit(15)
-            ->remember(60)
             ->get()
         ;
     }
