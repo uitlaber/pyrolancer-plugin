@@ -15,6 +15,32 @@ fields:
     business_name:
         label: Business Name
 
+    tagline:
+        label: Tag line
+
+    contact_email:
+        label: Contact email
+        span: auto
+
+    contact_phone:
+        label: Contact phone
+        span: auto
+
+    website_url:
+        label: Website URL
+
     description:
         label: Profile description
         type: textarea
+
+    category:
+        label: Category
+        type: relation
+        span: auto
+        placeholder: -- select --
+
+    budget:
+        label: Budget
+        type: relation
+        span: auto
+        placeholder: -- select --
