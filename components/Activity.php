@@ -25,9 +25,9 @@ class Activity extends ActivComponent
     {
         $currentPage = 1;
 
-        $feed = UserEventLog::has('user')
-            ->applyPublic()
+        $feed = UserEventLog::applyPublic()
             ->applyEagerLoads()
+            ->with('user')
             ->orderBy('created_at', 'desc')
             ->limit(15)
             ->get()
@@ -38,8 +38,7 @@ class Activity extends ActivComponent
 
     public function recentWorkers()
     {
-        return WorkerModel::has('user.avatar')
-            ->applyVisible()
+        return WorkerModel::applyVisible()
             ->with('user.avatar')
             ->orderBy('created_at', 'desc')
             ->limit(15)
