@@ -29,6 +29,12 @@ tabs:
             type: textarea
             tab: Details
 
+        files:
+            label: Uploaded files
+            type: fileupload
+            mode: file
+            tab: Details
+
         #
         # Location
         #

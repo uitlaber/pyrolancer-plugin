@@ -35,6 +35,11 @@ fields:
         label: Instructions
         type: textarea
 
+    files:
+        label: Uploaded files
+        type: fileupload
+        mode: file
+
     #
     # Location
     #
