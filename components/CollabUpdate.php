@@ -85,6 +85,32 @@ class CollabUpdate extends ActivComponent
         });
     }
 
+    public function onDeleteMessage()
+    {
+        try {
+            if (!$message = $this->message()) {
+                throw new ApplicationException('Message cannot be found.');
+            }
+
+            $message->delete();
+
+            Flash::success('The message has been deleted successfully.');
+
+            /*
+             * Redirect to the collab page
+             */
+            $redirectUrl = $this->returnUrl();
+
+            if ($redirectUrl = post('redirect', $redirectUrl)) {
+                return Redirect::to($redirectUrl);
+            }
+        }
+        catch (Exception $ex) {
+            if (Request::ajax()) throw $ex;
+            else Flash::error($ex->getMessage());
+        }
+    }
+
     public function onUpdateMessage()
     {
         try {
