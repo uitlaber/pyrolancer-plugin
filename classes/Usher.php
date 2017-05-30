@@ -15,9 +15,9 @@ class Usher
         $projectId = $project->id;
 
         Queue::push(function($job) use ($projectId) {
-            $project = ProjectModel::find($projectId);
-
-            Notifier::sendProjectAlert($project);
+            if ($project = ProjectModel::find($projectId)) {
+                Notifier::sendProjectAlert($project);
+            }
 
             $job->delete();
         });
@@ -28,9 +28,9 @@ class Usher
         $projectId = $project->id;
 
         Queue::push(function($job) use ($projectId) {
-            $project = ProjectModel::find($projectId);
-
-            VicinityModel::processProjectVicinity($project);
+            if ($project = ProjectModel::find($projectId)) {
+                VicinityModel::processProjectVicinity($project);
+            }
 
             $job->delete();
         });
@@ -41,12 +41,11 @@ class Usher
         $workerId = $worker->id;
 
         Queue::push(function($job) use ($workerId) {
-            $worker = WorkerModel::find($workerId);
-
-            VicinityModel::processWorkerVicinity($worker);
+            if ($worker = WorkerModel::find($workerId)) {
+                VicinityModel::processWorkerVicinity($worker);
+            }
 
             $job->delete();
         });
     }
-
 }
