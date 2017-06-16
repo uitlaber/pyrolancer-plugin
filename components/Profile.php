@@ -68,6 +68,13 @@ class Profile extends ActivComponent
         return $title;
     }
 
+    public function onRun()
+    {
+        if (!$this->user()) {
+            $this->setStatusCode(404);
+        }
+    }
+
     protected function getProfileContactUser()
     {
         return $this->user();
