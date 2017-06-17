@@ -64,6 +64,9 @@ class Profile extends ActivComponent
                 $title = strtr($title, [':name' => $name]);
             }
         }
+        else {
+            return 'Profile not found';
+        }
 
         return $title;
     }
