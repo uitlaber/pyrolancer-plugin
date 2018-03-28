@@ -51,7 +51,7 @@ class Portfolio extends ActivRecord
             return;
         }
 
-        $primaryItem = array_first($this->items, function($key, $item) {
+        $primaryItem = array_first($this->items, function($item) {
             return $item->is_primary;
         });
 

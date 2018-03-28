@@ -12,7 +12,7 @@ class Settings extends ActivRecord
 
     public function initSettingsData()
     {
-        $this->notify_admin_group = UserGroup::DEFAULT_CODE;
+        $this->notify_admin_group = UserGroup::CODE_OWNERS;
         $this->auto_approve_projects = false;
         $this->allow_project_featured = true;
         $this->allow_project_private = true;
