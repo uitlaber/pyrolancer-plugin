@@ -143,7 +143,7 @@ class WorkerReview extends ActivRecord
         $review = new self;
         $review->is_testimonial = true;
         $review->user_id = $worker->user_id;
-        $review->invite_hash = md5(Str::quickRandom());
+        $review->invite_hash = md5(Str::random());
 
         $review->rules += [
             'invite_subject' => 'required',

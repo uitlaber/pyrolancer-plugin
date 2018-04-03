@@ -15,7 +15,6 @@ use Markdown;
  */
 class Project extends ActivRecord
 {
-
     const STATUS_DRAFT = 'draft';
     const STATUS_PENDING = 'pending';
     const STATUS_REJECTED = 'rejected';
@@ -538,7 +537,7 @@ class Project extends ActivRecord
             return false;
         }
 
-        $userBid = $this->bids->first(function($key, $bid) use ($user) {
+        $userBid = $this->bids->first(function($bid) use ($user) {
             return $bid->user_id == $user->id;
         });
 
@@ -757,7 +756,7 @@ class Project extends ActivRecord
             return false;
         }
 
-        $userApplicant = $this->applicants->first(function($key, $applicant) use ($user) {
+        $userApplicant = $this->applicants->first(function($applicant) use ($user) {
             return $applicant->id == $user->id;
         });
 
@@ -785,5 +784,4 @@ class Project extends ActivRecord
             return $this->review->client_is_visible;
         }
     }
-
 }
