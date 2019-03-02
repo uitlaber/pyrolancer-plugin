@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Traits;
+<?php namespace Responsiv\Pyrolancer\Traits;
 
 use Db;
 

@@ -1,16 +1,16 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Redirect;
 use Cms\Classes\Page;
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
-use Ahoy\Pyrolancer\Models\PortfolioItem;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Portfolio as PortfolioModel;
+use Responsiv\Pyrolancer\Models\PortfolioItem;
 
-class WorkerPortfolio extends ActivComponent
+class WorkerPortfolio extends ComponentBase
 {
 
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {

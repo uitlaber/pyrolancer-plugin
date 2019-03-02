@@ -1,13 +1,13 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 
 /**
  * Vicinity Model
  */
-class Vicinity extends ActivRecord
+class Vicinity extends Model
 {
-    use \Ahoy\Pyrolancer\Traits\GeoModel;
+    use \Responsiv\Pyrolancer\Traits\GeoModel;
     use \October\Rain\Database\Traits\Sluggable;
 
     public $implement = ['RainLab.Location.Behaviors.LocationModel'];
@@ -15,7 +15,7 @@ class Vicinity extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_vicinities';
+    public $table = 'responsiv_pyrolancer_vicinities';
 
     /**
      * @var array Guarded fields

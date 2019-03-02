@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Mail;
@@ -6,16 +6,16 @@ use Input;
 use Redirect;
 use Validator;
 use Cms\Classes\Theme;
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\ProjectMessage;
-use Ahoy\Pyrolancer\Models\ProjectBid;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\ProjectMessage;
+use Responsiv\Pyrolancer\Models\ProjectBid;
 use ValidationException;
 use ApplicationException;
 
-class Project extends ActivComponent
+class Project extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {
@@ -219,7 +219,7 @@ class Project extends ActivComponent
             'project' => $project,
             'client' => $project->client
         ];
-        Mail::sendTo($bid->user, 'ahoy.pyrolancer::mail.worker-bid-accepted', $params);
+        Mail::sendTo($bid->user, 'responsiv.pyrolancer::mail.worker-bid-accepted', $params);
 
         return Redirect::refresh();
     }
@@ -447,7 +447,10 @@ class Project extends ActivComponent
          */
         $mode = post('mode', 'edit');
         if ($mode == 'save') {
-            $message->sav(post());
+            if ($values = post()) {
+                $message->fill($values);
+            }
+            $message->save();
         }
         elseif ($mode == 'delete') {
             $message->delete();

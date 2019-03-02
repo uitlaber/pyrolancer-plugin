@@ -1,13 +1,13 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
-use ActivComponent;
+use Cms\Classes\ComponentBase;
 use RainLab\User\Models\MailBlocker;
 use ApplicationException;
 
-class Account extends ActivComponent
+class Account extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {
@@ -55,7 +55,7 @@ class Account extends ActivComponent
         return $this->lookupObject(__FUNCTION__, function() {
             $templates = MailBlocker::checkAllForUser($this->lookupUser());
             return array_build($templates, function($key, $value) {
-                return [str_replace('ahoy.pyrolancer::mail.', '', $value), $key];
+                return [str_replace('responsiv.pyrolancer::mail.', '', $value), $key];
             });
         });
     }
@@ -100,7 +100,7 @@ class Account extends ActivComponent
             }
 
             $templates = array_build($templates, function($key, $value) {
-                return ['ahoy.pyrolancer::mail.'.$key, $value];
+                return ['responsiv.pyrolancer::mail.'.$key, $value];
             });
 
             MailBlocker::unblockAll($user);

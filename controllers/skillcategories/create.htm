@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('ahoy/pyrolancer/skills') ?>">Skills</a></li>
-        <li><a href="<?= Backend::url('ahoy/pyrolancer/skillcategories') ?>">Categories</a></li>
+        <li><a href="<?= Backend::url('responsiv/pyrolancer/skills') ?>">Skills</a></li>
+        <li><a href="<?= Backend::url('responsiv/pyrolancer/skillcategories') ?>">Categories</a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -34,7 +34,7 @@
                     Create and Close
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('ahoy/pyrolancer/skillcategories') ?>">Cancel</a>
+                    or <a href="<?= Backend::url('responsiv/pyrolancer/skillcategories') ?>">Cancel</a>
                 </span>
             </div>
         </div>
@@ -44,6 +44,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('ahoy/pyrolancer/skillcategories') ?>" class="btn btn-default">Return to skillcategories list</a></p>
+    <p><a href="<?= Backend::url('responsiv/pyrolancer/skillcategories') ?>" class="btn btn-default">Return to skillcategories list</a></p>
 
 <?php endif ?>

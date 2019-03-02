@@ -9,7 +9,7 @@ title: Reorder Categories
 nameFrom: name
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\SkillCategory
+modelClass: Responsiv\Pyrolancer\Models\SkillCategory
 
 # Toolbar widget configuration
 toolbar:

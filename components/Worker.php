@@ -1,12 +1,12 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
 
-class Worker extends ActivComponent
+class Worker extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
-    use \Ahoy\Pyrolancer\Traits\ProfileContactComponent;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ProfileContactComponent;
 
     public function componentDetails()
     {

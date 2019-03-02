@@ -1,12 +1,12 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Str;
-use ActivRecord;
+use Model;
 
 /**
  * WorkerReview Model
  */
-class WorkerReview extends ActivRecord
+class WorkerReview extends Model
 {
 
     use \October\Rain\Database\Traits\Validation;
@@ -27,7 +27,7 @@ class WorkerReview extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_worker_reviews';
+    public $table = 'responsiv_pyrolancer_worker_reviews';
 
     /**
      * @var array Guarded fields
@@ -50,9 +50,9 @@ class WorkerReview extends ActivRecord
     public $belongsTo = [
         'user'        => 'RainLab\User\Models\User',
         'client_user' => 'RainLab\User\Models\User',
-        'project'     => 'Ahoy\Pyrolancer\Models\Project',
-        'worker'      => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
-        'client'      => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'client_user_id', 'otherKey' => 'user_id'],
+        'project'     => 'Responsiv\Pyrolancer\Models\Project',
+        'worker'      => ['Responsiv\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'client'      => ['Responsiv\Pyrolancer\Models\Client', 'key' => 'client_user_id', 'otherKey' => 'user_id'],
     ];
 
     /**

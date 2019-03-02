@@ -1,18 +1,18 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Mail;
 use Config;
 use Redirect;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\WorkerReview;
-use ActivComponent;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\WorkerReview;
+use Cms\Classes\ComponentBase;
 
-class WorkerTestimonial extends ActivComponent
+class WorkerTestimonial extends ComponentBase
 {
 
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {
@@ -67,7 +67,7 @@ class WorkerTestimonial extends ActivComponent
             'url' => $testimonialUrl
         ];
 
-        Mail::sendTo(post('Testimonial[invite_email]'), 'ahoy.pyrolancer::mail.worker-testimonial-request', $params);
+        Mail::sendTo(post('Testimonial[invite_email]'), 'responsiv.pyrolancer::mail.worker-testimonial-request', $params);
 
         $this->page['success'] = true;
         $this->page['email'] = post('Testimonial[invite_email]');
@@ -85,7 +85,7 @@ class WorkerTestimonial extends ActivComponent
             'url' => $testimonial->worker->url
         ];
 
-        Mail::sendTo($testimonial->user, 'ahoy.pyrolancer::mail.worker-testimonial-complete', $params);
+        Mail::sendTo($testimonial->user, 'responsiv.pyrolancer::mail.worker-testimonial-complete', $params);
 
         return Redirect::refresh();
     }

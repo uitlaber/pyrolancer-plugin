@@ -4,19 +4,19 @@
 
 projects:
     label: Project
-    list: ~/plugins/ahoy/pyrolancer/models/project/columns.yaml
-    form: ~/plugins/ahoy/pyrolancer/models/project/fields.yaml
+    list: ~/plugins/responsiv/pyrolancer/models/project/columns.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/project/fields.yaml
     view:
         toolbarButtons: false
-        recordUrl: ahoy/pyrolancer/projects/preview/:id
+        recordUrl: responsiv/pyrolancer/projects/preview/:id
     manage:
         showSearch: true
         recordsPerPage: 10
 
 reviews:
     label: Review
-    list: ~/plugins/ahoy/pyrolancer/models/workerreview/columns.yaml
-    form: ~/plugins/ahoy/pyrolancer/models/workerreview/fields.yaml
+    list: ~/plugins/responsiv/pyrolancer/models/workerreview/columns.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/workerreview/fields.yaml
     view:
         toolbarButtons: delete
     manage:

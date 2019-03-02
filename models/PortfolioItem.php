@@ -1,13 +1,13 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 use Markdown;
 use ValidationException;
 
 /**
  * PortfolioItem Model
  */
-class PortfolioItem extends ActivRecord
+class PortfolioItem extends Model
 {
 
     const TYPE_IMAGE = 'image';
@@ -16,7 +16,7 @@ class PortfolioItem extends ActivRecord
     const TYPE_AUDIO = 'audio';
     const TYPE_VIDEO = 'video';
 
-    use \Ahoy\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Validation;
 
     /*
@@ -32,7 +32,7 @@ class PortfolioItem extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_portfolio_items';
+    public $table = 'responsiv_pyrolancer_portfolio_items';
 
     /**
      * @var array Guarded fields
@@ -55,8 +55,8 @@ class PortfolioItem extends ActivRecord
      * @var array Relations
      */
     public $belongsTo = [
-        'portfolio' => 'Ahoy\Pyrolancer\Models\Portfolio',
-        'type' => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'portfolio.type'"],
+        'portfolio' => 'Responsiv\Pyrolancer\Models\Portfolio',
+        'type' => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'portfolio.type'"],
     ];
 
     public $attachOne = [

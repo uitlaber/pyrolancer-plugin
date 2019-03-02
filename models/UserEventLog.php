@@ -1,14 +1,14 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
-use Ahoy\Pyrolancer\Classes\EventLogCollection;
+use Model;
+use Responsiv\Pyrolancer\Classes\EventLogCollection;
 
 /**
  * A log of user events
  */
-class UserEventLog extends ActivRecord
+class UserEventLog extends Model
 {
-    use \Ahoy\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
     use \October\Rain\Database\Traits\SoftDelete;
 
     const TYPE_USER_CREATED = 'user-created';
@@ -18,7 +18,7 @@ class UserEventLog extends ActivRecord
     const TYPE_PROJECT_MESSAGE = 'project-message';
     const TYPE_PROJECT_BID = 'project-bid';
 
-    public $table = 'ahoy_pyrolancer_user_event_log';
+    public $table = 'responsiv_pyrolancer_user_event_log';
 
     /**
      * @var array Relations

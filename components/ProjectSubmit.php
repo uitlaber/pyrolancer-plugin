@@ -1,21 +1,21 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Flash;
 use Redirect;
-use Ahoy\Pyrolancer\Classes\ProjectData;
-use Ahoy\Pyrolancer\Models\ProjectStatusLog;
-use Ahoy\Pyrolancer\Models\Skill as SkillModel;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use Ahoy\Pyrolancer\Models\Client as ClientModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
-use Ahoy\Pyrolancer\Models\ProjectCategory;
+use Responsiv\Pyrolancer\Classes\ProjectData;
+use Responsiv\Pyrolancer\Models\ProjectStatusLog;
+use Responsiv\Pyrolancer\Models\Skill as SkillModel;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\Client as ClientModel;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Settings as SettingsModel;
+use Responsiv\Pyrolancer\Models\ProjectCategory;
 use Cms\Classes\Page;
-use ActivComponent;
+use Cms\Classes\ComponentBase;
 use ApplicationException;
 
-class ProjectSubmit extends ActivComponent
+class ProjectSubmit extends ComponentBase
 {
 
     public $project;

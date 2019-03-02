@@ -1,17 +1,17 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Request;
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\Skill as SkillModel;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
-use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Skill as SkillModel;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\Vicinity as VicinityModel;
+use Responsiv\Pyrolancer\Models\Attribute as AttributeModel;
 
-class Jobs extends ActivComponent
+class Jobs extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public $filterType;
     public $filterObject;

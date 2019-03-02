@@ -1,9 +1,9 @@
-<?php namespace Ahoy\Pyrolancer\Classes;
+<?php namespace Responsiv\Pyrolancer\Classes;
 
 use Queue;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Vicinity as VicinityModel;
 
 /**
  * Usher class, for guiding jobs in to the queue

@@ -1,9 +1,9 @@
-<?php namespace Ahoy\Pyrolancer\Console;
+<?php namespace Responsiv\Pyrolancer\Console;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Ahoy\Pyrolancer\Classes\Worker;
+use Responsiv\Pyrolancer\Classes\Worker;
 
 class JobsRun extends Command
 {

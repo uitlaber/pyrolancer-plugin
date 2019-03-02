@@ -6,25 +6,25 @@
 name: Client
 
 # Model Form Field configuration
-form: $/ahoy/pyrolancer/models/client/fields.yaml
+form: $/responsiv/pyrolancer/models/client/fields.yaml
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\Client
+modelClass: Responsiv\Pyrolancer\Models\Client
 
 # Default redirect location
-defaultRedirect: ahoy/pyrolancer/clients
+defaultRedirect: responsiv/pyrolancer/clients
 
 # Create page
 create:
     title: Create Client
-    redirect: ahoy/pyrolancer/clients/update/:id
-    redirectClose: ahoy/pyrolancer/clients
+    redirect: responsiv/pyrolancer/clients/update/:id
+    redirectClose: responsiv/pyrolancer/clients
 
 # Update page
 update:
     title: Edit Client
-    redirect: ahoy/pyrolancer/clients
-    redirectClose: ahoy/pyrolancer/clients
+    redirect: responsiv/pyrolancer/clients
+    redirectClose: responsiv/pyrolancer/clients
 
 # Preview page
 preview:

@@ -1,21 +1,21 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Str;
-use ActivRecord;
+use Model;
 use Session;
 
 /**
  * Favorite Model
  */
-class Favorite extends ActivRecord
+class Favorite extends Model
 {
 
-    const SESSION_KEY = 'ahoy.pyrolancer.favorites';
+    const SESSION_KEY = 'responsiv.pyrolancer.favorites';
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_favorites';
+    public $table = 'responsiv_pyrolancer_favorites';
 
     /**
      * @var array Guarded fields
@@ -35,7 +35,7 @@ class Favorite extends ActivRecord
     ];
 
     public $belongsToMany = [
-        'workers' => ['Ahoy\Pyrolancer\Models\Worker', 'table' => 'ahoy_pyrolancer_favorites_workers']
+        'workers' => ['Responsiv\Pyrolancer\Models\Worker', 'table' => 'responsiv_pyrolancer_favorites_workers']
     ];
 
     public static function createList($user = null)

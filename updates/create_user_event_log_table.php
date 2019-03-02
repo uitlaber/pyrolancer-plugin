@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateUserEventLogTable extends Migration
 
     public function up()
     {
-        Schema::create('ahoy_pyrolancer_user_event_log', function($table)
+        Schema::create('responsiv_pyrolancer_user_event_log', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -25,7 +25,7 @@ class CreateUserEventLogTable extends Migration
 
     public function down()
     {
-        Schema::drop('ahoy_pyrolancer_user_event_log');
+        Schema::drop('responsiv_pyrolancer_user_event_log');
     }
 
 }

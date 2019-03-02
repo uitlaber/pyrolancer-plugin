@@ -1,10 +1,10 @@
-<?php namespace Ahoy\Pyrolancer\Classes;
+<?php namespace Responsiv\Pyrolancer\Classes;
 
 use Mail;
 use Event;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Client as ClientModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Client as ClientModel;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 use Carbon\Carbon;
 use ApplicationException;
 

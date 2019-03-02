@@ -6,25 +6,25 @@
 name: Portfolio
 
 # Model Form Field configuration
-form: $/ahoy/pyrolancer/models/portfolio/fields.yaml
+form: $/responsiv/pyrolancer/models/portfolio/fields.yaml
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\Portfolio
+modelClass: Responsiv\Pyrolancer\Models\Portfolio
 
 # Default redirect location
-defaultRedirect: ahoy/pyrolancer/portfolios
+defaultRedirect: responsiv/pyrolancer/portfolios
 
 # Create page
 create:
     title: Create Portfolio
-    redirect: ahoy/pyrolancer/portfolios/update/:id
-    redirectClose: ahoy/pyrolancer/portfolios
+    redirect: responsiv/pyrolancer/portfolios/update/:id
+    redirectClose: responsiv/pyrolancer/portfolios
 
 # Update page
 update:
     title: Edit Portfolio
-    redirect: ahoy/pyrolancer/portfolios
-    redirectClose: ahoy/pyrolancer/portfolios
+    redirect: responsiv/pyrolancer/portfolios
+    redirectClose: responsiv/pyrolancer/portfolios
 
 # Preview page
 preview:

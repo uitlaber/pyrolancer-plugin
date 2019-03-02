@@ -1,18 +1,18 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Request;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Skill as SkillModel;
-use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
-use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use ActivComponent;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Skill as SkillModel;
+use Responsiv\Pyrolancer\Models\Vicinity as VicinityModel;
+use Responsiv\Pyrolancer\Models\Attribute as AttributeModel;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Cms\Classes\ComponentBase;
 use ApplicationException;
 
-class Directory extends ActivComponent
+class Directory extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public $filterType;
     public $filterObject;

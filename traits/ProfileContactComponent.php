@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Traits;
+<?php namespace Responsiv\Pyrolancer\Traits;
 
 use Auth;
 use Mail;
@@ -40,7 +40,7 @@ trait ProfileContactComponent
         $data['email'] = $fromUser->email;
         $data['name'] = $fromUser->name;
 
-        Mail::sendTo($user, 'ahoy.pyrolancer::mail.profile-contact', $data, function($message) use ($data) {
+        Mail::sendTo($user, 'responsiv.pyrolancer::mail.profile-contact', $data, function($message) use ($data) {
             $message->replyTo($data['email'], $data['name']);
         });
 

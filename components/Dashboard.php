@@ -1,17 +1,17 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Redirect;
-use Ahoy\Pyrolancer\Models\UserEventLog;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
-use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
-use ActivComponent;
+use Responsiv\Pyrolancer\Models\UserEventLog;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Portfolio as PortfolioModel;
+use Responsiv\Pyrolancer\Models\Attribute as AttributeModel;
+use Cms\Classes\ComponentBase;
 
-class Dashboard extends ActivComponent
+class Dashboard extends ComponentBase
 {
 
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {

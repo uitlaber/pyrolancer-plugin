@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use Db;
 use Schema;

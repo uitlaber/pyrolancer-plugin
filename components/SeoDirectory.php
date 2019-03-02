@@ -1,15 +1,15 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
-use ActivComponent;
+use Cms\Classes\ComponentBase;
 use RainLab\Location\Models\State as StateModel;
 use RainLab\Location\Models\Country as CountryModel;
-use Ahoy\Pyrolancer\Models\Skill as SkillModel;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Skill as SkillModel;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
 
-class SeoDirectory extends ActivComponent
+class SeoDirectory extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     protected $mode;
 

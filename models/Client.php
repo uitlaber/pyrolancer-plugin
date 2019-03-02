@@ -1,14 +1,14 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 
 /**
  * Client Model
  */
-class Client extends ActivRecord
+class Client extends Model
 {
-    use \Ahoy\Traits\UrlMaker;
-    use \Ahoy\Traits\GeneralUtils;
+    use \Cms\Traits\UrlMaker;
+    use \Responsiv\Pyrolancer\Traits\GeneralUtils;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
 
@@ -26,7 +26,7 @@ class Client extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_clients';
+    public $table = 'responsiv_pyrolancer_clients';
 
     /**
      * @var array Guarded fields
@@ -47,12 +47,12 @@ class Client extends ActivRecord
 
     public $hasMany = [
         'reviews' => [
-            'Ahoy\Pyrolancer\Models\WorkerReview',
+            'Responsiv\Pyrolancer\Models\WorkerReview',
             'key' => 'client_user_id',
             'otherKey' => 'user_id'
         ],
         'projects' => [
-            'Ahoy\Pyrolancer\Models\Project',
+            'Responsiv\Pyrolancer\Models\Project',
             'key' => 'user_id',
             'otherKey' => 'user_id',
             'delete' => true,
@@ -85,7 +85,7 @@ class Client extends ActivRecord
     /**
      * Automatically creates a client profile for a user if not one already.
      * @param  RainLab\User\Models\User $user
-     * @return Ahoy\Pyrolancer\Models\Worker
+     * @return Responsiv\Pyrolancer\Models\Worker
      */
     public static function getFromUser($user = null)
     {

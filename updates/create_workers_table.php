@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateWorkersTable extends Migration
 
     public function up()
     {
-        Schema::create('ahoy_pyrolancer_workers', function($table)
+        Schema::create('responsiv_pyrolancer_workers', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -46,7 +46,7 @@ class CreateWorkersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ahoy_pyrolancer_workers_skills', function($table)
+        Schema::create('responsiv_pyrolancer_workers_skills', function($table)
         {
             $table->engine = 'InnoDB';
             $table->integer('worker_id')->unsigned();
@@ -57,8 +57,8 @@ class CreateWorkersTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('ahoy_pyrolancer_workers');
-        Schema::dropIfExists('ahoy_pyrolancer_workers_skills');
+        Schema::dropIfExists('responsiv_pyrolancer_workers');
+        Schema::dropIfExists('responsiv_pyrolancer_workers_skills');
     }
 
 }

@@ -4,16 +4,16 @@
 
 skills:
     label: Skill
-    list: ~/plugins/ahoy/pyrolancer/models/skill/columns.yaml
-    form: ~/plugins/ahoy/pyrolancer/models/skill/fields.yaml
+    list: ~/plugins/responsiv/pyrolancer/models/skill/columns.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/skill/fields.yaml
     manage:
         showSearch: true
         recordsPerPage: 10
 
 reviews:
     label: Review
-    list: ~/plugins/ahoy/pyrolancer/models/workerreview/columns.yaml
-    form: ~/plugins/ahoy/pyrolancer/models/workerreview/fields.yaml
+    list: ~/plugins/responsiv/pyrolancer/models/workerreview/columns.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/workerreview/fields.yaml
     view:
         toolbarButtons: delete
     manage:

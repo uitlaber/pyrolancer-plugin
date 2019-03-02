@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateAttributesTable extends Migration
 
     public function up()
     {
-        Schema::create('ahoy_pyrolancer_attributes', function($table)
+        Schema::create('responsiv_pyrolancer_attributes', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -24,7 +24,7 @@ class CreateAttributesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('ahoy_pyrolancer_attributes');
+        Schema::dropIfExists('responsiv_pyrolancer_attributes');
     }
 
 }

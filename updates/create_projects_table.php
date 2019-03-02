@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateProjectsTable extends Migration
 
     public function up()
     {
-        Schema::create('ahoy_pyrolancer_projects', function($table)
+        Schema::create('responsiv_pyrolancer_projects', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -65,7 +65,7 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ahoy_pyrolancer_projects_skills', function($table)
+        Schema::create('responsiv_pyrolancer_projects_skills', function($table)
         {
             $table->engine = 'InnoDB';
             $table->integer('project_id')->unsigned();
@@ -73,7 +73,7 @@ class CreateProjectsTable extends Migration
             $table->primary(['project_id', 'skill_id'], 'project_skill');
         });
 
-        Schema::create('ahoy_pyrolancer_projects_skill_categories', function($table)
+        Schema::create('responsiv_pyrolancer_projects_skill_categories', function($table)
         {
             $table->engine = 'InnoDB';
             $table->integer('project_id')->unsigned();
@@ -81,7 +81,7 @@ class CreateProjectsTable extends Migration
             $table->primary(['project_id', 'category_id'], 'project_category');
         });
 
-        Schema::create('ahoy_pyrolancer_projects_applicants', function($table)
+        Schema::create('responsiv_pyrolancer_projects_applicants', function($table)
         {
             $table->engine = 'InnoDB';
             $table->integer('project_id')->unsigned();
@@ -93,10 +93,10 @@ class CreateProjectsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('ahoy_pyrolancer_projects');
-        Schema::dropIfExists('ahoy_pyrolancer_projects_skills');
-        Schema::dropIfExists('ahoy_pyrolancer_projects_skill_categories');
-        Schema::dropIfExists('ahoy_pyrolancer_projects_applicants');
+        Schema::dropIfExists('responsiv_pyrolancer_projects');
+        Schema::dropIfExists('responsiv_pyrolancer_projects_skills');
+        Schema::dropIfExists('responsiv_pyrolancer_projects_skill_categories');
+        Schema::dropIfExists('responsiv_pyrolancer_projects_applicants');
     }
 
 }

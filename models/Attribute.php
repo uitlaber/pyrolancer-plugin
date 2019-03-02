@@ -1,11 +1,11 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 
 /**
  * Attribute Model
  */
-class Attribute extends ActivRecord
+class Attribute extends Model
 {
     use \October\Rain\Database\Traits\Sortable;
 
@@ -27,7 +27,7 @@ class Attribute extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_attributes';
+    public $table = 'responsiv_pyrolancer_attributes';
 
     /**
      * @var array Guarded fields

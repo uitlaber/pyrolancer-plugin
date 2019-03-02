@@ -1,8 +1,8 @@
-<?php namespace Ahoy\Pyrolancer\Controllers;
+<?php namespace Responsiv\Pyrolancer\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
-use Ahoy\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\SkillCategory;
 
 /**
  * SkillCategories Back-end Controller
@@ -24,7 +24,7 @@ class SkillCategories extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'skills');
+        BackendMenu::setContext('Responsiv.Pyrolancer', 'pyrolancer', 'skills');
     }
 
 }

@@ -1,11 +1,11 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 
 /**
  * Skill Model
  */
-class Skill extends ActivRecord
+class Skill extends Model
 {
 
     use \October\Rain\Database\Traits\Sluggable;
@@ -14,7 +14,7 @@ class Skill extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_skills';
+    public $table = 'responsiv_pyrolancer_skills';
 
     /**
      * @var array Guarded fields
@@ -43,11 +43,11 @@ class Skill extends ActivRecord
      * @var array Relations
      */
     public $belongsTo = [
-        'category' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
+        'category' => ['Responsiv\Pyrolancer\Models\SkillCategory', 'foreignKey' => 'category_id']
     ];
 
     public $belongsToMany = [
-        'workers' => ['Ahoy\Pyrolancer\Models\Worker', 'table' => 'ahoy_pyrolancer_workers_skills']
+        'workers' => ['Responsiv\Pyrolancer\Models\Worker', 'table' => 'responsiv_pyrolancer_workers_skills']
     ];
 
     public function scopeApplyVisible($query)

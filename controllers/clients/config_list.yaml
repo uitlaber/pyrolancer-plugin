@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/ahoy/pyrolancer/models/client/columns.yaml
+list: $/responsiv/pyrolancer/models/client/columns.yaml
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\Client
+modelClass: Responsiv\Pyrolancer\Models\Client
 
 # List Title
 title: Manage Clients
 
 # Link URL for each record
-recordUrl: ahoy/pyrolancer/clients/preview/:id
+recordUrl: responsiv/pyrolancer/clients/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

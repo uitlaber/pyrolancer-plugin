@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/ahoy/pyrolancer/models/portfolio/columns.yaml
+list: $/responsiv/pyrolancer/models/portfolio/columns.yaml
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\Portfolio
+modelClass: Responsiv\Pyrolancer\Models\Portfolio
 
 # List Title
 title: Manage Portfolios
 
 # Link URL for each record
-recordUrl: ahoy/pyrolancer/portfolios/preview/:id
+recordUrl: responsiv/pyrolancer/portfolios/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

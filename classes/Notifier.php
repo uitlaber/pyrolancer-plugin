@@ -1,10 +1,10 @@
-<?php namespace Ahoy\Pyrolancer\Classes;
+<?php namespace Responsiv\Pyrolancer\Classes;
 
 use Mail;
 use Cms\Classes\Theme;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Client as ClientModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Client as ClientModel;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 
 /**
  * Notification class, for notifying workers about projects
@@ -40,7 +40,7 @@ class Notifier
                 'project' => $project
             ];
 
-            Mail::sendTo($worker->user, 'ahoy.pyrolancer::mail.worker-alert', $params);
+            Mail::sendTo($worker->user, 'responsiv.pyrolancer::mail.worker-alert', $params);
         }
 
         return true;
@@ -85,7 +85,7 @@ class Notifier
             'projects' => $projects
         ];
 
-        Mail::sendTo($worker->user, 'ahoy.pyrolancer::mail.worker-digest', $params);
+        Mail::sendTo($worker->user, 'responsiv.pyrolancer::mail.worker-digest', $params);
         return true;
     }
 
@@ -104,7 +104,7 @@ class Notifier
 
             $messages = $project->messages()->where('user_id', '<>', $client->user_id);
             if ($fromDate) {
-                $messages->where('ahoy_pyrolancer_project_messages.created_at', '>', $fromDate);
+                $messages->where('responsiv_pyrolancer_project_messages.created_at', '>', $fromDate);
             }
             $messages = $messages->get();
 
@@ -112,7 +112,7 @@ class Notifier
 
                 $contacts = $project->applicants();
                 if ($fromDate) {
-                    $contacts->where('ahoy_pyrolancer_projects_applicants.created_at', '>', $fromDate);
+                    $contacts->where('responsiv_pyrolancer_projects_applicants.created_at', '>', $fromDate);
                 }
                 $contacts = $contacts->get();
 
@@ -121,7 +121,7 @@ class Notifier
 
                 $contacts = $project->bids();
                 if ($fromDate) {
-                    $contacts->where('ahoy_pyrolancer_project_bids.created_at', '>', $fromDate);
+                    $contacts->where('responsiv_pyrolancer_project_bids.created_at', '>', $fromDate);
                 }
                 $contacts = $contacts->get();
 
@@ -139,7 +139,7 @@ class Notifier
                 'contacts' => $contacts
             ];
 
-            Mail::sendTo($client->user, 'ahoy.pyrolancer::mail.client-digest', $params);
+            Mail::sendTo($client->user, 'responsiv.pyrolancer::mail.client-digest', $params);
             return true;
         }
 

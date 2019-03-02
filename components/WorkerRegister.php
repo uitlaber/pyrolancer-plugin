@@ -1,19 +1,19 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Redirect;
 use Cms\Classes\Page;
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use Ahoy\Pyrolancer\Models\Skill as SkillModel;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\Skill as SkillModel;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 use ApplicationException;
 
-class WorkerRegister extends ActivComponent
+class WorkerRegister extends ComponentBase
 {
 
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {

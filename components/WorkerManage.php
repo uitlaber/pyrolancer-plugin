@@ -1,21 +1,21 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Redirect;
 use Cms\Classes\Page;
-use ActivComponent;
+use Cms\Classes\ComponentBase;
 use RainLab\Location\Models\State;
 use RainLab\Location\Models\Country;
-use Ahoy\Pyrolancer\Models\Skill;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\WorkerReview;
+use Responsiv\Pyrolancer\Models\Skill;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\WorkerReview;
 use ApplicationException;
 
-class WorkerManage extends ActivComponent
+class WorkerManage extends ComponentBase
 {
 
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {

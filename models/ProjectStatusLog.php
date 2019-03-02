@@ -1,21 +1,21 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Mail;
-use ActivRecord;
+use Model;
 use Queue;
 use Markdown;
 use Cms\Classes\Theme;
 use October\Rain\Support\Str;
 use Backend\Models\UserGroup;
-use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
-use Ahoy\Pyrolancer\Classes\Usher;
+use Responsiv\Pyrolancer\Models\Settings as SettingsModel;
+use Responsiv\Pyrolancer\Classes\Usher;
 
 /**
  * A log of project moderation events
  */
-class ProjectStatusLog extends ActivRecord
+class ProjectStatusLog extends Model
 {
-    public $table = 'ahoy_pyrolancer_project_status_log';
+    public $table = 'responsiv_pyrolancer_project_status_log';
 
     /**
      * @var array Fillable fields
@@ -27,7 +27,7 @@ class ProjectStatusLog extends ActivRecord
      */
     public $belongsTo = [
         'user' => 'RainLab\User\Models\User',
-        'project' => 'Ahoy\Pyrolancer\Models\Project',
+        'project' => 'Responsiv\Pyrolancer\Models\Project',
     ];
 
     /**
@@ -102,15 +102,15 @@ class ProjectStatusLog extends ActivRecord
         if ($oldStatus) {
 
             if ($oldStatus->code == Project::STATUS_DRAFT && $status->code == Project::STATUS_PENDING) {
-                $log->notifyStaffTemplate = 'ahoy.pyrolancer::mail.project-approval-request';
+                $log->notifyStaffTemplate = 'responsiv.pyrolancer::mail.project-approval-request';
             }
 
             if ($oldStatus->code == Project::STATUS_REJECTED && $status->code == Project::STATUS_PENDING) {
-                $log->notifyStaffTemplate = 'ahoy.pyrolancer::mail.project-reapproval-request';
+                $log->notifyStaffTemplate = 'responsiv.pyrolancer::mail.project-reapproval-request';
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_ACTIVE) {
-                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-project-approved';
+                $log->notifyUserTemplate = 'responsiv.pyrolancer::mail.client-project-approved';
 
                 UserEventLog::add(UserEventLog::TYPE_PROJECT_CREATED, [
                     'user' => $project->user,
@@ -127,19 +127,19 @@ class ProjectStatusLog extends ActivRecord
             }
 
             if ($oldStatus->code == Project::STATUS_PENDING && $status->code == Project::STATUS_REJECTED) {
-                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-project-rejected';
+                $log->notifyUserTemplate = 'responsiv.pyrolancer::mail.client-project-rejected';
             }
 
             if ($oldStatus->code == Project::STATUS_WAIT && $status->code == Project::STATUS_DECLINED) {
-                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-bid-declined';
+                $log->notifyUserTemplate = 'responsiv.pyrolancer::mail.client-bid-declined';
             }
 
             if ($oldStatus->code == Project::STATUS_WAIT && $status->code == Project::STATUS_DEVELOPMENT) {
-                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-bid-confirmed';
+                $log->notifyUserTemplate = 'responsiv.pyrolancer::mail.client-bid-confirmed';
             }
 
             if ($oldStatus->code == Project::STATUS_ACTIVE && $status->code == Project::STATUS_EXPIRED) {
-                $log->notifyUserTemplate = 'ahoy.pyrolancer::mail.client-project-expired';
+                $log->notifyUserTemplate = 'responsiv.pyrolancer::mail.client-project-expired';
             }
 
             if ($status->code == Project::STATUS_SUSPENDED) {

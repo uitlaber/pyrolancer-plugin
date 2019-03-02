@@ -1,13 +1,13 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Backend\Models\UserGroup;
-use ActivRecord;
+use Model;
 
-class Settings extends ActivRecord
+class Settings extends Model
 {
     public $implement = ['System.Behaviors.SettingsModel'];
 
-    public $settingsCode = 'ahoy_pyrolancer_settings';
+    public $settingsCode = 'responsiv_pyrolancer_settings';
     public $settingsFields = 'fields.yaml';
 
     public function initSettingsData()

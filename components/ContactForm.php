@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Mail;
 use Validator;
@@ -6,10 +6,10 @@ use ValidationException;
 use ApplicationException;
 use Backend\Models\UserGroup;
 use Cms\Classes\Theme;
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Settings as SettingsModel;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Settings as SettingsModel;
 
-class ContactForm extends ActivComponent
+class ContactForm extends ComponentBase
 {
 
     public function componentDetails()
@@ -54,7 +54,7 @@ class ContactForm extends ActivComponent
         ];
         $params = array_merge($params, (array) post());
 
-        Mail::sendTo($contacts, 'ahoy.pyrolancer::mail.contact-form', $params, function($message) {
+        Mail::sendTo($contacts, 'responsiv.pyrolancer::mail.contact-form', $params, function($message) {
             $message->replyTo(post('email'), post('name'));
         });
 

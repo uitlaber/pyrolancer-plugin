@@ -1,22 +1,22 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Url;
 use Auth;
 use Markdown;
-use ActivRecord;
-use Ahoy\Pyrolancer\Classes\Usher;
+use Model;
+use Responsiv\Pyrolancer\Classes\Usher;
 
 /**
  * Worker Model
  */
-class Worker extends ActivRecord
+class Worker extends Model
 {
 
-    use \Ahoy\Traits\UrlMaker;
-    use \Ahoy\Traits\ModelUtils;
-    use \Ahoy\Traits\GeneralUtils;
-    use \Ahoy\Pyrolancer\Traits\GeoModel;
-    use \Ahoy\Pyrolancer\Traits\UserProxyModel;
+    use \Cms\Traits\UrlMaker;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\GeneralUtils;
+    use \Responsiv\Pyrolancer\Traits\GeoModel;
+    use \Responsiv\Pyrolancer\Traits\UserProxyModel;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
@@ -37,7 +37,7 @@ class Worker extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_workers';
+    public $table = 'responsiv_pyrolancer_workers';
 
     /**
      * @var array Guarded fields
@@ -73,21 +73,21 @@ class Worker extends ActivRecord
      */
     public $belongsTo = [
         'user'         => ['RainLab\User\Models\User'],
-        'budget'       => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
-        'category'     => ['Ahoy\Pyrolancer\Models\SkillCategory'],
-        'vicinity_obj' => ['Ahoy\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
+        'budget'       => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'worker.budget'"],
+        'category'     => ['Responsiv\Pyrolancer\Models\SkillCategory'],
+        'vicinity_obj' => ['Responsiv\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
     ];
 
     public $belongsToMany = [
-        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_workers_skills', 'order' => 'name']
+        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_workers_skills', 'order' => 'name']
     ];
 
     public $hasMany = [
-        'reviews' => ['Ahoy\Pyrolancer\Models\WorkerReview', 'key' => 'user_id', 'otherKey' => 'user_id']
+        'reviews' => ['Responsiv\Pyrolancer\Models\WorkerReview', 'key' => 'user_id', 'otherKey' => 'user_id']
     ];
 
     public $hasOne = [
-        'portfolio' => ['Ahoy\Pyrolancer\Models\Portfolio', 'key' => 'user_id', 'otherKey' => 'user_id', 'delete' => true]
+        'portfolio' => ['Responsiv\Pyrolancer\Models\Portfolio', 'key' => 'user_id', 'otherKey' => 'user_id', 'delete' => true]
     ];
 
     public $attachOne = [
@@ -157,7 +157,7 @@ class Worker extends ActivRecord
     /**
      * Automatically creates a freelancer profile for a user if not one already.
      * @param  RainLab\User\Models\User $user
-     * @return Ahoy\Pyrolancer\Models\Worker
+     * @return Responsiv\Pyrolancer\Models\Worker
      */
     public static function getFromUser($user = null)
     {

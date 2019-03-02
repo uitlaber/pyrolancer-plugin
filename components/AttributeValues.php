@@ -1,9 +1,9 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Attribute;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Attribute;
 
-class AttributeValues extends ActivComponent
+class AttributeValues extends ComponentBase
 {
 
     public function componentDetails()

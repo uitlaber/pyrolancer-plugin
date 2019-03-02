@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer;
+<?php namespace Responsiv\Pyrolancer;
 
 use View;
 use Event;
@@ -8,8 +8,8 @@ use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\Location\Models\State as StateModel;
 use RainLab\Location\Models\Country as CountryModel;
-use Ahoy\Pyrolancer\Models\UserEventLog;
-use Ahoy\Pyrolancer\Classes\Worker as JobWorker;
+use Responsiv\Pyrolancer\Models\UserEventLog;
+use Responsiv\Pyrolancer\Classes\Worker as JobWorker;
 use Exception;
 
 /**
@@ -30,22 +30,22 @@ class Plugin extends PluginBase
         return [
             'name'        => 'Pyrolancer',
             'description' => 'A service based marketplace for online workers.',
-            'author'      => 'Scripts Ahoy!',
+            'author'      => 'Responsiv Internet',
             'icon'        => 'icon-fire'
         ];
     }
 
     public function register()
     {
-        $this->registerConsoleCommand('jobs.run', 'Ahoy\Pyrolancer\Console\JobsRun');
+        $this->registerConsoleCommand('jobs.run', 'Responsiv\Pyrolancer\Console\JobsRun');
     }
 
     public function boot()
     {
         UserModel::extend(function($model) {
-            $model->hasOne['worker'] = ['Ahoy\Pyrolancer\Models\Worker', 'delete' => true, 'softDelete' => true];
-            $model->hasOne['client'] = ['Ahoy\Pyrolancer\Models\Client', 'delete' => true, 'softDelete' => true];
-            $model->hasOne['event_log'] = ['Ahoy\Pyrolancer\Models\UserEventLog', 'delete' => true, 'softDelete' => true];
+            $model->hasOne['worker'] = ['Responsiv\Pyrolancer\Models\Worker', 'delete' => true, 'softDelete' => true];
+            $model->hasOne['client'] = ['Responsiv\Pyrolancer\Models\Client', 'delete' => true, 'softDelete' => true];
+            $model->hasOne['event_log'] = ['Responsiv\Pyrolancer\Models\UserEventLog', 'delete' => true, 'softDelete' => true];
 
             $model->bindEvent('model.afterCreate', function() use ($model) {
                 UserEventLog::add(UserEventLog::TYPE_USER_CREATED, [
@@ -56,7 +56,7 @@ class Plugin extends PluginBase
         });
 
         StateModel::extend(function($model) {
-            $model->hasMany['vicinities'] = ['Ahoy\Pyrolancer\Models\Vicinity'];
+            $model->hasMany['vicinities'] = ['Responsiv\Pyrolancer\Models\Vicinity'];
         });
 
         CountryModel::extend(function($model) {
@@ -100,9 +100,9 @@ class Plugin extends PluginBase
         return [
             'pyrolancer' => [
                 'label'       => 'Freelance',
-                'url'         => Backend::url('ahoy/pyrolancer/projects'),
+                'url'         => Backend::url('responsiv/pyrolancer/projects'),
                 'icon'        => 'icon-briefcase',
-                'iconSvg'     => 'plugins/ahoy/pyrolancer/assets/images/briefcase-icon.svg',
+                'iconSvg'     => 'plugins/responsiv/pyrolancer/assets/images/briefcase-icon.svg',
                 'permissions' => ['blog.*'],
                 'order'       => 10,
 
@@ -110,31 +110,31 @@ class Plugin extends PluginBase
                     'projects' => [
                         'label'       => 'Projects',
                         'icon'        => 'icon-trophy',
-                        'url'         => Backend::url('ahoy/pyrolancer/projects'),
+                        'url'         => Backend::url('responsiv/pyrolancer/projects'),
                         'permissions' => ['pyrolancer.access_projects'],
                     ],
                     'skills' => [
                         'label'       => 'Skills',
                         'icon'        => 'icon-graduation-cap',
-                        'url'         => Backend::url('ahoy/pyrolancer/skills'),
+                        'url'         => Backend::url('responsiv/pyrolancer/skills'),
                         'permissions' => ['pyrolancer.access_skills'],
                     ],
                     'workers' => [
                         'label'       => 'Workers',
                         'icon'        => 'icon-users',
-                        'url'         => Backend::url('ahoy/pyrolancer/workers'),
+                        'url'         => Backend::url('responsiv/pyrolancer/workers'),
                         'permissions' => ['pyrolancer.access_workers'],
                     ],
                     'clients' => [
                         'label'       => 'Clients',
                         'icon'        => 'icon-bell',
-                        'url'         => Backend::url('ahoy/pyrolancer/clients'),
+                        'url'         => Backend::url('responsiv/pyrolancer/clients'),
                         'permissions' => ['pyrolancer.access_clients'],
                     ],
                     'portfolios' => [
                         'label'       => 'Portfolios',
                         'icon'        => 'icon-camera',
-                        'url'         => Backend::url('ahoy/pyrolancer/portfolios'),
+                        'url'         => Backend::url('responsiv/pyrolancer/portfolios'),
                         'permissions' => ['pyrolancer.access_portfolios'],
                     ],
                 ]
@@ -146,52 +146,52 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-           '\Ahoy\Pyrolancer\Components\Jobs'              => 'jobs',
-           '\Ahoy\Pyrolancer\Components\AttributeValues'   => 'attributeValues',
-           '\Ahoy\Pyrolancer\Components\Activity'          => 'activity',
-           '\Ahoy\Pyrolancer\Components\Account'           => 'account',
-           '\Ahoy\Pyrolancer\Components\Collab'            => 'collab',
-           '\Ahoy\Pyrolancer\Components\CollabUpdate'      => 'collabUpdate',
-           '\Ahoy\Pyrolancer\Components\ContactForm'       => 'contactForm',
-           '\Ahoy\Pyrolancer\Components\Dashboard'         => 'dashboard',
-           '\Ahoy\Pyrolancer\Components\Directory'         => 'directory',
-           '\Ahoy\Pyrolancer\Components\SeoDirectory'      => 'seoDirectory',
-           '\Ahoy\Pyrolancer\Components\Favorites'         => 'favorites',
-           '\Ahoy\Pyrolancer\Components\Portfolios'        => 'portfolios',
-           '\Ahoy\Pyrolancer\Components\Profile'           => 'profile',
-           '\Ahoy\Pyrolancer\Components\Project'           => 'project',
-           '\Ahoy\Pyrolancer\Components\ProjectSubmit'     => 'projectSubmit',
-           '\Ahoy\Pyrolancer\Components\Worker'            => 'worker',
-           '\Ahoy\Pyrolancer\Components\WorkerManage'      => 'workerManage',
-           '\Ahoy\Pyrolancer\Components\WorkerRegister'    => 'workerRegister',
-           '\Ahoy\Pyrolancer\Components\WorkerPortfolio'   => 'workerPortfolio',
-           '\Ahoy\Pyrolancer\Components\WorkerTestimonial' => 'workerTestimonial',
-           '\Ahoy\Pyrolancer\Components\ClientProjects'    => 'clientProjects',
+           '\Responsiv\Pyrolancer\Components\Jobs'              => 'jobs',
+           '\Responsiv\Pyrolancer\Components\AttributeValues'   => 'attributeValues',
+           '\Responsiv\Pyrolancer\Components\Activity'          => 'activity',
+           '\Responsiv\Pyrolancer\Components\Account'           => 'account',
+           '\Responsiv\Pyrolancer\Components\Collab'            => 'collab',
+           '\Responsiv\Pyrolancer\Components\CollabUpdate'      => 'collabUpdate',
+           '\Responsiv\Pyrolancer\Components\ContactForm'       => 'contactForm',
+           '\Responsiv\Pyrolancer\Components\Dashboard'         => 'dashboard',
+           '\Responsiv\Pyrolancer\Components\Directory'         => 'directory',
+           '\Responsiv\Pyrolancer\Components\SeoDirectory'      => 'seoDirectory',
+           '\Responsiv\Pyrolancer\Components\Favorites'         => 'favorites',
+           '\Responsiv\Pyrolancer\Components\Portfolios'        => 'portfolios',
+           '\Responsiv\Pyrolancer\Components\Profile'           => 'profile',
+           '\Responsiv\Pyrolancer\Components\Project'           => 'project',
+           '\Responsiv\Pyrolancer\Components\ProjectSubmit'     => 'projectSubmit',
+           '\Responsiv\Pyrolancer\Components\Worker'            => 'worker',
+           '\Responsiv\Pyrolancer\Components\WorkerManage'      => 'workerManage',
+           '\Responsiv\Pyrolancer\Components\WorkerRegister'    => 'workerRegister',
+           '\Responsiv\Pyrolancer\Components\WorkerPortfolio'   => 'workerPortfolio',
+           '\Responsiv\Pyrolancer\Components\WorkerTestimonial' => 'workerTestimonial',
+           '\Responsiv\Pyrolancer\Components\ClientProjects'    => 'clientProjects',
         ];
     }
 
     public function registerMailTemplates()
     {
         return [
-            'ahoy.pyrolancer::mail.project-approval-request' => 'Sent to managers when a new project needs approval.',
-            'ahoy.pyrolancer::mail.project-reapproval-request' => 'Sent to managers when a previously rejected project has been resubmitted for approval.',
-            'ahoy.pyrolancer::mail.worker-testimonial-request' => "Sent to the worker's previous client or workplace, requesting they submit a testimonial about the worker.",
-            'ahoy.pyrolancer::mail.worker-testimonial-complete' => "Sent to the worker when a previous client has left a testimonial about them.",
-            'ahoy.pyrolancer::mail.worker-alert' => "Sent to a worker when an urgent project is submitted.",
-            'ahoy.pyrolancer::mail.worker-digest' => "Sent to a worker with a compilation of related projects.",
-            'ahoy.pyrolancer::mail.worker-bid-accepted' => "Sent to the worker when their bid on a project was accepted by the client.",
-            'ahoy.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
-            'ahoy.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
-            'ahoy.pyrolancer::mail.client-bid-confirmed' => "Sent to the client when a project enters development status.",
-            'ahoy.pyrolancer::mail.client-bid-declined' => "Sent to the client when the worker's bid was chosen but declined the offer.",
-            'ahoy.pyrolancer::mail.client-digest' => "Sent to a client when a new bid or question is placed on their project.",
-            'ahoy.pyrolancer::mail.client-project-expired' => "Sent to the client when one of their projects has expired.",
-            'ahoy.pyrolancer::mail.collab-message' => "Sent when a user submits a new message to the project collaboration area.",
-            'ahoy.pyrolancer::mail.collab-update' => "Sent when a user updates an exisiting collaboration area message with a major update.",
-            'ahoy.pyrolancer::mail.collab-terminated' => "Someone terminated the project collaboration.",
-            'ahoy.pyrolancer::mail.collab-complete' => "Someone marked the project collaboration as complete.",
-            'ahoy.pyrolancer::mail.collab-review' => "Sent to the user when a review is left about them.",
-            'ahoy.pyrolancer::mail.profile-contact' => "Sent to the user when a message is sent from their profile.",
+            'responsiv.pyrolancer::mail.project-approval-request' => 'Sent to managers when a new project needs approval.',
+            'responsiv.pyrolancer::mail.project-reapproval-request' => 'Sent to managers when a previously rejected project has been resubmitted for approval.',
+            'responsiv.pyrolancer::mail.worker-testimonial-request' => "Sent to the worker's previous client or workplace, requesting they submit a testimonial about the worker.",
+            'responsiv.pyrolancer::mail.worker-testimonial-complete' => "Sent to the worker when a previous client has left a testimonial about them.",
+            'responsiv.pyrolancer::mail.worker-alert' => "Sent to a worker when an urgent project is submitted.",
+            'responsiv.pyrolancer::mail.worker-digest' => "Sent to a worker with a compilation of related projects.",
+            'responsiv.pyrolancer::mail.worker-bid-accepted' => "Sent to the worker when their bid on a project was accepted by the client.",
+            'responsiv.pyrolancer::mail.client-project-approved' => 'Sent to the client when their project is approved.',
+            'responsiv.pyrolancer::mail.client-project-rejected' => 'Sent to the client when their project is rejected.',
+            'responsiv.pyrolancer::mail.client-bid-confirmed' => "Sent to the client when a project enters development status.",
+            'responsiv.pyrolancer::mail.client-bid-declined' => "Sent to the client when the worker's bid was chosen but declined the offer.",
+            'responsiv.pyrolancer::mail.client-digest' => "Sent to a client when a new bid or question is placed on their project.",
+            'responsiv.pyrolancer::mail.client-project-expired' => "Sent to the client when one of their projects has expired.",
+            'responsiv.pyrolancer::mail.collab-message' => "Sent when a user submits a new message to the project collaboration area.",
+            'responsiv.pyrolancer::mail.collab-update' => "Sent when a user updates an exisiting collaboration area message with a major update.",
+            'responsiv.pyrolancer::mail.collab-terminated' => "Someone terminated the project collaboration.",
+            'responsiv.pyrolancer::mail.collab-complete' => "Someone marked the project collaboration as complete.",
+            'responsiv.pyrolancer::mail.collab-review' => "Sent to the user when a review is left about them.",
+            'responsiv.pyrolancer::mail.profile-contact' => "Sent to the user when a message is sent from their profile.",
         ];
     }
 
@@ -203,7 +203,7 @@ class Plugin extends PluginBase
                 'description' => 'Manage freelance features and settings.',
                 'category'    => 'Freelance',
                 'icon'        => 'icon-briefcase',
-                'class'       => 'Ahoy\Pyrolancer\Models\Settings',
+                'class'       => 'Responsiv\Pyrolancer\Models\Settings',
                 'order'       => 500,
                 'keywords'    => 'project worker client'
             ]

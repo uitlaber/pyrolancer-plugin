@@ -6,27 +6,27 @@
 name: Project
 
 # Model Form Field configuration
-form: ~/plugins/ahoy/pyrolancer/models/project/fields_tabs.yaml
+form: ~/plugins/responsiv/pyrolancer/models/project/fields_tabs.yaml
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\Project
+modelClass: Responsiv\Pyrolancer\Models\Project
 
 # Default redirect location
-defaultRedirect: ahoy/pyrolancer/projects
+defaultRedirect: responsiv/pyrolancer/projects
 
 # Create page
 create:
     title: Create Project
-    redirect: ahoy/pyrolancer/projects/preview/:id
-    redirectClose: ahoy/pyrolancer/projects
+    redirect: responsiv/pyrolancer/projects/preview/:id
+    redirectClose: responsiv/pyrolancer/projects
 
 # Update page
 update:
     title: Edit Project
-    redirect: ahoy/pyrolancer/projects
-    redirectClose: ahoy/pyrolancer/projects/preview/:id
+    redirect: responsiv/pyrolancer/projects
+    redirectClose: responsiv/pyrolancer/projects/preview/:id
 
 # Preview page
 preview:
     title: Preview Project
-    form: ~/plugins/ahoy/pyrolancer/models/project/fields.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/project/fields.yaml

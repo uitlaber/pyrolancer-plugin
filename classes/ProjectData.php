@@ -1,12 +1,12 @@
-<?php namespace Ahoy\Pyrolancer\Classes;
+<?php namespace Responsiv\Pyrolancer\Classes;
 
 use Form;
 use Session;
 use Validator;
 use ApplicationException;
 use ValidationException;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\Attribute;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\Attribute;
 use Markdown;
 
 /**

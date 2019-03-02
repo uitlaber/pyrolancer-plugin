@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Mail;
 use Flash;
@@ -6,16 +6,16 @@ use Redirect;
 use Validator;
 use Carbon\Carbon;
 use Cms\Classes\Theme;
-use ActivComponent;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
-use Ahoy\Pyrolancer\Models\WorkerReview;
+use Cms\Classes\ComponentBase;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
+use Responsiv\Pyrolancer\Models\WorkerReview;
 use ApplicationException;
 use Exception;
 
-class Collab extends ActivComponent
+class Collab extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {
@@ -160,7 +160,7 @@ class Collab extends ActivComponent
                 'otherUser' => $user,
                 'reason' => $reason,
             ];
-            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-terminated', $params);
+            Mail::sendTo($otherUser, 'responsiv.pyrolancer::mail.collab-terminated', $params);
         }
 
         return Redirect::refresh();
@@ -186,7 +186,7 @@ class Collab extends ActivComponent
                 'user' => $otherUser,
                 'otherUser' => $user,
             ];
-            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-complete', $params);
+            Mail::sendTo($otherUser, 'responsiv.pyrolancer::mail.collab-complete', $params);
         }
 
         return Redirect::refresh();
@@ -317,7 +317,7 @@ class Collab extends ActivComponent
                     'otherUser' => $user,
                     'collabMessage' => $message,
                 ];
-                Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-message', $params);
+                Mail::sendTo($otherUser, 'responsiv.pyrolancer::mail.collab-message', $params);
             }
 
             return Redirect::refresh();
@@ -372,7 +372,7 @@ class Collab extends ActivComponent
                 'rating' => $project->isOwner() ? $review->rating : $review->client_rating,
                 'content' => $project->isOwner() ? $review->comment : $review->client_comment,
             ];
-            Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-review', $params);
+            Mail::sendTo($otherUser, 'responsiv.pyrolancer::mail.collab-review', $params);
         }
 
         $this->page['project'] = $project;

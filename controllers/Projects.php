@@ -1,17 +1,17 @@
-<?php namespace Ahoy\Pyrolancer\Controllers;
+<?php namespace Responsiv\Pyrolancer\Controllers;
 
 use Lang;
 use Flash;
 use Markdown;
 use Backend;
 use BackendMenu;
-use ActivController;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
+use Backend\Classes\Controller;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
 
 /**
  * Projects Back-end Controller
  */
-class Projects extends ActivController
+class Projects extends Controller
 {
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -25,18 +25,39 @@ class Projects extends ActivController
 
     public $actionAssets = [
         'preview' => [
-            '/plugins/ahoy/pyrolancer/assets/css/pyrolancer.css',
-            '/plugins/ahoy/pyrolancer/assets/js/project-preview.js',
+            '/plugins/responsiv/pyrolancer/assets/css/pyrolancer.css',
+            '/plugins/responsiv/pyrolancer/assets/js/project-preview.js',
         ]
     ];
 
     public function __construct()
     {
-        $this->suppressView = true;
-
         parent::__construct();
 
-        BackendMenu::setContext('Ahoy.Pyrolancer', 'pyrolancer', 'projects');
+        $this->loadAssets();
+
+        BackendMenu::setContext('Responsiv.Pyrolancer', 'pyrolancer', 'projects');
+    }
+
+    protected function loadAssets()
+    {
+        if (!isset($this->actionAssets[$this->action])) {
+            return;
+        }
+
+        foreach ($this->actionAssets[$this->action] as $asset) {
+            $ext = File::extension($asset);
+
+            if ($ext == "js") {
+                $this->addJs($asset);
+            }
+            elseif ($ext == "css") {
+                $this->addCss($asset);
+            }
+            else {
+                $this->addRss($asset);
+            }
+        }
     }
 
     public function listExtendQuery($query)
@@ -141,6 +162,6 @@ class Projects extends ActivController
 
         $redirectUri = $project ? 'projects/preview/'.$project->id : 'projects';
 
-        return Backend::redirect('ahoy/pyrolancer/'.$redirectUri);
+        return Backend::redirect('responsiv/pyrolancer/'.$redirectUri);
     }
 }

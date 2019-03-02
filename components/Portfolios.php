@@ -1,17 +1,17 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use RainLab\Location\Models\State;
 use RainLab\Location\Models\Country;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
-use Ahoy\Pyrolancer\Models\Portfolio as PortfolioModel;
-use Ahoy\Pyrolancer\Models\Vicinity as VicinityModel;
-use Ahoy\Pyrolancer\Models\Attribute as AttributeModel;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use ActivComponent;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Portfolio as PortfolioModel;
+use Responsiv\Pyrolancer\Models\Vicinity as VicinityModel;
+use Responsiv\Pyrolancer\Models\Attribute as AttributeModel;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Cms\Classes\ComponentBase;
 
-class Portfolios extends ActivComponent
+class Portfolios extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public $filterCategory;
     public $filterVicinity;

@@ -4,8 +4,8 @@
 
 bids:
     label: Bid
-    list: ~/plugins/ahoy/pyrolancer/models/projectbid/columns.yaml
-    form: ~/plugins/ahoy/pyrolancer/models/projectbid/fields.yaml
+    list: ~/plugins/responsiv/pyrolancer/models/projectbid/columns.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/projectbid/fields.yaml
     view:
         showSearch: true
         recordsPerPage: 25
@@ -13,8 +13,8 @@ bids:
 
 messages:
     label: Message
-    list: ~/plugins/ahoy/pyrolancer/models/projectmessage/columns.yaml
-    form: ~/plugins/ahoy/pyrolancer/models/projectmessage/fields.yaml
+    list: ~/plugins/responsiv/pyrolancer/models/projectmessage/columns.yaml
+    form: ~/plugins/responsiv/pyrolancer/models/projectmessage/fields.yaml
     view:
         showSearch: true
         recordsPerPage: 25

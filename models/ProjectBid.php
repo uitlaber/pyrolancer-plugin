@@ -1,20 +1,20 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Auth;
-use ActivRecord;
+use Model;
 use ApplicationException;
-use Ahoy\Pyrolancer\Models\Attribute;
-use Ahoy\Pyrolancer\Models\Worker as WorkerModel;
+use Responsiv\Pyrolancer\Models\Attribute;
+use Responsiv\Pyrolancer\Models\Worker as WorkerModel;
 use Markdown;
 use Exception;
 
 /**
  * ProjectBid Model
  */
-class ProjectBid extends ActivRecord
+class ProjectBid extends Model
 {
 
-    use \Ahoy\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
     use \October\Rain\Database\Traits\Validation;
 
     const TYPE_FIXED = 'fixed';
@@ -31,7 +31,7 @@ class ProjectBid extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_project_bids';
+    public $table = 'responsiv_pyrolancer_project_bids';
 
     /**
      * @var array Guarded fields
@@ -55,9 +55,9 @@ class ProjectBid extends ActivRecord
      */
     public $belongsTo = [
         'user'    => ['RainLab\User\Models\User'],
-        'worker'  => ['Ahoy\Pyrolancer\Models\Worker'],
-        'project' => ['Ahoy\Pyrolancer\Models\Project'],
-        'type'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'bid.type'"],
+        'worker'  => ['Responsiv\Pyrolancer\Models\Worker'],
+        'project' => ['Responsiv\Pyrolancer\Models\Project'],
+        'type'    => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'bid.type'"],
     ];
 
     public function beforeSave()

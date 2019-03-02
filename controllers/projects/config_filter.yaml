@@ -9,7 +9,7 @@ scopes:
         label: Status
 
         # Model Class name
-        modelClass: Ahoy\Pyrolancer\Models\Attribute
+        modelClass: Responsiv\Pyrolancer\Models\Attribute
 
         # SQL Conditions
         conditions: status_id in (:filtered)

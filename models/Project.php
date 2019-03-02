@@ -1,9 +1,9 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Db;
 use App;
 use Auth;
-use ActivRecord;
+use Model;
 use Backend;
 use BackendAuth;
 use Cms\Classes\Page as CmsPage;
@@ -13,7 +13,7 @@ use Markdown;
 /**
  * Project Model
  */
-class Project extends ActivRecord
+class Project extends Model
 {
     const STATUS_DRAFT = 'draft';
     const STATUS_PENDING = 'pending';
@@ -29,9 +29,9 @@ class Project extends ActivRecord
     const STATUS_COMPLETED = 'completed';
     const STATUS_CLOSED = 'closed';
 
-    use \Ahoy\Traits\UrlMaker;
-    use \Ahoy\Traits\ModelUtils;
-    use \Ahoy\Pyrolancer\Traits\GeoModel;
+    use \Cms\Traits\UrlMaker;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\GeoModel;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Revisionable;
@@ -55,7 +55,7 @@ class Project extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_projects';
+    public $table = 'responsiv_pyrolancer_projects';
 
     /**
      * @var array Guarded fields
@@ -83,35 +83,35 @@ class Project extends ActivRecord
      * @var array Relations
      */
     public $belongsToMany = [
-        'skills' => ['Ahoy\Pyrolancer\Models\Skill', 'table' => 'ahoy_pyrolancer_projects_skills', 'order' => 'name'],
-        'skill_categories' => ['Ahoy\Pyrolancer\Models\SkillCategory', 'table' => 'ahoy_pyrolancer_projects_skill_categories', 'order' => 'name', 'otherKey' => 'category_id'],
-        'applicants' => ['RainLab\User\Models\User', 'table' => 'ahoy_pyrolancer_projects_applicants', 'timestamps' => true],
+        'skills' => ['Responsiv\Pyrolancer\Models\Skill', 'table' => 'responsiv_pyrolancer_projects_skills', 'order' => 'name'],
+        'skill_categories' => ['Responsiv\Pyrolancer\Models\SkillCategory', 'table' => 'responsiv_pyrolancer_projects_skill_categories', 'order' => 'name', 'otherKey' => 'category_id'],
+        'applicants' => ['RainLab\User\Models\User', 'table' => 'responsiv_pyrolancer_projects_applicants', 'timestamps' => true],
     ];
 
     public $hasOne = [
-        'review' => 'Ahoy\Pyrolancer\Models\WorkerReview',
+        'review' => 'Responsiv\Pyrolancer\Models\WorkerReview',
     ];
 
     public $hasMany = [
-        'bids'             => ['Ahoy\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate', 'delete' => true],
-        'messages'         => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 1', 'delete' => true],
-        'private_messages' => ['Ahoy\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 0', 'order' => 'created_at desc', 'delete' => true],
-        'status_log'       => ['Ahoy\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc', 'delete' => true],
+        'bids'             => ['Responsiv\Pyrolancer\Models\ProjectBid', 'order' => 'total_estimate', 'delete' => true],
+        'messages'         => ['Responsiv\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 1', 'delete' => true],
+        'private_messages' => ['Responsiv\Pyrolancer\Models\ProjectMessage', 'conditions' => 'is_public = 0', 'order' => 'created_at desc', 'delete' => true],
+        'status_log'       => ['Responsiv\Pyrolancer\Models\ProjectStatusLog', 'order' => 'id desc', 'delete' => true],
     ];
 
     public $belongsTo = [
-        'category'         => ['Ahoy\Pyrolancer\Models\ProjectCategory'],
-        'status'           => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'project.status'"],
-        'project_type'     => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'project.type'"],
-        'position_type'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'position.type'"],
-        'budget_type'      => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.type'"],
-        'budget_fixed'     => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.fixed'"],
-        'budget_hourly'    => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.hourly'"],
-        'budget_timeframe' => ['Ahoy\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.timeframe'"],
+        'category'         => ['Responsiv\Pyrolancer\Models\ProjectCategory'],
+        'status'           => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'project.status'"],
+        'project_type'     => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'project.type'"],
+        'position_type'    => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'position.type'"],
+        'budget_type'      => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.type'"],
+        'budget_fixed'     => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.fixed'"],
+        'budget_hourly'    => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.hourly'"],
+        'budget_timeframe' => ['Responsiv\Pyrolancer\Models\Attribute', 'conditions' => "type = 'budget.timeframe'"],
         'user'             => ['RainLab\User\Models\User'],
-        'client'           => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
-        'chosen_bid'       => ['Ahoy\Pyrolancer\Models\ProjectBid'],
-        'vicinity_obj'     => ['Ahoy\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
+        'client'           => ['Responsiv\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'chosen_bid'       => ['Responsiv\Pyrolancer\Models\ProjectBid'],
+        'vicinity_obj'     => ['Responsiv\Pyrolancer\Models\Vicinity', 'key' => 'vicinity_id'],
         'chosen_user'      => ['RainLab\User\Models\User'],
     ];
 
@@ -120,7 +120,7 @@ class Project extends ActivRecord
     ];
 
     public $morphMany = [
-        'event_log'        => ['Ahoy\Pyrolancer\Models\UserEventLog', 'name' => 'related', 'delete' => true],
+        'event_log'        => ['Responsiv\Pyrolancer\Models\UserEventLog', 'name' => 'related', 'delete' => true],
         'revision_history' => ['System\Models\Revision', 'name' => 'revisionable', 'delete' => true]
     ];
 
@@ -212,7 +212,7 @@ class Project extends ActivRecord
 
     public function getBackendUrl()
     {
-        return Backend::url('ahoy/pyrolancer/projects/preview/'.$this->id);
+        return Backend::url('responsiv/pyrolancer/projects/preview/'.$this->id);
     }
 
     public function getRevisionableUser()
@@ -257,7 +257,7 @@ class Project extends ActivRecord
     }
 
     /**
-     * Reassigns the skill categories for this project, based on the 
+     * Reassigns the skill categories for this project, based on the
      * specified skills.
      */
     public function syncSkillCategories()

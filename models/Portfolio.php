@@ -1,19 +1,19 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 
 /**
  * Portfolio Model
  */
-class Portfolio extends ActivRecord
+class Portfolio extends Model
 {
 
-    use \Ahoy\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_portfolios';
+    public $table = 'responsiv_pyrolancer_portfolios';
 
     /**
      * @var array Guarded fields
@@ -29,16 +29,16 @@ class Portfolio extends ActivRecord
      * @var array Relations
      */
     public $belongsTo = [
-        'worker'   => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'worker'   => ['Responsiv\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
         'user'     => ['RainLab\User\Models\User'],
     ];
 
     public $hasMany = [
-        'items' => ['Ahoy\Pyrolancer\Models\PortfolioItem', 'order' => 'is_primary desc'],
+        'items' => ['Responsiv\Pyrolancer\Models\PortfolioItem', 'order' => 'is_primary desc'],
     ];
 
     public $hasOne = [
-        'primary_item'  => ['Ahoy\Pyrolancer\Models\PortfolioItem', 'conditions' => 'is_primary = 1'],
+        'primary_item'  => ['Responsiv\Pyrolancer\Models\PortfolioItem', 'conditions' => 'is_primary = 1'],
     ];
 
     /**
@@ -65,8 +65,8 @@ class Portfolio extends ActivRecord
 
     /**
      * Automatically creates a worker portfolio if not one already.
-     * @param  Ahoy\Pyrolancer\Models\Worker $user
-     * @return Ahoy\Pyrolancer\Models\Portfolio
+     * @param  Responsiv\Pyrolancer\Models\Worker $user
+     * @return Responsiv\Pyrolancer\Models\Portfolio
      */
     public static function getFromWorker($worker = null)
     {

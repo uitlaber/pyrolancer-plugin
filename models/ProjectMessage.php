@@ -1,15 +1,15 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
 use Auth;
-use ActivRecord;
+use Model;
 use Markdown;
 
 /**
  * ProjectMessage Model
  */
-class ProjectMessage extends ActivRecord
+class ProjectMessage extends Model
 {
-    use \Ahoy\Traits\ModelUtils;
+    use \Responsiv\Pyrolancer\Traits\ModelUtils;
     use \October\Rain\Database\Traits\SimpleTree;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDeleting;
@@ -19,7 +19,7 @@ class ProjectMessage extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_project_messages';
+    public $table = 'responsiv_pyrolancer_project_messages';
 
     /**
      * @var array Fillable fields
@@ -37,10 +37,10 @@ class ProjectMessage extends ActivRecord
      * @var array Relations
      */
     public $belongsTo = [
-        'project' => ['Ahoy\Pyrolancer\Models\Project'],
+        'project' => ['Responsiv\Pyrolancer\Models\Project'],
         'user'    => ['RainLab\User\Models\User'],
-        'worker' => ['Ahoy\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
-        'client' => ['Ahoy\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'worker' => ['Responsiv\Pyrolancer\Models\Worker', 'key' => 'user_id', 'otherKey' => 'user_id'],
+        'client' => ['Responsiv\Pyrolancer\Models\Client', 'key' => 'user_id', 'otherKey' => 'user_id'],
     ];
 
     public $attachMany = [

@@ -1,10 +1,10 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use October\Rain\Database\Updates\Seeder;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\ProjectBid;
-use Ahoy\Pyrolancer\Models\PortfolioItem;
-use Ahoy\Pyrolancer\Models\Attribute;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\ProjectBid;
+use Responsiv\Pyrolancer\Models\PortfolioItem;
+use Responsiv\Pyrolancer\Models\Attribute;
 
 class SeedAttributesTables extends Seeder
 {

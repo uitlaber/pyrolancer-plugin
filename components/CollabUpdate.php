@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Components;
+<?php namespace Responsiv\Pyrolancer\Components;
 
 use Auth;
 use Mail;
@@ -7,16 +7,16 @@ use Request;
 use Redirect;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
-use ActivComponent;
+use Cms\Classes\ComponentBase;
 use System\Models\File as FileModel;
-use Ahoy\Pyrolancer\Models\Project as ProjectModel;
-use Ahoy\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
+use Responsiv\Pyrolancer\Models\Project as ProjectModel;
+use Responsiv\Pyrolancer\Models\ProjectMessage as ProjectMessageModel;
 use ApplicationException;
 use Exception;
 
-class CollabUpdate extends ActivComponent
+class CollabUpdate extends ComponentBase
 {
-    use \Ahoy\Traits\ComponentUtils;
+    use \Responsiv\Pyrolancer\Traits\ComponentUtils;
 
     public function componentDetails()
     {
@@ -138,7 +138,7 @@ class CollabUpdate extends ActivComponent
                     'otherUser' => $message->user,
                     'collabMessage' => $message,
                 ];
-                Mail::sendTo($otherUser, 'ahoy.pyrolancer::mail.collab-update', $params);
+                Mail::sendTo($otherUser, 'responsiv.pyrolancer::mail.collab-update', $params);
             }
 
             /*

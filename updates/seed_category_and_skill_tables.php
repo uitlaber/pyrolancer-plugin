@@ -1,8 +1,8 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
-use Ahoy\Pyrolancer\Models\Skill;
-use Ahoy\Pyrolancer\Models\SkillCategory;
-use Ahoy\Pyrolancer\Models\ProjectCategory;
+use Responsiv\Pyrolancer\Models\Skill;
+use Responsiv\Pyrolancer\Models\SkillCategory;
+use Responsiv\Pyrolancer\Models\ProjectCategory;
 use October\Rain\Database\Updates\Seeder;
 
 class SeedCategoryAndSkillTables extends Seeder

@@ -1,4 +1,4 @@
-<?php namespace Ahoy\Pyrolancer\Updates;
+<?php namespace Responsiv\Pyrolancer\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateVicinitiesTable extends Migration
 
     public function up()
     {
-        Schema::create('ahoy_pyrolancer_vicinities', function($table)
+        Schema::create('responsiv_pyrolancer_vicinities', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -28,7 +28,7 @@ class CreateVicinitiesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('ahoy_pyrolancer_vicinities');
+        Schema::dropIfExists('responsiv_pyrolancer_vicinities');
     }
 
 }

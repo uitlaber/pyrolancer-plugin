@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: ~/plugins/ahoy/pyrolancer/models/project/columns.yaml
+list: ~/plugins/responsiv/pyrolancer/models/project/columns.yaml
 
 # Model Class name
-modelClass: Ahoy\Pyrolancer\Models\Project
+modelClass: Responsiv\Pyrolancer\Models\Project
 
 # List Title
 title: Manage Projects
 
 # Link URL for each record
-recordUrl: ahoy/pyrolancer/projects/preview/:id
+recordUrl: responsiv/pyrolancer/projects/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

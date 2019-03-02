@@ -1,11 +1,11 @@
-<?php namespace Ahoy\Pyrolancer\Models;
+<?php namespace Responsiv\Pyrolancer\Models;
 
-use ActivRecord;
+use Model;
 
 /**
  * Project Category Model
  */
-class ProjectCategory extends ActivRecord
+class ProjectCategory extends Model
 {
 
     use \October\Rain\Database\Traits\Sortable;
@@ -17,7 +17,7 @@ class ProjectCategory extends ActivRecord
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'ahoy_pyrolancer_project_categories';
+    public $table = 'responsiv_pyrolancer_project_categories';
 
     /**
      * @var array Guarded fields
@@ -39,8 +39,8 @@ class ProjectCategory extends ActivRecord
      */
     public $belongsToMany = [
         'skills' => [
-            'Ahoy\Pyrolancer\Models\Skill',
-            'table' => 'ahoy_pyrolancer_project_categories_skills',
+            'Responsiv\Pyrolancer\Models\Skill',
+            'table' => 'responsiv_pyrolancer_project_categories_skills',
             'key' => 'category_id',
             'order' => 'name'
         ]

@@ -9,7 +9,7 @@ scopes:
         label: Category
 
         # Model Class name
-        modelClass: Ahoy\Pyrolancer\Models\SkillCategory
+        modelClass: Responsiv\Pyrolancer\Models\SkillCategory
 
         # Model attribute to display for the name
         nameColumn: name
