@@ -1,6 +1,6 @@
 # Pyrolancer - Freelance Marketplace Plugin
 
-Pyrolancer is a plugin for [October CMS](https://octobercms.com) used to create an **online services marketplace**, a platform that allows people to connect about online services. You can set up your own fully functioning marketplace in the time it takes to install the script.
+Pyrolancer is [a plugin for October CMS](https://octobercms.com/plugin/responsiv-pyrolancer) used to create an **online services marketplace**, a platform that allows people to connect about online services. You can set up your own fully functioning marketplace in the time it takes to install the script.
 
 ## Features
 
@@ -103,4 +103,3 @@ There are several areas where a fee may be collected. Some examples:
 ### How to implement payment options
 
 Download the [Responsiv.Pay](https://octobercms.com/plugin/responsiv-pay) plugin that will provide payment gateways and invoicing options.
-
